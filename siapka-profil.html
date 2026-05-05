@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Profil BLU — Balai Pengujian Perkeretaapian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--white);line-height:1.65;overflow-x:hidden;transition:background .3s,color .3s;}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button,input{font-family:inherit}
+
+/* ── TOKENS ── */
+:root{
+  --bg:#0A1628;--bg-mid:#0D1F3C;--bg-card:rgba(255,255,255,0.06);
+  --border:rgba(255,255,255,0.1);--blue:#3B82F6;--blue-ic:#1E3A5F;
+  --red:#DC2626;--white:#FFFFFF;--muted:rgba(255,255,255,0.65);
+  --faint:rgba(255,255,255,0.2);
+  --r-xl:16px;--r-lg:12px;--r-md:8px;--r-pill:9999px;
+}
+
+/* ── LIGHT MODE ── */
+body.light{--bg:#F0F4FA;--bg-mid:#E4EAF4;--bg-card:rgba(255,255,255,0.9);--border:rgba(0,0,0,0.09);--blue:#2563EB;--blue-ic:#DBEAFE;--white:#0F172A;--muted:rgba(15,23,42,0.6);--faint:rgba(15,23,42,0.15);background:#F0F4FA;color:#0F172A;}
+body.light .navbar{background:rgba(240,244,250,0.92)!important;border-bottom-color:rgba(0,0,0,0.08);}
+body.light .navbar.scrolled{background:rgba(240,244,250,0.98)!important;}
+body.light .nb-links a{color:rgba(15,23,42,0.7);}
+body.light .nb-links a:hover{color:#0F172A;background:rgba(0,0,0,0.05);}
+body.light .btn-login{border-color:rgba(15,23,42,0.3);background:rgba(15,23,42,0.05);color:#0F172A;}
+body.light .btn-login-icon{border-color:rgba(15,23,42,0.4);}
+body.light .btn-login-icon svg{stroke:#0F172A;}
+body.light .nb-toggle{background:#e2e8f0;border-color:rgba(0,0,0,0.15);}
+body.light .hero-profil{background:linear-gradient(135deg,#1e3a8a,#1e40af);}
+body.light .vm-card{background:#fff;border-color:rgba(0,0,0,0.08);}
+body.light .vm-card-label{color:var(--blue);}
+body.light .vm-card h3{color:#0F172A;}
+body.light .vm-card p,.vm-item{color:rgba(15,23,42,0.65);}
+body.light .sh h2{color:#0F172A;}
+body.light .breadcrumb a{color:var(--blue);}
+body.light .breadcrumb{color:rgba(15,23,42,0.5);}
+body.light .section-alt{background:var(--bg-mid);}
+body.light .tab-btn{background:rgba(0,0,0,0.05);border-color:rgba(0,0,0,0.1);color:rgba(15,23,42,0.55);}
+body.light .tab-btn.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+body.light .prose-card{background:#fff;border-color:rgba(0,0,0,0.08);}
+body.light .prose-card h4{color:#0F172A;}
+body.light .prose-card p,body.light .prose-card li{color:rgba(15,23,42,0.65);}
+body.light .rl-item{background:#fff;border-color:rgba(0,0,0,0.08);}
+body.light .rl-num{background:#DBEAFE;border-color:rgba(37,99,235,0.15);color:#2563EB;}
+body.light .rl-text{color:rgba(15,23,42,0.65);}
+body.light .org-img-wrap{background:#fff;border-color:rgba(0,0,0,0.08);}
+body.light .org-img-title{color:#0F172A;}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#1E3A5F;border-radius:3px}
+
+/* ── NAVBAR ── */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;background:rgba(10,22,40,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);transition:background .3s;}
+.navbar.scrolled{background:rgba(10,22,40,0.98);backdrop-filter:blur(20px);}
+.nb-inner{width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 80px;}
+.nb-logo{display:flex;align-items:center;}
+.nb-links{display:flex;align-items:center;gap:0;list-style:none}
+.nb-links a{font-size:14px;font-weight:600;color:rgba(255,255,255,0.75);padding:7px 14px;border-radius:6px;display:flex;align-items:center;gap:4px;transition:color .18s,background .18s;}
+.nb-links a:hover,.nb-links a.act{color:#fff;background:rgba(255,255,255,0.08)}
+.nb-actions{display:flex;align-items:center;gap:12px;}
+.btn-login{display:flex;align-items:center;gap:9px;padding:9px 20px;border:1.5px solid rgba(255,255,255,0.55);border-radius:12px;font-size:13.5px;font-weight:600;color:#fff;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);cursor:pointer;transition:background .2s;}
+.btn-login:hover{background:rgba(255,255,255,0.18);}
+.btn-login-icon{width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.8);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.btn-login-icon svg{width:10px;height:10px;stroke:#fff;fill:none;stroke-width:2.5}
+.nb-toggle{position:relative;width:62px;height:32px;background:#1a2744;border-radius:9999px;cursor:pointer;flex-shrink:0;border:1.5px solid rgba(255,255,255,0.15);padding:0;display:flex;align-items:center;}
+.nb-toggle-moon{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:13px;pointer-events:none;user-select:none;}
+.nb-toggle-dot{position:absolute;right:3px;top:50%;transform:translateY(-50%);width:24px;height:24px;background:#3B82F6;border-radius:50%;box-shadow:0 2px 8px rgba(59,130,246,0.5);transition:right .25s,left .25s,background .2s;pointer-events:none;}
+.chv{font-size:10px;opacity:.7}
+
+/* ── WRAP ── */
+.wrap{max-width:1440px;margin:0 auto;padding:0 80px;}
+
+/* ── HERO PROFIL ── */
+.hero-profil{
+  padding:140px 0 80px;
+  background:linear-gradient(135deg,#0a1628 0%,#0d1f3c 50%,#1e3a5f 100%);
+  position:relative;overflow:hidden;
+}
+.hero-profil::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233B82F6' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-profil-inner{position:relative;z-index:1;display:flex;align-items:center;gap:60px;}
+.hero-profil-text{flex:1;}
+.hero-profil-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);
+  border-radius:9999px;padding:6px 16px;
+  font-size:12px;font-weight:700;color:#60A5FA;letter-spacing:.5px;
+  margin-bottom:20px;
+}
+.hero-profil-badge svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;}
+.hero-profil-title{font-size:clamp(28px,3.5vw,48px);font-weight:800;color:#fff;line-height:1.2;margin-bottom:16px;}
+.hero-profil-sub{font-size:16px;color:rgba(255,255,255,0.65);line-height:1.7;max-width:560px;}
+.hero-profil-img{
+  width:340px;flex-shrink:0;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:20px;
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  padding:32px;
+}
+
+/* ── BREADCRUMB ── */
+.breadcrumb-bar{padding:18px 0;border-bottom:1px solid var(--border);}
+.breadcrumb{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px;}
+.breadcrumb a{color:var(--blue);transition:opacity .15s;}
+.breadcrumb a:hover{opacity:.75;}
+.breadcrumb .sep{opacity:.35;}
+
+/* ── SECTION HEADING ── */
+.sh{text-align:center;margin-bottom:52px}
+.sh h2{font-size:32px;font-weight:700;color:var(--white);margin-bottom:14px}
+.sh-line{width:56px;height:3px;background:var(--red);margin:0 auto;border-radius:2px}
+.sh-sub{font-size:15px;color:var(--muted);margin-top:12px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.7;}
+
+/* ── SECTIONS ── */
+.section{padding:80px 0;}
+.section-alt{background:var(--bg-mid);padding:80px 0;}
+
+/* ── PROSE CARD ── */
+.prose-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--r-xl);padding:40px 48px;
+}
+.prose-card h4{
+  font-size:18px;font-weight:700;color:var(--white);
+  margin-bottom:16px;margin-top:32px;line-height:1.4;
+}
+.prose-card h4:first-child{margin-top:0;}
+.prose-card p{font-size:14.5px;color:var(--muted);line-height:1.85;margin-bottom:14px;text-align:justify;}
+.prose-card ul,.prose-card ol{margin:16px 0 20px 20px;display:flex;flex-direction:column;gap:10px;}
+.prose-card li{font-size:14px;color:var(--muted);line-height:1.75;}
+.prose-card strong{color:var(--white);}
+.prose-divider{height:1px;background:var(--border);margin:36px 0;}
+
+/* ── VISI MISI ── */
+.vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+.vm-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--r-xl);padding:36px 40px;
+  position:relative;overflow:hidden;
+}
+.vm-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--blue);
+}
+.vm-card.misi::before{background:var(--red);}
+.vm-card-label{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-bottom:12px;}
+.vm-card.misi .vm-card-label{color:#F87171;}
+.vm-card h3{font-size:20px;font-weight:700;color:var(--white);margin-bottom:8px;line-height:1.4;}
+.vm-visi-sub{font-size:13px;color:rgba(96,165,250,0.8);font-weight:600;margin-bottom:16px;letter-spacing:.3px;}
+.vm-card p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:8px;}
+.vm-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:4px;}
+.vm-item{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--muted);line-height:1.7;}
+.vm-item::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:8px;}
+
+/* ── RUANG LINGKUP ── */
+.rl-list{display:flex;flex-direction:column;gap:12px;}
+.rl-item{
+  display:flex;gap:16px;align-items:flex-start;
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:18px 20px;
+  transition:border-color .2s;
+}
+.rl-item:hover{border-color:rgba(59,130,246,0.3);}
+.rl-num{
+  min-width:36px;height:36px;border-radius:9px;
+  background:var(--blue-ic);border:1px solid rgba(59,130,246,0.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:#60A5FA;flex-shrink:0;margin-top:1px;
+}
+.rl-text{font-size:14px;color:var(--muted);line-height:1.7;}
+
+/* ── STRUKTUR ORGANISASI ── */
+.org-img-wrap{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--r-xl);padding:32px;margin-bottom:28px;
+}
+.org-img-title{font-size:15px;font-weight:700;color:var(--white);text-align:center;margin-bottom:24px;}
+.org-img-wrap img{width:100%;border-radius:var(--r-lg);}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:8px;margin-bottom:36px;flex-wrap:wrap;}
+.tab-btn{padding:10px 22px;border-radius:9999px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);cursor:pointer;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);transition:background .2s,color .2s;}
+.tab-btn.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+.tab-btn:hover:not(.active){color:#fff;background:rgba(255,255,255,0.1);}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* ── SCROLL TO TOP ── */
+.to-top{position:fixed;bottom:24px;right:24px;z-index:300;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;font-size:20px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(59,130,246,0.4);transition:transform .2s;}
+.to-top:hover{transform:translateY(-3px);}
+
+/* ── FADE UP ── */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-up.visible{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar" id="navbar">
+  <div class="nb-inner">
+    <a href="siapka-redesign.html" class="nb-logo">
+      <img src="Asset/1730709636-logopublicheader.png" style="height:42px;object-fit:contain;" alt="SiAPKA"/>
+    </a>
+    <ul class="nb-links">
+      <li><a href="siapka-redesign.html">Home</a></li>
+      <li><a href="#" class="act">Profil</a></li>
+      <li><a href="#">Layanan <span class="chv">▾</span></a></li>
+      <li><a href="#">Monitoring</a></li>
+      <li><a href="#">Publikasi <span class="chv">▾</span></a></li>
+      <li><a href="#">Mitra</a></li>
+      <li><a href="#">PPID</a></li>
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#">Portal DJKA</a></li>
+    </ul>
+    <div class="nb-actions">
+      <button class="nb-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="nb-toggle-moon">🌙</span>
+        <span class="nb-toggle-dot"></span>
+      </button>
+      <button class="btn-login">
+        <span class="btn-login-icon"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        Login
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero-profil">
+  <div class="wrap">
+    <div class="hero-profil-inner">
+      <div class="hero-profil-text">
+        <div class="hero-profil-badge">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Profil BLU
+        </div>
+        <h1 class="hero-profil-title">Balai Pengujian<br/>Perkeretaapian</h1>
+        <p class="hero-profil-sub">Badan Layanan Umum (BLU) di bawah Direktorat Jenderal Perkeretaapian, Kementerian Perhubungan Republik Indonesia — melaksanakan Pengujian Prasarana, Sarana, dan Sumber Daya Manusia Perkeretaapian.</p>
+      </div>
+      <div class="hero-profil-img">
+        <img src="Asset/1730709636-logopublicheader.png" style="width:100%;max-width:260px;object-fit:contain;" alt="SiAPKA Logo"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BREADCRUMB ══ -->
+<div class="breadcrumb-bar" style="background:var(--bg-mid);">
+  <div class="wrap">
+    <div class="breadcrumb">
+      <a href="siapka-redesign.html">Home</a>
+      <span class="sep">›</span>
+      <span>Profil BLU</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB NAV ══ -->
+<div id="tab-nav" style="background:var(--bg-mid);padding:20px 0;border-bottom:1px solid var(--border);position:sticky;top:68px;z-index:100;">
+  <div class="wrap">
+    <div class="tabs" style="margin-bottom:0;">
+      <button class="tab-btn active" onclick="switchTab('tentang',this)">Tentang Kami</button>
+      <button class="tab-btn" onclick="switchTab('visi-misi',this)">Visi &amp; Misi</button>
+      <button class="tab-btn" onclick="switchTab('ruang-lingkup',this)">Ruang Lingkup</button>
+      <button class="tab-btn" onclick="switchTab('struktur',this)">Struktur Organisasi</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TENTANG KAMI ══ -->
+<section id="tab-tentang" class="tab-content active section fade-up">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Tentang Kami</h2>
+      <div class="sh-line"></div>
+      <p class="sh-sub">Balai Pengujian Perkeretaapian sebagai Badan Layanan Umum di bawah Kementerian Perhubungan</p>
+    </div>
+    <div class="prose-card">
+      <h4>A. Latar Belakang Balai Pengujian Perkeretaapian</h4>
+      <p>Kereta Api adalah salah satu moda transportasi dalam sistem transportasi nasional yang mempunyai karateristik pengangkutan secara masal. Tujuan penyelenggaraan perkeretaapian yaitu memperlancar perpindahan orang dan/barang secara masal, selamat, aman, nyaman, cepat dan lancar, tepat, tertib dan teratur, efisien, serta menunjang pemerataan pertumbuhan stabilitas, pendorong dan penggerak pembangunan nasional. Agar tercapai tujuan penyelenggaraan perkeretaapian dengan aman dan selamat maka setiap penyelenggara perkeretaapian wajib memenuhi persyaratan teknis dan kelaikan operasi yang berlaku bagi setiap jenis sarana prasarana dan SDM perkeretaapian.</p>
+      <p>Untuk memenuhi persyaratan teknis dan menjamin kelaikan operasi perkeretaapian, wajib dilakukan pengujian dan pemeriksaan yang bertujuan untuk mengetahui kesesuaian antara kondisi dan fungsi persyaratan teknis dan spesifikasi teknis. Persyaratan teknis dapat dinyatakan dalam bentuk standar nilai pengujian. Untuk itu perlu dilakukan pengujian terhadap kelaikan Sarana, Prasarana dan SDM Perkeretaapian.</p>
+      <p>Dengan kebutuhan tersebut, maka Balai Pengujian Perkeretaapian berdiri pada tahun 2015 sesuai dengan Peraturan Menteri Perhubungan Nomor 64 Tahun 2014 dengan tujuan untuk melakukan Pengujian Prasarana, Sarana, dan SDM Perkeretaapian.</p>
+      <p>Dalam melaksanakan tugasnya, Balai Pengujian Perkeretaapian mempunyai fungsi sebagai berikut:</p>
+      <ul>
+        <li>Pelaksanaan pengujian pertama dan berkala jalur kereta api, bangunan perkeretaapian dan fasilitas operasi kereta api;</li>
+        <li>Pelaksanaan pengujian pertama dan berkala sarana perkeretaapian berpenggerak dan tanpa penggerak;</li>
+        <li>Pelaksanaan pengujian pertama dan berkala peralatan khusus;</li>
+        <li>Pelaksanaan pengujian kompetensi awak sarana perkeretaapian;</li>
+        <li>Pelaksanaan pengujian kompetensi petugas pengoperasian prasarana perkeretaapian;</li>
+        <li>Pelaksanaan pengujian kompetensi Penguji Prasarana, Penguji Sarana, Inspektur Prasarana, Inspektur Sarana, dan Auditor Perkeretaapian; dan</li>
+        <li>Pengelolaan urusan tata usaha, rumah tangga, kepegawaian, keuangan, hukum, dan hubungan masyarakat.</li>
+      </ul>
+      <p>Potensi pertumbuhan sarana, prasarana, dan sumber daya manusia perkeretaapian yang sangat tinggi mendorong Balai Pengujian Perkeretaapian untuk bekerja secara cepat dan profesional. Selain itu, diperlukan modernisasi ilmu pengetahuan dan teknologi dalam Pengujian Sarana, Prasarana, dan Sumber Daya Manusia Perkeretaapian.</p>
+      <p>Balai Pengujian Perkeretaapian dituntut untuk melakukan upaya-upaya peningkatan pelayanan dan pendapatan sebagai sumber penerimaan mandiri dengan meningkatkan pelayanan kepada masyarakat tanpa mencari keuntungan dan dalam melakukan kegiatannya didasarkan pada prinsip efisiensi serta produktivitas.</p>
+
+      <div class="prose-divider"></div>
+
+      <h4>B. Badan Layanan Umum (BLU) Balai Pengujian Perkeretaapian</h4>
+      <p>Berdasarkan hal tersebut, maka perlu dibentuk Balai Pengujian Perkeretaapian sebagai Balai yang memiliki sistem Pola Pengelolaan Keuangan-Badan Layanan Umum (PPK-BLU). Sebagai salah satu persyaratan dalam membentuk institusi pelayanan umum yang memiliki sistem PPK–BLU sebagaimana ditetapkan dalam <strong>Peraturan Menteri Keuangan Nomor 129/PMK.05/2020 tahun 2020</strong> tentang <strong>Pedoman Pengelolaan Badan Layanan Umum</strong>.</p>
+      <p>Untuk menerapkan Pengelolaan Keuangan Badan Layanan Umum, maka perlu disusun Dokumen Tata Kelola yang akan menjadi salah satu pedoman bagi Balai Pengujian Perkeretaapian untuk menyelenggarakan pelayanan dengan mekanisme Pengelolaan Keuangan Badan Layanan Umum dengan Core Business dibidang pengujian perkeretaapian.</p>
+      <p>Berdasarkan <strong>Peraturan Menteri Perhubungan Nomor PM 56 Tahun 2023</strong> tentang <strong>Organisasi dan Tata Kerja Balai Pengujian Perkeretaapian</strong>, merupakan Unit Kerja di lingkungan Kementerian Perhubungan yang berada di bawah dan bertanggungjawab kepada Direktur Jenderal Perkeretaapian. Sebagai pengemban fungsi Pemerintah, Balai Pengujian Perkeretaapian secara profesional dan berkesinambungan melaksanakan pelayanan kepada masyarakat khususnya dalam kegiatan pengujian yang dimaksudkan untuk meyakinkan bahwa semua aspek kegiatan yang berkaitan dengan operasi kereta api telah laik operasi dan menjamin keselamatan, kenyamanan serta keamanan perjalanan kereta api.</p>
+      <p>Berdasarkan hal tersebut, telah ditetapkan Balai Pengujian Perkeretaapian sebagai Badan Layanan Umum pada tanggal 23 September 2022, berdasarkan <strong>Keputusan Menteri Keuangan Republik Indonesia Nomor: 392/KMK.05/2022</strong> tentang <strong>Penetapan Balai Pengujian Laik Jalan Dan Sertifikasi Kendaraan Bermotor Dan Balai Pengujian Perkeretaapian Pada Kementerian Perhubungan Sebagai Instansi Pemerintah Yang Menerapkan Pola Pengelolaan Keuangan Badan Layanan Umum</strong>.</p>
+      <p>Sebagai institusi pemerintah yang memberikan pelayanan pengujian perkeretaapian, dan mengelola keuangan selayaknya Badan Layanan Umum, maka Balai Pengujian Perkeretaapian juga memiliki peluang untuk melaksanakan usaha bisnis guna menunjang kegiatan utamanya.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VISI MISI ══ -->
+<section id="tab-visi-misi" class="tab-content section-alt fade-up">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Visi &amp; Misi</h2>
+      <div class="sh-line"></div>
+      <p class="sh-sub">Landasan nilai dan arah strategis Balai Pengujian Perkeretaapian dalam melayani bangsa</p>
+    </div>
+    <div class="vm-grid">
+      <div class="vm-card">
+        <div class="vm-card-label">Visi</div>
+        <h3>Menjadi Pusat Pengujian Perkeretaapian Nasional yang Profesional dengan Pelayanan PRIMA</h3>
+        <div class="vm-visi-sub">Profesional · Ramah · Inovatif · Mandiri · Akuntabel</div>
+        <p>Pelayanan <strong>PRIMA</strong> yang memiliki arti Profesional, Ramah, Inovatif, Mandiri, dan Akuntabel — menjadi standar pelayanan Balai Pengujian Perkeretaapian kepada seluruh pemangku kepentingan.</p>
+      </div>
+      <div class="vm-card misi">
+        <div class="vm-card-label">Misi</div>
+        <h3>Langkah Strategis Menuju Perkeretaapian yang Profesional dan Terstandarisasi</h3>
+        <ul class="vm-list">
+          <li class="vm-item">Melaksanakan dan Memelihara Sistem Manajemen Mutu Pengujian Perkeretaapian.</li>
+          <li class="vm-item">Meningkatkan Kemampuan Sumber Daya Manusia.</li>
+          <li class="vm-item">Meningkatkan Sarana dan Prasarana Pengujian.</li>
+          <li class="vm-item">Meningkatkan Pengembangan Metode Pengujian sesuai Perkembangan IPTEK (Ilmu Pengetahuan dan Teknologi).</li>
+          <li class="vm-item">Meningkatkan Dukungan Manajemen dan Dukungan Teknis Lainnya.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RUANG LINGKUP ══ -->
+<section id="tab-ruang-lingkup" class="tab-content section fade-up">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Ruang Lingkup</h2>
+      <div class="sh-line"></div>
+      <p class="sh-sub">Berdasarkan Peraturan Menteri Perhubungan <strong style="color:var(--white)">PM 56 Tahun 2023</strong> tentang Organisasi dan Tata Kerja Balai Pengujian Perkeretaapian</p>
+    </div>
+    <p style="font-size:14.5px;color:var(--muted);line-height:1.85;margin-bottom:32px;text-align:center;">Balai Pengujian Perkeretaapian bertugas melaksanakan Pengujian Prasarana, Sarana, dan Sumber Daya Manusia Perkeretaapian. Dalam melaksanakan tugasnya, Balai Pengujian Perkeretaapian mempunyai fungsi sebagai berikut:</p>
+    <div class="rl-list">
+      <div class="rl-item">
+        <div class="rl-num">1</div>
+        <div class="rl-text">Pelaksanaan penyusunan rencana, program, anggaran, rencana strategis bisnis, dan rencana bisnis anggaran;</div>
+      </div>
+      <div class="rl-item">
+        <div class="rl-num">2</div>
+        <div class="rl-text">Pelaksanaan pengujian pertama dan berkala prasarana perkeretaapian;</div>
+      </div>
+      <div class="rl-item">
+        <div class="rl-num">3</div>
+        <div class="rl-text">Pelaksanaan pengujian pertama dan berkala sarana perkeretaapian;</div>
+      </div>
+      <div class="rl-item">
+        <div class="rl-num">4</div>
+        <div class="rl-text">Pelaksanaan pengujian kecakapan dan keahlian sumber daya manusia bidang perkeretaapian;</div>
+      </div>
+      <div class="rl-item">
+        <div class="rl-num">5</div>
+        <div class="rl-text">Pelaksanaan pengujian komponen, sistem serta peralatan pendukung prasarana dan sarana perkeretaapian lainnya;</div>
+      </div>
+      <div class="rl-item">
+        <div class="rl-num">6</div>
+        <div class="rl-text">Pelaksanaan analisis isu aktual perkembangan perkeretaapian;</div>
+      </div>
+      <div class="rl-item">
+        <div class="rl-num">7</div>
+        <div class="rl-text">Pelaksanaan pengelolaan dan pengawasan keselamatan dan kesehatan kerja di bidang pelaksanaan pengujian perkeretaapian;</div>
+      </div>
+      <div class="rl-item">
+        <div class="rl-num">8</div>
+        <div class="rl-text">Pelaksanaan pemeriksaan intern;</div>
+      </div>
+      <div class="rl-item">
+        <div class="rl-num">9</div>
+        <div class="rl-text">Pelaksanaan urusan pengembangan usaha, pemasaran dan kerja sama; dan</div>
+      </div>
+      <div class="rl-item">
+        <div class="rl-num">10</div>
+        <div class="rl-text">Pelaksanaan urusan keuangan, sumber daya manusia, organisasi, hukum, ketatausahaan, hubungan masyarakat, data dan informasi, pengelolaan barang milik negara, serta evaluasi dan pelaporan.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STRUKTUR ORGANISASI ══ -->
+<section id="tab-struktur" class="tab-content section-alt fade-up">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Struktur Organisasi &amp; Data Pegawai</h2>
+      <div class="sh-line"></div>
+      <p class="sh-sub">Susunan organisasi dan data kepegawaian Balai Pengujian Perkeretaapian</p>
+    </div>
+
+    <div class="org-img-wrap">
+      <div class="org-img-title">Struktur Organisasi</div>
+      <img src="https://ujidjka.kemenhub.go.id/dist/img/summernote-img/1758705373custom-image.png" alt="Struktur Organisasi Balai Pengujian Perkeretaapian"/>
+    </div>
+
+    <div class="org-img-wrap">
+      <div class="org-img-title">Data Pegawai</div>
+      <img src="https://ujidjka.kemenhub.go.id/dist/img/summernote-img/1758705790custom-image.jpg" alt="Data Pegawai Balai Pengujian Perkeretaapian"/>
+    </div>
+  </div>
+</section>
+
+<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+/* Navbar scroll */
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+/* Theme toggle */
+const themeToggle = document.getElementById('themeToggle');
+const toggleMoon  = themeToggle.querySelector('.nb-toggle-moon');
+const toggleDot   = themeToggle.querySelector('.nb-toggle-dot');
+let isLight = false;
+themeToggle.addEventListener('click', () => {
+  isLight = !isLight;
+  document.body.classList.toggle('light', isLight);
+  toggleMoon.textContent = isLight ? '☀️' : '🌙';
+  toggleDot.style.right  = isLight ? 'auto' : '3px';
+  toggleDot.style.left   = isLight ? '3px'  : 'auto';
+  toggleDot.style.background = isLight ? '#94a3b8' : '#3B82F6';
+});
+
+/* Tab switching */
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const el = document.getElementById('tab-' + id);
+  if (el) { el.classList.add('active'); el.classList.add('visible'); }
+  if (btn) btn.classList.add('active');
+  const tabNav = document.getElementById('tab-nav');
+  window.scrollTo({top: tabNav.offsetTop - 10, behavior:'smooth'});
+}
+
+/* Fade-up on scroll */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:0.05});
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

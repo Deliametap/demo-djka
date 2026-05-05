@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SiAPKA — Sistem Informasi Aplikasi Pengujian Perkeretaapian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ─── RESET ─── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--white);
+  line-height:1.65;
+  overflow-x:hidden;
+  transition:background .3s,color .3s;
+}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button,select,input{font-family:inherit}
+
+/* ─── TOKENS (matching PERONHUB exactly) ─── */
+:root{
+  --bg:         #0A1628;
+  --bg-mid:     #0D1F3C;
+  --bg-card:    rgba(255,255,255,0.06);
+  --border:     rgba(255,255,255,0.1);
+  --blue:       #3B82F6;
+  --blue-ic:    #1E3A5F;
+  --red:        #DC2626;
+  --white:      #FFFFFF;
+  --muted:      rgba(255,255,255,0.6);
+  --faint:      rgba(255,255,255,0.25);
+  --r-xl:       16px;
+  --r-lg:       12px;
+  --r-md:       8px;
+  --r-pill:     9999px;
+}
+
+/* ══════════════════════════════════════
+   LIGHT MODE — full token + component overrides
+══════════════════════════════════════ */
+body.light{
+  --bg:         #F0F4FA;
+  --bg-mid:     #E4EAF4;
+  --bg-card:    rgba(255,255,255,0.9);
+  --border:     rgba(0,0,0,0.09);
+  --blue:       #2563EB;
+  --blue-ic:    #DBEAFE;
+  --red:        #DC2626;
+  --white:      #0F172A;
+  --muted:      rgba(15,23,42,0.55);
+  --faint:      rgba(15,23,42,0.18);
+  background:#F0F4FA;
+  color:#0F172A;
+}
+
+/* ── Navbar ── */
+body.light .navbar{background:rgba(240,244,250,0.82)!important;border-bottom-color:rgba(0,0,0,0.08);}
+body.light .navbar.scrolled{background:rgba(240,244,250,0.97)!important;}
+body.light .nb-links a{color:rgba(15,23,42,0.7);}
+body.light .nb-links a:hover{color:#0F172A;background:rgba(0,0,0,0.05);}
+body.light .nb-portal{color:rgba(15,23,42,0.7)!important;}
+body.light .btn-login{border-color:rgba(15,23,42,0.3);background:rgba(15,23,42,0.05);color:#0F172A;}
+body.light .btn-login-icon{border-color:rgba(15,23,42,0.4);}
+body.light .btn-login-icon svg{stroke:#0F172A;}
+body.light .nb-toggle{background:#e2e8f0;border-color:rgba(0,0,0,0.15);}
+
+/* ── Dropdown ── */
+body.light .nb-dropdown{background:#fff;border-color:rgba(0,0,0,0.1);box-shadow:0 8px 32px rgba(0,0,0,0.12);}
+body.light .nb-dropdown::before{background:#fff;border-color:rgba(0,0,0,0.1);}
+body.light .nb-dd-item{color:rgba(15,23,42,0.7);}
+body.light .nb-dd-item:hover{background:rgba(37,99,235,0.08);color:#0F172A;}
+body.light .nb-dd-icon{background:#EFF6FF;border-color:rgba(37,99,235,0.15);}
+body.light .nb-dd-icon svg{stroke:#2563EB;}
+body.light .nb-dd-title{color:#0F172A;}
+body.light .nb-dd-sub{color:rgba(15,23,42,0.4);}
+body.light .nb-dd-divider{background:rgba(0,0,0,0.06);}
+
+/* ── Hero ── */
+body.light .hero-tint{background:rgba(240,244,250,0.25);}
+body.light .hero-bottom-fade{background:linear-gradient(to top,rgba(240,244,250,0.7),transparent);}
+body.light .hero-glass{background:rgba(255,255,255,0.65)!important;border-color:rgba(255,255,255,0.7)!important;box-shadow:0 12px 48px rgba(0,0,0,0.12)!important;}
+body.light .hero-welcome{color:rgba(15,23,42,0.85);}
+body.light .hero-wordmark{color:#0F172A;text-shadow:none;}
+body.light .hero-tagline{color:rgba(15,23,42,0.7);}
+body.light .hero-socials-inner{border-top-color:rgba(0,0,0,0.1);}
+body.light .hsi{color:rgba(15,23,42,0.65);}
+body.light .hsi-ic{color:#0F172A;}
+body.light .hgl-item{color:rgba(15,23,42,0.8);}
+body.light .hgl-badge{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.12);color:#0F172A;}
+body.light .hgl-divider{background:rgba(0,0,0,0.15);}
+
+/* ── Section headings ── */
+body.light .sh h2{color:#0F172A;}
+body.light .lu-code-text{color:#0F172A;}
+
+/* ── Informasi Layanan cards ── */
+body.light .lu-card{background:#fff;border-color:rgba(0,0,0,0.08);box-shadow:0 2px 16px rgba(0,0,0,0.07);}
+body.light .lu-card:hover{background:#f8faff;border-color:rgba(37,99,235,0.2);}
+body.light .lu-icon{background:#EFF6FF;border-color:rgba(37,99,235,0.15);}
+body.light .lu-icon svg{stroke:#2563EB;}
+body.light .lu-title{color:#0F172A;}
+body.light .lu-desc{color:rgba(15,23,42,0.58);}
+
+/* ── Link Layanan cards ── */
+body.light .lug-card{background:#fff;border-color:rgba(0,0,0,0.08);box-shadow:0 2px 16px rgba(0,0,0,0.07);}
+body.light .lug-card:hover{background:#f8faff;border-color:rgba(37,99,235,0.2);}
+body.light .lug-icon{background:#EFF6FF;border-color:rgba(37,99,235,0.15);}
+body.light .lug-icon svg{stroke:#2563EB;}
+body.light .lug-title{color:#0F172A;}
+
+/* ── Monitoring ── */
+body.light .monitoring{background:var(--bg-mid);}
+body.light .mon-subtitle{color:rgba(15,23,42,0.55);}
+body.light .mon-tab{background:rgba(0,0,0,0.05);border-color:rgba(0,0,0,0.1);color:rgba(15,23,42,0.55);}
+body.light .mon-tab.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+body.light .mon-tab:hover:not(.active){background:rgba(0,0,0,0.08);color:#0F172A;}
+body.light .mon-search-wrap{background:#fff;border-color:rgba(0,0,0,0.1);box-shadow:0 2px 16px rgba(0,0,0,0.08);}
+body.light .mon-search-ic{color:rgba(15,23,42,0.35);}
+body.light .mon-input{color:#0F172A;}
+body.light .mon-input::placeholder{color:rgba(15,23,42,0.3);}
+body.light .mon-hint{color:rgba(15,23,42,0.3);}
+
+/* ── Berita Terbaru ── */
+body.light .news-card{background:#fff;border-color:rgba(0,0,0,0.08);box-shadow:0 2px 16px rgba(0,0,0,0.07);}
+body.light .news-card:hover{border-color:rgba(37,99,235,0.25);}
+body.light .news-title{color:#0F172A;}
+body.light .news-date{color:rgba(15,23,42,0.5);}
+body.light .dot{background:rgba(0,0,0,0.15);}
+body.light .dot.act{background:var(--blue);}
+body.light .berita-nav-btn{background:var(--blue);}
+
+/* ── Sosial Media ── */
+body.light .sm-card{background:#fff;border-color:rgba(0,0,0,0.08);box-shadow:0 2px 16px rgba(0,0,0,0.07);}
+body.light .sm-card:hover{border-color:rgba(37,99,235,0.2);}
+body.light .sm-name{color:#0F172A;}
+body.light .sm-link{color:var(--blue);}
+body.light .sm-ico.ig{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);}
+body.light .sm-ico.tw{background:#000;}
+body.light .sm-ico.yt{background:#CC0000;}
+
+/* ── Mitra slider ── */
+body.light .mitra{background:var(--bg);}
+body.light .mitra-track-wrap::before{background:linear-gradient(90deg,var(--bg),transparent);}
+body.light .mitra-track-wrap::after{background:linear-gradient(270deg,var(--bg),transparent);}
+body.light .mitra-card{background:#fff;border-color:rgba(0,0,0,0.1);box-shadow:0 2px 12px rgba(0,0,0,0.08);}
+
+/* ── Footer ── */
+body.light footer{background:#1e293b;}
+body.light .f-desc{color:rgba(255,255,255,0.55);}
+body.light .f-col-h{color:#fff;}
+body.light .f-list a{color:rgba(255,255,255,0.55);}
+body.light .f-list a:hover{color:#fff;}
+body.light .f-ci{color:rgba(255,255,255,0.55);}
+body.light .f-ci .ic{color:rgba(255,255,255,0.65);}
+body.light .f-visitor{color:rgba(255,255,255,0.55);}
+body.light .f-visitor strong{color:#fff;}
+body.light .footer-bar{color:rgba(255,255,255,0.4);}
+body.light .footer-bar strong{color:rgba(255,255,255,0.7);}
+
+/* ── Scroll to top ── */
+body.light .to-top{background:var(--blue);}
+
+/* ── Nav arrow buttons ── */
+body.light .nav-btn{background:var(--blue);}
+
+/* ── Section backgrounds via body color cascade ── */
+body.light .layanan-utama,
+body.light .berita,
+body.light .link-layanan{background:var(--bg);}
+body.light .layanan-unggulan,
+body.light .sosmed,
+body.light .mitra{background:var(--bg-mid);}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#1E3A5F;border-radius:3px}
+
+/* ─── SECTION HEADING — PERONHUB PATTERN ─── */
+.sh{text-align:center;margin-bottom:52px}
+.sh h2{font-size:32px;font-weight:700;color:var(--white);margin-bottom:14px}
+.sh-line{width:56px;height:3px;background:var(--red);margin:0 auto;border-radius:2px}
+
+/* ─── CONTAINER ─── */
+.wrap{max-width:1440px;margin:0 auto;padding:0 80px}
+
+/* ════════════════════════════
+   NAVBAR — transparent overlay on hero image (PERONHUB style)
+════════════════════════════ */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:68px;display:flex;align-items:center;
+  background:rgba(10,22,40,0.18);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  transition:background .3s;
+}
+.navbar.scrolled{
+  background:rgba(10,22,40,0.97);
+  backdrop-filter:blur(20px) saturate(160%);
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.nb-inner{
+  width:100%;display:flex;align-items:center;
+  justify-content:space-between;padding:0 80px;
+}
+
+/* Logo block */
+.nb-logo{display:flex;align-items:center;gap:0}
+.nb-logo-icon{
+  width:40px;height:40px;margin-right:10px;
+  background:linear-gradient(135deg,#3B82F6,#1E40AF);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:900;color:#fff;
+  flex-shrink:0;
+}
+.nb-logo-text{display:flex;flex-direction:column;gap:1px}
+.nb-logo-name{font-size:19px;font-weight:800;letter-spacing:2px;color:var(--white)}
+.nb-logo-sub{font-size:9px;font-weight:500;color:var(--muted);letter-spacing:.5px}
+
+/* Nav links — matching reference: bold, white, muted active */
+.nb-links{display:flex;align-items:center;gap:0px;list-style:none}
+.nb-links a{
+  font-size:14px;font-weight:600;color:rgba(255,255,255,0.75);
+  padding:7px 14px;border-radius:6px;
+  display:flex;align-items:center;gap:4px;
+  transition:color .18s,background .18s;
+  letter-spacing:.1px;
+}
+.nb-links a:hover{color:#fff;background:rgba(255,255,255,0.08)}
+.nb-links a.act{color:rgba(255,255,255,0.45);font-weight:600}
+.chv{font-size:10px;opacity:.7}
+/* Portal DJKA — same weight as others, no special color */
+.nb-portal{color:rgba(255,255,255,0.75) !important;font-weight:600 !important}
+
+/* ── DROPDOWN ── */
+.nb-has-dropdown{position:relative}
+.nb-has-dropdown>a{user-select:none}
+
+/* Chevron rotates on open */
+.nb-has-dropdown>a .chv{
+  transition:transform .22s ease;
+  display:inline-block;
+}
+.nb-has-dropdown:hover>a .chv,
+.nb-has-dropdown.open>a .chv{transform:rotate(180deg)}
+
+/* Dropdown panel */
+.nb-dropdown{
+  position:absolute;top:calc(100% + 8px);left:50%;
+  transform:translateX(-50%) translateY(-6px);
+  min-width:280px;
+  background:rgba(8,18,34,0.97);
+  backdrop-filter:blur(20px) saturate(160%);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:14px;
+  padding:8px;
+  opacity:0;pointer-events:none;
+  transition:opacity .2s ease, transform .2s ease;
+  z-index:400;
+  box-shadow:0 16px 48px rgba(0,0,0,0.45);
+}
+/* Show on hover */
+.nb-has-dropdown:hover .nb-dropdown{
+  opacity:1;pointer-events:auto;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* Top arrow notch */
+.nb-dropdown::before{
+  content:'';position:absolute;
+  top:-5px;left:50%;transform:translateX(-50%) rotate(45deg);
+  width:9px;height:9px;
+  background:rgba(8,18,34,0.97);
+  border-left:1px solid rgba(255,255,255,0.1);
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+
+/* Dropdown item */
+.nb-dd-item{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 12px;border-radius:9px;
+  color:rgba(255,255,255,0.75);font-size:13px;font-weight:500;
+  text-decoration:none;
+  transition:background .18s,color .18s;
+  cursor:pointer;
+}
+.nb-dd-item:hover{background:rgba(59,130,246,0.12);color:#fff}
+
+/* Icon circle */
+.nb-dd-icon{
+  width:34px;height:34px;border-radius:50%;
+  background:#1E3A5F;
+  border:1px solid rgba(255,255,255,0.08);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:background .18s;
+}
+.nb-dd-item:hover .nb-dd-icon{background:rgba(59,130,246,0.25)}
+.nb-dd-icon svg{width:15px;height:15px;stroke:#60A5FA;fill:none;stroke-width:1.8}
+
+.nb-dd-label{}
+.nb-dd-title{font-size:13px;font-weight:600;color:inherit;line-height:1.2}
+.nb-dd-sub{font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px}
+
+/* Divider inside dropdown */
+.nb-dd-divider{height:1px;background:rgba(255,255,255,0.07);margin:4px 0}
+
+/* Login button — frosted glass rounded-rect + arrow-circle icon (reference match) */
+.btn-login{
+  display:flex;align-items:center;gap:9px;
+  padding:9px 20px;
+  border:1.5px solid rgba(255,255,255,0.55);
+  border-radius:12px;
+  font-size:13.5px;font-weight:600;color:#fff;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(8px);
+  cursor:pointer;
+  transition:background .2s,border-color .2s;
+  white-space:nowrap;
+}
+.btn-login:hover{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.8)}
+
+/* Circle-arrow icon matching the reference */
+.btn-login-icon{
+  width:20px;height:20px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,0.8);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.btn-login-icon svg{width:10px;height:10px;stroke:#fff;fill:none;stroke-width:2.5}
+
+/* Dark mode toggle — dark track + moon inside + blue dot (reference match) */
+.nb-theme{
+  display:flex;align-items:center;
+}
+.nb-toggle{
+  position:relative;
+  width:62px;height:32px;
+  background:#1a2744;
+  border-radius:var(--r-pill);
+  cursor:pointer;
+  flex-shrink:0;
+  border:1.5px solid rgba(255,255,255,0.15);
+  padding:0;
+  display:flex;align-items:center;
+}
+/* Moon icon — left side inside track */
+.nb-toggle-moon{
+  position:absolute;
+  left:9px;top:50%;transform:translateY(-50%);
+  font-size:13px;line-height:1;
+  pointer-events:none;
+  user-select:none;
+}
+/* Blue circle dot — right side */
+.nb-toggle-dot{
+  position:absolute;
+  right:3px;top:50%;transform:translateY(-50%);
+  width:24px;height:24px;
+  background:#3B82F6;
+  border-radius:50%;
+  box-shadow:0 2px 8px rgba(59,130,246,0.5);
+  transition:right .25s cubic-bezier(.4,0,.2,1);
+  pointer-events:none;
+}
+
+/* ════════════════════════════
+   HERO — exact PERONHUB layout
+════════════════════════════ */
+.hero{
+  position:relative;
+  height:100vh;
+  min-height:600px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+/* SIAPKA banner image as hero background */
+.hero-bg{
+  position:absolute;inset:0;
+  background-image:
+    url('file:///var/folders/75/xybbf_6s6s303189x9yk1sg80000gn/T/TemporaryItems/NSIRD_screencaptureui_vvYIoM/Screenshot%202026-05-04%20at%2017.32.34.png');
+  background-size:cover;
+  background-position:center center;
+  background-repeat:no-repeat;
+}
+
+/* Lighten the overlay so the banner image shows through clearly */
+.hero-tint{
+  position:absolute;inset:0;
+  background:rgba(10,22,40,0.15);
+  pointer-events:none;
+}
+
+/* Track fade at bottom */
+.hero-bottom-fade{
+  position:absolute;bottom:0;left:0;right:0;height:160px;
+  background:linear-gradient(to top,rgba(10,22,40,0.6),transparent);
+  pointer-events:none;
+}
+
+/* Centre column for all hero content */
+.hero-content{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;
+  align-items:flex-start;
+  width:100%;
+  padding:0 80px;
+  gap:0;
+}
+
+/* Glassmorphism card — dark smoked glass (matches PERONHUB reference) */
+.hero-glass{
+  background:rgba(40,55,80,0.52);
+  backdrop-filter:blur(28px) saturate(140%);
+  -webkit-backdrop-filter:blur(28px) saturate(140%);
+  border:1px solid rgba(255,255,255,0.18);
+  border-radius:20px;
+  padding:36px 48px 28px;
+  width:min(1000px, 80vw);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  box-shadow:0 12px 48px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12);
+}
+
+/* Banner layout inside glass card — centered column */
+.hero-glass-logos{
+  display:flex;align-items:center;justify-content:center;
+  gap:28px;flex-wrap:wrap;margin-bottom:20px;
+}
+.hgl-item{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:700;letter-spacing:.5px;color:rgba(255,255,255,0.9);
+}
+.hgl-badge{
+  padding:4px 12px;
+  background:rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.25);
+  border-radius:6px;
+  font-size:11px;font-weight:700;letter-spacing:1px;color:#fff;
+}
+.hgl-divider{width:1px;height:28px;background:rgba(255,255,255,0.2)}
+
+.hero-welcome{
+  font-size:clamp(18px,2.2vw,26px);
+  font-weight:600;color:rgba(255,255,255,0.9);
+  text-align:center;margin-bottom:4px;letter-spacing:.5px;
+}
+
+/* Giant SiAPKA wordmark — spaced like the original banner */
+.hero-wordmark{
+  font-size:clamp(56px,8vw,110px);
+  font-weight:900;letter-spacing:clamp(12px,2vw,28px);
+  line-height:1;text-align:center;
+  color:#fff;margin-bottom:10px;
+  text-shadow:0 2px 24px rgba(0,0,0,0.3);
+}
+
+.hero-tagline{
+  font-size:clamp(13px,1.2vw,16px);
+  color:rgba(255,255,255,0.85);
+  text-align:center;letter-spacing:.3px;
+  font-weight:400;
+}
+
+/* Social strip inside card — bottom */
+.hero-socials-inner{
+  display:flex;align-items:center;justify-content:center;
+  gap:20px;flex-wrap:wrap;
+  margin-top:22px;padding-top:18px;
+  border-top:1px solid rgba(255,255,255,0.2);
+}
+.hsi{
+  display:flex;align-items:center;gap:6px;
+  font-size:11px;color:rgba(255,255,255,0.8);
+  white-space:nowrap;
+}
+.hsi-ic{font-size:13px;color:#fff}
+
+/* CTA button — pill blue, exact PERONHUB */
+.btn-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 28px;
+  background:var(--blue);color:#fff;
+  font-size:14px;font-weight:700;
+  border:none;border-radius:var(--r-pill);
+  cursor:pointer;
+  transition:opacity .2s,transform .15s;
+}
+.btn-cta:hover{opacity:.88;transform:translateY(-1px)}
+
+/* Search bar — centered below the card */
+.hero-search-wrap{
+  margin-top:20px;
+  width:min(1000px, 80vw);
+  position:relative;
+}
+.hero-search{
+  width:100%;padding:17px 24px 17px 50px;
+  background:rgba(40,55,80,0.52);
+  backdrop-filter:blur(28px) saturate(140%);
+  -webkit-backdrop-filter:blur(28px) saturate(140%);
+  border:1px solid rgba(255,255,255,0.18);
+  border-radius:var(--r-pill);
+  color:#fff;font-size:14px;
+  outline:none;
+  box-shadow:0 4px 20px rgba(0,0,0,0.25);
+  transition:border-color .2s,background .2s;
+}
+.hero-search::placeholder{color:rgba(255,255,255,0.42)}
+.hero-search:focus{border-color:rgba(59,130,246,0.7);background:rgba(255,255,255,0.12)}
+.hero-search-ic{
+  position:absolute;left:18px;top:50%;transform:translateY(-50%);
+  color:rgba(255,255,255,0.42);
+  display:flex;align-items:center;
+}
+.hero-search-ic svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* ════════════════════════════
+   ABOUT — 2-col text + image (PERONHUB style)
+════════════════════════════ */
+.about{
+  background:var(--bg);
+  padding:100px 0;
+}
+.about-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:center;
+}
+.about-img{
+  border-radius:var(--r-xl);overflow:hidden;
+  background:linear-gradient(135deg,#0D1F3C,#060E1A);
+  aspect-ratio:4/3;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--border);
+  position:relative;
+}
+.about-img-inner{
+  width:70%;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:12px;padding:24px;
+}
+.about-img-bar{height:8px;border-radius:4px;margin-bottom:10px;background:var(--blue-ic)}
+.about-img-bar:nth-child(2){width:80%;background:rgba(59,130,246,0.4)}
+.about-img-bar:nth-child(3){width:60%;background:rgba(59,130,246,0.2)}
+.about-img-label{
+  font-size:11px;color:rgba(255,255,255,0.35);
+  letter-spacing:1px;text-transform:uppercase;margin-top:16px;
+}
+.about-text h2{font-size:34px;font-weight:700;line-height:1.25;margin-bottom:20px}
+.about-text p{font-size:14px;color:rgba(255,255,255,0.72);line-height:1.8;margin-bottom:16px}
+
+/* ════════════════════════════
+   LAYANAN UTAMA — 2×2 grid (PERONHUB)
+════════════════════════════ */
+.layanan-utama{
+  background:var(--bg-mid);
+  padding:100px 0;
+  position:relative;overflow:hidden;
+}
+/* Subtle city backdrop blur effect */
+.layanan-utama::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(59,130,246,0.04) 0%, transparent 70%);
+  pointer-events:none;
+}
+
+.lu-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+
+.lu-card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:var(--r-xl);
+  display:flex;flex-direction:row;align-items:stretch;
+  cursor:pointer;
+  transition:background .25s,border-color .25s,transform .2s;
+  position:relative;
+  overflow:hidden;
+}
+.lu-card:hover{
+  background:rgba(255,255,255,0.08);
+  border-color:rgba(59,130,246,0.3);
+  transform:translateY(-2px);
+}
+.lu-img{
+  width:200px;flex-shrink:0;
+  overflow:hidden;position:relative;
+}
+.lu-img img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .4s;
+}
+.lu-card:hover .lu-img img{transform:scale(1.04)}
+
+.lu-icon{
+  width:48px;height:48px;border-radius:50%;
+  background:#0D1F3C;
+  border:1px solid rgba(255,255,255,0.1);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:background .25s;
+  margin-bottom:16px;
+}
+.lu-card:hover .lu-icon{background:rgba(59,130,246,0.15)}
+.lu-icon svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.8}
+
+.lu-body{padding:28px 28px;display:flex;flex-direction:column;justify-content:center;}
+.lu-code{
+  display:flex;align-items:center;gap:10px;margin-bottom:8px;
+}
+.lu-code-line{width:28px;height:2px;background:var(--red);flex-shrink:0}
+.lu-code-text{font-size:13px;font-weight:700;color:var(--white);letter-spacing:.5px}
+
+.lu-title{font-size:15px;font-weight:600;color:var(--white);line-height:1.4;margin-bottom:10px}
+.lu-desc{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6}
+
+/* ════════════════════════════
+   LAYANAN UNGGULAN — 4-col carousel (PERONHUB)
+════════════════════════════ */
+.layanan-unggulan{background:var(--bg);padding:100px 0}
+
+.lug-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.lug-card{
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(20px) saturate(150%);
+  -webkit-backdrop-filter:blur(20px) saturate(150%);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:var(--r-xl);
+  padding:36px 24px 40px;
+  display:flex;flex-direction:column;
+  align-items:flex-start;
+  cursor:pointer;
+  transition:background .25s,border-color .25s,transform .2s,box-shadow .25s;
+  box-shadow:0 4px 24px rgba(0,0,0,0.2);
+}
+.lug-card:hover{
+  background:rgba(255,255,255,0.1);
+  border-color:rgba(59,130,246,0.35);
+  transform:translateY(-3px);
+  box-shadow:0 8px 32px rgba(0,0,0,0.3);
+}
+.lug-icon{
+  width:52px;height:52px;border-radius:50%;
+  background:#0D1F3C;
+  border:1px solid rgba(255,255,255,0.1);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:24px;
+  transition:background .25s;
+}
+.lug-card:hover .lug-icon{background:rgba(59,130,246,0.15)}
+.lug-icon svg{width:22px;height:22px;stroke:#94A3B8;fill:none;stroke-width:1.8}
+.lug-title{font-size:15px;font-weight:600;color:var(--white);line-height:1.45}
+
+.lug-nav{
+  display:flex;justify-content:flex-end;gap:10px;margin-top:28px;
+}
+.nav-btn{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--blue);color:#fff;border:none;
+  font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .2s;
+}
+.nav-btn:hover{opacity:.85}
+
+/* ════════════════════════════
+   MONITORING SECTION
+════════════════════════════ */
+.monitoring{background:var(--bg-mid);padding:100px 0}
+
+.mon-panel{
+  max-width:780px;margin:0 auto;
+  text-align:center;
+}
+.mon-subtitle{
+  font-size:15px;color:rgba(255,255,255,0.55);
+  margin-bottom:40px;line-height:1.6;
+}
+/* Tab pills */
+.mon-tabs{
+  display:inline-flex;flex-wrap:wrap;justify-content:center;gap:8px;
+  margin-bottom:32px;
+}
+.mon-tab{
+  padding:10px 22px;border-radius:9999px;
+  font-size:13px;font-weight:600;color:rgba(255,255,255,0.55);
+  cursor:pointer;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  transition:background .2s,color .2s,border-color .2s;white-space:nowrap;
+}
+.mon-tab.active{
+  background:var(--blue);color:#fff;border-color:var(--blue);
+  box-shadow:0 2px 12px rgba(59,130,246,0.35);
+}
+.mon-tab:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff;}
+/* Search bar */
+.mon-search-wrap{
+  display:flex;gap:0;align-items:center;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:16px;
+  padding:6px 6px 6px 20px;
+  transition:border-color .2s;
+  box-shadow:0 4px 24px rgba(0,0,0,0.2);
+}
+.mon-search-wrap:focus-within{border-color:rgba(59,130,246,0.5)}
+.mon-search-ic{
+  color:rgba(255,255,255,0.35);flex-shrink:0;margin-right:10px;
+  display:flex;align-items:center;
+}
+.mon-search-ic svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+.mon-input{
+  flex:1;background:transparent;border:none;outline:none;
+  color:#fff;font-size:14px;padding:10px 0;
+}
+.mon-input::placeholder{color:rgba(255,255,255,0.3)}
+.btn-search{
+  display:flex;align-items:center;gap:8px;
+  padding:12px 28px;
+  background:var(--blue);
+  border:none;color:#fff;font-size:13px;font-weight:700;
+  border-radius:12px;cursor:pointer;white-space:nowrap;
+  transition:background .2s,transform .15s;
+  flex-shrink:0;
+}
+.btn-search:hover{background:#2563EB;transform:scale(1.02)}
+.btn-search svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5}
+.mon-hint{
+  font-size:12px;color:rgba(255,255,255,0.3);
+  margin-top:14px;letter-spacing:.2px;
+}
+
+/* ════════════════════════════
+   BERITA — PERONHUB 3-col news carousel
+════════════════════════════ */
+.berita{background:var(--bg);padding:100px 0}
+
+.berita-cards{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:24px;margin-bottom:24px;
+}
+.news-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--r-xl);
+  overflow:hidden;cursor:pointer;
+  transition:border-color .25s,transform .2s;
+}
+.news-card:hover{border-color:rgba(59,130,246,0.3);transform:translateY(-3px)}
+.news-img{
+  width:100%;aspect-ratio:16/10;
+  background:linear-gradient(135deg,#0D1F3C,#060E1A);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.news-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 40%,rgba(10,22,40,0.6));
+}
+.news-img-ph{color:rgba(255,255,255,0.08);font-size:32px}
+.news-body{padding:20px;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;}
+.news-title{
+  font-size:14px;font-weight:700;color:#fff;
+  line-height:1.45;margin:0;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.news-date{font-size:12px;color:var(--muted)}
+
+/* Berita nav arrows — overlaid on sides of card grid */
+.berita-slider-wrap{position:relative;}
+.berita-nav-btn{
+  position:absolute;top:40%;transform:translateY(-50%);
+  width:44px;height:44px;border-radius:50%;
+  background:var(--blue);color:#fff;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;z-index:10;
+  transition:background .2s,transform .2s;
+  box-shadow:0 4px 16px rgba(0,0,0,0.3);
+}
+.berita-nav-btn:hover{background:#2563EB;transform:translateY(-50%) scale(1.08)}
+#berita-prev{left:-22px;}
+#berita-next{right:-22px;}
+
+/* Pagination dots */
+.dots{display:flex;justify-content:center;gap:6px;margin-top:16px}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:background .2s}
+.dot.act{width:24px;border-radius:4px;background:var(--blue)}
+
+/* ════════════════════════════
+   BERITA FOTO + VIDEO
+════════════════════════════ */
+.media-row{
+  background:var(--bg-mid);
+  padding:100px 0;
+}
+.media-2col{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:48px;
+}
+.media-col-title{
+  font-size:22px;font-weight:700;margin-bottom:12px;
+}
+.media-rule{width:44px;height:3px;background:var(--red);border-radius:2px;margin-bottom:28px}
+.media-card{
+  position:relative;border-radius:var(--r-xl);overflow:hidden;
+  background:linear-gradient(135deg,#0D1F3C,#060E1A);
+  border:1px solid var(--border);
+  aspect-ratio:16/10;
+  display:flex;align-items:center;justify-content:center;
+}
+.media-nav{
+  position:absolute;bottom:0;left:0;right:0;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 14px;
+}
+.media-nav-btn{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--blue);color:#fff;border:none;
+  font-size:14px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+.media-ph{color:rgba(255,255,255,0.07);font-size:40px}
+.media-caption{
+  font-size:14px;font-weight:700;margin-top:14px;color:#fff;line-height:1.4;
+}
+.media-date{font-size:12px;color:var(--muted);margin-top:4px}
+
+/* ════════════════════════════
+   LINK LAYANAN TILES
+════════════════════════════ */
+.link-layanan{background:var(--bg);padding:100px 0}
+.ll-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:auto auto;
+  gap:14px;
+}
+.ll-grid .ll:nth-child(5){grid-column:1/3}
+.ll-grid .ll:nth-child(6){grid-column:3/5}
+.ll{
+  min-height:88px;border-radius:var(--r-lg);
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;position:relative;overflow:hidden;
+  transition:background .22s,border-color .22s,transform .2s;
+}
+.ll:hover{background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.35);transform:translateY(-2px)}
+.ll-label{
+  font-size:11px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:#fff;text-align:center;padding:16px 18px;
+  line-height:1.4;
+}
+.ll-arrow{
+  position:absolute;bottom:10px;right:12px;
+  color:var(--blue);font-size:13px;opacity:0;
+  transition:opacity .2s,transform .2s;
+}
+.ll:hover .ll-arrow{opacity:1;transform:translate(2px,-2px)}
+
+/* ════════════════════════════
+   SOSIAL MEDIA
+════════════════════════════ */
+.sosmed{background:var(--bg-mid);padding:100px 0}
+.sm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.sm-card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:var(--r-xl);
+  padding:48px 32px;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  cursor:pointer;
+  transition:background .25s,border-color .25s,transform .25s;
+}
+.sm-card:hover{background:rgba(255,255,255,0.08);border-color:rgba(59,130,246,0.3);transform:translateY(-4px)}
+.sm-ico{
+  width:72px;height:72px;border-radius:18px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px;margin-bottom:18px;
+  border:1px solid rgba(255,255,255,0.08);
+  overflow:hidden;
+}
+.sm-ico img{width:100%;height:100%;object-fit:contain;display:block;}
+.sm-ico.ig{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);padding:10px;}
+.sm-ico.yt{background:#CC0000}
+.sm-ico.tw{background:#000;padding:10px;}
+.sm-name{font-size:18px;font-weight:700;margin-bottom:6px}
+.sm-link{
+  font-size:13px;color:var(--blue);
+  display:flex;align-items:center;gap:5px;
+  transition:gap .2s;
+}
+.sm-link:hover{gap:9px}
+
+/* ════════════════════════════
+   MITRA — infinite marquee slider
+════════════════════════════ */
+.mitra{background:var(--bg);padding:80px 0;overflow:hidden}
+
+/* Edge fade masks */
+.mitra-track-wrap{
+  position:relative;
+  overflow:hidden;
+}
+.mitra-track-wrap::before,
+.mitra-track-wrap::after{
+  content:'';position:absolute;top:0;bottom:0;
+  width:120px;z-index:2;pointer-events:none;
+}
+.mitra-track-wrap::before{
+  left:0;
+  background:linear-gradient(to right,var(--bg),transparent);
+}
+.mitra-track-wrap::after{
+  right:0;
+  background:linear-gradient(to left,var(--bg),transparent);
+}
+
+/* Scrolling track — two identical sets for seamless loop */
+.mitra-track{
+  display:flex;align-items:center;gap:24px;
+  width:max-content;
+  animation:marquee 28s linear infinite;
+}
+.mitra-track:hover{animation-play-state:paused}
+
+@keyframes marquee{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+/* Individual logo card */
+.mitra-card{
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.6);
+  border-radius:var(--r-lg);
+  padding:20px 36px;
+  height:90px;
+  min-width:180px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  cursor:pointer;
+  transition:background .22s,box-shadow .22s,transform .2s;
+  box-shadow:0 4px 20px rgba(0,0,0,0.15);
+}
+.mitra-card:hover{
+  background:#fff;
+  box-shadow:0 8px 32px rgba(0,0,0,0.2);
+  transform:translateY(-3px);
+}
+.mitra-card img{
+  height:48px;width:auto;
+  object-fit:contain;
+  opacity:1;
+  transition:opacity .22s,transform .22s;
+  display:block;
+  max-width:160px;
+}
+.mitra-card:hover img{
+  opacity:1;
+  transform:scale(1.05);
+}
+
+/* ════════════════════════════
+   FOOTER — PERONHUB 4-col style
+════════════════════════════ */
+footer{
+  background:#07101E;
+  border-top:1px solid rgba(255,255,255,0.08);
+  padding:64px 0 0;
+}
+.footer-grid{
+  display:grid;grid-template-columns:1.2fr 1fr 1.4fr;
+  gap:80px;padding-bottom:52px;
+}
+
+/* Logo col */
+.f-logo-wrap{
+  width:72px;height:72px;margin-bottom:16px;
+  background:linear-gradient(135deg,#1E3A8A,#1E40AF);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;font-weight:900;color:#fff;
+  border:1px solid rgba(255,255,255,0.1);
+}
+.f-brand{font-size:15px;font-weight:700;margin-bottom:4px}
+.f-brand-sub{font-size:11px;color:var(--muted);margin-bottom:14px;line-height:1.4}
+.f-desc{font-size:13px;color:var(--muted);line-height:1.75;margin-bottom:18px}
+.f-visitor{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 14px;
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:var(--r-pill);
+  font-size:12px;color:var(--muted);
+}
+.f-visitor strong{color:#fff}
+
+.f-col-h{font-size:14px;font-weight:700;color:#fff;margin-bottom:18px}
+.f-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.f-list a{
+  font-size:13px;color:var(--muted);
+  transition:color .18s;
+}
+.f-list a:hover{color:#fff}
+
+.f-contact-list{display:flex;flex-direction:column;gap:11px}
+.f-ci{display:flex;gap:6px;font-size:13px;color:var(--muted);line-height:1.6;align-items:flex-start;margin-bottom:2px}
+.f-ci .ic{flex-shrink:0;display:flex;align-items:center;gap:4px;padding-top:1px;color:rgba(255,255,255,0.65);white-space:nowrap;}
+.f-ci .ic svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;}
+
+.f-sm-col{}
+.f-sm-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.f-sm-list li{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.f-sm-list li .smic{color:var(--blue);font-size:13px;width:14px;text-align:center}
+
+.footer-bar{
+  border-top:1px solid rgba(255,255,255,0.08);
+  padding:18px 80px;
+  text-align:center;font-size:12px;color:var(--muted);
+}
+.footer-bar strong{color:#fff}
+
+/* ════════════════════════════
+   SCROLL TO TOP
+════════════════════════════ */
+.to-top{
+  position:fixed;bottom:28px;right:28px;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--blue);color:#fff;
+  border:none;font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(59,130,246,0.35);
+  z-index:100;
+  transition:opacity .2s,transform .2s;
+}
+.to-top:hover{opacity:.88;transform:translateY(-3px)}
+
+/* ════════════════════════════
+   ANIMATIONS
+════════════════════════════ */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
+.fade-up.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar">
+  <div class="nb-inner">
+    <div class="nb-logo">
+      <img src="Asset/1730709636-logopublicheader.png"
+           alt="SiAPKA — Sistem Informasi Aplikasi Pengujian Perkeretaapian"
+           style="height:42px;width:auto;display:block;object-fit:contain;" />
+    </div>
+
+    <ul class="nb-links">
+      <li><a href="#" class="act">Home</a></li>
+      <li><a href="siapka-profil.html">Profil</a></li>
+
+      <!-- Layanan dropdown -->
+      <li class="nb-has-dropdown">
+        <a href="#">Layanan <span class="chv">▾</span></a>
+        <div class="nb-dropdown">
+          <a href="#" class="nb-dd-item">
+            <div class="nb-dd-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><circle cx="7.5" cy="15" r="1.5"/><circle cx="16.5" cy="15" r="1.5"/></svg>
+            </div>
+            <div class="nb-dd-label">
+              <div class="nb-dd-title">Pengujian Sarana</div>
+              <div class="nb-dd-sub">Uji Kelaikan Sarana Perkeretaapian</div>
+            </div>
+          </a>
+          <div class="nb-dd-divider"></div>
+          <a href="#" class="nb-dd-item">
+            <div class="nb-dd-icon">
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div class="nb-dd-label">
+              <div class="nb-dd-title">Pengujian Prasarana</div>
+              <div class="nb-dd-sub">Uji Kelaikan Prasarana Perkeretaapian</div>
+            </div>
+          </a>
+          <div class="nb-dd-divider"></div>
+          <a href="#" class="nb-dd-item">
+            <div class="nb-dd-icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="nb-dd-label">
+              <div class="nb-dd-title">Pengujian SDM</div>
+              <div class="nb-dd-sub">Sertifikasi SDM Perkeretaapian</div>
+            </div>
+          </a>
+          <div class="nb-dd-divider"></div>
+          <a href="#" class="nb-dd-item">
+            <div class="nb-dd-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="nb-dd-label">
+              <div class="nb-dd-title">Layanan Penunjang</div>
+              <div class="nb-dd-sub">Non-Core BLU Balai Pengujian</div>
+            </div>
+          </a>
+        </div>
+      </li>
+
+      <li><a href="#">Monitoring</a></li>
+
+      <!-- Publikasi dropdown -->
+      <li class="nb-has-dropdown">
+        <a href="#">Publikasi <span class="chv">▾</span></a>
+        <div class="nb-dropdown">
+          <a href="#" class="nb-dd-item">
+            <div class="nb-dd-icon">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <div class="nb-dd-label">
+              <div class="nb-dd-title">Berita Terbaru</div>
+              <div class="nb-dd-sub">Berita &amp; informasi terkini</div>
+            </div>
+          </a>
+          <div class="nb-dd-divider"></div>
+          <a href="#" class="nb-dd-item">
+            <div class="nb-dd-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+            <div class="nb-dd-label">
+              <div class="nb-dd-title">Berita Foto</div>
+              <div class="nb-dd-sub">Galeri foto kegiatan</div>
+            </div>
+          </a>
+          <div class="nb-dd-divider"></div>
+          <a href="#" class="nb-dd-item">
+            <div class="nb-dd-icon">
+              <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            </div>
+            <div class="nb-dd-label">
+              <div class="nb-dd-title">Video &amp; Podcast</div>
+              <div class="nb-dd-sub">Konten multimedia DJKA</div>
+            </div>
+          </a>
+          <div class="nb-dd-divider"></div>
+          <a href="#" class="nb-dd-item">
+            <div class="nb-dd-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </div>
+            <div class="nb-dd-label">
+              <div class="nb-dd-title">Regulasi &amp; Dokumen</div>
+              <div class="nb-dd-sub">Peraturan &amp; kebijakan resmi</div>
+            </div>
+          </a>
+        </div>
+      </li>
+
+      <li><a href="#">PPID</a></li>
+      <li><a href="#">Mitra</a></li>
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#" class="nb-portal">Portal DJKA</a></li>
+    </ul>
+
+    <div style="display:flex;align-items:center;gap:12px;">
+      <!-- Login button — frosted glass rounded-rect + arrow icon -->
+      <button class="btn-login">
+        <span class="btn-login-icon">
+          <svg viewBox="0 0 12 12"><line x1="2" y1="6" x2="10" y2="6"/><polyline points="7 3 10 6 7 9"/></svg>
+        </span>
+        Login
+      </button>
+      <!-- Dark toggle — dark track, moon left, blue dot right -->
+      <div class="nb-theme">
+        <button class="nb-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="nb-toggle-moon">🌙</span>
+          <span class="nb-toggle-dot"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <!-- Real background photo + dark overlay -->
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-tint" aria-hidden="true"></div>
+  <div class="hero-bottom-fade" aria-hidden="true"></div>
+
+  <div class="hero-content" style="align-items:center;">
+    <!-- Glassmorphism card — banner layout, centered -->
+    <div class="hero-glass">
+
+      <!-- 4 logos row -->
+      <div class="hero-glass-logos">
+        <div class="hgl-item">
+          <span style="font-size:22px">🌐</span>
+          <span class="hgl-badge" style="background:rgba(197,160,40,0.2);border-color:rgba(197,160,40,0.3);color:#F5C842">KEMENHUB</span>
+        </div>
+        <div class="hgl-divider"></div>
+        <div class="hgl-item">
+          <span style="font-size:20px">🚄</span>
+          <span class="hgl-badge">DJKA</span>
+        </div>
+        <div class="hgl-divider"></div>
+        <div class="hgl-item">
+          <span class="hgl-badge" style="background:rgba(13,148,136,0.25);border-color:rgba(13,148,136,0.4);color:#5EEAD4">BLU <span style="color:#F59E0B;font-size:9px">SPEED</span></span>
+        </div>
+        <div class="hgl-divider"></div>
+        <div class="hgl-item">
+          <span class="hgl-badge" style="font-size:9px;letter-spacing:.5px">BALAI PENGUJIAN<br>PERKERETAAPIAN</span>
+        </div>
+      </div>
+
+      <!-- Welcome text -->
+      <p class="hero-welcome">Selamat Datang Di</p>
+
+      <!-- Giant SiAPKA wordmark -->
+      <div class="hero-wordmark">SiAPKA</div>
+
+      <!-- Tagline -->
+      <p class="hero-tagline">Sistem Informasi Aplikasi Pengujian Perkeretaapian</p>
+
+      <!-- Social strip inside card -->
+      <div class="hero-socials-inner">
+        <div class="hsi"><span class="hsi-ic">𝕏</span> @BalaiUji_KA</div>
+        <div class="hsi"><span class="hsi-ic">◉</span> @balaipengujianka</div>
+        <div class="hsi"><span class="hsi-ic">▶</span> Balai Pengujian Perkeretaapian</div>
+        <div class="hsi"><span class="hsi-ic">🌐</span> ujidjka.dephub.go.id</div>
+        <div class="hsi"><span class="hsi-ic">📞</span> 0878 8896 9530</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+
+<!-- ══ LAYANAN UTAMA (2×2 — matching PERONHUB structure) ══ -->
+<section class="layanan-utama fade-up">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Informasi Layanan</h2>
+      <div class="sh-line"></div>
+    </div>
+
+    <div class="lu-grid">
+      <div class="lu-card">
+        <div class="lu-img"><img src="Asset/ay5ljoqmg4kabnh6rwic-layananblu.png" alt="Sarana"/></div>
+        <div class="lu-body">
+          <div class="lu-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><circle cx="7.5" cy="15" r="1.5"/><circle cx="16.5" cy="15" r="1.5"/></svg>
+          </div>
+          <div class="lu-code">
+            <div class="lu-code-line"></div>
+            <span class="lu-code-text">— Sarana</span>
+          </div>
+          <div class="lu-title">Layanan Pengujian Sarana Perkeretaapian</div>
+          <div class="lu-desc">Regulasi serta Persyaratan pengajuan Uji Kelaikan Sarana Perkeretaapian untuk memastikan Sarana laik operasi.</div>
+        </div>
+      </div>
+
+      <div class="lu-card">
+        <div class="lu-img"><img src="Asset/qgklnoe83tc4a9w5l7hv-layananblu.png" alt="Prasarana"/></div>
+        <div class="lu-body">
+          <div class="lu-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="lu-code">
+            <div class="lu-code-line"></div>
+            <span class="lu-code-text">— Prasarana</span>
+          </div>
+          <div class="lu-title">Layanan Pengujian Prasarana Perkeretaapian</div>
+          <div class="lu-desc">Regulasi serta Persyaratan pengajuan Uji Kelaikan Prasarana Perkeretaapian untuk memastikan Sarana laik operasi.</div>
+        </div>
+      </div>
+
+      <div class="lu-card">
+        <div class="lu-img"><img src="Asset/u0det5jpfzkusdtbhkwi-layananblu.png" alt="Non-Core"/></div>
+        <div class="lu-body">
+          <div class="lu-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="lu-code">
+            <div class="lu-code-line"></div>
+            <span class="lu-code-text">— Non-Core</span>
+          </div>
+          <div class="lu-title">Layanan Penunjang (Non-Core)</div>
+          <div class="lu-desc">Layanan Penunjang (Non-Core) pada BLU Balai Pengujian Perkeretaapian.</div>
+        </div>
+      </div>
+
+      <div class="lu-card">
+        <div class="lu-img"><img src="Asset/lqgvbsmn7gfnfii1wm6x-layananblu.png" alt="SDM"/></div>
+        <div class="lu-body">
+          <div class="lu-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="lu-code">
+            <div class="lu-code-line"></div>
+            <span class="lu-code-text">— SDM</span>
+          </div>
+          <div class="lu-title">Layanan Pengujian SDM Perkeretaapian</div>
+          <div class="lu-desc">Regulasi serta Persyaratan sertifikasi SDM Perkeretaapian untuk meningkatkan kualitas SDM di bidang Perkeretaapian Indonesia.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LAYANAN UNGGULAN (4-col) ══ -->
+<section class="layanan-unggulan fade-up">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Link Layanan</h2>
+      <div class="sh-line"></div>
+    </div>
+
+    <div class="lug-grid">
+      <div class="lug-card">
+        <div class="lug-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+        <div class="lug-title">CEO Dashboard Balai Pengujian Perkeretaapian</div>
+      </div>
+      <div class="lug-card">
+        <div class="lug-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        </div>
+        <div class="lug-title">HUB Payment BLU Balai Pengujian</div>
+      </div>
+      <div class="lug-card">
+        <div class="lug-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="lug-title">Pelayanan Uji SDM Perkeretaapian</div>
+      </div>
+      <div class="lug-card">
+        <div class="lug-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><circle cx="7.5" cy="15" r="1.5"/><circle cx="16.5" cy="15" r="1.5"/></svg>
+        </div>
+        <div class="lug-title">Pelayanan Uji Sarana Perkeretaapian</div>
+      </div>
+      <div class="lug-card">
+        <div class="lug-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="lug-title">Pelayanan Uji Prasarana Perkeretaapian</div>
+      </div>
+      <div class="lug-card">
+        <div class="lug-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/></svg>
+        </div>
+        <div class="lug-title">NonCore — Sewa Aset BMN Perkeretaapian</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ LINK LAYANAN ══ -->
+
+<!-- ══ MONITORING ══ -->
+<section class="monitoring fade-up">
+  <div class="wrap">
+    <div class="mon-panel">
+      <div class="sh">
+        <h2>Monitoring</h2>
+        <div class="sh-line"></div>
+      </div>
+      <p class="mon-subtitle">Pantau status pengajuan, billing, dan permohonan secara real-time.</p>
+
+      <div class="mon-tabs">
+        <button class="mon-tab active" onclick="switchTab(this,'Masukkan Kode billing untuk melakukan pencarian data billing')">Cek Billing</button>
+        <button class="mon-tab" onclick="switchTab(this,'Masukkan no registrasi permohonan untuk melakukan pencarian data billing')">Pengajuan Non Core</button>
+        <button class="mon-tab" onclick="switchTab(this,'Masukkan id permohonan untuk melakukan pencarian data billing')">Uji Prasarana</button>
+        <button class="mon-tab" onclick="switchTab(this,'Masukkan id permohonan untuk melakukan pencarian data billing')">Uji SDM</button>
+        <button class="mon-tab" onclick="switchTab(this,'Masukkan id permohonan untuk melakukan pencarian data billing')">Uji Sarana</button>
+      </div>
+
+      <div class="mon-search-wrap">
+        <span class="mon-search-ic">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </span>
+        <input class="mon-input" id="mon-input" type="text" placeholder="Masukkan Kode billing untuk melakukan pencarian data billing" />
+        <button class="btn-search">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Cari
+        </button>
+      </div>
+      <p class="mon-hint">Masukkan keyword sesuai jenis pencarian yang dipilih di atas</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BERITA TERBARU ══ -->
+<section class="berita fade-up">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Berita Terbaru</h2>
+      <div class="sh-line"></div>
+    </div>
+
+    <div class="berita-slider-wrap">
+      <button class="berita-nav-btn" id="berita-prev">&#8249;</button>
+      <button class="berita-nav-btn" id="berita-next">&#8250;</button>
+
+      <div class="berita-cards">
+        <a class="news-card" href="siapka-berita-detail.html">
+          <div class="news-img">
+            <img src="Asset/062e197e3f76195cda11ae2e9ba9e34e.png" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" alt="Berita"/>
+            <div class="news-img-overlay"></div>
+          </div>
+          <div class="news-body">
+            <div class="news-title">Kereta Petani dan Pedagang Jalani Uji Pertama, Siap Dukung Distribusi Hasil Bumi</div>
+            <div class="news-date">06 Oktober 2025</div>
+          </div>
+        </a>
+        <div class="news-card">
+          <div class="news-img">
+            <img src="Asset/d7aea56be9fd0e22e63c8c2b0ad02bd8.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" alt="Berita"/>
+            <div class="news-img-overlay"></div>
+          </div>
+          <div class="news-body">
+            <div class="news-title">Pengumuman Hasil Pemilihan Pengelola Rekening Deposito Balai Pengujian Perkeretaapian</div>
+            <div class="news-date">25 September 2025</div>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="news-img">
+            <img src="Asset/bd1948bfa4a554b6c1fc83373f3dd451.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" alt="Berita"/>
+            <div class="news-img-overlay"></div>
+          </div>
+          <div class="news-body">
+            <div class="news-title">Penyesuaian Operasional Karena Uji Dinamis PT. INKA Tahun 2026</div>
+            <div class="news-date">25 September 2025</div>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="news-img">
+            <img src="Asset/ee40bba7076ac73dbd026f798ceba8db.png" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" alt="Berita"/>
+            <div class="news-img-overlay"></div>
+          </div>
+          <div class="news-body">
+            <div class="news-title">Pemilihan Pengelola Rekening Deposito Badan Layanan Umum (BLU) Balai Pengujian Perkeretaapian Tahun Anggaran 2025</div>
+            <div class="news-date">16 September 2025</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dots">
+      <div class="dot act"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SOSIAL MEDIA ══ -->
+<section class="sosmed fade-up">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Sosial Media</h2>
+      <div class="sh-line"></div>
+    </div>
+
+    <div class="sm-grid">
+      <div class="sm-card">
+        <div class="sm-ico ig"><img src="Asset/download (2).jpeg" alt="Instagram"/></div>
+        <div class="sm-name">Instagram</div>
+        <a href="#" class="sm-link">Lihat Semua Postingan →</a>
+      </div>
+      <div class="sm-card">
+        <div class="sm-ico yt">▶</div>
+        <div class="sm-name">YouTube</div>
+        <a href="#" class="sm-link">Lihat Semua Postingan →</a>
+      </div>
+      <div class="sm-card">
+        <div class="sm-ico tw"><img src="Asset/download (1).png" alt="X / Twitter"/></div>
+        <div class="sm-name">Twitter / X</div>
+        <a href="#" class="sm-link">Lihat Semua Postingan →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MITRA ══ -->
+<section class="mitra fade-up">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Mitra</h2>
+      <div class="sh-line"></div>
+    </div>
+  </div>
+
+  <!-- Full-width marquee (outside wrap so it bleeds to edges) -->
+  <div class="mitra-track-wrap">
+    <div class="mitra-track">
+      <!-- Set 1 -->
+      <div class="mitra-card"><img src="Asset/PLZeGsjJ7huMvyE1F2KY.png" alt="PTDI STTD"/></div>
+      <div class="mitra-card"><img src="Asset/YzBQ0RCGNJD5EMsFZWaw.png" alt="Kereta Commuter Indonesia"/></div>
+      <div class="mitra-card"><img src="Asset/5x8qYGb41HjUF7AcTiIR.png" alt="Kereta Api Indonesia"/></div>
+      <div class="mitra-card"><img src="Asset/b4nSNUqe9z75dJLKcRMB.png" alt="MRT Jakarta"/></div>
+      <!-- Set 2 — identical copy for seamless infinite loop -->
+      <div class="mitra-card"><img src="Asset/PLZeGsjJ7huMvyE1F2KY.png" alt="PTDI STTD"/></div>
+      <div class="mitra-card"><img src="Asset/YzBQ0RCGNJD5EMsFZWaw.png" alt="Kereta Commuter Indonesia"/></div>
+      <div class="mitra-card"><img src="Asset/5x8qYGb41HjUF7AcTiIR.png" alt="Kereta Api Indonesia"/></div>
+      <div class="mitra-card"><img src="Asset/b4nSNUqe9z75dJLKcRMB.png" alt="MRT Jakarta"/></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <!-- Col 1: Brand -->
+      <div>
+        <img src="Asset/1730709636-logopublicheader.png" style="height:56px;object-fit:contain;margin-bottom:16px;display:block;" alt="SiAPKA"/>
+        <div class="f-desc">Pengujian dilakukan pada semua sistem perkeretaapian meliputi Prasarana, Sarana dan Sumber Daya Manusia Perkeretaapian.</div>
+        <div class="f-visitor">Pengunjung: <strong id="vc">58.125</strong></div>
+      </div>
+
+      <!-- Col 2: Links -->
+      <div>
+        <div class="f-col-h">Tautan</div>
+        <ul class="f-list">
+          <li><a href="#">DJKA</a></li>
+          <li><a href="#">Direktorat Prasarana</a></li>
+          <li><a href="#">Direktorat Sarana</a></li>
+          <li><a href="#">Direktorat Keselamatan</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Contact -->
+      <div>
+        <div class="f-col-h">Alamat &amp; Kontak</div>
+        <div class="f-contact-list">
+          <div class="f-ci"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> :</span><span>Jl. Perjuangan No.25, RT.001/RW.001, Marga Mulya, Kec. Bekasi Utara, Kota Bks, Jawa Barat 17143</span></div>
+          <div class="f-ci"><span class="ic"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 5.51 5.51l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg> :</span><span>087888969530</span></div>
+          <div class="f-ci"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> :</span><span>balaipengujianka@gmail.com</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    © Copyright 2025 &nbsp;<strong>Balai Pengujian Perkeretaapian</strong>&nbsp; All Rights Reserved
+  </div>
+</footer>
+
+<!-- Scroll to top -->
+<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+/* Scroll fade-up reveal */
+const els = document.querySelectorAll('.fade-up');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+els.forEach(el => obs.observe(el));
+
+/* Navbar becomes opaque after scrolling past hero */
+const nav = document.querySelector('.navbar');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 80);
+});
+
+/* Light / Dark mode toggle */
+const themeToggle = document.getElementById('themeToggle');
+const toggleMoon  = themeToggle.querySelector('.nb-toggle-moon');
+const toggleDot   = themeToggle.querySelector('.nb-toggle-dot');
+let isLight = false;
+themeToggle.addEventListener('click', () => {
+  isLight = !isLight;
+  document.body.classList.toggle('light', isLight);
+  toggleMoon.textContent = isLight ? '☀️' : '🌙';
+  toggleDot.style.right  = isLight ? 'auto' : '3px';
+  toggleDot.style.left   = isLight ? '3px'  : 'auto';
+  toggleDot.style.background = isLight ? '#94a3b8' : '#3B82F6';
+});
+
+/* Monitoring tab switch */
+function switchTab(el, placeholder){
+  document.querySelectorAll('.mon-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('mon-input').placeholder = placeholder;
+}
+
+/* Berita Terbaru slider */
+(function(){
+  const cards = document.querySelectorAll('.berita-cards .news-card');
+  const dots = document.querySelectorAll('.berita .dot');
+  const perPage = 3;
+  const total = cards.length;
+  let cur = 0;
+
+  function show(idx){
+    cur = (idx + total) % total;
+    cards.forEach((c,i)=>{
+      c.style.display = (i >= cur && i < cur + perPage) ? '' : 'none';
+    });
+    dots.forEach((d,i)=>d.classList.toggle('act', i === cur));
+  }
+
+  show(0);
+
+  document.getElementById('berita-prev').addEventListener('click',()=> show(cur - 1));
+  document.getElementById('berita-next').addEventListener('click',()=> show(cur + 1));
+  dots.forEach((d,i)=> d.addEventListener('click',()=> show(i)));
+})();
+</script>
+</body>
+</html>

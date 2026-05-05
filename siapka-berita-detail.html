@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kereta Petani dan Pedagang Jalani Uji Pertama — SiAPKA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);color:var(--white);
+  line-height:1.65;overflow-x:hidden;
+  transition:background .3s,color .3s;
+}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button,input{font-family:inherit}
+
+:root{
+  --bg:#0A1628;--bg-mid:#0D1F3C;--bg-card:rgba(255,255,255,0.06);
+  --border:rgba(255,255,255,0.1);--blue:#3B82F6;--blue-ic:#1E3A5F;
+  --red:#DC2626;--white:#FFFFFF;--muted:rgba(255,255,255,0.6);
+  --faint:rgba(255,255,255,0.2);
+  --r-xl:16px;--r-lg:12px;--r-md:8px;--r-pill:9999px;
+}
+
+/* ── LIGHT MODE ── */
+body.light{
+  --bg:#F0F4FA;--bg-mid:#E4EAF4;--bg-card:rgba(255,255,255,0.9);
+  --border:rgba(0,0,0,0.09);--blue:#2563EB;--blue-ic:#DBEAFE;
+  --white:#0F172A;--muted:rgba(15,23,42,0.55);--faint:rgba(15,23,42,0.15);
+  background:#F0F4FA;color:#0F172A;
+}
+body.light .navbar{background:rgba(240,244,250,0.92)!important;border-bottom-color:rgba(0,0,0,0.08);}
+body.light .navbar.scrolled{background:rgba(240,244,250,0.98)!important;}
+body.light .nb-links a{color:rgba(15,23,42,0.7);}
+body.light .nb-links a:hover{color:#0F172A;background:rgba(0,0,0,0.05);}
+body.light .btn-login{border-color:rgba(15,23,42,0.3);background:rgba(15,23,42,0.05);color:#0F172A;}
+body.light .btn-login-icon{border-color:rgba(15,23,42,0.4);}
+body.light .btn-login-icon svg{stroke:#0F172A;}
+body.light .nb-toggle{background:#e2e8f0;border-color:rgba(0,0,0,0.15);}
+body.light .article-card{background:#fff;border-color:rgba(0,0,0,0.08);box-shadow:0 2px 24px rgba(0,0,0,0.06);}
+body.light .article-title{color:#0F172A;}
+body.light .article-date{color:rgba(15,23,42,0.5);}
+body.light .article-body p,.article-body li{color:rgba(15,23,42,0.78);}
+body.light .article-author{color:rgba(15,23,42,0.5);border-top-color:rgba(0,0,0,0.08);}
+body.light .tag{background:rgba(37,99,235,0.08);color:#2563EB;border-color:rgba(37,99,235,0.2);}
+body.light .sidebar-card{background:#fff;border-color:rgba(0,0,0,0.08);box-shadow:0 2px 16px rgba(0,0,0,0.06);}
+body.light .sidebar-title{color:#0F172A;}
+body.light .side-item-title{color:#0F172A;}
+body.light .side-item-date{color:rgba(15,23,42,0.45);}
+body.light .side-divider{background:rgba(0,0,0,0.07);}
+body.light .share-btn{background:rgba(0,0,0,0.06);border-color:rgba(0,0,0,0.1);color:#0F172A;}
+body.light .share-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue);}
+body.light .breadcrumb{color:rgba(15,23,42,0.5);}
+body.light .breadcrumb a{color:var(--blue);}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#1E3A5F;border-radius:3px}
+
+/* ── NAVBAR ── */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:68px;display:flex;align-items:center;
+  background:rgba(10,22,40,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  transition:background .3s;
+}
+.navbar.scrolled{background:rgba(10,22,40,0.98);backdrop-filter:blur(20px);}
+.nb-inner{width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 80px;}
+.nb-logo{display:flex;align-items:center;}
+.nb-links{display:flex;align-items:center;gap:0;list-style:none}
+.nb-links a{font-size:14px;font-weight:600;color:rgba(255,255,255,0.75);padding:7px 14px;border-radius:6px;display:flex;align-items:center;gap:4px;transition:color .18s,background .18s;}
+.nb-links a:hover{color:#fff;background:rgba(255,255,255,0.08)}
+.nb-actions{display:flex;align-items:center;gap:12px;}
+.btn-login{display:flex;align-items:center;gap:9px;padding:9px 20px;border:1.5px solid rgba(255,255,255,0.55);border-radius:12px;font-size:13.5px;font-weight:600;color:#fff;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);cursor:pointer;transition:background .2s;}
+.btn-login:hover{background:rgba(255,255,255,0.18);}
+.btn-login-icon{width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.8);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.btn-login-icon svg{width:10px;height:10px;stroke:#fff;fill:none;stroke-width:2.5}
+.nb-toggle{position:relative;width:62px;height:32px;background:#1a2744;border-radius:9999px;cursor:pointer;flex-shrink:0;border:1.5px solid rgba(255,255,255,0.15);padding:0;display:flex;align-items:center;}
+.nb-toggle-moon{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:13px;pointer-events:none;user-select:none;}
+.nb-toggle-dot{position:absolute;right:3px;top:50%;transform:translateY(-50%);width:24px;height:24px;background:#3B82F6;border-radius:50%;box-shadow:0 2px 8px rgba(59,130,246,0.5);transition:right .25s cubic-bezier(.4,0,.2,1),left .25s cubic-bezier(.4,0,.2,1),background .2s;pointer-events:none;}
+.chv{font-size:10px;opacity:.7}
+
+/* ── WRAP ── */
+.wrap{max-width:1440px;margin:0 auto;padding:0 80px;}
+
+/* ── PAGE LAYOUT ── */
+.page{padding:110px 0 80px;}
+.page-inner{display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:flex-start;}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{font-size:13px;color:var(--muted);margin-bottom:28px;display:flex;align-items:center;gap:6px;}
+.breadcrumb a{color:var(--blue);transition:opacity .15s;}
+.breadcrumb a:hover{opacity:.75;}
+.breadcrumb span{opacity:.4;}
+
+/* ── ARTICLE CARD ── */
+.article-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--r-xl);
+  overflow:hidden;
+}
+.article-header{padding:36px 44px 24px;}
+.article-date{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:13px;color:var(--muted);margin-bottom:16px;
+}
+.article-date svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0;}
+.article-title{
+  font-size:clamp(22px,2.8vw,32px);font-weight:800;
+  color:var(--white);line-height:1.3;
+  text-align:center;margin-bottom:0;
+}
+.article-hero-img{
+  width:100%;aspect-ratio:16/9;object-fit:cover;
+  display:block;margin:24px 0 0;
+}
+.article-body{padding:32px 44px 36px;font-size:15px;line-height:1.85;color:var(--muted);}
+.article-body p{margin-bottom:18px;text-align:justify;}
+.article-body .lead{font-weight:600;color:var(--white);margin-bottom:20px;}
+.article-body .lead strong{color:var(--white);}
+.article-body ol{padding-left:20px;margin-bottom:18px;display:flex;flex-direction:column;gap:6px;}
+.article-body ol li{line-height:1.7;color:var(--muted);}
+.article-body h3{font-size:15px;font-weight:700;color:var(--white);margin-bottom:10px;margin-top:6px;}
+.article-author{
+  font-size:13px;font-weight:700;letter-spacing:.5px;
+  color:var(--muted);padding:16px 44px 24px;
+  border-top:1px solid var(--border);text-transform:uppercase;
+}
+
+/* Tags */
+.tags-row{display:flex;flex-wrap:wrap;gap:8px;padding:0 44px 24px;}
+.tag{
+  font-size:12px;font-weight:600;
+  background:rgba(59,130,246,0.12);color:#60A5FA;
+  border:1px solid rgba(59,130,246,0.25);
+  border-radius:var(--r-pill);padding:4px 12px;
+  cursor:pointer;transition:background .18s;
+}
+.tag:hover{background:rgba(59,130,246,0.22);}
+
+/* Share */
+.share-row{display:flex;align-items:center;gap:10px;padding:0 44px 32px;}
+.share-label{font-size:13px;font-weight:600;color:var(--muted);margin-right:4px;}
+.share-btn{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg-card);border:1px solid var(--border);
+  color:var(--muted);cursor:pointer;
+  transition:background .18s,color .18s,border-color .18s;
+}
+.share-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue);}
+.share-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;}
+
+/* ── SIDEBAR ── */
+.sidebar{display:flex;flex-direction:column;gap:24px;position:sticky;top:88px;}
+.sidebar-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--r-xl);overflow:hidden;
+}
+.sidebar-title{
+  font-size:16px;font-weight:700;color:var(--white);
+  padding:20px 24px 16px;border-bottom:1px solid var(--border);
+}
+.side-list{display:flex;flex-direction:column;}
+.side-item{
+  display:flex;gap:14px;padding:16px 24px;
+  cursor:pointer;transition:background .18s;
+  border-bottom:1px solid var(--border);
+}
+.side-item:last-child{border-bottom:none;}
+.side-item:hover{background:rgba(59,130,246,0.06);}
+.side-thumb{
+  width:72px;height:54px;border-radius:8px;
+  object-fit:cover;flex-shrink:0;
+  background:var(--bg-mid);
+}
+.side-item-body{flex:1;min-width:0;}
+.side-item-title{
+  font-size:13px;font-weight:600;color:var(--white);
+  line-height:1.4;margin-bottom:5px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.side-item-date{
+  display:flex;align-items:center;gap:5px;
+  font-size:11px;color:var(--muted);
+}
+.side-item-date svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;}
+
+/* ── SCROLL TO TOP ── */
+.to-top{
+  position:fixed;bottom:24px;right:24px;z-index:300;
+  width:48px;height:48px;border-radius:50%;
+  background:var(--blue);color:#fff;font-size:20px;
+  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(59,130,246,0.4);
+  transition:transform .2s,opacity .2s;
+}
+.to-top:hover{transform:translateY(-3px);}
+</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar" id="navbar">
+  <div class="nb-inner">
+    <a href="siapka-redesign.html" class="nb-logo">
+      <img src="Asset/1730709636-logopublicheader.png" style="height:42px;object-fit:contain;" alt="SiAPKA"/>
+    </a>
+    <ul class="nb-links">
+      <li><a href="siapka-redesign.html">Home</a></li>
+      <li><a href="#">Profil</a></li>
+      <li><a href="#">Layanan <span class="chv">▾</span></a></li>
+      <li><a href="#">Monitoring</a></li>
+      <li><a href="#">Publikasi <span class="chv">▾</span></a></li>
+      <li><a href="#">Mitra</a></li>
+      <li><a href="#">PPID</a></li>
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#">Portal DJKA</a></li>
+    </ul>
+    <div class="nb-actions">
+      <button class="nb-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="nb-toggle-moon">🌙</span>
+        <span class="nb-toggle-dot"></span>
+      </button>
+      <button class="btn-login">
+        <span class="btn-login-icon"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        Login
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ PAGE ══ -->
+<main class="page">
+  <div class="wrap">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="siapka-redesign.html">Home</a>
+      <span>›</span>
+      <a href="#">Berita Terbaru</a>
+      <span>›</span>
+      <span>Kereta Petani dan Pedagang...</span>
+    </div>
+
+    <div class="page-inner">
+
+      <!-- ── ARTICLE ── -->
+      <div>
+        <article class="article-card">
+          <div class="article-header">
+            <div class="article-date">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              06 Oktober 2025 11:51 WIB
+            </div>
+            <h1 class="article-title">Kereta Petani dan Pedagang Jalani Uji Pertama, Siap Dukung Distribusi Hasil Bumi</h1>
+          </div>
+
+          <img class="article-hero-img" src="Asset/062e197e3f76195cda11ae2e9ba9e34e.png" alt="Uji Pertama Kereta Petani dan Pedagang"/>
+
+          <div class="article-body">
+            <p class="lead"><strong>Bekasi (06/10)</strong> – Tim Penguji Sarana Perkeretaapian telah selesai melakukan Uji Pertama Kereta Petani dan Pedagang pada 15 s.d. 19 September 2025 yang diselenggarakan di Balai Yasa Gubeng, Surabaya. Pengujian pertama pada empat kereta modifikasi ini dilakukan sebagai langkah penting untuk memastikan bahwa sarana perkeretaapian laik operasi sebelum digunakan secara langsung oleh publik.</p>
+
+            <p>Dalam uji pertama ini, Tim Penguji Sarana Perkeretaapian melakukan serangkaian pengujian yang meliputi Uji Statis dan Uji Dinamis. Pengujian statis dilakukan ketika posisi kereta diam. Item untuk uji statis kereta petani dan pedagang yang dilakukan di Balai Yasa Gubeng, Surabaya ini meliputi:</p>
+
+            <ol>
+              <li>Pengujian dimensi sarana;</li>
+              <li>Pengujian ruang batas sarana;</li>
+              <li>Pengujian berat;</li>
+              <li>Pengujian pengereman;</li>
+              <li>Pengujian keretakan;</li>
+              <li>Pengujian pembebanan;</li>
+              <li>Pengujian sirkulasi udara;</li>
+              <li>Pengujian temperatur;</li>
+              <li>Pengujian kebisingan;</li>
+              <li>Pengujian intensitas cahaya; dan</li>
+              <li>Pengujian kebocoran.</li>
+            </ol>
+
+            <p>Sedangkan item untuk dilakukan uji dinamis dilakukan ketika kereta dalam posisi bergerak atau sedang dijalankan di lintas Surabaya – Lamongan meliputi:</p>
+
+            <ol>
+              <li>Pengujian pengereman;</li>
+              <li>Pengujian temperatur;</li>
+              <li>Pengujian getaran;</li>
+              <li>Pengujian pembebanan;</li>
+              <li>Pengujian sirkulasi udara;</li>
+              <li>Pengujian kelistrikan; dan</li>
+              <li>Pengujian kebisingan.</li>
+            </ol>
+
+            <p>Kereta Petani dan Pedagang ini adalah sebuah moda transportasi modifikasi yang dirancang khusus untuk mendukung petani dan pedagang dalam membawa hasil panen maupun barang dagangan secara aman, efisien, dan nyaman dari berbagai daerah menuju Ibu Kota. Kehadirannya diharapkan mempermudah pengiriman sehingga produk dapat sampai ke pasar besar dalam kondisi segar, sekaligus menekan biaya transportasi agar memberi keuntungan lebih bagi masyarakat.</p>
+
+            <p>Dapat disimpulkan bahwa, dengan adanya uji pertama kereta petani dan pedagang ini membuktikan pemerintah memiliki bukti nyata keseriusan dalam menghadirkan transportasi yang aman, nyaman dan efisien. Melalui tahapan pengujian secara menyeluruh untuk memastikan keamanan dan kenyamanan harus sudah benar-benar mengikuti standar dan aturan yang berlaku. Dengan hasil yang baik, diharapkan kereta ini dapat mulai beroperasi dan menjadi sarana transportasi yang memberikan manfaat bagi petani, pedagang dan masyarakat secara luas.</p>
+          </div>
+
+          <div class="article-author">HUMAS BALAI PENGUJIAN PERKERETAAPIAN</div>
+
+          <div class="tags-row">
+            <span class="tag">#DJKA</span>
+            <span class="tag">#BalaiUjiKA</span>
+            <span class="tag">#BLU</span>
+            <span class="tag">#UjiPertama</span>
+            <span class="tag">#KAPedagangdanPetani</span>
+            <span class="tag">#Modifikasi</span>
+          </div>
+
+          <div class="share-row">
+            <span class="share-label">Bagikan:</span>
+            <button class="share-btn" title="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </button>
+            <button class="share-btn" title="Twitter/X">
+              <svg viewBox="0 0 24 24"><path d="M4 4l16 16M20 4L4 20"/></svg>
+            </button>
+            <button class="share-btn" title="WhatsApp">
+              <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </button>
+            <button class="share-btn" title="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </button>
+          </div>
+        </article>
+      </div>
+
+      <!-- ── SIDEBAR ── -->
+      <aside class="sidebar">
+
+        <!-- Berita Terbaru -->
+        <div class="sidebar-card">
+          <div class="sidebar-title">Berita &amp; Informasi Terbaru</div>
+          <div class="side-list">
+            <div class="side-item">
+              <img class="side-thumb" src="Asset/d7aea56be9fd0e22e63c8c2b0ad02bd8.jpg" alt=""/>
+              <div class="side-item-body">
+                <div class="side-item-title">Pengumuman Hasil Pemilihan Pengelola Rekening Deposito Badan Layanan Umum...</div>
+                <div class="side-item-date"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 25 September 2025 21:41 WIB</div>
+              </div>
+            </div>
+            <div class="side-item">
+              <img class="side-thumb" src="Asset/bd1948bfa4a554b6c1fc83373f3dd451.jpg" alt=""/>
+              <div class="side-item-body">
+                <div class="side-item-title">Penyesuaian Operasional Karena Uji Dinamis PT. INKA 25 September 2025</div>
+                <div class="side-item-date"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 25 September 2025 08:32 WIB</div>
+              </div>
+            </div>
+            <div class="side-item">
+              <img class="side-thumb" src="Asset/ee40bba7076ac73dbd026f798ceba8db.png" alt=""/>
+              <div class="side-item-body">
+                <div class="side-item-title">Pemilihan Pengelola Rekening Deposito Badan Layanan Umum (BLU) Balai...</div>
+                <div class="side-item-date"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 16 September 2025 17:02 WIB</div>
+              </div>
+            </div>
+            <div class="side-item">
+              <div class="side-thumb" style="background:var(--bg-mid);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:10px;text-align:center;padding:4px;">Penawaran<br/>KAP</div>
+              <div class="side-item-body">
+                <div class="side-item-title">Penawaran Pemilihan Kantor Akuntan Publik Balai Pengujian Perkeretaapian TA....</div>
+                <div class="side-item-date"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 12 September 2025 11:25 WIB</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Berita Terpopuler -->
+        <div class="sidebar-card">
+          <div class="sidebar-title">Berita &amp; Informasi Terpopuler</div>
+          <div class="side-list">
+            <div class="side-item">
+              <div class="side-thumb" style="background:var(--bg-mid);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:10px;text-align:center;padding:4px;">Evaluasi<br/>Kinerja</div>
+              <div class="side-item-body">
+                <div class="side-item-title">Evaluasi Kinerja Layanan &amp; Keuangan BLU Balai Pengujian Perkeretaapian</div>
+                <div class="side-item-date"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 05 Juli 2024 11:16 WIB</div>
+              </div>
+            </div>
+            <div class="side-item">
+              <div class="side-thumb" style="background:var(--bg-mid);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:10px;text-align:center;padding:4px;">Beauty<br/>Contest</div>
+              <div class="side-item-body">
+                <div class="side-item-title">Pengumuman Beauty Contest Pemilihan Bank Mitra Perbankan Pengelola Deposit...</div>
+                <div class="side-item-date"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 19 Agustus 2024 10:48 WIB</div>
+              </div>
+            </div>
+            <div class="side-item">
+              <div class="side-thumb" style="background:var(--bg-mid);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:10px;text-align:center;padding:4px;">Penataan<br/>Organisasi</div>
+              <div class="side-item-body">
+                <div class="side-item-title">Penataan Organisasi dan Tata Kerja Balai Pengujian Perkeretaapian</div>
+                <div class="side-item-date"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 06 November 2023 15:26 WIB</div>
+              </div>
+            </div>
+            <div class="side-item">
+              <div class="side-thumb" style="background:var(--bg-mid);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:10px;text-align:center;padding:4px;">Inspeksi<br/>Kereta</div>
+              <div class="side-item-body">
+                <div class="side-item-title">Pelaksanaan Pengujian Kereta Inspeksi</div>
+                <div class="side-item-date"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 14 Desember 2022 15:28 WIB</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</main>
+
+<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+const themeToggle = document.getElementById('themeToggle');
+const toggleMoon  = themeToggle.querySelector('.nb-toggle-moon');
+const toggleDot   = themeToggle.querySelector('.nb-toggle-dot');
+let isLight = false;
+themeToggle.addEventListener('click', () => {
+  isLight = !isLight;
+  document.body.classList.toggle('light', isLight);
+  toggleMoon.textContent = isLight ? '☀️' : '🌙';
+  toggleDot.style.right  = isLight ? 'auto' : '3px';
+  toggleDot.style.left   = isLight ? '3px'  : 'auto';
+  toggleDot.style.background = isLight ? '#94a3b8' : '#3B82F6';
+});
+</script>
+</body>
+</html>
