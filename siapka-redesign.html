@@ -25,8 +25,8 @@ button,select,input{font-family:inherit}
 
 /* ─── TOKENS (matching PERONHUB exactly) ─── */
 :root{
-  --bg:         #0A1628;
-  --bg-mid:     #0D1F3C;
+  --bg:         #0E1937;
+  --bg-mid:     #0E1937;
   --bg-card:    rgba(255,255,255,0.06);
   --border:     rgba(255,255,255,0.1);
   --blue:       #3B82F6;
@@ -67,7 +67,7 @@ body.light .nb-links a:hover{color:#0F172A;background:rgba(0,0,0,0.05);}
 body.light .nb-portal{color:rgba(15,23,42,0.7)!important;}
 body.light .btn-login{border-color:rgba(15,23,42,0.3);background:rgba(15,23,42,0.05);color:#0F172A;}
 body.light .btn-login-icon{border-color:rgba(15,23,42,0.4);}
-body.light .btn-login-icon svg{stroke:#0F172A;}
+body.light .btn-login-icon svg,body.light .btn-login-icon i[data-lucide] svg{stroke:#0F172A;}
 body.light .nb-toggle{background:#e2e8f0;border-color:rgba(0,0,0,0.15);}
 
 /* ── Dropdown ── */
@@ -76,10 +76,12 @@ body.light .nb-dropdown::before{background:#fff;border-color:rgba(0,0,0,0.1);}
 body.light .nb-dd-item{color:rgba(15,23,42,0.7);}
 body.light .nb-dd-item:hover{background:rgba(37,99,235,0.08);color:#0F172A;}
 body.light .nb-dd-icon{background:#EFF6FF;border-color:rgba(37,99,235,0.15);}
-body.light .nb-dd-icon svg{stroke:#2563EB;}
+body.light .nb-dd-icon svg,body.light .nb-dd-icon i[data-lucide] svg{stroke:#2563EB;}
 body.light .nb-dd-title{color:#0F172A;}
 body.light .nb-dd-sub{color:rgba(15,23,42,0.4);}
 body.light .nb-dd-divider{background:rgba(0,0,0,0.06);}
+body.light .nb-dd-simple-item{color:rgba(15,23,42,0.65);}
+body.light .nb-dd-simple-item:hover{background:rgba(37,99,235,0.08);color:#0F172A;}
 
 /* ── Hero ── */
 body.light .hero-tint{background:rgba(240,244,250,0.25);}
@@ -103,7 +105,7 @@ body.light .lu-code-text{color:#0F172A;}
 body.light .lu-card{background:#fff;border-color:rgba(0,0,0,0.08);box-shadow:0 2px 16px rgba(0,0,0,0.07);}
 body.light .lu-card:hover{background:#f8faff;border-color:rgba(37,99,235,0.2);}
 body.light .lu-icon{background:#EFF6FF;border-color:rgba(37,99,235,0.15);}
-body.light .lu-icon svg{stroke:#2563EB;}
+body.light .lu-icon svg,body.light .lu-icon i[data-lucide] svg{stroke:#2563EB;}
 body.light .lu-title{color:#0F172A;}
 body.light .lu-desc{color:rgba(15,23,42,0.58);}
 
@@ -111,7 +113,7 @@ body.light .lu-desc{color:rgba(15,23,42,0.58);}
 body.light .lug-card{background:#fff;border-color:rgba(0,0,0,0.08);box-shadow:0 2px 16px rgba(0,0,0,0.07);}
 body.light .lug-card:hover{background:#f8faff;border-color:rgba(37,99,235,0.2);}
 body.light .lug-icon{background:#EFF6FF;border-color:rgba(37,99,235,0.15);}
-body.light .lug-icon svg{stroke:#2563EB;}
+body.light .lug-icon svg,body.light .lug-icon i[data-lucide] svg{stroke:#2563EB;}
 body.light .lug-title{color:#0F172A;}
 
 /* ── Monitoring ── */
@@ -196,14 +198,13 @@ body.light .mitra{background:var(--bg-mid);}
 .navbar{
   position:fixed;top:0;left:0;right:0;z-index:200;
   height:68px;display:flex;align-items:center;
-  background:rgba(10,22,40,0.18);
-  backdrop-filter:blur(6px);
-  border-bottom:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0);
+  border-bottom:none;
   transition:background .3s;
 }
 .navbar.scrolled{
-  background:rgba(10,22,40,0.97);
-  backdrop-filter:blur(20px) saturate(160%);
+  background:#0E1937;
+  backdrop-filter:none;
   border-bottom:1px solid rgba(255,255,255,0.1);
 }
 .nb-inner{
@@ -233,85 +234,98 @@ body.light .mitra{background:var(--bg-mid);}
   display:flex;align-items:center;gap:4px;
   transition:color .18s,background .18s;
   letter-spacing:.1px;
+  position:relative;
+}
+.nb-links a::after{
+  content:'';position:absolute;bottom:-4px;left:14px;right:14px;
+  height:2px;background:#DC2626;border-radius:2px;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .2s ease;
 }
 .nb-links a:hover{color:#fff;background:rgba(255,255,255,0.08)}
+.nb-links a:hover::after{transform:scaleX(1);}
 .nb-links a.act{color:rgba(255,255,255,0.45);font-weight:600}
-.chv{font-size:10px;opacity:.7}
+.chv{display:inline-flex;align-items:center;opacity:.7;vertical-align:middle;margin-left:2px;}
+.chv i[data-lucide]{display:flex;}
+.chv i[data-lucide] svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;}
 /* Portal DJKA — same weight as others, no special color */
 .nb-portal{color:rgba(255,255,255,0.75) !important;font-weight:600 !important}
 
 /* ── DROPDOWN ── */
 .nb-has-dropdown{position:relative}
-.nb-has-dropdown>a{user-select:none}
-
-/* Chevron rotates on open */
-.nb-has-dropdown>a .chv{
-  transition:transform .22s ease;
-  display:inline-block;
-}
-.nb-has-dropdown:hover>a .chv,
-.nb-has-dropdown.open>a .chv{transform:rotate(180deg)}
+.nb-has-dropdown>a{user-select:none;display:flex;align-items:center;}
 
 /* Dropdown panel */
+:root{
+  --dd-bg:       #1a2744;
+  --dd-text:     rgba(255,255,255,0.85);
+  --dd-hover-bg: rgba(255,255,255,0.07);
+  --dd-divider:  rgba(255,255,255,0.08);
+  --dd-shadow:   0 8px 40px rgba(0,0,0,0.45);
+}
+body.light{
+  --dd-bg:       #ffffff;
+  --dd-text:     #1a1a2e;
+  --dd-hover-bg: #f5f7ff;
+  --dd-divider:  rgba(0,0,0,0.07);
+  --dd-shadow:   0 8px 40px rgba(0,0,0,0.14);
+}
 .nb-dropdown{
-  position:absolute;top:calc(100% + 8px);left:50%;
+  position:absolute;top:calc(100% + 12px);left:50%;
   transform:translateX(-50%) translateY(-6px);
-  min-width:280px;
-  background:rgba(8,18,34,0.97);
-  backdrop-filter:blur(20px) saturate(160%);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:14px;
-  padding:8px;
+  min-width:240px;
+  background:var(--dd-bg);
+  border:none;
+  border-radius:16px;
+  padding:8px 0;
   opacity:0;pointer-events:none;
   transition:opacity .2s ease, transform .2s ease;
   z-index:400;
-  box-shadow:0 16px 48px rgba(0,0,0,0.45);
+  box-shadow:var(--dd-shadow);
 }
-/* Show on hover */
-.nb-has-dropdown:hover .nb-dropdown{
+/* Show on click (.open class) */
+.nb-has-dropdown.open .nb-dropdown{
   opacity:1;pointer-events:auto;
   transform:translateX(-50%) translateY(0);
 }
-
-/* Top arrow notch */
-.nb-dropdown::before{
-  content:'';position:absolute;
-  top:-5px;left:50%;transform:translateX(-50%) rotate(45deg);
-  width:9px;height:9px;
-  background:rgba(8,18,34,0.97);
-  border-left:1px solid rgba(255,255,255,0.1);
-  border-top:1px solid rgba(255,255,255,0.1);
+/* Flip chevron when open */
+.nb-has-dropdown.open>a .chv i[data-lucide] svg{
+  transform:rotate(180deg);
 }
+
+/* No arrow notch */
+.nb-dropdown::before{display:none;}
 
 /* Dropdown item */
 .nb-dd-item{
   display:flex;align-items:center;gap:12px;
-  padding:10px 12px;border-radius:9px;
-  color:rgba(255,255,255,0.75);font-size:13px;font-weight:500;
+  padding:14px 24px;
+  color:var(--dd-text);font-size:15px;font-weight:500;
   text-decoration:none;
-  transition:background .18s,color .18s;
+  transition:background .15s,color .15s;
   cursor:pointer;
 }
-.nb-dd-item:hover{background:rgba(59,130,246,0.12);color:#fff}
+.nb-dd-item:hover{background:var(--dd-hover-bg);}
 
-/* Icon circle */
-.nb-dd-icon{
-  width:34px;height:34px;border-radius:50%;
-  background:#1E3A5F;
-  border:1px solid rgba(255,255,255,0.08);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-  transition:background .18s;
-}
-.nb-dd-item:hover .nb-dd-icon{background:rgba(59,130,246,0.25)}
-.nb-dd-icon svg{width:15px;height:15px;stroke:#60A5FA;fill:none;stroke-width:1.8}
+/* Hide icon circle */
+.nb-dd-icon{display:none;}
 
 .nb-dd-label{}
-.nb-dd-title{font-size:13px;font-weight:600;color:inherit;line-height:1.2}
-.nb-dd-sub{font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px}
+.nb-dd-title{font-size:15px;font-weight:500;color:inherit;line-height:1.3}
+.nb-dd-sub{display:none;}
 
 /* Divider inside dropdown */
-.nb-dd-divider{height:1px;background:rgba(255,255,255,0.07);margin:4px 0}
+.nb-dd-divider{height:1px;background:var(--dd-divider);margin:4px 0;}
+
+/* Simple text-only dropdown items */
+.nb-dropdown-simple{min-width:220px;padding:8px 0;}
+.nb-dd-simple-item{
+  display:block;padding:14px 24px;
+  font-size:15px;font-weight:500;color:var(--dd-text);
+  text-decoration:none;transition:background .15s,color .15s;
+}
+.nb-dd-simple-item:hover{background:var(--dd-hover-bg);}
+.nb-dropdown-simple .nb-dd-divider{margin:4px 0;}
 
 /* Login button — frosted glass rounded-rect + arrow-circle icon (reference match) */
 .btn-login{
@@ -335,7 +349,8 @@ body.light .mitra{background:var(--bg-mid);}
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;
 }
-.btn-login-icon svg{width:10px;height:10px;stroke:#fff;fill:none;stroke-width:2.5}
+.btn-login-icon svg,.btn-login-icon i[data-lucide] svg{width:10px;height:10px;stroke:#fff;fill:none;stroke-width:2.5}
+.btn-login-icon i[data-lucide]{display:flex;align-items:center;justify-content:center;}
 
 /* Dark mode toggle — dark track + moon inside + blue dot (reference match) */
 .nb-theme{
@@ -344,7 +359,7 @@ body.light .mitra{background:var(--bg-mid);}
 .nb-toggle{
   position:relative;
   width:62px;height:32px;
-  background:#1a2744;
+  background:#0E1937;
   border-radius:var(--r-pill);
   cursor:pointer;
   flex-shrink:0;
@@ -542,7 +557,7 @@ body.light .mitra{background:var(--bg-mid);}
 }
 .about-img{
   border-radius:var(--r-xl);overflow:hidden;
-  background:linear-gradient(135deg,#0D1F3C,#060E1A);
+  background:#0E1937;
   aspect-ratio:4/3;
   display:flex;align-items:center;justify-content:center;
   border:1px solid var(--border);
@@ -580,56 +595,59 @@ body.light .mitra{background:var(--bg-mid);}
 }
 
 .lu-grid{
-  display:grid;grid-template-columns:1fr 1fr;
+  display:grid;grid-template-columns:repeat(4,1fr);
   gap:24px;
 }
 
 .lu-card{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
+  background:#092237;
+  border:none;
   border-radius:var(--r-xl);
-  display:flex;flex-direction:row;align-items:stretch;
+  display:flex;flex-direction:column;align-items:stretch;
   cursor:pointer;
   transition:background .25s,border-color .25s,transform .2s;
   position:relative;
   overflow:hidden;
 }
 .lu-card:hover{
-  background:rgba(255,255,255,0.08);
-  border-color:rgba(59,130,246,0.3);
-  transform:translateY(-2px);
+  background:#0d2d47;
+  transform:translateY(-4px);
 }
 .lu-img{
-  width:200px;flex-shrink:0;
+  width:100%;aspect-ratio:16/9;flex-shrink:0;
   overflow:hidden;position:relative;
 }
 .lu-img img{
   width:100%;height:100%;object-fit:cover;display:block;
   transition:transform .4s;
 }
-.lu-card:hover .lu-img img{transform:scale(1.04)}
 
 .lu-icon{
-  width:48px;height:48px;border-radius:50%;
-  background:#0D1F3C;
+  width:44px;height:44px;border-radius:50%;
+  background:#0E1937;
   border:1px solid rgba(255,255,255,0.1);
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;
-  transition:background .25s;
-  margin-bottom:16px;
+  transition:opacity .25s, transform .25s;
+  margin-bottom:14px;
 }
-.lu-card:hover .lu-icon{background:rgba(59,130,246,0.15)}
-.lu-icon svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.8}
+.lu-card:hover .lu-icon{opacity:0;transform:translateY(-8px);}
+.lu-icon svg,.lu-icon i[data-lucide] svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.8}
+.lu-icon i[data-lucide]{display:flex;align-items:center;justify-content:center;}
 
-.lu-body{padding:28px 28px;display:flex;flex-direction:column;justify-content:center;}
+.lu-body{padding:24px;display:flex;flex-direction:column;flex:1;}
 .lu-code{
   display:flex;align-items:center;gap:10px;margin-bottom:8px;
+  transition:transform .3s ease;
 }
+.lu-card:hover .lu-code{transform:translateY(-10px);}
 .lu-code-line{width:28px;height:2px;background:var(--red);flex-shrink:0}
 .lu-code-text{font-size:13px;font-weight:700;color:var(--white);letter-spacing:.5px}
 
-.lu-title{font-size:15px;font-weight:600;color:var(--white);line-height:1.4;margin-bottom:10px}
-.lu-desc{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6}
+.lu-title{font-size:14px;font-weight:600;color:var(--white);line-height:1.4;margin-bottom:8px;transition:transform .3s ease;}
+.lu-card:hover .lu-title{transform:translateY(-10px);}
+.lu-desc{font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6;transition:transform .3s ease;}
+.lu-card:hover .lu-desc{transform:translateY(-10px);}
 
 /* ════════════════════════════
    LAYANAN UNGGULAN — 4-col carousel (PERONHUB)
@@ -661,14 +679,15 @@ body.light .mitra{background:var(--bg-mid);}
 }
 .lug-icon{
   width:52px;height:52px;border-radius:50%;
-  background:#0D1F3C;
+  background:#0E1937;
   border:1px solid rgba(255,255,255,0.1);
   display:flex;align-items:center;justify-content:center;
   margin-bottom:24px;
   transition:background .25s;
 }
 .lug-card:hover .lug-icon{background:rgba(59,130,246,0.15)}
-.lug-icon svg{width:22px;height:22px;stroke:#94A3B8;fill:none;stroke-width:1.8}
+.lug-icon svg,.lug-icon i[data-lucide] svg{width:22px;height:22px;stroke:#94A3B8;fill:none;stroke-width:1.8}
+.lug-icon i[data-lucide]{display:flex;align-items:center;justify-content:center;}
 .lug-title{font-size:15px;font-weight:600;color:var(--white);line-height:1.45}
 
 .lug-nav{
@@ -729,7 +748,8 @@ body.light .mitra{background:var(--bg-mid);}
   color:rgba(255,255,255,0.35);flex-shrink:0;margin-right:10px;
   display:flex;align-items:center;
 }
-.mon-search-ic svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+.mon-search-ic svg,.mon-search-ic i[data-lucide] svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+.mon-search-ic i[data-lucide]{display:flex;align-items:center;justify-content:center;}
 .mon-input{
   flex:1;background:transparent;border:none;outline:none;
   color:#fff;font-size:14px;padding:10px 0;
@@ -745,7 +765,8 @@ body.light .mitra{background:var(--bg-mid);}
   flex-shrink:0;
 }
 .btn-search:hover{background:#2563EB;transform:scale(1.02)}
-.btn-search svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5}
+.btn-search svg,.btn-search i[data-lucide] svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5}
+.btn-search i[data-lucide]{display:flex;align-items:center;justify-content:center;}
 .mon-hint{
   font-size:12px;color:rgba(255,255,255,0.3);
   margin-top:14px;letter-spacing:.2px;
@@ -761,16 +782,16 @@ body.light .mitra{background:var(--bg-mid);}
   gap:24px;margin-bottom:24px;
 }
 .news-card{
-  background:var(--bg-card);
-  border:1px solid var(--border);
+  background:#092237;
+  border:none;
   border-radius:var(--r-xl);
   overflow:hidden;cursor:pointer;
-  transition:border-color .25s,transform .2s;
+  transition:transform .2s;
 }
-.news-card:hover{border-color:rgba(59,130,246,0.3);transform:translateY(-3px)}
+.news-card:hover{transform:translateY(-3px)}
 .news-img{
   width:100%;aspect-ratio:16/10;
-  background:linear-gradient(135deg,#0D1F3C,#060E1A);
+  background:#0E1937;
   position:relative;overflow:hidden;
   display:flex;align-items:center;justify-content:center;
 }
@@ -824,7 +845,7 @@ body.light .mitra{background:var(--bg-mid);}
 .media-rule{width:44px;height:3px;background:var(--red);border-radius:2px;margin-bottom:28px}
 .media-card{
   position:relative;border-radius:var(--r-xl);overflow:hidden;
-  background:linear-gradient(135deg,#0D1F3C,#060E1A);
+  background:#0E1937;
   border:1px solid var(--border);
   aspect-ratio:16/10;
   display:flex;align-items:center;justify-content:center;
@@ -885,15 +906,15 @@ body.light .mitra{background:var(--bg-mid);}
 .sosmed{background:var(--bg-mid);padding:100px 0}
 .sm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .sm-card{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
+  background:#092237;
+  border:none;
   border-radius:var(--r-xl);
   padding:48px 32px;
   display:flex;flex-direction:column;align-items:center;text-align:center;
   cursor:pointer;
-  transition:background .25s,border-color .25s,transform .25s;
+  transition:background .25s,transform .25s;
 }
-.sm-card:hover{background:rgba(255,255,255,0.08);border-color:rgba(59,130,246,0.3);transform:translateY(-4px)}
+.sm-card:hover{background:#0d2d47;transform:translateY(-4px)}
 .sm-ico{
   width:72px;height:72px;border-radius:18px;
   display:flex;align-items:center;justify-content:center;
@@ -902,9 +923,6 @@ body.light .mitra{background:var(--bg-mid);}
   overflow:hidden;
 }
 .sm-ico img{width:100%;height:100%;object-fit:contain;display:block;}
-.sm-ico.ig{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);padding:10px;}
-.sm-ico.yt{background:#CC0000}
-.sm-ico.tw{background:#000;padding:10px;}
 .sm-name{font-size:18px;font-weight:700;margin-bottom:6px}
 .sm-link{
   font-size:13px;color:var(--blue);
@@ -988,13 +1006,14 @@ body.light .mitra{background:var(--bg-mid);}
    FOOTER — PERONHUB 4-col style
 ════════════════════════════ */
 footer{
-  background:#07101E;
+  background:#0E1937;
   border-top:1px solid rgba(255,255,255,0.08);
-  padding:64px 0 0;
+  padding:36px 0 0;
 }
 .footer-grid{
   display:grid;grid-template-columns:1.2fr 1fr 1.4fr;
-  gap:80px;padding-bottom:52px;
+  gap:80px;padding-bottom:32px;
+  align-items:start;
 }
 
 /* Logo col */
@@ -1029,7 +1048,8 @@ footer{
 .f-contact-list{display:flex;flex-direction:column;gap:11px}
 .f-ci{display:flex;gap:6px;font-size:13px;color:var(--muted);line-height:1.6;align-items:flex-start;margin-bottom:2px}
 .f-ci .ic{flex-shrink:0;display:flex;align-items:center;gap:4px;padding-top:1px;color:rgba(255,255,255,0.65);white-space:nowrap;}
-.f-ci .ic svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;}
+.f-ci .ic svg,.f-ci .ic i[data-lucide] svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;}
+.f-ci .ic i[data-lucide]{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;}
 
 .f-sm-col{}
 .f-sm-list{list-style:none;display:flex;flex-direction:column;gap:8px}
@@ -1071,9 +1091,9 @@ footer{
 <nav class="navbar">
   <div class="nb-inner">
     <div class="nb-logo">
-      <img src="Asset/1730709636-logopublicheader.png"
+      <img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png"
            alt="SiAPKA — Sistem Informasi Aplikasi Pengujian Perkeretaapian"
-           style="height:42px;width:auto;display:block;object-fit:contain;" />
+           style="width:90px;height:150px;display:block;object-fit:contain;" />
     </div>
 
     <ul class="nb-links">
@@ -1082,47 +1102,11 @@ footer{
 
       <!-- Layanan dropdown -->
       <li class="nb-has-dropdown">
-        <a href="#">Layanan <span class="chv">▾</span></a>
-        <div class="nb-dropdown">
-          <a href="#" class="nb-dd-item">
-            <div class="nb-dd-icon">
-              <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><circle cx="7.5" cy="15" r="1.5"/><circle cx="16.5" cy="15" r="1.5"/></svg>
-            </div>
-            <div class="nb-dd-label">
-              <div class="nb-dd-title">Pengujian Sarana</div>
-              <div class="nb-dd-sub">Uji Kelaikan Sarana Perkeretaapian</div>
-            </div>
-          </a>
+        <a href="#">Layanan <span class="chv"><i data-lucide="chevron-down"></i></span></a>
+        <div class="nb-dropdown nb-dropdown-simple">
+          <a href="#" class="nb-dd-simple-item">Informasi Layanan</a>
           <div class="nb-dd-divider"></div>
-          <a href="#" class="nb-dd-item">
-            <div class="nb-dd-icon">
-              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            </div>
-            <div class="nb-dd-label">
-              <div class="nb-dd-title">Pengujian Prasarana</div>
-              <div class="nb-dd-sub">Uji Kelaikan Prasarana Perkeretaapian</div>
-            </div>
-          </a>
-          <div class="nb-dd-divider"></div>
-          <a href="#" class="nb-dd-item">
-            <div class="nb-dd-icon">
-              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <div class="nb-dd-label">
-              <div class="nb-dd-title">Pengujian SDM</div>
-              <div class="nb-dd-sub">Sertifikasi SDM Perkeretaapian</div>
-            </div>
-          </a>
-          <div class="nb-dd-divider"></div>
-          <a href="#" class="nb-dd-item">
-            <div class="nb-dd-icon">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <div class="nb-dd-label">
-              <div class="nb-dd-title">Layanan Penunjang</div>
-              <div class="nb-dd-sub">Non-Core BLU Balai Pengujian</div>
-            </div>
-          </a>
+          <a href="#" class="nb-dd-simple-item">Link Layanan</a>
         </div>
       </li>
 
@@ -1130,47 +1114,11 @@ footer{
 
       <!-- Publikasi dropdown -->
       <li class="nb-has-dropdown">
-        <a href="#">Publikasi <span class="chv">▾</span></a>
-        <div class="nb-dropdown">
-          <a href="#" class="nb-dd-item">
-            <div class="nb-dd-icon">
-              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-            </div>
-            <div class="nb-dd-label">
-              <div class="nb-dd-title">Berita Terbaru</div>
-              <div class="nb-dd-sub">Berita &amp; informasi terkini</div>
-            </div>
-          </a>
+        <a href="#">Publikasi <span class="chv"><i data-lucide="chevron-down"></i></span></a>
+        <div class="nb-dropdown nb-dropdown-simple">
+          <a href="#" class="nb-dd-simple-item">Berita &amp; Informasi</a>
           <div class="nb-dd-divider"></div>
-          <a href="#" class="nb-dd-item">
-            <div class="nb-dd-icon">
-              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            </div>
-            <div class="nb-dd-label">
-              <div class="nb-dd-title">Berita Foto</div>
-              <div class="nb-dd-sub">Galeri foto kegiatan</div>
-            </div>
-          </a>
-          <div class="nb-dd-divider"></div>
-          <a href="#" class="nb-dd-item">
-            <div class="nb-dd-icon">
-              <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-            </div>
-            <div class="nb-dd-label">
-              <div class="nb-dd-title">Video &amp; Podcast</div>
-              <div class="nb-dd-sub">Konten multimedia DJKA</div>
-            </div>
-          </a>
-          <div class="nb-dd-divider"></div>
-          <a href="#" class="nb-dd-item">
-            <div class="nb-dd-icon">
-              <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            </div>
-            <div class="nb-dd-label">
-              <div class="nb-dd-title">Regulasi &amp; Dokumen</div>
-              <div class="nb-dd-sub">Peraturan &amp; kebijakan resmi</div>
-            </div>
-          </a>
+          <a href="#" class="nb-dd-simple-item">Media Sosial</a>
         </div>
       </li>
 
@@ -1184,7 +1132,7 @@ footer{
       <!-- Login button — frosted glass rounded-rect + arrow icon -->
       <button class="btn-login">
         <span class="btn-login-icon">
-          <svg viewBox="0 0 12 12"><line x1="2" y1="6" x2="10" y2="6"/><polyline points="7 3 10 6 7 9"/></svg>
+          <i data-lucide="arrow-right"></i>
         </span>
         Login
       </button>
@@ -1268,11 +1216,11 @@ footer{
         <div class="lu-img"><img src="Asset/ay5ljoqmg4kabnh6rwic-layananblu.png" alt="Sarana"/></div>
         <div class="lu-body">
           <div class="lu-icon">
-            <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><circle cx="7.5" cy="15" r="1.5"/><circle cx="16.5" cy="15" r="1.5"/></svg>
+            <i data-lucide="tram-front"></i>
           </div>
           <div class="lu-code">
             <div class="lu-code-line"></div>
-            <span class="lu-code-text">— Sarana</span>
+            <span class="lu-code-text"> Sarana</span>
           </div>
           <div class="lu-title">Layanan Pengujian Sarana Perkeretaapian</div>
           <div class="lu-desc">Regulasi serta Persyaratan pengajuan Uji Kelaikan Sarana Perkeretaapian untuk memastikan Sarana laik operasi.</div>
@@ -1283,11 +1231,11 @@ footer{
         <div class="lu-img"><img src="Asset/qgklnoe83tc4a9w5l7hv-layananblu.png" alt="Prasarana"/></div>
         <div class="lu-body">
           <div class="lu-icon">
-            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <i data-lucide="home"></i>
           </div>
           <div class="lu-code">
             <div class="lu-code-line"></div>
-            <span class="lu-code-text">— Prasarana</span>
+            <span class="lu-code-text"> Prasarana</span>
           </div>
           <div class="lu-title">Layanan Pengujian Prasarana Perkeretaapian</div>
           <div class="lu-desc">Regulasi serta Persyaratan pengajuan Uji Kelaikan Prasarana Perkeretaapian untuk memastikan Sarana laik operasi.</div>
@@ -1298,11 +1246,11 @@ footer{
         <div class="lu-img"><img src="Asset/u0det5jpfzkusdtbhkwi-layananblu.png" alt="Non-Core"/></div>
         <div class="lu-body">
           <div class="lu-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <i data-lucide="clock"></i>
           </div>
           <div class="lu-code">
             <div class="lu-code-line"></div>
-            <span class="lu-code-text">— Non-Core</span>
+            <span class="lu-code-text"> Non-Core</span>
           </div>
           <div class="lu-title">Layanan Penunjang (Non-Core)</div>
           <div class="lu-desc">Layanan Penunjang (Non-Core) pada BLU Balai Pengujian Perkeretaapian.</div>
@@ -1313,11 +1261,11 @@ footer{
         <div class="lu-img"><img src="Asset/lqgvbsmn7gfnfii1wm6x-layananblu.png" alt="SDM"/></div>
         <div class="lu-body">
           <div class="lu-icon">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <i data-lucide="users"></i>
           </div>
           <div class="lu-code">
             <div class="lu-code-line"></div>
-            <span class="lu-code-text">— SDM</span>
+            <span class="lu-code-text"> SDM</span>
           </div>
           <div class="lu-title">Layanan Pengujian SDM Perkeretaapian</div>
           <div class="lu-desc">Regulasi serta Persyaratan sertifikasi SDM Perkeretaapian untuk meningkatkan kualitas SDM di bidang Perkeretaapian Indonesia.</div>
@@ -1338,37 +1286,37 @@ footer{
     <div class="lug-grid">
       <div class="lug-card">
         <div class="lug-icon">
-          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          <i data-lucide="layout-dashboard"></i>
         </div>
         <div class="lug-title">CEO Dashboard Balai Pengujian Perkeretaapian</div>
       </div>
       <div class="lug-card">
         <div class="lug-icon">
-          <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          <i data-lucide="credit-card"></i>
         </div>
         <div class="lug-title">HUB Payment BLU Balai Pengujian</div>
       </div>
       <div class="lug-card">
         <div class="lug-icon">
-          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <i data-lucide="users"></i>
         </div>
         <div class="lug-title">Pelayanan Uji SDM Perkeretaapian</div>
       </div>
       <div class="lug-card">
         <div class="lug-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><circle cx="7.5" cy="15" r="1.5"/><circle cx="16.5" cy="15" r="1.5"/></svg>
+          <i data-lucide="tram-front"></i>
         </div>
         <div class="lug-title">Pelayanan Uji Sarana Perkeretaapian</div>
       </div>
       <div class="lug-card">
         <div class="lug-icon">
-          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <i data-lucide="home"></i>
         </div>
         <div class="lug-title">Pelayanan Uji Prasarana Perkeretaapian</div>
       </div>
       <div class="lug-card">
         <div class="lug-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/></svg>
+          <i data-lucide="clock"></i>
         </div>
         <div class="lug-title">NonCore — Sewa Aset BMN Perkeretaapian</div>
       </div>
@@ -1399,11 +1347,11 @@ footer{
 
       <div class="mon-search-wrap">
         <span class="mon-search-ic">
-          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <i data-lucide="search"></i>
         </span>
         <input class="mon-input" id="mon-input" type="text" placeholder="Masukkan Kode billing untuk melakukan pencarian data billing" />
         <button class="btn-search">
-          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <i data-lucide="search"></i>
           Cari
         </button>
       </div>
@@ -1487,17 +1435,17 @@ footer{
 
     <div class="sm-grid">
       <div class="sm-card">
-        <div class="sm-ico ig"><img src="Asset/download (2).jpeg" alt="Instagram"/></div>
+        <div class="sm-ico"><img src="Asset/instagram.png" alt="Instagram"/></div>
         <div class="sm-name">Instagram</div>
         <a href="#" class="sm-link">Lihat Semua Postingan →</a>
       </div>
       <div class="sm-card">
-        <div class="sm-ico yt">▶</div>
+        <div class="sm-ico"><img src="Asset/youtube.png" alt="YouTube"/></div>
         <div class="sm-name">YouTube</div>
         <a href="#" class="sm-link">Lihat Semua Postingan →</a>
       </div>
       <div class="sm-card">
-        <div class="sm-ico tw"><img src="Asset/download (1).png" alt="X / Twitter"/></div>
+        <div class="sm-ico"><img src="Asset/x.png" alt="X / Twitter"/></div>
         <div class="sm-name">Twitter / X</div>
         <a href="#" class="sm-link">Lihat Semua Postingan →</a>
       </div>
@@ -1537,7 +1485,7 @@ footer{
     <div class="footer-grid">
       <!-- Col 1: Brand -->
       <div>
-        <img src="Asset/1730709636-logopublicheader.png" style="height:56px;object-fit:contain;margin-bottom:16px;display:block;" alt="SiAPKA"/>
+        <img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" style="width:90px;height:60px;object-fit:contain;margin-top:0;margin-bottom:12px;display:block;" alt="SiAPKA"/>
         <div class="f-desc">Pengujian dilakukan pada semua sistem perkeretaapian meliputi Prasarana, Sarana dan Sumber Daya Manusia Perkeretaapian.</div>
         <div class="f-visitor">Pengunjung: <strong id="vc">58.125</strong></div>
       </div>
@@ -1557,9 +1505,9 @@ footer{
       <div>
         <div class="f-col-h">Alamat &amp; Kontak</div>
         <div class="f-contact-list">
-          <div class="f-ci"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> :</span><span>Jl. Perjuangan No.25, RT.001/RW.001, Marga Mulya, Kec. Bekasi Utara, Kota Bks, Jawa Barat 17143</span></div>
-          <div class="f-ci"><span class="ic"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 5.51 5.51l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg> :</span><span>087888969530</span></div>
-          <div class="f-ci"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> :</span><span>balaipengujianka@gmail.com</span></div>
+          <div class="f-ci"><span class="ic"><i data-lucide="map-pin"></i> :</span><span>Jl. Perjuangan No.25, RT.001/RW.001, Marga Mulya, Kec. Bekasi Utara, Kota Bks, Jawa Barat 17143</span></div>
+          <div class="f-ci"><span class="ic"><i data-lucide="phone"></i> :</span><span>087888969530</span></div>
+          <div class="f-ci"><span class="ic"><i data-lucide="mail"></i> :</span><span>balaipengujianka@gmail.com</span></div>
         </div>
       </div>
 
@@ -1631,6 +1579,25 @@ function switchTab(el, placeholder){
   document.getElementById('berita-next').addEventListener('click',()=> show(cur + 1));
   dots.forEach((d,i)=> d.addEventListener('click',()=> show(i)));
 })();
+</script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+lucide.createIcons();
+
+/* Dropdown — click to open, click outside to close */
+document.querySelectorAll('.nb-has-dropdown').forEach(item => {
+  item.querySelector('a').addEventListener('click', e => {
+    e.preventDefault();
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.nb-has-dropdown.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nb-has-dropdown')) {
+    document.querySelectorAll('.nb-has-dropdown.open').forEach(el => el.classList.remove('open'));
+  }
+});
 </script>
 </body>
 </html>

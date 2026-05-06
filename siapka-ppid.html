@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PPID — SiAPKA Balai Pengujian Perkeretaapian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);color:var(--text-primary);
+  line-height:1.65;overflow-x:hidden;
+  transition:background .3s,color .3s;
+}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button,select,input,textarea{font-family:inherit}
+
+/* ── TOKENS ── */
+:root{
+  --bg:           #0E1937;
+  --bg-raised:    #0d1f3a;
+  --bg-card:      #092237;
+  --bg-input:     #071828;
+  --border:       rgba(255,255,255,0.09);
+  --border-soft:  rgba(255,255,255,0.05);
+  --blue:         #3B82F6;
+  --blue-dim:     rgba(59,130,246,0.15);
+  --red:          #DC2626;
+  --gold:         #F5C842;
+  --gold-dim:     rgba(245,200,66,0.12);
+  --green:        #22C55E;
+  --green-dim:    rgba(34,197,94,0.12);
+  --text-primary: #FFFFFF;
+  --text-secondary:rgba(255,255,255,0.72);
+  --text-tertiary: rgba(255,255,255,0.45);
+  --text-muted:   rgba(255,255,255,0.28);
+  --r-xl:16px;--r-lg:12px;--r-md:8px;--r-sm:6px;--r-pill:9999px;
+  --dd-bg:#1a2744;--dd-text:rgba(255,255,255,0.85);
+  --dd-hover:rgba(255,255,255,0.07);--dd-div:rgba(255,255,255,0.08);
+  --dd-shadow:0 8px 40px rgba(0,0,0,0.45);
+}
+body.light{
+  --bg:#F0F4FA;--bg-raised:#E8EEF8;--bg-card:#FFFFFF;
+  --bg-input:#F5F7FB;
+  --border:rgba(0,0,0,0.08);--border-soft:rgba(0,0,0,0.04);
+  --blue:#2563EB;--blue-dim:rgba(37,99,235,0.08);
+  --red:#DC2626;--gold:#B8860B;--gold-dim:rgba(184,134,11,0.1);
+  --green:#16A34A;--green-dim:rgba(22,163,74,0.1);
+  --text-primary:#0F172A;--text-secondary:#374151;
+  --text-tertiary:rgba(15,23,42,0.5);--text-muted:rgba(15,23,42,0.28);
+  background:#F0F4FA;color:#0F172A;
+  --dd-bg:#fff;--dd-text:#1a1a2e;--dd-hover:#f5f7ff;
+  --dd-div:rgba(0,0,0,0.07);--dd-shadow:0 8px 40px rgba(0,0,0,0.14);
+}
+
+/* ── NAVBAR ── */
+body.light .navbar{background:#fff!important;border-bottom-color:rgba(0,0,0,0.1)!important;}
+body.light .nb-links a{color:rgba(15,23,42,0.65);}
+body.light .nb-links a:hover{color:#0F172A;background:rgba(0,0,0,0.05);}
+body.light .nb-links a.act{color:#0F172A;}
+body.light .nb-portal{color:rgba(15,23,42,0.65)!important;}
+body.light .btn-login{border-color:rgba(15,23,42,0.3);background:rgba(15,23,42,0.05);color:#0F172A;}
+body.light .btn-login-icon{border-color:rgba(15,23,42,0.4);}
+body.light .btn-login-icon i[data-lucide] svg{stroke:#0F172A;}
+body.light .nb-toggle{background:#e2e8f0;border-color:rgba(0,0,0,0.15);}
+
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:68px;display:flex;align-items:center;
+  background:var(--bg);border-bottom:1px solid var(--border);
+  transition:background .3s,border-color .3s;
+}
+.nb-inner{width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 80px;}
+.nb-logo{display:flex;align-items:center;}
+.nb-links{display:flex;align-items:center;list-style:none}
+.nb-links a{
+  font-size:14px;font-weight:600;color:rgba(255,255,255,0.75);
+  padding:7px 14px;border-radius:6px;display:flex;align-items:center;gap:4px;
+  transition:color .18s,background .18s;letter-spacing:.1px;position:relative;
+}
+.nb-links a::after{content:'';position:absolute;bottom:-4px;left:14px;right:14px;height:2px;background:var(--red);border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .2s ease;}
+.nb-links a:hover{color:#fff;background:rgba(255,255,255,0.08)}
+.nb-links a:hover::after,.nb-links a.act::after{transform:scaleX(1);}
+.nb-links a.act{color:#fff;font-weight:700}
+.chv{display:inline-flex;align-items:center;opacity:.7;margin-left:2px;}
+.chv i[data-lucide]{display:flex;}
+.chv i[data-lucide] svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.nb-portal{color:rgba(255,255,255,0.75)!important;font-weight:600!important}
+.nb-has-dropdown{position:relative}
+.nb-has-dropdown>a{user-select:none;}
+.nb-dropdown{position:absolute;top:calc(100%+12px);left:50%;transform:translateX(-50%) translateY(-6px);min-width:220px;background:var(--dd-bg);border:none;border-radius:16px;padding:8px 0;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:400;box-shadow:var(--dd-shadow);}
+.nb-has-dropdown.open .nb-dropdown{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.nb-has-dropdown.open>a .chv i[data-lucide] svg{transform:rotate(180deg);}
+.nb-dropdown::before{display:none;}
+.nb-dd-simple-item{display:block;padding:13px 22px;font-size:14px;font-weight:500;color:var(--dd-text);text-decoration:none;transition:background .15s;}
+.nb-dd-simple-item:hover{background:var(--dd-hover);}
+.nb-dd-divider{height:1px;background:var(--dd-div);margin:4px 0;}
+.btn-login{display:flex;align-items:center;gap:9px;padding:9px 20px;border:1.5px solid rgba(255,255,255,0.55);border-radius:12px;font-size:13.5px;font-weight:600;color:#fff;background:rgba(255,255,255,0.1);cursor:pointer;transition:background .2s,border-color .2s;white-space:nowrap;}
+.btn-login:hover{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.8)}
+.btn-login-icon{width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.8);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.btn-login-icon i[data-lucide]{display:flex;}
+.btn-login-icon i[data-lucide] svg{width:10px;height:10px;stroke:#fff;fill:none;stroke-width:2.5}
+.nb-theme{display:flex;align-items:center;}
+.nb-toggle{position:relative;width:62px;height:32px;background:#0E1937;border-radius:9999px;cursor:pointer;border:1.5px solid rgba(255,255,255,0.15);padding:0;display:flex;align-items:center;}
+.nb-toggle-moon{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:13px;pointer-events:none;}
+.nb-toggle-dot{position:absolute;right:3px;top:50%;transform:translateY(-50%);width:24px;height:24px;background:#3B82F6;border-radius:50%;box-shadow:0 2px 8px rgba(59,130,246,0.5);transition:right .25s cubic-bezier(.4,0,.2,1);pointer-events:none;}
+
+/* ── PAGE BANNER ── */
+.page-banner{
+  background:var(--bg);
+  padding:110px 0 56px;
+  position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.page-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 100% at 50% 0%,rgba(59,130,246,0.07) 0%,transparent 70%);pointer-events:none;}
+.page-banner-inner{max-width:1160px;margin:0 auto;padding:0 80px;position:relative;z-index:1;}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-tertiary);margin-bottom:14px;}
+.breadcrumb a{color:var(--text-tertiary);transition:color .15s;}
+.breadcrumb a:hover{color:var(--text-primary);}
+.breadcrumb .sep{color:var(--text-muted);}
+.breadcrumb .cur{color:var(--text-secondary);}
+.page-banner h1{font-size:2rem;font-weight:800;color:var(--text-primary);line-height:1.2;margin-bottom:10px;letter-spacing:-.4px;}
+.page-banner-sub{font-size:14.5px;color:var(--text-secondary);line-height:1.7;max-width:640px;}
+.banner-accent{width:44px;height:3px;background:var(--red);border-radius:2px;margin-top:18px;}
+
+/* ── TABS ── */
+.ppid-wrap{max-width:1160px;margin:0 auto;padding:0 80px 100px;}
+.tab-nav{
+  display:flex;gap:4px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:40px;
+  padding-top:16px;
+}
+.tab-btn{
+  padding:11px 22px;font-size:14px;font-weight:600;
+  color:var(--text-tertiary);
+  background:transparent;border:none;cursor:pointer;
+  border-bottom:2px solid transparent;
+  margin-bottom:-1px;
+  border-radius:8px 8px 0 0;
+  display:flex;align-items:center;gap:8px;
+  transition:color .18s,background .18s,border-color .18s;
+}
+.tab-btn i[data-lucide]{display:flex;}
+.tab-btn i[data-lucide] svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;}
+.tab-btn:hover{color:var(--text-primary);background:var(--blue-dim);}
+.tab-btn.active{color:var(--blue);border-bottom-color:var(--blue);background:var(--blue-dim);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* ── SECTION HEADING ── */
+.sec-h{margin-bottom:28px;}
+.sec-h h3{font-size:1.15rem;font-weight:700;color:var(--text-primary);margin-bottom:6px;}
+.sec-h p{font-size:13.5px;color:var(--text-secondary);line-height:1.7;}
+.sec-h-line{width:36px;height:2px;background:var(--red);border-radius:2px;margin-top:10px;}
+
+/* ── PROFILE TAB ── */
+.profile-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:28px;margin-bottom:36px;}
+.profile-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--r-xl);padding:28px;
+  transition:background .3s,border-color .3s;
+}
+.officer-card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;}
+.officer-avatar{
+  width:80px;height:80px;border-radius:50%;
+  background:var(--blue-dim);border:2px solid rgba(59,130,246,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;font-weight:800;color:var(--blue);
+  flex-shrink:0;
+}
+.officer-name{font-size:16px;font-weight:700;color:var(--text-primary);line-height:1.3;}
+.officer-role{font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-tertiary);margin-top:2px;}
+.officer-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 12px;border-radius:var(--r-pill);
+  background:var(--green-dim);border:1px solid rgba(34,197,94,0.2);
+  font-size:11px;font-weight:600;color:var(--green);margin-top:4px;
+}
+.officer-contact{width:100%;display:flex;flex-direction:column;gap:8px;margin-top:8px;}
+.officer-ci{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary);}
+.officer-ci i[data-lucide]{display:flex;flex-shrink:0;}
+.officer-ci i[data-lucide] svg{width:14px;height:14px;stroke:var(--text-tertiary);fill:none;stroke-width:2;}
+
+.info-list{display:flex;flex-direction:column;gap:0;}
+.info-row{
+  display:flex;gap:16px;padding:14px 0;
+  border-bottom:1px solid var(--border-soft);
+  align-items:flex-start;
+}
+.info-row:last-child{border-bottom:none;}
+.info-key{font-size:12px;font-weight:600;color:var(--text-tertiary);letter-spacing:.3px;min-width:120px;flex-shrink:0;padding-top:2px;}
+.info-val{font-size:13.5px;color:var(--text-secondary);line-height:1.6;flex:1;}
+.info-val ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.info-val ul li{padding-left:16px;position:relative;}
+.info-val ul li::before{content:'—';position:absolute;left:0;color:var(--text-muted);font-size:11px;top:3px;}
+
+.structure-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px;}
+.struct-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:18px 16px;text-align:center;
+  transition:background .3s,border-color .3s;
+}
+.struct-icon{
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 12px;
+}
+.struct-icon i[data-lucide]{display:flex;}
+.struct-icon i[data-lucide] svg{width:20px;height:20px;fill:none;stroke-width:1.8;}
+.struct-title{font-size:13px;font-weight:700;color:var(--text-primary);line-height:1.3;margin-bottom:4px;}
+.struct-name{font-size:12px;color:var(--text-secondary);line-height:1.4;}
+
+/* ── PUBLIC INFO TAB ── */
+.info-cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:36px;}
+.info-cat-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--r-xl);overflow:hidden;cursor:pointer;
+  transition:background .25s,border-color .25s,transform .2s;
+}
+.info-cat-card:hover{transform:translateY(-3px);border-color:rgba(59,130,246,0.3);}
+.info-cat-head{padding:20px 24px 16px;display:flex;align-items:flex-start;gap:16px;}
+.info-cat-icon{
+  width:44px;height:44px;border-radius:var(--r-lg);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.info-cat-icon i[data-lucide]{display:flex;}
+.info-cat-icon i[data-lucide] svg{width:20px;height:20px;fill:none;stroke-width:1.8;}
+.info-cat-meta{flex:1;}
+.info-cat-title{font-size:14.5px;font-weight:700;color:var(--text-primary);line-height:1.3;margin-bottom:4px;}
+.info-cat-desc{font-size:12.5px;color:var(--text-secondary);line-height:1.6;}
+.info-cat-count{
+  font-size:11px;font-weight:600;letter-spacing:.3px;
+  padding:3px 10px;border-radius:var(--r-pill);
+  margin-left:auto;flex-shrink:0;
+}
+.info-cat-divider{height:1px;background:var(--border-soft);margin:0 24px;}
+.info-cat-docs{padding:12px 24px 20px;}
+.doc-row{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 0;border-bottom:1px solid var(--border-soft);
+  transition:background .15s;
+}
+.doc-row:last-child{border-bottom:none;}
+.doc-icon{
+  width:32px;height:32px;border-radius:var(--r-md);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.doc-icon i[data-lucide]{display:flex;}
+.doc-icon i[data-lucide] svg{width:14px;height:14px;fill:none;stroke-width:2;}
+.doc-info{flex:1;min-width:0;}
+.doc-name{font-size:13px;font-weight:500;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.doc-meta{font-size:11px;color:var(--text-tertiary);margin-top:1px;}
+.doc-dl{
+  padding:5px 12px;border-radius:var(--r-md);
+  font-size:11px;font-weight:600;
+  background:var(--blue-dim);color:var(--blue);
+  border:none;cursor:pointer;transition:background .15s;
+  white-space:nowrap;
+}
+.doc-dl:hover{background:rgba(59,130,246,0.25);}
+
+/* ── SERVICE TAB ── */
+.service-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;}
+.procedure-steps{display:flex;flex-direction:column;gap:0;}
+.step-item{display:flex;gap:16px;padding-bottom:28px;position:relative;}
+.step-item:last-child{padding-bottom:0;}
+.step-item:last-child .step-line{display:none;}
+.step-num{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--blue-dim);border:1.5px solid rgba(59,130,246,0.35);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:var(--blue);
+  flex-shrink:0;position:relative;z-index:1;
+}
+.step-line{
+  position:absolute;left:17px;top:36px;bottom:0;
+  width:2px;background:var(--border);
+}
+.step-body{padding-top:6px;flex:1;}
+.step-title{font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:4px;}
+.step-desc{font-size:13px;color:var(--text-secondary);line-height:1.6;}
+
+.contact-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--r-xl);padding:24px;height:fit-content;
+  transition:background .3s;
+}
+.contact-card h4{font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.contact-card h4 i[data-lucide]{display:flex;}
+.contact-card h4 i[data-lucide] svg{width:16px;height:16px;stroke:var(--blue);fill:none;stroke-width:2;}
+.contact-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border-soft);}
+.contact-item:last-child{border-bottom:none;}
+.contact-ic{
+  width:34px;height:34px;border-radius:var(--r-md);
+  background:var(--blue-dim);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.contact-ic i[data-lucide]{display:flex;}
+.contact-ic i[data-lucide] svg{width:15px;height:15px;stroke:var(--blue);fill:none;stroke-width:2;}
+.contact-label{font-size:11px;font-weight:600;color:var(--text-tertiary);letter-spacing:.4px;text-transform:uppercase;margin-bottom:3px;}
+.contact-val{font-size:13px;color:var(--text-primary);font-weight:500;}
+
+.form-section{margin-top:36px;}
+.form-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);padding:28px;transition:background .3s;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group.full{grid-column:1/-1;}
+.form-label{font-size:12px;font-weight:600;color:var(--text-secondary);letter-spacing:.2px;}
+.form-input,.form-textarea,.form-select{
+  width:100%;padding:10px 14px;
+  background:var(--bg-input);
+  border:1px solid var(--border);
+  border-radius:var(--r-md);
+  font-size:13.5px;color:var(--text-primary);
+  transition:border-color .18s,background .3s;
+  outline:none;
+}
+.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--blue);}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--text-muted);}
+.form-textarea{resize:vertical;min-height:100px;}
+.btn-submit{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 28px;border-radius:var(--r-md);
+  background:var(--blue);color:#fff;
+  font-size:14px;font-weight:600;border:none;cursor:pointer;
+  transition:background .2s,transform .15s;margin-top:8px;
+}
+.btn-submit:hover{background:#1D4ED8;transform:translateY(-1px);}
+.btn-submit i[data-lucide]{display:flex;}
+.btn-submit i[data-lucide] svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.5;}
+
+/* ── HELP BANNER ── */
+.help-banner{
+  background:linear-gradient(135deg,rgba(59,130,246,0.12) 0%,rgba(37,99,235,0.06) 100%);
+  border:1px solid rgba(59,130,246,0.2);
+  border-radius:var(--r-xl);padding:28px 32px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  margin-top:48px;
+  transition:background .3s,border-color .3s;
+}
+.help-text h4{font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:4px;}
+.help-text p{font-size:13.5px;color:var(--text-secondary);line-height:1.6;}
+.btn-help{
+  display:flex;align-items:center;gap:8px;
+  padding:11px 24px;border-radius:var(--r-md);
+  background:var(--blue);color:#fff;
+  font-size:14px;font-weight:600;border:none;cursor:pointer;
+  white-space:nowrap;transition:background .2s;flex-shrink:0;
+}
+.btn-help:hover{background:#1D4ED8;}
+.btn-help i[data-lucide]{display:flex;}
+.btn-help i[data-lucide] svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.5;}
+
+/* ── FOOTER ── */
+body.light footer{background:var(--bg);border-top-color:rgba(0,0,0,0.08);}
+body.light .footer-bar{color:rgba(15,23,42,0.4);}
+body.light .footer-bar strong{color:rgba(15,23,42,0.6);}
+footer{background:var(--bg);border-top:1px solid var(--border);transition:background .3s;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1.6fr;gap:48px;padding:36px 0 0;align-items:start;}
+.f-desc{font-size:13px;color:var(--text-tertiary);line-height:1.7;margin-bottom:16px;}
+.f-visitor{font-size:13px;color:var(--text-tertiary);}
+.f-visitor strong{color:var(--text-primary);}
+.f-col-h{font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--text-primary);margin-bottom:16px;}
+.f-list{list-style:none;}
+.f-list li{margin-bottom:8px;}
+.f-list a{font-size:13px;color:var(--text-tertiary);transition:color .15s;}
+.f-list a:hover{color:var(--text-primary);}
+.f-contact-list{display:flex;flex-direction:column;gap:10px;}
+.f-ci{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--text-tertiary);}
+.f-ci .ic{color:var(--text-secondary);display:flex;align-items:center;gap:4px;flex-shrink:0;min-width:22px;}
+.f-ci .ic i[data-lucide]{display:flex;}
+.f-ci .ic i[data-lucide] svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;}
+.footer-bar{border-top:1px solid var(--border-soft);padding:20px 0;margin-top:32px;text-align:center;font-size:12px;color:var(--text-muted);}
+.footer-bar strong{color:var(--text-tertiary);}
+.wrap-footer{max-width:1160px;margin:0 auto;padding:0 80px;}
+
+/* Scroll to top */
+.to-top{position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;background:var(--blue);color:#fff;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(59,130,246,0.4);transition:background .2s,transform .2s;z-index:500;}
+.to-top:hover{background:#2563EB;transform:translateY(-2px);}
+
+/* Animations */
+.fade-up{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar">
+  <div class="nb-inner">
+    <div class="nb-logo">
+      <img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" alt="SiAPKA" style="width:90px;height:150px;object-fit:contain;display:block;"/>
+    </div>
+    <ul class="nb-links">
+      <li><a href="siapka-redesign.html">Home</a></li>
+      <li><a href="siapka-profil.html">Profil</a></li>
+      <li class="nb-has-dropdown">
+        <a href="#">Layanan <span class="chv"><i data-lucide="chevron-down"></i></span></a>
+        <div class="nb-dropdown">
+          <a href="#" class="nb-dd-simple-item">Informasi Layanan</a>
+          <div class="nb-dd-divider"></div>
+          <a href="#" class="nb-dd-simple-item">Link Layanan</a>
+        </div>
+      </li>
+      <li><a href="#">Monitoring</a></li>
+      <li class="nb-has-dropdown">
+        <a href="#">Publikasi <span class="chv"><i data-lucide="chevron-down"></i></span></a>
+        <div class="nb-dropdown">
+          <a href="#" class="nb-dd-simple-item">Berita &amp; Informasi</a>
+          <div class="nb-dd-divider"></div>
+          <a href="#" class="nb-dd-simple-item">Media Sosial</a>
+        </div>
+      </li>
+      <li><a href="#" class="act">PPID</a></li>
+      <li><a href="#">Mitra</a></li>
+      <li><a href="siapka-faq.html">FAQ</a></li>
+      <li><a href="#" class="nb-portal">Portal DJKA</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="btn-login">
+        <span class="btn-login-icon"><i data-lucide="arrow-right"></i></span>
+        Login
+      </button>
+      <div class="nb-theme">
+        <button class="nb-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="nb-toggle-moon">🌙</span>
+          <span class="nb-toggle-dot"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ PAGE BANNER ══ -->
+<div class="page-banner">
+  <div class="page-banner-inner">
+    <div class="breadcrumb">
+      <a href="siapka-redesign.html">Beranda</a>
+      <span class="sep">›</span>
+      <span class="cur">PPID</span>
+    </div>
+    <h1>Pejabat Pengelola Informasi & Dokumentasi</h1>
+    <p class="page-banner-sub">Layanan keterbukaan informasi publik Balai Pengujian Perkeretaapian sesuai UU No. 14 Tahun 2008 tentang Keterbukaan Informasi Publik.</p>
+    <div class="banner-accent"></div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="ppid-wrap">
+
+  <!-- Tab Navigation -->
+  <div class="tab-nav fade-up">
+    <button class="tab-btn active" onclick="switchTab(this,'profil')">
+      <i data-lucide="user-circle"></i> Profil PPID
+    </button>
+    <button class="tab-btn" onclick="switchTab(this,'publik')">
+      <i data-lucide="file-text"></i> Informasi Publik
+    </button>
+    <button class="tab-btn" onclick="switchTab(this,'layanan')">
+      <i data-lucide="headphones"></i> Layanan Informasi
+    </button>
+  </div>
+
+  <!-- ══ TAB 1: PROFIL PPID ══ -->
+  <div class="tab-panel active" id="tab-profil">
+
+    <!-- Profil Teks -->
+    <div class="profile-card fade-up" style="margin-bottom:28px;">
+      <div class="sec-h" style="margin-bottom:20px;">
+        <h3>Profil PPID BLU Balai Pengujian Perkeretaapian</h3>
+        <div class="sec-h-line"></div>
+      </div>
+      <p style="font-size:15px;color:var(--text-secondary);line-height:1.85;margin-bottom:20px;">
+        Sejak Undang-Undang Nomor 14 Tahun 2008 Tentang Keterbukaan Informasi Publik (UU KIP) diberlakukan secara efektif pada tanggal 30 April 2010 telah mendorong bangsa Indonesia satu langkah maju ke depan, menjadi bangsa yang transparan dan akuntabel dalam mengelola sumber daya publik. UU KIP sebagai instrumen hukum yang mengikat merupakan tonggak atau dasar bagi seluruh rakyat Indonesia untuk bersama-sama mengawasi secara langsung pelayanan publik yang diselenggarakan oleh Badan Publik.
+      </p>
+      <p style="font-size:15px;color:var(--text-secondary);line-height:1.85;margin-bottom:20px;">
+        Keterbukaan informasi adalah salah satu pilar penting yang akan mendorong terciptanya iklim transparansi. Terlebih di era yang serba terbuka ini, keinginan masyarakat untuk memperoleh informasi semakin tinggi.
+      </p>
+      <p style="font-size:15px;color:var(--text-secondary);line-height:1.85;">
+        Sejalan dengan amanah Undang-Undang Nomor 14 Tahun 2008 tentang Keterbukaan Informasi Publik, Balai Pengujian Perkeretaapian telah membentukan Pejabat Pengelola Informasi dan Dokumentasi (PPID) dan Pedoman pelaksanaan layanan informasi publik yang ditetapkan melalui Peraturan Menteri Perhubungan Nomor PM. 46 Tahun 2018 Tentang Pedoman Pengelolaan Informasi dan Dokumentasi di lingkungan Kementerian Perhubungan.
+      </p>
+    </div>
+
+    <!-- Tugas & Fungsi -->
+    <div class="profile-card fade-up" style="margin-bottom:28px;">
+      <div class="sec-h" style="margin-bottom:20px;">
+        <h3>Tugas &amp; Fungsi</h3>
+        <div class="sec-h-line"></div>
+      </div>
+      <ol style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:14px;">
+        <li style="display:flex;gap:14px;align-items:flex-start;">
+          <span style="min-width:28px;height:28px;background:var(--blue-dim);border:1px solid rgba(59,130,246,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--blue);flex-shrink:0;">1</span>
+          <span style="font-size:15px;color:var(--text-secondary);line-height:1.7;padding-top:4px;">Melakukan pengelolaan informasi publik;</span>
+        </li>
+        <li style="display:flex;gap:14px;align-items:flex-start;">
+          <span style="min-width:28px;height:28px;background:var(--blue-dim);border:1px solid rgba(59,130,246,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--blue);flex-shrink:0;">2</span>
+          <span style="font-size:15px;color:var(--text-secondary);line-height:1.7;padding-top:4px;">Menyampaikan informasi secara baik dan efisien sehingga dapat diakses dengan mudah;</span>
+        </li>
+        <li style="display:flex;gap:14px;align-items:flex-start;">
+          <span style="min-width:28px;height:28px;background:var(--blue-dim);border:1px solid rgba(59,130,246,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--blue);flex-shrink:0;">3</span>
+          <span style="font-size:15px;color:var(--text-secondary);line-height:1.7;padding-top:4px;">Melakukan pemutakhiran dalam pengelolaan maupun pengembangan digital;</span>
+        </li>
+        <li style="display:flex;gap:14px;align-items:flex-start;">
+          <span style="min-width:28px;height:28px;background:var(--blue-dim);border:1px solid rgba(59,130,246,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--blue);flex-shrink:0;">4</span>
+          <span style="font-size:15px;color:var(--text-secondary);line-height:1.7;padding-top:4px;">Menyediakan Sarana dan Prasarana dalam pelaksanaan pelayanan informasi.</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- Visi & Misi -->
+    <div class="fade-up" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px;">
+
+      <!-- Visi -->
+      <div class="profile-card">
+        <div class="sec-h" style="margin-bottom:20px;"><h3>Visi</h3><div class="sec-h-line"></div></div>
+        <p style="font-size:14px;color:var(--text-secondary);line-height:1.85;margin-bottom:20px;font-style:italic;border-left:3px solid var(--blue);padding-left:14px;">
+          Terwujudnya layanan informasi publik yang Transparan, Objektif dan Prima untuk meningkatkan peran serta aktif masyarakat dalam penyelenggaraan pembangunan sektor transportasi.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="font-size:14px;color:var(--text-secondary);line-height:1.75;padding:12px 14px;background:var(--bg-raised);border-radius:8px;border:1px solid var(--border-soft);">
+            <strong style="color:var(--text-primary);">1. Layanan Informasi Publik:</strong> Suatu usaha untuk memberikan informasi publik sesuai Undang-Undang No. 14 tahun 2008 tentang Keterbukaan Informasi Publik di lingkungan Kementerian Perhubungan;
+          </div>
+          <div style="font-size:14px;color:var(--text-secondary);line-height:1.75;padding:12px 14px;background:var(--bg-raised);border-radius:8px;border:1px solid var(--border-soft);">
+            <strong style="color:var(--text-primary);">2. Transparan:</strong> Memberikan akses seluar-luasnya kepada masyarakat dalam memperoleh informasi publik dengan cepat dan tepat waktu, biaya ringan, dan cara yang sederhana;
+          </div>
+          <div style="font-size:14px;color:var(--text-secondary);line-height:1.75;padding:12px 14px;background:var(--bg-raised);border-radius:8px;border:1px solid var(--border-soft);">
+            <strong style="color:var(--text-primary);">3. Objektif:</strong> Memberikan akses informasi kepada setiap kalangan, baik Perorangan, Kelompok, maupun Badan Hukum;
+          </div>
+          <div style="font-size:14px;color:var(--text-secondary);line-height:1.75;padding:12px 14px;background:var(--bg-raised);border-radius:8px;border:1px solid var(--border-soft);">
+            <strong style="color:var(--text-primary);">4. Prima:</strong> Terus Berupaya penuh dalam peningkatan Pelayanan, Pengelolaan dan Pendokumentasian Informasi Publik secara Akuntabel, Efisien dan Mudah Diakses.
+          </div>
+        </div>
+      </div>
+
+      <!-- Misi -->
+      <div class="profile-card">
+        <div class="sec-h" style="margin-bottom:20px;"><h3>Misi</h3><div class="sec-h-line"></div></div>
+        <ol style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:12px;">
+          <li style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="min-width:24px;height:24px;background:var(--gold-dim);border:1px solid rgba(245,200,66,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--gold);flex-shrink:0;margin-top:2px;">1</span>
+            <span style="font-size:14px;color:var(--text-secondary);line-height:1.75;">Menjamin akses informasi publik sesuai Undang-Undang No. 14 tahun 2008 tentang Keterbukaan Informasi Publik;</span>
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="min-width:24px;height:24px;background:var(--gold-dim);border:1px solid rgba(245,200,66,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--gold);flex-shrink:0;margin-top:2px;">2</span>
+            <span style="font-size:14px;color:var(--text-secondary);line-height:1.75;">Meningkatkan kualitas layanan informasi publik;</span>
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="min-width:24px;height:24px;background:var(--gold-dim);border:1px solid rgba(245,200,66,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--gold);flex-shrink:0;margin-top:2px;">3</span>
+            <span style="font-size:14px;color:var(--text-secondary);line-height:1.75;">Meningkatkan profesionalisme SDM layanan informasi publik;</span>
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="min-width:24px;height:24px;background:var(--gold-dim);border:1px solid rgba(245,200,66,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--gold);flex-shrink:0;margin-top:2px;">4</span>
+            <span style="font-size:14px;color:var(--text-secondary);line-height:1.75;">Meningkatkan sarana-prasarana dalam rangka efisiensi dan efektivitas layanan informasi publik;</span>
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="min-width:24px;height:24px;background:var(--gold-dim);border:1px solid rgba(245,200,66,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--gold);flex-shrink:0;margin-top:2px;">5</span>
+            <span style="font-size:14px;color:var(--text-secondary);line-height:1.75;">Meningkatkan pengelolaan informasi dan dokumentasi secara baik, efisien, mudah diakses dan bersifat desentralisasi.</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+
+  </div><!-- /tab-profil -->
+
+  <!-- ══ TAB 2: INFORMASI PUBLIK ══ -->
+  <div class="tab-panel" id="tab-publik">
+
+    <div class="info-cat-grid fade-up">
+
+      <!-- Informasi Berkala -->
+      <div class="info-cat-card">
+        <div class="info-cat-head">
+          <div class="info-cat-icon" style="background:var(--blue-dim);border:1px solid rgba(59,130,246,0.2);">
+            <i data-lucide="calendar" style="width:20px;height:20px;stroke:var(--blue);fill:none;stroke-width:1.8;display:flex;"></i>
+          </div>
+          <div class="info-cat-meta">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+              <div class="info-cat-title">Informasi Berkala</div>
+              <span class="info-cat-count" style="background:var(--blue-dim);color:var(--blue);">8 dok</span>
+            </div>
+            <div class="info-cat-desc">Informasi yang wajib disediakan dan diumumkan secara berkala minimal 6 bulan sekali.</div>
+          </div>
+        </div>
+        <div class="info-cat-divider"></div>
+        <div class="info-cat-docs">
+          <div class="doc-row">
+            <div class="doc-icon" style="background:rgba(239,68,68,0.1);"><i data-lucide="file-text" style="width:14px;height:14px;stroke:#EF4444;fill:none;stroke-width:2;display:flex;"></i></div>
+            <div class="doc-info"><div class="doc-name">Rencana Kerja dan Anggaran 2025</div><div class="doc-meta">PDF · 2.1 MB · Jan 2025</div></div>
+            <button class="doc-dl">Unduh</button>
+          </div>
+          <div class="doc-row">
+            <div class="doc-icon" style="background:rgba(239,68,68,0.1);"><i data-lucide="file-text" style="width:14px;height:14px;stroke:#EF4444;fill:none;stroke-width:2;display:flex;"></i></div>
+            <div class="doc-info"><div class="doc-name">Laporan Keuangan BLU 2024</div><div class="doc-meta">PDF · 3.4 MB · Des 2024</div></div>
+            <button class="doc-dl">Unduh</button>
+          </div>
+          <div class="doc-row">
+            <div class="doc-icon" style="background:rgba(239,68,68,0.1);"><i data-lucide="file-text" style="width:14px;height:14px;stroke:#EF4444;fill:none;stroke-width:2;display:flex;"></i></div>
+            <div class="doc-info"><div class="doc-name">LAKIP / LKj Tahun 2024</div><div class="doc-meta">PDF · 1.8 MB · Feb 2025</div></div>
+            <button class="doc-dl">Unduh</button>
+          </div>
+          <div class="doc-row">
+            <div class="doc-icon" style="background:rgba(239,68,68,0.1);"><i data-lucide="file-text" style="width:14px;height:14px;stroke:#EF4444;fill:none;stroke-width:2;display:flex;"></i></div>
+            <div class="doc-info"><div class="doc-name">Profil & Struktur Organisasi</div><div class="doc-meta">PDF · 0.9 MB · Mar 2025</div></div>
+            <button class="doc-dl">Unduh</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Informasi Serta Merta -->
+      <div class="info-cat-card">
+        <div class="info-cat-head">
+          <div class="info-cat-icon" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);">
+            <i data-lucide="zap" style="width:20px;height:20px;stroke:#EF4444;fill:none;stroke-width:1.8;display:flex;"></i>
+          </div>
+          <div class="info-cat-meta">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+              <div class="info-cat-title">Informasi Serta Merta</div>
+              <span class="info-cat-count" style="background:rgba(239,68,68,0.1);color:#EF4444;">3 dok</span>
+            </div>
+            <div class="info-cat-desc">Informasi yang harus diumumkan segera tanpa penundaan karena berkaitan keselamatan publik.</div>
+          </div>
+        </div>
+        <div class="info-cat-divider"></div>
+        <div class="info-cat-docs">
+          <div class="doc-row">
+            <div class="doc-icon" style="background:rgba(239,68,68,0.1);"><i data-lucide="alert-triangle" style="width:14px;height:14px;stroke:#EF4444;fill:none;stroke-width:2;display:flex;"></i></div>
+            <div class="doc-info"><div class="doc-name">Prosedur Keselamatan Pengujian</div><div class="doc-meta">PDF · 1.2 MB · Apr 2025</div></div>
+            <button class="doc-dl">Unduh</button>
+          </div>
+          <div class="doc-row">
+            <div class="doc-icon" style="background:rgba(239,68,68,0.1);"><i data-lucide="alert-triangle" style="width:14px;height:14px;stroke:#EF4444;fill:none;stroke-width:2;display:flex;"></i></div>
+            <div class="doc-info"><div class="doc-name">Protokol Darurat & Evakuasi</div><div class="doc-meta">PDF · 0.7 MB · Jan 2025</div></div>
+            <button class="doc-dl">Unduh</button>
+          </div>
+          <div class="doc-row">
+            <div class="doc-icon" style="background:rgba(239,68,68,0.1);"><i data-lucide="alert-triangle" style="width:14px;height:14px;stroke:#EF4444;fill:none;stroke-width:2;display:flex;"></i></div>
+            <div class="doc-info"><div class="doc-name">Gangguan Layanan & Tindak Lanjut</div><div class="doc-meta">PDF · 0.5 MB · Mar 2025</div></div>
+            <button class="doc-dl">Unduh</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Informasi Setiap Saat -->
+      <div class="info-cat-card">
+        <div class="info-cat-head">
+          <div class="info-cat-icon" style="background:var(--green-dim);border:1px solid rgba(34,197,94,0.2);">
+            <i data-lucide="clock" style="width:20px;height:20px;stroke:var(--green);fill:none;stroke-width:1.8;display:flex;"></i>
+          </div>
+          <div class="info-cat-meta">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+              <div class="info-cat-title">Informasi Setiap Saat</div>
+              <span class="info-cat-count" style="background:var(--green-dim);color:var(--green);">12 dok</span>
+            </div>
+            <div class="info-cat-desc">Informasi yang dapat diakses oleh pemohon kapan saja sesuai ketentuan yang berlaku.</div>
+          </div>
+        </div>
+        <div class="info-cat-divider"></div>
+        <div class="info-cat-docs">
+          <div class="doc-row">
+            <div class="doc-icon" style="background:var(--green-dim);"><i data-lucide="scroll-text" style="width:14px;height:14px;stroke:var(--green);fill:none;stroke-width:2;display:flex;"></i></div>
+            <div class="doc-info"><div class="doc-name">SOP Pelayanan Pengujian Sarana</div><div class="doc-meta">PDF · 1.6 MB · Feb 2025</div></div>
+            <button class="doc-dl">Unduh</button>
+          </div>
+          <div class="doc-row">
+            <div class="doc-icon" style="background:var(--green-dim);"><i data-lucide="scroll-text" style="width:14px;height:14px;stroke:var(--green);fill:none;stroke-width:2;display:flex;"></i></div>
+            <div class="doc-info"><div class="doc-name">Daftar Tarif Layanan BLU 2025</div><div class="doc-meta">PDF · 0.8 MB · Jan 2025</div></div>
+            <button class="doc-dl">Unduh</button>
+          </div>
+          <div class="doc-row">
+            <div class="doc-icon" style="background:var(--green-dim);"><i data-lucide="scroll-text" style="width:14px;height:14px;stroke:var(--green);fill:none;stroke-width:2;display:flex;"></i></div>
+            <div class="doc-info"><div class="doc-name">Peraturan Internal Balai</div><div class="doc-meta">PDF · 2.3 MB · Des 2024</div></div>
+            <button class="doc-dl">Unduh</button>
+          </div>
+          <div class="doc-row">
+            <div class="doc-icon" style="background:var(--green-dim);"><i data-lucide="scroll-text" style="width:14px;height:14px;stroke:var(--green);fill:none;stroke-width:2;display:flex;"></i></div>
+            <div class="doc-info"><div class="doc-name">Daftar Izin Operasional yang Diterbitkan</div><div class="doc-meta">PDF · 1.1 MB · Apr 2025</div></div>
+            <button class="doc-dl">Unduh</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Informasi Dikecualikan -->
+      <div class="info-cat-card">
+        <div class="info-cat-head">
+          <div class="info-cat-icon" style="background:var(--gold-dim);border:1px solid rgba(245,200,66,0.2);">
+            <i data-lucide="lock" style="width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.8;display:flex;"></i>
+          </div>
+          <div class="info-cat-meta">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+              <div class="info-cat-title">Informasi Dikecualikan</div>
+              <span class="info-cat-count" style="background:var(--gold-dim);color:var(--gold);">4 dok</span>
+            </div>
+            <div class="info-cat-desc">Informasi yang dikecualikan dari keterbukaan berdasarkan ketentuan peraturan perundang-undangan.</div>
+          </div>
+        </div>
+        <div class="info-cat-divider"></div>
+        <div class="info-cat-docs">
+          <div class="doc-row">
+            <div class="doc-icon" style="background:var(--gold-dim);"><i data-lucide="shield" style="width:14px;height:14px;stroke:var(--gold);fill:none;stroke-width:2;display:flex;"></i></div>
+            <div class="doc-info"><div class="doc-name">Daftar Informasi Dikecualikan 2024</div><div class="doc-meta">PDF · 0.4 MB · Jan 2025</div></div>
+            <button class="doc-dl">Unduh</button>
+          </div>
+          <div class="doc-row">
+            <div class="doc-icon" style="background:var(--gold-dim);"><i data-lucide="shield" style="width:14px;height:14px;stroke:var(--gold);fill:none;stroke-width:2;display:flex;"></i></div>
+            <div class="doc-info"><div class="doc-name">Keputusan Uji Konsekuensi 2024</div><div class="doc-meta">PDF · 0.6 MB · Feb 2025</div></div>
+            <button class="doc-dl">Unduh</button>
+          </div>
+          <div class="doc-row">
+            <div class="doc-icon" style="background:var(--gold-dim);"><i data-lucide="shield" style="width:14px;height:14px;stroke:var(--gold);fill:none;stroke-width:2;display:flex;"></i></div>
+            <div class="doc-info"><div class="doc-name">Perjanjian Kerjasama (Pasal 17 UU KIP)</div><div class="doc-meta">PDF · 1.0 MB · Mar 2025</div></div>
+            <button class="doc-dl">Unduh</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /info-cat-grid -->
+
+  </div><!-- /tab-publik -->
+
+  <!-- ══ TAB 3: LAYANAN INFORMASI ══ -->
+  <div class="tab-panel" id="tab-layanan">
+
+    <div class="fade-up" style="display:flex;flex-direction:column;gap:0;">
+
+      <!-- Item 1 -->
+      <div style="padding:28px 0;border-bottom:1px solid var(--border);">
+        <h3 style="font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:20px;">1. SOP Pelayanan Publik</h3>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:14px;color:var(--text-secondary);">Tahun: 2025</div>
+          <div>
+            <div style="font-size:14px;color:var(--text-secondary);">Deskripsi:</div>
+            <div style="font-size:14px;color:var(--text-secondary);">Standar Operasional Prosedur Pelayanan Informasi Publik</div>
+          </div>
+          <div>
+            <div style="font-size:14px;color:var(--text-secondary);margin-bottom:4px;">Dokumen:</div>
+            <a href="#" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--text-primary);">
+              File PPID!
+              <i data-lucide="external-link" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;display:flex;"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div style="padding:28px 0;border-bottom:1px solid var(--border);">
+        <h3 style="font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:20px;">2. KM 117 Tahun 2022</h3>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:14px;color:var(--text-secondary);">Tahun: 2022</div>
+          <div>
+            <div style="font-size:14px;color:var(--text-secondary);">Deskripsi:</div>
+            <div style="font-size:14px;color:var(--text-secondary);">Keputusan Menteri Perhubungan Nomor KM 117 Tahun 2022 tentang Standard Operating Procedure Pejabat Pengelola Informasi dan Dokumentasi</div>
+          </div>
+          <div>
+            <div style="font-size:14px;color:var(--text-secondary);margin-bottom:4px;">Dokumen:</div>
+            <a href="#" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--text-primary);">
+              File PPID!
+              <i data-lucide="external-link" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;display:flex;"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div style="padding:28px 0;">
+        <h3 style="font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:20px;">3. PM 46 TAHUN 2018</h3>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:14px;color:var(--text-secondary);">Tahun: 2018</div>
+          <div>
+            <div style="font-size:14px;color:var(--text-secondary);">Deskripsi:</div>
+            <div style="font-size:14px;color:var(--text-secondary);">Peraturan Menteri Perhubungan Nomor PM 46 Tahun 2018 Tentang Pedoman Pengelolaan Informasi dan Dokumentasi</div>
+          </div>
+          <div>
+            <div style="font-size:14px;color:var(--text-secondary);margin-bottom:4px;">Dokumen:</div>
+            <a href="#" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--text-primary);">
+              File PPID!
+              <i data-lucide="external-link" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;display:flex;"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /tab-layanan -->
+
+  <!-- ── Help Banner ── -->
+
+</div><!-- /ppid-wrap -->
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="wrap-footer">
+    <div class="footer-grid">
+      <div>
+        <img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" style="width:90px;height:60px;object-fit:contain;margin-bottom:12px;display:block;" alt="SiAPKA"/>
+        <div class="f-desc">Pengujian dilakukan pada semua sistem perkeretaapian meliputi Prasarana, Sarana dan Sumber Daya Manusia Perkeretaapian.</div>
+        <div class="f-visitor">Pengunjung: <strong>58.125</strong></div>
+      </div>
+      <div>
+        <div class="f-col-h">Tautan</div>
+        <ul class="f-list">
+          <li><a href="#">DJKA</a></li>
+          <li><a href="#">Direktorat Prasarana</a></li>
+          <li><a href="#">Direktorat Sarana</a></li>
+          <li><a href="#">Direktorat Keselamatan</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-h">Alamat &amp; Kontak</div>
+        <div class="f-contact-list">
+          <div class="f-ci"><span class="ic"><i data-lucide="map-pin"></i> :</span><span>Jl. Perjuangan No.25, RT.001/RW.001, Marga Mulya, Kec. Bekasi Utara, Kota Bks, Jawa Barat 17143</span></div>
+          <div class="f-ci"><span class="ic"><i data-lucide="phone"></i> :</span><span>087888969530</span></div>
+          <div class="f-ci"><span class="ic"><i data-lucide="mail"></i> :</span><span>balaipengujianka@gmail.com</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar">© Copyright 2025 &nbsp;<strong>Balai Pengujian Perkeretaapian</strong>&nbsp; All Rights Reserved</div>
+</footer>
+
+<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+lucide.createIcons();
+
+/* Navbar scroll — not needed here (always solid) but keeps parity */
+const nav = document.querySelector('.navbar');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+
+/* Dark/light toggle */
+const themeToggle = document.getElementById('themeToggle');
+const toggleMoon  = themeToggle.querySelector('.nb-toggle-moon');
+const toggleDot   = themeToggle.querySelector('.nb-toggle-dot');
+let isLight = false;
+themeToggle.addEventListener('click', () => {
+  isLight = !isLight;
+  document.body.classList.toggle('light', isLight);
+  toggleMoon.textContent = isLight ? '☀️' : '🌙';
+  toggleDot.style.right  = isLight ? 'auto' : '3px';
+  toggleDot.style.left   = isLight ? '3px'  : 'auto';
+  toggleDot.style.background = isLight ? '#94a3b8' : '#3B82F6';
+});
+
+/* Dropdown */
+document.querySelectorAll('.nb-has-dropdown').forEach(item => {
+  item.querySelector('a').addEventListener('click', e => {
+    e.preventDefault();
+    const open = item.classList.contains('open');
+    document.querySelectorAll('.nb-has-dropdown.open').forEach(el => el.classList.remove('open'));
+    if (!open) item.classList.add('open');
+  });
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nb-has-dropdown'))
+    document.querySelectorAll('.nb-has-dropdown.open').forEach(el => el.classList.remove('open'));
+});
+
+/* Tab switch */
+function switchTab(btn, id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+  /* re-trigger fade-ups inside newly shown tab */
+  document.getElementById('tab-' + id).querySelectorAll('.fade-up:not(.visible)').forEach(el => {
+    setTimeout(() => el.classList.add('visible'), 50);
+  });
+}
+
+/* Fade-up reveal */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: 0.06 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
