@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FAQ — SiAPKA Balai Pengujian Perkeretaapian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ─── RESET ─── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--white);
+  line-height:1.65;
+  overflow-x:hidden;
+  transition:background .3s,color .3s;
+}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button,select,input{font-family:inherit}
+
+/* ─── TOKENS ─── */
+:root{
+  --bg:         #0E1937;
+  --bg-mid:     #0E1937;
+  --bg-card:    #092237;
+  --border:     rgba(255,255,255,0.1);
+  --blue:       #3B82F6;
+  --blue-ic:    #1E3A5F;
+  --red:        #DC2626;
+  --gold:       #F5C842;
+  --white:      #FFFFFF;
+  --muted:      rgba(255,255,255,0.6);
+  --faint:      rgba(255,255,255,0.25);
+  --r-xl:       16px;
+  --r-lg:       12px;
+  --r-md:       8px;
+  --r-pill:     9999px;
+
+  /* Dropdown */
+  --dd-bg:       #1a2744;
+  --dd-text:     rgba(255,255,255,0.85);
+  --dd-hover-bg: rgba(255,255,255,0.07);
+  --dd-divider:  rgba(255,255,255,0.08);
+  --dd-shadow:   0 8px 40px rgba(0,0,0,0.45);
+
+  /* FAQ specific */
+  --faq-card:         #092237;
+  --faq-border:       rgba(255,255,255,0.08);
+  --faq-q-color:      #FFFFFF;
+  --faq-a-color:      rgba(255,255,255,0.72);
+  --faq-icon-color:   #F5C842;
+  --faq-divider:      rgba(255,255,255,0.07);
+  --faq-hover-bg:     rgba(255,255,255,0.03);
+  --faq-cat-color:    rgba(255,255,255,0.45);
+}
+
+/* ── LIGHT MODE ── */
+body.light{
+  --bg:         #F0F4FA;
+  --bg-mid:     #E4EAF4;
+  --bg-card:    rgba(255,255,255,0.9);
+  --border:     rgba(0,0,0,0.09);
+  --blue:       #2563EB;
+  --blue-ic:    #DBEAFE;
+  --red:        #DC2626;
+  --white:      #0F172A;
+  --muted:      rgba(15,23,42,0.55);
+  --faint:      rgba(15,23,42,0.18);
+  background:#F0F4FA;
+  color:#0F172A;
+  --dd-bg:       #ffffff;
+  --dd-text:     #1a1a2e;
+  --dd-hover-bg: #f5f7ff;
+  --dd-divider:  rgba(0,0,0,0.07);
+  --dd-shadow:   0 8px 40px rgba(0,0,0,0.14);
+
+  --faq-card:         #ffffff;
+  --faq-border:       rgba(0,0,0,0.08);
+  --faq-q-color:      #1a2b6b;
+  --faq-a-color:      #444441;
+  --faq-icon-color:   #C5A028;
+  --faq-divider:      rgba(0,0,0,0.07);
+  --faq-hover-bg:     #f9fbff;
+  --faq-cat-color:    rgba(15,23,42,0.45);
+}
+
+/* ── Light mode overrides ── */
+body.light .navbar{background:#ffffff;border-bottom-color:rgba(0,0,0,0.1);}
+body.light .navbar.scrolled{background:#ffffff!important;}
+body.light .nb-links a{color:rgba(15,23,42,0.7);}
+body.light .nb-links a:hover{color:#0F172A;background:rgba(0,0,0,0.05);}
+body.light .nb-links a.act{color:#0F172A;}
+body.light .nb-portal{color:rgba(15,23,42,0.7)!important;}
+body.light .btn-login{border-color:rgba(15,23,42,0.3);background:rgba(15,23,42,0.05);color:#0F172A;}
+body.light .btn-login-icon{border-color:rgba(15,23,42,0.4);}
+body.light .btn-login-icon svg,body.light .btn-login-icon i[data-lucide] svg{stroke:#0F172A;}
+body.light .nb-toggle{background:#e2e8f0;border-color:rgba(0,0,0,0.15);}
+body.light .footer-bar{color:rgba(15,23,42,0.4);}
+body.light .footer-bar strong{color:rgba(15,23,42,0.6);}
+
+/* ════════════════════════════
+   NAVBAR
+════════════════════════════ */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:68px;display:flex;align-items:center;
+  background:var(--bg);
+  border-bottom:1px solid var(--border);
+  transition:background .3s, border-color .3s;
+}
+.navbar.scrolled{
+  background:var(--bg);
+  backdrop-filter:none;
+  border-bottom:1px solid var(--border);
+}
+.nb-inner{
+  width:100%;display:flex;align-items:center;
+  justify-content:space-between;padding:0 80px;
+}
+.nb-logo{display:flex;align-items:center;gap:0}
+.nb-logo-name{font-size:19px;font-weight:800;letter-spacing:2px;color:var(--white)}
+.nb-logo-sub{font-size:9px;font-weight:500;color:var(--muted);letter-spacing:.5px}
+.nb-links{display:flex;align-items:center;gap:0px;list-style:none}
+.nb-links a{
+  font-size:14px;font-weight:600;color:rgba(255,255,255,0.75);
+  padding:7px 14px;border-radius:6px;
+  display:flex;align-items:center;gap:4px;
+  transition:color .18s,background .18s;
+  letter-spacing:.1px;
+  position:relative;
+}
+.nb-links a::after{
+  content:'';position:absolute;bottom:-4px;left:14px;right:14px;
+  height:2px;background:#DC2626;border-radius:2px;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .2s ease;
+}
+.nb-links a:hover{color:#fff;background:rgba(255,255,255,0.08)}
+.nb-links a:hover::after{transform:scaleX(1);}
+.nb-links a.act{color:#fff;font-weight:700}
+.nb-links a.act::after{transform:scaleX(1);}
+.chv{display:inline-flex;align-items:center;opacity:.7;vertical-align:middle;margin-left:2px;}
+.chv i[data-lucide]{display:flex;}
+.chv i[data-lucide] svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.nb-portal{color:rgba(255,255,255,0.75)!important;font-weight:600!important}
+
+/* Dropdown */
+.nb-has-dropdown{position:relative}
+.nb-has-dropdown>a{user-select:none;display:flex;align-items:center;}
+.nb-dropdown{
+  position:absolute;top:calc(100% + 12px);left:50%;
+  transform:translateX(-50%) translateY(-6px);
+  min-width:240px;
+  background:var(--dd-bg);
+  border:none;border-radius:16px;padding:8px 0;
+  opacity:0;pointer-events:none;
+  transition:opacity .2s ease, transform .2s ease;
+  z-index:400;
+  box-shadow:var(--dd-shadow);
+}
+.nb-has-dropdown.open .nb-dropdown{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.nb-has-dropdown.open>a .chv i[data-lucide] svg{transform:rotate(180deg);}
+.nb-dropdown::before{display:none;}
+.nb-dd-item{display:flex;align-items:center;gap:12px;padding:14px 24px;color:var(--dd-text);font-size:15px;font-weight:500;text-decoration:none;transition:background .15s,color .15s;cursor:pointer;}
+.nb-dd-item:hover{background:var(--dd-hover-bg);}
+.nb-dd-icon{display:none;}
+.nb-dd-title{font-size:15px;font-weight:500;color:inherit;line-height:1.3}
+.nb-dd-sub{display:none;}
+.nb-dd-divider{height:1px;background:var(--dd-divider);margin:4px 0;}
+.nb-dropdown-simple{min-width:220px;padding:8px 0;}
+.nb-dd-simple-item{display:block;padding:14px 24px;font-size:15px;font-weight:500;color:var(--dd-text);text-decoration:none;transition:background .15s,color .15s;}
+.nb-dd-simple-item:hover{background:var(--dd-hover-bg);}
+.nb-dropdown-simple .nb-dd-divider{margin:4px 0;}
+
+/* Login + Toggle */
+.btn-login{
+  display:flex;align-items:center;gap:9px;
+  padding:9px 20px;
+  border:1.5px solid rgba(255,255,255,0.55);
+  border-radius:12px;
+  font-size:13.5px;font-weight:600;color:#fff;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(8px);
+  cursor:pointer;
+  transition:background .2s,border-color .2s;
+  white-space:nowrap;
+}
+.btn-login:hover{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.8)}
+.btn-login-icon{width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.8);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.btn-login-icon svg,.btn-login-icon i[data-lucide] svg{width:10px;height:10px;stroke:#fff;fill:none;stroke-width:2.5}
+.btn-login-icon i[data-lucide]{display:flex;align-items:center;justify-content:center;}
+.nb-theme{display:flex;align-items:center;}
+.nb-toggle{position:relative;width:62px;height:32px;background:#0E1937;border-radius:var(--r-pill);cursor:pointer;flex-shrink:0;border:1.5px solid rgba(255,255,255,0.15);padding:0;display:flex;align-items:center;}
+.nb-toggle-moon{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:13px;line-height:1;pointer-events:none;user-select:none;}
+.nb-toggle-dot{position:absolute;right:3px;top:50%;transform:translateY(-50%);width:24px;height:24px;background:#3B82F6;border-radius:50%;box-shadow:0 2px 8px rgba(59,130,246,0.5);transition:right .25s cubic-bezier(.4,0,.2,1);pointer-events:none;}
+
+/* ════════════════════════════
+   PAGE BANNER
+════════════════════════════ */
+.page-banner{
+  background:var(--bg);
+  padding:120px 0 60px;
+  position:relative;
+  overflow:hidden;
+  transition:background .3s;
+}
+.page-banner::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 80% at 50% 0%, rgba(59,130,246,0.08) 0%, transparent 70%);
+  pointer-events:none;
+}
+.page-banner-inner{
+  max-width:800px;margin:0 auto;padding:0 80px;
+  position:relative;z-index:1;
+}
+.page-breadcrumb{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;color:var(--muted);margin-bottom:16px;
+}
+.page-breadcrumb a{color:var(--muted);transition:color .15s;}
+.page-breadcrumb a:hover{color:var(--white);}
+.page-breadcrumb .sep{color:var(--faint);}
+.page-breadcrumb .cur{color:var(--white);}
+.page-banner h1{
+  font-size:2.25rem;font-weight:800;
+  color:var(--white);line-height:1.2;margin-bottom:12px;
+  letter-spacing:-.5px;
+}
+.page-banner-sub{
+  font-size:15px;color:var(--muted);line-height:1.7;
+}
+.sh-line-left{
+  width:48px;height:3px;background:#DC2626;
+  border-radius:2px;margin-top:20px;
+}
+
+/* ════════════════════════════
+   FAQ SECTION
+════════════════════════════ */
+.faq-section{
+  background:var(--bg);
+  padding:64px 0 100px;
+}
+.wrap{max-width:900px;margin:0 auto;padding:0 80px;}
+
+/* Category heading */
+.faq-cat{
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:20px;
+  padding-bottom:12px;
+}
+.faq-cat-icon{
+  width:38px;height:38px;border-radius:10px;
+  background:rgba(59,130,246,0.15);
+  border:1px solid rgba(59,130,246,0.25);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.faq-cat-icon i[data-lucide]{display:flex;}
+.faq-cat-icon i[data-lucide] svg{width:18px;height:18px;stroke:#60A5FA;fill:none;stroke-width:1.8;}
+.faq-cat-label{font-size:13px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--faq-cat-color);}
+
+/* Group container */
+.faq-group{
+  background:var(--faq-card);
+  border-radius:16px;
+  overflow:hidden;
+  margin-bottom:48px;
+  border:1px solid var(--faq-border);
+}
+
+/* Single accordion item */
+.faq-item{
+  border-bottom:1px solid var(--faq-divider);
+}
+.faq-item:last-child{border-bottom:none;}
+
+/* Question row */
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 28px;
+  cursor:pointer;
+  gap:16px;
+  transition:background .18s;
+  user-select:none;
+}
+.faq-q:hover{background:var(--faq-hover-bg);}
+.faq-q-text{
+  font-size:15px;font-weight:700;
+  color:var(--faq-q-color);
+  line-height:1.4;flex:1;
+}
+.faq-q-icon{
+  flex-shrink:0;
+  width:28px;height:28px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;font-weight:300;line-height:1;
+  color:var(--faq-icon-color);
+  transition:transform .25s;
+}
+
+/* Answer panel */
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height .35s ease, padding .3s ease;
+  padding:0 28px;
+}
+.faq-a-inner{
+  padding-bottom:24px;
+  font-size:14.5px;color:var(--faq-a-color);
+  line-height:1.8;
+}
+.faq-a-inner p{margin-bottom:12px;}
+.faq-a-inner p:last-child{margin-bottom:0;}
+.faq-a-inner ol{padding-left:20px;margin:12px 0;}
+.faq-a-inner ol li{margin-bottom:12px;line-height:1.8;}
+.faq-a-inner ul{list-style:none;margin:12px 0;}
+.faq-a-inner ul li{
+  padding-left:20px;position:relative;
+  margin-bottom:8px;line-height:1.7;
+}
+.faq-a-inner ul li::before{
+  content:'•';position:absolute;left:0;
+  color:var(--faq-icon-color);font-weight:700;
+}
+.faq-a-inner .flow-text{
+  font-size:14px;color:var(--faq-a-color);
+  line-height:1.9;
+}
+.faq-a-inner strong{color:var(--faq-q-color);font-weight:600;}
+.faq-a-inner .sub-heading{
+  font-size:14px;font-weight:600;
+  color:var(--faq-q-color);
+  margin:16px 0 8px;
+}
+
+/* Open state */
+.faq-item.open .faq-a{
+  max-height:1200px;
+}
+.faq-item.open .faq-q-icon{
+  transform:rotate(0deg);
+}
+.faq-item.open .faq-q{
+  border-left:3px solid var(--faq-icon-color);
+  padding-left:25px;
+}
+
+/* ════════════════════════════
+   FOOTER
+════════════════════════════ */
+footer{
+  background:var(--bg);
+  border-top:1px solid var(--border);
+  transition:background .3s;
+}
+.footer-grid{
+  display:grid;grid-template-columns:1.4fr 1fr 1.6fr;
+  gap:48px;padding:36px 0 0;align-items:start;
+}
+.f-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;}
+.f-visitor{font-size:13px;color:var(--muted);}
+.f-visitor strong{color:var(--white);}
+.f-col-h{font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--white);margin-bottom:16px;}
+.f-list{list-style:none;}
+.f-list li{margin-bottom:8px;}
+.f-list a{font-size:13px;color:var(--muted);transition:color .15s;}
+.f-list a:hover{color:var(--white);}
+.f-contact-list{display:flex;flex-direction:column;gap:10px;}
+.f-ci{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--muted);}
+.f-ci .ic{color:var(--white);display:flex;align-items:center;gap:4px;flex-shrink:0;min-width:24px;}
+.f-ci .ic i[data-lucide]{display:flex;}
+.f-ci .ic i[data-lucide] svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;}
+.footer-bar{
+  border-top:1px solid rgba(255,255,255,0.07);
+  padding:20px 0;margin-top:32px;
+  text-align:center;
+  font-size:12px;color:rgba(255,255,255,0.35);
+}
+.footer-bar strong{color:rgba(255,255,255,0.55);}
+
+/* Scroll to top */
+.to-top{
+  position:fixed;bottom:28px;right:28px;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--blue);color:#fff;
+  border:none;cursor:pointer;
+  font-size:18px;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(59,130,246,0.4);
+  transition:background .2s, transform .2s;
+  z-index:500;
+}
+.to-top:hover{background:#2563EB;transform:translateY(-2px);}
+
+/* Animations */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
+.fade-up.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar" id="navbar">
+  <div class="nb-inner">
+    <div class="nb-logo">
+      <img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png"
+           alt="SiAPKA"
+           style="width:90px;height:150px;display:block;object-fit:contain;" />
+    </div>
+
+    <ul class="nb-links">
+      <li><a href="siapka-redesign.html">Home</a></li>
+      <li><a href="siapka-profil.html">Profil</a></li>
+
+      <li class="nb-has-dropdown">
+        <a href="#">Layanan <span class="chv"><i data-lucide="chevron-down"></i></span></a>
+        <div class="nb-dropdown nb-dropdown-simple">
+          <a href="#" class="nb-dd-simple-item">Informasi Layanan</a>
+          <div class="nb-dd-divider"></div>
+          <a href="#" class="nb-dd-simple-item">Link Layanan</a>
+        </div>
+      </li>
+
+      <li><a href="#">Monitoring</a></li>
+
+      <li class="nb-has-dropdown">
+        <a href="#">Publikasi <span class="chv"><i data-lucide="chevron-down"></i></span></a>
+        <div class="nb-dropdown nb-dropdown-simple">
+          <a href="#" class="nb-dd-simple-item">Berita &amp; Informasi</a>
+          <div class="nb-dd-divider"></div>
+          <a href="#" class="nb-dd-simple-item">Media Sosial</a>
+        </div>
+      </li>
+
+      <li><a href="#">PPID</a></li>
+      <li><a href="#">Mitra</a></li>
+      <li><a href="#" class="act">FAQ</a></li>
+      <li><a href="#" class="nb-portal">Portal DJKA</a></li>
+    </ul>
+
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="btn-login">
+        <span class="btn-login-icon"><i data-lucide="arrow-right"></i></span>
+        Login
+      </button>
+      <div class="nb-theme">
+        <button class="nb-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="nb-toggle-moon">🌙</span>
+          <span class="nb-toggle-dot"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ PAGE BANNER ══ -->
+<div class="page-banner">
+  <div class="page-banner-inner">
+    <div class="page-breadcrumb">
+      <a href="siapka-redesign.html">Beranda</a>
+      <span class="sep">›</span>
+      <span class="cur">FAQ</span>
+    </div>
+    <h1>Pertanyaan yang Sering Diajukan</h1>
+    <p class="page-banner-sub">Temukan jawaban atas pertanyaan umum seputar layanan dan mekanisme pengujian perkeretaapian di Balai Pengujian Perkeretaapian.</p>
+    <div class="sh-line-left"></div>
+  </div>
+</div>
+
+<!-- ══ FAQ SECTION ══ -->
+<section class="faq-section">
+  <div class="wrap">
+
+    <!-- Category: Tentang BLU -->
+    <div class="faq-cat fade-up">
+      <div class="faq-cat-icon"><i data-lucide="info"></i></div>
+      <span class="faq-cat-label">Tentang BLU</span>
+    </div>
+
+    <div class="faq-group fade-up">
+
+      <div class="faq-item open">
+        <div class="faq-q">
+          <span class="faq-q-text">Apa tujuan BLU ?</span>
+          <span class="faq-q-icon">−</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Tujuan BLU adalah meningkatkan pelayanan kepada masyarakat dalam rangka memajukan kesejahteraan umum dan mencerdaskan kehidupan bangsa dengan memberikan fleksibilitas dalam pengelolaan keuangan berdasarkan prinsip ekonomi dan produktivitas, dan penerapan praktik bisnis yang sehat.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item open">
+        <div class="faq-q">
+          <span class="faq-q-text">Apa yang dimaksud dengan BLU (badan layanan umum). Apa contohnya?</span>
+          <span class="faq-q-icon">−</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Badan Layanan Umum atau BLU adalah instansi di lingkungan pemerintah yang dibentuk untuk memberikan pelayanan kepada masyarakat berupa penyediaan barang dan/atau jasa yang dijual tanpa mengutamakan mencari keuntungan dan dalam melakukan kegiatannya didasarkan pada prinsip efisiensi dan produktivitas.</p>
+            <p>Dasar hukum BLU adalah PP 23/2005 dan aturan perubahannya.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item open">
+        <div class="faq-q">
+          <span class="faq-q-text">Asas BLU ?</span>
+          <span class="faq-q-icon">−</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Asas BLU adalah, di antaranya:</p>
+            <ol>
+              <li>BLU beroperasi sebagai unit kerja kementerian negara/lembaga/pemerintah daerah untuk tujuan pemberian layanan umum yang pengelolaannya berdasarkan kewenangan yang didelegasikan oleh instansi induk yang bersangkutan.</li>
+              <li>BLU tidak terpisah dari kementerian negara/lembaga/pemerintah daerah sebagai institusi induk. Karena BLU merupakan bagian perangkat pencapaian tujuan kementerian negara/lembaga/pemerintah daerah, maka status hukum BLU tidak terpisah dari kementerian negara/lembaga/pemerintah daerah sebagai instansi induk.</li>
+              <li>BLU menyelenggarakan kegiatannya tanpa mengutamakan pencarian keuntungan. Meskipun demikian, BLU dapat memungut biaya kepada masyarakat sebagai imbalan atas barang/jasa layanan yang diberikan. Imbalan atas barang/jasa layanan yang diberikan ditetapkan dalam bentuk tarif yang disusun atas dasar perhitungan biaya per unit layanan atau hasil per investasi dana.</li>
+            </ol>
+            <p class="sub-heading">Tarif layanan harus mempertimbangkan aspek-aspek :</p>
+            <ul>
+              <li>kontinuitas dan pengembangan layanan;</li>
+              <li>daya beli masyarakat;</li>
+              <li>asas keadilan dan kepatutan; dan</li>
+              <li>kompetisi yang sehat.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /faq-group -->
+
+    <!-- Category: Penyewaan Alat -->
+    <div class="faq-cat fade-up">
+      <div class="faq-cat-icon"><i data-lucide="wrench"></i></div>
+      <span class="faq-cat-label">Penyewaan Alat Pengujian</span>
+    </div>
+
+    <div class="faq-group fade-up">
+
+      <div class="faq-item open">
+        <div class="faq-q">
+          <span class="faq-q-text">Bagaimana alur penyewaan alat pengujian?</span>
+          <span class="faq-q-icon">−</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p class="flow-text">Surat permohonan → Terbit Invoice pembayaran → Pembayaran oleh pemohon → Pemberitahuan pengambilan barang → Serah terima barang → Pengembalian</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item open">
+        <div class="faq-q">
+          <span class="faq-q-text">Apa yang perlu disiapkan untuk permohonan penyewaan alat?</span>
+          <span class="faq-q-icon">−</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <ul>
+              <li><strong>Instansi :</strong> Penyewaan peralatan pengujian bisa melalui mengirimkan surat resmi berupa permohonan peminjaman alat dengan mencantumkan Nama &amp; jumlah unit, lokasi penggunaan, tanggal penggunaan, serta lama waktu peminjaman.</li>
+              <li><strong>Perorangan :</strong> Sampai saat ini kami belum bisa mengakomodir untuk peminjaman secara perorangan.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item open">
+        <div class="faq-q">
+          <span class="faq-q-text">Apakah alat pengujian bisa dikirimkan melalui ekspedisi?</span>
+          <span class="faq-q-icon">−</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Tidak bisa. Peminjaman peralatan pengujian harus diambil langsung ke Kantor Balai Pengujian Perkeretaapian, dikarenakan terdapat beberapa hal administratif yang harus diselesaikan di Kantor Balai Pengujian Perkeretaapian.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item open">
+        <div class="faq-q">
+          <span class="faq-q-text">Apakah bisa disewa langsung untuk keesokan harinya?</span>
+          <span class="faq-q-icon">−</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Peminjaman peralatan pengujian paling lambat dipesan H-7 guna proses administrasi serta persiapan alat uji yang akan disewakan.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item open">
+        <div class="faq-q">
+          <span class="faq-q-text">Apakah bisa melakukan penyewaan alat beserta tenaga ahli?</span>
+          <span class="faq-q-icon">−</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Bisa, akan diatur lebih lanjut dalam perjanjian kerjasama, harga yang tertera pada katalog hanya harga untuk sewa alat uji saja.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item open">
+        <div class="faq-q">
+          <span class="faq-q-text">Apakah akan diberitahu cara penggunaan alat pengujian?</span>
+          <span class="faq-q-icon">−</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Akan ada petugas kami yang memberitahukan cara penggunaan alat pengujian saat barang diambil. Akan tetapi untuk beberapa peralatan yang membutuhkan analisis lebih lanjut dan terciptanya hasil yang lebih maksimal, maka direkomendasikan untuk menggunakan tenaga ahli dari Balai Pengujian Perkeretaapian.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /faq-group -->
+
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="wrap" style="max-width:1200px;padding:0 80px;">
+    <div class="footer-grid">
+      <div>
+        <img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" style="width:90px;height:60px;object-fit:contain;margin-bottom:12px;display:block;" alt="SiAPKA"/>
+        <div class="f-desc">Pengujian dilakukan pada semua sistem perkeretaapian meliputi Prasarana, Sarana dan Sumber Daya Manusia Perkeretaapian.</div>
+        <div class="f-visitor">Pengunjung: <strong id="vc">58.125</strong></div>
+      </div>
+      <div>
+        <div class="f-col-h">Tautan</div>
+        <ul class="f-list">
+          <li><a href="#">DJKA</a></li>
+          <li><a href="#">Direktorat Prasarana</a></li>
+          <li><a href="#">Direktorat Sarana</a></li>
+          <li><a href="#">Direktorat Keselamatan</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-h">Alamat &amp; Kontak</div>
+        <div class="f-contact-list">
+          <div class="f-ci"><span class="ic"><i data-lucide="map-pin"></i> :</span><span>Jl. Perjuangan No.25, RT.001/RW.001, Marga Mulya, Kec. Bekasi Utara, Kota Bks, Jawa Barat 17143</span></div>
+          <div class="f-ci"><span class="ic"><i data-lucide="phone"></i> :</span><span>087888969530</span></div>
+          <div class="f-ci"><span class="ic"><i data-lucide="mail"></i> :</span><span>balaipengujianka@gmail.com</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar">
+    © Copyright 2025 &nbsp;<strong>Balai Pengujian Perkeretaapian</strong>&nbsp; All Rights Reserved
+  </div>
+</footer>
+
+<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+lucide.createIcons();
+
+/* Navbar scroll */
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+/* Dark/light toggle */
+const themeToggle = document.getElementById('themeToggle');
+const toggleMoon  = themeToggle.querySelector('.nb-toggle-moon');
+const toggleDot   = themeToggle.querySelector('.nb-toggle-dot');
+let isLight = false;
+themeToggle.addEventListener('click', () => {
+  isLight = !isLight;
+  document.body.classList.toggle('light', isLight);
+  toggleMoon.textContent = isLight ? '☀️' : '🌙';
+  toggleDot.style.right  = isLight ? 'auto' : '3px';
+  toggleDot.style.left   = isLight ? '3px'  : 'auto';
+  toggleDot.style.background = isLight ? '#94a3b8' : '#3B82F6';
+});
+
+/* Dropdown toggle */
+document.querySelectorAll('.nb-has-dropdown').forEach(item => {
+  item.querySelector('a').addEventListener('click', e => {
+    e.preventDefault();
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.nb-has-dropdown.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nb-has-dropdown')) {
+    document.querySelectorAll('.nb-has-dropdown.open').forEach(el => el.classList.remove('open'));
+  }
+});
+
+/* FAQ accordion */
+document.querySelectorAll('.faq-item').forEach(item => {
+  const q = item.querySelector('.faq-q');
+  const icon = item.querySelector('.faq-q-icon');
+  q.addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    item.classList.toggle('open', !isOpen);
+    icon.textContent = !isOpen ? '−' : '+';
+  });
+  /* sync icon for items that start open */
+  if (item.classList.contains('open')) icon.textContent = '−';
+});
+
+/* Fade-up reveal */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
