@@ -78,9 +78,9 @@ body.light .navbar.scrolled{background:#0E1937!important;}
   background:#0E1937;border-bottom:1px solid rgba(255,255,255,0.1);
   transition:background .3s,border-color .3s;
 }
-.nb-inner{width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 80px;}
+.nb-inner{width:100%;display:flex;align-items:center;justify-content:flex-start;padding:0 80px;}
 .nb-logo{display:flex;align-items:center;}
-.nb-links{display:flex;align-items:center;list-style:none}
+.nb-links{display:flex;align-items:center;list-style:none;margin-left:auto}
 .nb-links a{
   font-size:14px;font-weight:600;color:rgba(255,255,255,0.75);
   padding:7px 14px;border-radius:6px;display:flex;align-items:center;gap:4px;
@@ -450,7 +450,7 @@ body:not(.light) .hd-contact-info span{color:#64748b;}
 <nav class="navbar">
   <div class="nb-inner">
     <div class="nb-logo">
-      <img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" alt="SiAPKA" style="width:90px;height:150px;object-fit:contain;display:block;"/>
+      <img src="Asset/siapka-logo.png" alt="SiAPKA" style="width:220px;height:220px;display:block;object-fit:contain;" />
     </div>
     <ul class="nb-links">
       <li><a href="siapka-redesign.html">Home</a></li>
@@ -477,7 +477,7 @@ body:not(.light) .hd-contact-info span{color:#64748b;}
       <li><a href="siapka-faq.html">FAQ</a></li>
       <li><a href="https://portal.djka.kemenhub.go.id/pld/" target="_blank" class="nb-portal">Portal DJKA</a></li>
     </ul>
-    <div style="display:flex;align-items:center;gap:12px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-left:20px;">
       <a href="https://ujidjka.kemenhub.go.id/login" target="_blank" style="text-decoration:none;"><button class="btn-login">
         <span class="btn-login-icon"><i data-lucide="arrow-right"></i></span>
         Login
@@ -764,34 +764,35 @@ body:not(.light) .hd-contact-info span{color:#64748b;}
 </div><!-- /ppid-wrap -->
 
 <!-- ══ FOOTER ══ -->
-<footer>
-  <div class="wrap-footer">
-    <div class="footer-grid">
-      <div>
-        <img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" style="width:90px;height:60px;object-fit:contain;margin-bottom:12px;display:block;" alt="SiAPKA"/>
-        <div class="f-desc">Pengujian dilakukan pada semua sistem perkeretaapian meliputi Prasarana, Sarana dan Sumber Daya Manusia Perkeretaapian.</div>
-        <div class="f-visitor">Pengunjung: <strong>58.125</strong></div>
-      </div>
-      <div>
-        <div class="f-col-h">Tautan</div>
-        <ul class="f-list">
-          <li><a href="#">DJKA</a></li>
-          <li><a href="#">Direktorat Prasarana</a></li>
-          <li><a href="#">Direktorat Sarana</a></li>
-          <li><a href="#">Direktorat Keselamatan</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="f-col-h">Alamat &amp; Kontak</div>
-        <div class="f-contact-list">
-          <div class="f-ci"><span class="ic"><i data-lucide="map-pin"></i> :</span><span>Jl. Perjuangan No.25, RT.001/RW.001, Marga Mulya, Kec. Bekasi Utara, Kota Bks, Jawa Barat 17143</span></div>
-          <div class="f-ci"><span class="ic"><i data-lucide="phone"></i> :</span><span>087888969530</span></div>
-          <div class="f-ci"><span class="ic"><i data-lucide="mail"></i> :</span><span>balaipengujianka@gmail.com</span></div>
-        </div>
+<footer style="background:#0E1937;border-top:1px solid rgba(255,255,255,0.08);">
+  <div style="max-width:1280px;margin:0 auto;padding:48px 80px 40px;display:grid;grid-template-columns:220px 1fr 1fr 1fr;gap:60px;align-items:start;">
+    <div style="text-align:center;">
+      <img src="Asset/siapka-logo.png" style="width:200px;height:100px;object-fit:contain;display:block;margin:0 auto 14px;" alt="SiAPKA"/>
+      <div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:4px;line-height:1.5;">Sistem Informasi Aplikasi Pengujian<br>Perkeretaapian</div>
+    </div>
+    <div>
+      <iframe src="https://maps.google.com/maps?q=Jl.+Perjuangan+No.25+Marga+Mulya+Bekasi+Utara+Jawa+Barat&t=&z=16&ie=UTF8&iwloc=B&output=embed" width="100%" height="210" style="border:0;border-radius:10px;display:block;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div>
+      <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:18px;">Kontak Kami</div>
+      <div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.85);margin-bottom:6px;">Alamat :</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:14px;">Jl. Perjuangan No.25, RT.001/RW.001, Marga Mulya,<br>Kec. Bekasi Utara, Kota Bks, Jawa Barat 17143</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.85);margin-bottom:8px;"><strong style="color:#fff;">Telepon :</strong> 087888969530</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.85);"><strong style="color:#fff;">Email:</strong> balaipengujianka@gmail.com</div>
+    </div>
+    <div>
+      <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:18px;">Tautan</div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <a href="https://djka.kemenhub.go.id/" target="_blank" style="font-size:13px;color:rgba(255,255,255,0.8);text-decoration:none;transition:color .18s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">DJKA</a>
+        <a href="https://djka.kemenhub.go.id/ditprasaranaka" target="_blank" style="font-size:13px;color:rgba(255,255,255,0.8);text-decoration:none;transition:color .18s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">Direktorat Prasarana</a>
+        <a href="https://djka.kemenhub.go.id/ditsaranaka" target="_blank" style="font-size:13px;color:rgba(255,255,255,0.8);text-decoration:none;transition:color .18s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">Direktorat Sarana</a>
+        <a href="https://djka.kemenhub.go.id/ditkeselamatanka" target="_blank" style="font-size:13px;color:rgba(255,255,255,0.8);text-decoration:none;transition:color .18s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">Direktorat Keselamatan</a>
       </div>
     </div>
   </div>
-  <div class="footer-bar">© Copyright 2025 &nbsp;<strong>Balai Pengujian Perkeretaapian</strong>&nbsp; All Rights Reserved</div>
+  <div class="footer-bar" style="padding-top:25px;padding-bottom:25px;background-color:color-mix(in srgb,#fff,transparent 95%);text-align:center;">
+    © Copyright 2025 &nbsp;<strong>Direktorat Jenderal Perkeretaapian</strong>&nbsp; All Rights Reserved
+  </div>
 </footer>
 
 <button class="to-top" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="to-top-ring" viewBox="0 0 48 48"><circle class="to-top-track" cx="24" cy="24" r="22"/><circle class="to-top-progress" id="toTopProgress" cx="24" cy="24" r="22"/></svg>↑</button>

@@ -68,7 +68,7 @@ body.light .navbar.scrolled{background:#0E1937!important;}
 /* ── Hero ── */
 body.light .hero-tint{background:rgba(240,244,250,0.25);}
 body.light .hero-bottom-fade{background:linear-gradient(to top,rgba(240,244,250,0.7),transparent);}
-body.light .hero-glass{background:rgba(255,255,255,0.65)!important;border-color:rgba(255,255,255,0.7)!important;box-shadow:0 12px 48px rgba(0,0,0,0.12)!important;}
+body.light .hero-glass{background:rgba(255,255,255,0.65)!important;border:1.5px solid rgba(255,255,255,0.8)!important;box-shadow:0 12px 48px rgba(0,0,0,0.12)!important;}
 body.light .hero-welcome{color:rgba(15,23,42,0.85);}
 body.light .hero-wordmark{color:#0F172A;text-shadow:none;}
 body.light .hero-tagline{color:rgba(15,23,42,0.7);}
@@ -191,7 +191,7 @@ body.light .mitra{background:var(--bg-mid);}
 }
 .nb-inner{
   width:100%;display:flex;align-items:center;
-  justify-content:space-between;padding:0 80px;
+  justify-content:flex-start;padding:0 80px;
 }
 
 /* Logo block */
@@ -209,7 +209,7 @@ body.light .mitra{background:var(--bg-mid);}
 .nb-logo-sub{font-size:9px;font-weight:500;color:var(--muted);letter-spacing:.5px}
 
 /* Nav links — matching reference: bold, white, muted active */
-.nb-links{display:flex;align-items:center;gap:0px;list-style:none}
+.nb-links{display:flex;align-items:center;gap:0px;list-style:none;margin-left:auto}
 .nb-links a{
   font-size:14px;font-weight:600;color:rgba(255,255,255,0.75);
   padding:7px 14px;border-radius:6px;
@@ -424,13 +424,14 @@ body.light .nb-toggle-icon .icon-sun{display:flex;}
 
 /* Glassmorphism card — dark smoked glass (matches PERONHUB reference) */
 .hero-glass{
-  background:rgba(40,55,80,0.52);
-  backdrop-filter:blur(28px) saturate(140%);
-  -webkit-backdrop-filter:blur(28px) saturate(140%);
-  border:1px solid rgba(255,255,255,0.18);
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px) saturate(140%);
+  -webkit-backdrop-filter:blur(10px) saturate(140%);
+  border:1.5px solid rgba(255,255,255,0.6);
   border-radius:20px;
   padding:36px 48px 28px;
-  width:min(1000px, 80vw);
+  width:min(930px, 90vw);
+  min-height:243px;
   position:relative;
   overflow:hidden;
   display:flex;
@@ -482,9 +483,10 @@ body.light .nb-toggle-icon .icon-sun{display:flex;}
 /* Social strip inside card — bottom */
 .hero-socials-inner{
   display:flex;align-items:center;justify-content:center;
-  gap:20px;flex-wrap:wrap;
+  gap:16px;flex-wrap:nowrap;
   margin-top:22px;padding-top:18px;
   border-top:1px solid rgba(255,255,255,0.2);
+  width:100%;
 }
 .hsi{
   display:flex;align-items:center;gap:6px;
@@ -1212,9 +1214,7 @@ body:not(.light) .hd-contact-info span{color:#64748b;}
 <nav class="navbar">
   <div class="nb-inner">
     <div class="nb-logo">
-      <img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png"
-           alt="SiAPKA — Sistem Informasi Aplikasi Pengujian Perkeretaapian"
-           style="width:90px;height:150px;display:block;object-fit:contain;" />
+      <img src="Asset/siapka-logo.png" alt="SiAPKA" style="width:220px;height:220px;display:block;object-fit:contain;" />
     </div>
 
     <ul class="nb-links">
@@ -1249,7 +1249,7 @@ body:not(.light) .hd-contact-info span{color:#64748b;}
       <li><a href="https://portal.djka.kemenhub.go.id/pld/" target="_blank" class="nb-portal">Portal DJKA</a></li>
     </ul>
 
-    <div style="display:flex;align-items:center;gap:12px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-left:20px;">
       <!-- Login button — frosted glass rounded-rect + arrow icon -->
       <a href="https://ujidjka.kemenhub.go.id/login" target="_blank" style="text-decoration:none;"><button class="btn-login">
         <span class="btn-login-icon">
@@ -1280,46 +1280,45 @@ body:not(.light) .hd-contact-info span{color:#64748b;}
 
   <div class="hero-content" style="align-items:center;">
     <!-- Glassmorphism card — banner layout, centered -->
-    <div class="hero-glass">
+    <div class="hero-glass" style="flex-direction:column;align-items:center;overflow:visible;">
 
-      <!-- 4 logos row -->
+      <!-- Company logos row — centered -->
       <div class="hero-glass-logos">
         <div class="hgl-item">
-          <span style="font-size:22px">🌐</span>
-          <span class="hgl-badge" style="background:rgba(197,160,40,0.2);border-color:rgba(197,160,40,0.3);color:#F5C842">KEMENHUB</span>
+          <img src="Asset/logo-kemenhub-icon.png" alt="Kemenhub" style="width:40px;height:40px;object-fit:contain;display:block;">
         </div>
         <div class="hgl-divider"></div>
         <div class="hgl-item">
-          <span style="font-size:20px">🚄</span>
-          <span class="hgl-badge">DJKA</span>
+          <img src="Asset/logo-djka.svg" alt="DJKA" style="width:40px;height:40px;object-fit:contain;display:block;">
         </div>
         <div class="hgl-divider"></div>
         <div class="hgl-item">
-          <span class="hgl-badge" style="background:rgba(13,148,136,0.25);border-color:rgba(13,148,136,0.4);color:#5EEAD4">BLU <span style="color:#F59E0B;font-size:9px">SPEED</span></span>
+          <img src="Asset/logo-blu-speed.png" alt="BLU Speed" style="width:40px;height:40px;object-fit:contain;display:block;">
         </div>
         <div class="hgl-divider"></div>
         <div class="hgl-item">
-          <span class="hgl-badge" style="font-size:9px;letter-spacing:.5px">BALAI PENGUJIAN<br>PERKERETAAPIAN</span>
+          <img src="Asset/logo-balai-pengujian.png" alt="Balai Pengujian Perkeretaapian" style="width:40px;height:40px;object-fit:contain;display:block;">
         </div>
       </div>
 
       <!-- Welcome text -->
       <p class="hero-welcome">Selamat Datang Di</p>
 
-      <!-- Giant SiAPKA wordmark -->
-      <div class="hero-wordmark">SiAPKA</div>
-
-      <!-- Tagline -->
-      <p class="hero-tagline">Sistem Informasi Aplikasi Pengujian Perkeretaapian</p>
+      <!-- SiAPKA logo + robot side by side -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px;width:100%;">
+        <img src="Asset/siapka-logo-white.png" alt="SiAPKA" style="width:min(420px,75%);height:auto;object-fit:contain;display:block;" />
+        <img src="Asset/djka-robot.png" alt="DJKA Robot" style="width:110px;height:auto;object-fit:contain;display:block;flex-shrink:0;filter:drop-shadow(0 6px 16px rgba(0,0,0,0.3));">
+      </div>
 
       <!-- Social strip inside card -->
       <div class="hero-socials-inner">
-        <div class="hsi"><span class="hsi-ic">𝕏</span> @BalaiUji_KA</div>
-        <div class="hsi"><span class="hsi-ic">◉</span> @balaipengujianka</div>
-        <div class="hsi"><span class="hsi-ic">▶</span> Balai Pengujian Perkeretaapian</div>
-        <div class="hsi"><span class="hsi-ic">🌐</span> ujidjka.dephub.go.id</div>
-        <div class="hsi"><span class="hsi-ic">📞</span> 0878 8896 9530</div>
+        <div class="hsi"><span class="hsi-ic"><img src="Asset/icon-instagram.png" style="width:16px;height:16px;object-fit:contain;display:block;"></span> @balaipengujianka</div>
+        <div class="hsi"><span class="hsi-ic"><img src="Asset/icon-whatsapp.png" style="width:16px;height:16px;object-fit:contain;display:block;"></span> 0878 8896 9530</div>
+        <div class="hsi"><span class="hsi-ic"><img src="Asset/icon-x.png" style="width:16px;height:16px;object-fit:contain;display:block;"></span> @BalaiUji_KA</div>
+        <div class="hsi"><span class="hsi-ic"><img src="Asset/icon-youtube.png" style="width:16px;height:16px;object-fit:contain;display:block;"></span> Balai Pengujian Perkeretaapian</div>
+        <div class="hsi"><span class="hsi-ic"><img src="Asset/icon-globe.png" style="width:16px;height:16px;object-fit:contain;display:block;"></span> ujidjka.dephub.go.id</div>
       </div>
+
     </div>
 
   </div>
@@ -1604,42 +1603,34 @@ body:not(.light) .hd-contact-info span{color:#64748b;}
 </section>
 
 <!-- ══ FOOTER ══ -->
-<footer>
-  <div class="wrap">
-    <div class="footer-grid">
-      <!-- Col 1: Brand -->
-      <div>
-        <img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" style="width:90px;height:60px;object-fit:contain;margin-top:0;margin-bottom:12px;display:block;" alt="SiAPKA"/>
-        <div class="f-desc">Pengujian dilakukan pada semua sistem perkeretaapian meliputi Prasarana, Sarana dan Sumber Daya Manusia Perkeretaapian.</div>
-        <div class="f-visitor">Pengunjung: <strong id="vc">58.125</strong></div>
+<footer style="background:#0E1937;border-top:1px solid rgba(255,255,255,0.08);">
+  <div style="max-width:1280px;margin:0 auto;padding:48px 80px 40px;display:grid;grid-template-columns:220px 1fr 1fr 1fr;gap:60px;align-items:start;">
+    <div style="text-align:center;">
+      <img src="Asset/siapka-logo.png" style="width:200px;height:100px;object-fit:contain;display:block;margin:0 auto 14px;" alt="SiAPKA"/>
+      <div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:4px;line-height:1.5;">Sistem Informasi Aplikasi Pengujian<br>Perkeretaapian</div>
+    </div>
+    <div>
+      <iframe src="https://maps.google.com/maps?q=Jl.+Perjuangan+No.25+Marga+Mulya+Bekasi+Utara+Jawa+Barat&t=&z=16&ie=UTF8&iwloc=B&output=embed" width="100%" height="210" style="border:0;border-radius:10px;display:block;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div>
+      <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:18px;">Kontak Kami</div>
+      <div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.85);margin-bottom:6px;">Alamat :</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:14px;">Jl. Perjuangan No.25, RT.001/RW.001, Marga Mulya,<br>Kec. Bekasi Utara, Kota Bks, Jawa Barat 17143</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.85);margin-bottom:8px;"><strong style="color:#fff;">Telepon :</strong> 087888969530</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.85);"><strong style="color:#fff;">Email:</strong> balaipengujianka@gmail.com</div>
+    </div>
+    <div>
+      <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:18px;">Tautan</div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <a href="https://djka.kemenhub.go.id/" target="_blank" style="font-size:13px;color:rgba(255,255,255,0.8);text-decoration:none;transition:color .18s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">DJKA</a>
+        <a href="https://djka.kemenhub.go.id/ditprasaranaka" target="_blank" style="font-size:13px;color:rgba(255,255,255,0.8);text-decoration:none;transition:color .18s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">Direktorat Prasarana</a>
+        <a href="https://djka.kemenhub.go.id/ditsaranaka" target="_blank" style="font-size:13px;color:rgba(255,255,255,0.8);text-decoration:none;transition:color .18s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">Direktorat Sarana</a>
+        <a href="https://djka.kemenhub.go.id/ditkeselamatanka" target="_blank" style="font-size:13px;color:rgba(255,255,255,0.8);text-decoration:none;transition:color .18s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">Direktorat Keselamatan</a>
       </div>
-
-      <!-- Col 2: Links -->
-      <div>
-        <div class="f-col-h">Tautan</div>
-        <ul class="f-list">
-          <li><a href="#">DJKA</a></li>
-          <li><a href="#">Direktorat Prasarana</a></li>
-          <li><a href="#">Direktorat Sarana</a></li>
-          <li><a href="#">Direktorat Keselamatan</a></li>
-        </ul>
-      </div>
-
-      <!-- Col 3: Contact -->
-      <div>
-        <div class="f-col-h">Alamat &amp; Kontak</div>
-        <div class="f-contact-list">
-          <div class="f-ci"><span class="ic"><i data-lucide="map-pin"></i> :</span><span>Jl. Perjuangan No.25, RT.001/RW.001, Marga Mulya, Kec. Bekasi Utara, Kota Bks, Jawa Barat 17143</span></div>
-          <div class="f-ci"><span class="ic"><i data-lucide="phone"></i> :</span><span>087888969530</span></div>
-          <div class="f-ci"><span class="ic"><i data-lucide="mail"></i> :</span><span>balaipengujianka@gmail.com</span></div>
-        </div>
-      </div>
-
     </div>
   </div>
-
-  <div class="footer-bar">
-    © Copyright 2025 &nbsp;<strong>Balai Pengujian Perkeretaapian</strong>&nbsp; All Rights Reserved
+  <div class="footer-bar" style="padding-top:25px;padding-bottom:25px;background-color:color-mix(in srgb,#fff,transparent 95%);text-align:center;">
+    © Copyright 2025 &nbsp;<strong>Direktorat Jenderal Perkeretaapian</strong>&nbsp; All Rights Reserved
   </div>
 </footer>
 
