@@ -21,7 +21,7 @@ img{display:block;max-width:100%}
 button,input{font-family:inherit}
 
 :root{
-  --bg:#0A1628;--bg-mid:#0D1F3C;--bg-card:rgba(255,255,255,0.06);
+  --bg:#0E1937;--bg-mid:#0E1937;--bg-card:rgba(255,255,255,0.06);
   --border:rgba(255,255,255,0.1);--blue:#3B82F6;--blue-ic:#1E3A5F;
   --red:#DC2626;--white:#FFFFFF;--muted:rgba(255,255,255,0.6);
   --faint:rgba(255,255,255,0.2);
@@ -35,14 +35,6 @@ body.light{
   --white:#0F172A;--muted:rgba(15,23,42,0.55);--faint:rgba(15,23,42,0.15);
   background:#F0F4FA;color:#0F172A;
 }
-body.light .navbar{background:rgba(240,244,250,0.92)!important;border-bottom-color:rgba(0,0,0,0.08);}
-body.light .navbar.scrolled{background:rgba(240,244,250,0.98)!important;}
-body.light .nb-links a{color:rgba(15,23,42,0.7);}
-body.light .nb-links a:hover{color:#0F172A;background:rgba(0,0,0,0.05);}
-body.light .btn-login{border-color:rgba(15,23,42,0.3);background:rgba(15,23,42,0.05);color:#0F172A;}
-body.light .btn-login-icon{border-color:rgba(15,23,42,0.4);}
-body.light .btn-login-icon svg{stroke:#0F172A;}
-body.light .nb-toggle{background:#e2e8f0;border-color:rgba(0,0,0,0.15);}
 body.light .article-card{background:#fff;border-color:rgba(0,0,0,0.08);box-shadow:0 2px 24px rgba(0,0,0,0.06);}
 body.light .article-title{color:#0F172A;}
 body.light .article-date{color:rgba(15,23,42,0.5);}
@@ -65,29 +57,62 @@ body.light .breadcrumb a{color:var(--blue);}
 ::-webkit-scrollbar-thumb{background:#1E3A5F;border-radius:3px}
 
 /* ── NAVBAR ── */
-.navbar{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  height:68px;display:flex;align-items:center;
-  background:rgba(10,22,40,0.92);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(255,255,255,0.08);
-  transition:background .3s;
-}
-.navbar.scrolled{background:rgba(10,22,40,0.98);backdrop-filter:blur(20px);}
+body.light .navbar{background:#0E1937!important;border-bottom:1px solid rgba(255,255,255,0.1)!important;}
+body.light .navbar.scrolled{background:#0E1937!important;}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;background:#0E1937;border-bottom:1px solid rgba(255,255,255,0.1);transition:background .3s;}
+.navbar.scrolled{background:#0E1937;backdrop-filter:none;border-bottom:1px solid rgba(255,255,255,0.1);}
 .nb-inner{width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 80px;}
-.nb-logo{display:flex;align-items:center;}
-.nb-links{display:flex;align-items:center;gap:0;list-style:none}
-.nb-links a{font-size:14px;font-weight:600;color:rgba(255,255,255,0.75);padding:7px 14px;border-radius:6px;display:flex;align-items:center;gap:4px;transition:color .18s,background .18s;}
+.nb-logo{display:flex;align-items:center;gap:0}
+.nb-links{display:flex;align-items:center;gap:0px;list-style:none}
+.nb-links a{font-size:14px;font-weight:600;color:rgba(255,255,255,0.75);padding:7px 14px;border-radius:6px;display:flex;align-items:center;gap:4px;transition:color .18s,background .18s;letter-spacing:.1px;position:relative;}
+.nb-links a::after{content:'';position:absolute;bottom:-4px;left:14px;right:14px;height:2px;background:#DC2626;border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .2s ease;}
 .nb-links a:hover{color:#fff;background:rgba(255,255,255,0.08)}
-.nb-actions{display:flex;align-items:center;gap:12px;}
-.btn-login{display:flex;align-items:center;gap:9px;padding:9px 20px;border:1.5px solid rgba(255,255,255,0.55);border-radius:12px;font-size:13.5px;font-weight:600;color:#fff;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);cursor:pointer;transition:background .2s;}
-.btn-login:hover{background:rgba(255,255,255,0.18);}
+.nb-links a:hover::after{transform:scaleX(1);}
+.nb-links a.act{color:rgba(255,255,255,0.45);font-weight:600}
+.chv{display:inline-flex;align-items:center;opacity:.7;vertical-align:middle;margin-left:2px;}
+.chv i[data-lucide]{display:flex;}
+.chv i[data-lucide] svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.nb-portal{color:rgba(255,255,255,0.75)!important;font-weight:600!important}
+.nb-has-dropdown{position:relative}
+.nb-has-dropdown>a{user-select:none;display:flex;align-items:center;}
+:root{--dd-bg:#1a2744;--dd-text:rgba(255,255,255,0.85);--dd-hover-bg:rgba(255,255,255,0.07);--dd-divider:rgba(255,255,255,0.08);--dd-shadow:0 8px 40px rgba(0,0,0,0.45);}
+body.light{--dd-bg:#ffffff;--dd-text:#1a1a2e;--dd-hover-bg:#f5f7ff;--dd-divider:rgba(0,0,0,0.07);--dd-shadow:0 8px 40px rgba(0,0,0,0.14);}
+.nb-dropdown{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(-6px);min-width:240px;background:var(--dd-bg);border:none;border-radius:16px;padding:8px 0;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:400;box-shadow:var(--dd-shadow);}
+.nb-has-dropdown.open .nb-dropdown{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.nb-has-dropdown.open>a .chv i[data-lucide] svg{transform:rotate(180deg);}
+.nb-dropdown::before{display:none;}
+.nb-dd-icon{display:none;}
+.nb-dd-divider{height:1px;background:var(--dd-divider);margin:4px 0;}
+.nb-dropdown-simple{min-width:220px;padding:8px 0;}
+.nb-dd-simple-item{display:block;padding:14px 24px;font-size:15px;font-weight:500;color:var(--dd-text);text-decoration:none;transition:background .15s,color .15s;}
+.nb-dd-simple-item:hover{background:var(--dd-hover-bg);}
+.btn-login{display:flex;align-items:center;gap:9px;padding:9px 20px;border:1.5px solid rgba(255,255,255,0.55);border-radius:12px;font-size:13.5px;font-weight:600;color:#fff;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);cursor:pointer;transition:background .2s,border-color .2s;white-space:nowrap;}
+.btn-login:hover{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.8)}
 .btn-login-icon{width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.8);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.btn-login-icon svg{width:10px;height:10px;stroke:#fff;fill:none;stroke-width:2.5}
-.nb-toggle{position:relative;width:62px;height:32px;background:#1a2744;border-radius:9999px;cursor:pointer;flex-shrink:0;border:1.5px solid rgba(255,255,255,0.15);padding:0;display:flex;align-items:center;}
-.nb-toggle-moon{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:13px;pointer-events:none;user-select:none;}
-.nb-toggle-dot{position:absolute;right:3px;top:50%;transform:translateY(-50%);width:24px;height:24px;background:#3B82F6;border-radius:50%;box-shadow:0 2px 8px rgba(59,130,246,0.5);transition:right .25s cubic-bezier(.4,0,.2,1),left .25s cubic-bezier(.4,0,.2,1),background .2s;pointer-events:none;}
-.chv{font-size:10px;opacity:.7}
+.btn-login-icon svg,.btn-login-icon i[data-lucide] svg{width:10px;height:10px;stroke:#fff;fill:none;stroke-width:2.5}
+.btn-login-icon i[data-lucide]{display:flex;align-items:center;justify-content:center;}
+.nb-theme{display:flex;align-items:center;}
+.nb-toggle{position:relative;width:62px;height:32px;background:#0E1937;border-radius:9999px;cursor:pointer;flex-shrink:0;border:1.5px solid rgba(255,255,255,0.15);padding:0;display:flex;align-items:center;}
+.nb-toggle-moon{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:13px;line-height:1;pointer-events:none;user-select:none;}
+.nb-toggle-dot{position:absolute;right:3px;top:50%;transform:translateY(-50%);width:24px;height:24px;background:#3B82F6;border-radius:50%;box-shadow:0 2px 8px rgba(59,130,246,0.5);transition:right .25s cubic-bezier(.4,0,.2,1);pointer-events:none;}
+/* footer */
+footer{background:#0E1937;border-top:1px solid rgba(255,255,255,0.08);padding:36px 0 0;}
+body.light footer{background:#1e293b;}
+.footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1.4fr;gap:80px;padding-bottom:32px;align-items:start;}
+.f-desc{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.75;margin-bottom:18px}
+.f-visitor{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border:1px solid rgba(255,255,255,0.15);border-radius:9999px;font-size:12px;color:rgba(255,255,255,0.45);}
+.f-visitor strong{color:#fff}
+.f-col-h{font-size:14px;font-weight:700;color:#fff;margin-bottom:18px}
+.f-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.f-list a{font-size:13px;color:rgba(255,255,255,0.45);transition:color .18s;}
+.f-list a:hover{color:#fff}
+.f-contact-list{display:flex;flex-direction:column;gap:11px}
+.f-ci{display:flex;gap:6px;font-size:13px;color:rgba(255,255,255,0.45);line-height:1.6;align-items:flex-start;margin-bottom:2px}
+.f-ci .ic{flex-shrink:0;display:flex;align-items:center;gap:4px;padding-top:1px;color:rgba(255,255,255,0.65);white-space:nowrap;}
+.f-ci .ic svg,.f-ci .ic i[data-lucide] svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;}
+.f-ci .ic i[data-lucide]{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;}
+.footer-bar{border-top:1px solid rgba(255,255,255,0.08);padding:18px 80px;text-align:center;font-size:12px;color:rgba(255,255,255,0.45);}
+.footer-bar strong{color:#fff}
 
 /* ── WRAP ── */
 .wrap{max-width:1440px;margin:0 auto;padding:0 80px;}
@@ -197,45 +222,94 @@ body.light .breadcrumb a{color:var(--blue);}
 .side-item-date svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;}
 
 /* ── SCROLL TO TOP ── */
-.to-top{
-  position:fixed;bottom:24px;right:24px;z-index:300;
-  width:48px;height:48px;border-radius:50%;
-  background:var(--blue);color:#fff;font-size:20px;
-  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 16px rgba(59,130,246,0.4);
-  transition:transform .2s,opacity .2s;
-}
+.to-top{position:fixed;bottom:112px;right:40px;z-index:8998;width:48px;height:48px;border-radius:50%;background:#1d4ed8;color:#fff;border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s,transform .2s;}
+.to-top.visible{opacity:1;pointer-events:auto;}
 .to-top:hover{transform:translateY(-3px);}
+.to-top-ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);pointer-events:none;overflow:visible;}
+.to-top-track{fill:none;stroke:rgba(255,255,255,0.2);stroke-width:3;}
+.to-top-progress{fill:none;stroke:#93c5fd;stroke-width:3;stroke-linecap:round;stroke-dasharray:138.23;stroke-dashoffset:138.23;transition:stroke-dashoffset .08s linear;}
+/* ════ HELPDESK FAB ════ */
+.hd-fab{position:fixed;bottom:28px;right:28px;z-index:9000;cursor:pointer;width:72px;height:72px;border-radius:50%;background:none;border:none;padding:0;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.35));transition:transform .2s ease,filter .2s ease;}
+.hd-fab:hover{transform:scale(1.08);filter:drop-shadow(0 8px 24px rgba(0,0,0,0.45));}
+.hd-fab img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;}
+.hd-panel{position:fixed;bottom:112px;right:28px;z-index:9001;width:320px;background:#fff;border-radius:20px;box-shadow:0 12px 48px rgba(0,0,0,0.22);overflow:hidden;opacity:0;transform:translateY(16px) scale(.96);pointer-events:none;transition:opacity .25s ease,transform .25s ease;}
+.hd-panel.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+.hd-panel-head{background:linear-gradient(135deg,#0E3FA8 0%,#1a56db 100%);padding:20px 20px 16px;position:relative;}
+.hd-panel-head-close{position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1;transition:background .15s;}
+.hd-panel-head-close:hover{background:rgba(255,255,255,0.28);}
+.hd-panel-logo{display:flex;align-items:center;gap:12px;}
+.hd-panel-logo img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.35);}
+.hd-panel-logo-text{color:#fff;}
+.hd-panel-logo-text strong{display:block;font-size:13.5px;font-weight:700;line-height:1.3;}
+.hd-panel-logo-text span{font-size:11.5px;opacity:.8;}
+.hd-online{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,0.85);margin-top:8px;}
+.hd-online-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 2px rgba(34,197,94,0.35);}
+.hd-panel-body{padding:18px 16px 20px;}
+.hd-panel-body p{font-size:13.5px;color:#475569;margin-bottom:16px;line-height:1.6;}
+.hd-contact-list{display:flex;flex-direction:column;gap:10px;}
+.hd-contact-btn{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;border:1.5px solid #e2e8f0;text-decoration:none;transition:background .15s,border-color .15s;cursor:pointer;background:#fff;}
+.hd-contact-btn:hover{background:#f8faff;border-color:#bfdbfe;}
+.hd-contact-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hd-contact-icon.wa{background:#dcfce7;}
+.hd-contact-icon.mail{background:#e0f2fe;}
+.hd-contact-icon.phone{background:#fef3c7;}
+.hd-contact-info strong{display:block;font-size:13px;font-weight:700;color:#1e293b;}
+.hd-contact-info span{font-size:11.5px;color:#64748b;}
+body:not(.light) .hd-panel{background:#1e293b;box-shadow:0 12px 48px rgba(0,0,0,0.5);}
+body:not(.light) .hd-panel-body p{color:#94a3b8;}
+body:not(.light) .hd-contact-btn{background:#0f172a;border-color:rgba(255,255,255,0.08);}
+body:not(.light) .hd-contact-btn:hover{background:#1e3a5f;border-color:#3b82f6;}
+body:not(.light) .hd-contact-info strong{color:#f1f5f9;}
+body:not(.light) .hd-contact-info span{color:#64748b;}
 </style>
 </head>
 <body>
 
 <!-- ══ NAVBAR ══ -->
-<nav class="navbar" id="navbar">
+<nav class="navbar">
   <div class="nb-inner">
-    <a href="siapka-redesign.html" class="nb-logo">
-      <img src="Asset/1730709636-logopublicheader.png" style="height:42px;object-fit:contain;" alt="SiAPKA"/>
-    </a>
+    <div class="nb-logo">
+      <img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" alt="SiAPKA — Sistem Informasi Aplikasi Pengujian Perkeretaapian" style="width:90px;height:150px;display:block;object-fit:contain;"/>
+    </div>
     <ul class="nb-links">
       <li><a href="siapka-redesign.html">Home</a></li>
-      <li><a href="#">Profil</a></li>
-      <li><a href="#">Layanan <span class="chv">▾</span></a></li>
-      <li><a href="#">Monitoring</a></li>
-      <li><a href="#">Publikasi <span class="chv">▾</span></a></li>
-      <li><a href="#">Mitra</a></li>
-      <li><a href="#">PPID</a></li>
-      <li><a href="#">FAQ</a></li>
-      <li><a href="#">Portal DJKA</a></li>
+      <li><a href="siapka-profil.html">Profil</a></li>
+      <li class="nb-has-dropdown">
+        <a href="#">Layanan <span class="chv"><i data-lucide="chevron-down"></i></span></a>
+        <div class="nb-dropdown nb-dropdown-simple">
+          <a href="siapka-redesign.html#informasi-layanan" class="nb-dd-simple-item">Informasi Layanan</a>
+          <div class="nb-dd-divider"></div>
+          <a href="siapka-redesign.html#link-layanan" class="nb-dd-simple-item">Link Layanan</a>
+        </div>
+      </li>
+      <li><a href="siapka-redesign.html#monitoring">Monitoring</a></li>
+      <li class="nb-has-dropdown">
+        <a href="#" class="act">Publikasi <span class="chv"><i data-lucide="chevron-down"></i></span></a>
+        <div class="nb-dropdown nb-dropdown-simple">
+          <a href="siapka-redesign.html#berita-informasi" class="nb-dd-simple-item">Berita &amp; Informasi</a>
+          <div class="nb-dd-divider"></div>
+          <a href="siapka-redesign.html#media-sosial" class="nb-dd-simple-item">Media Sosial</a>
+        </div>
+      </li>
+      <li><a href="siapka-ppid.html">PPID</a></li>
+      <li><a href="siapka-redesign.html#mitra">Mitra</a></li>
+      <li><a href="siapka-faq.html">FAQ</a></li>
+      <li><a href="https://portal.djka.kemenhub.go.id/pld/" target="_blank" class="nb-portal">Portal DJKA</a></li>
     </ul>
-    <div class="nb-actions">
-      <button class="nb-toggle" id="themeToggle" aria-label="Toggle theme">
-        <span class="nb-toggle-moon">🌙</span>
-        <span class="nb-toggle-dot"></span>
-      </button>
-      <button class="btn-login">
-        <span class="btn-login-icon"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="https://ujidjka.kemenhub.go.id/login" target="_blank" style="text-decoration:none;"><button class="btn-login">
+        <span class="btn-login-icon"><i data-lucide="arrow-right"></i></span>
         Login
-      </button>
+      </button></a>
+      <div class="nb-theme">
+        <button class="nb-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="nb-toggle-icon">
+            <i data-lucide="moon" class="icon-moon"></i>
+            <i data-lucide="sun" class="icon-sun"></i>
+          </span>
+          <span class="nb-toggle-dot"></span>
+        </button>
+      </div>
     </div>
   </div>
 </nav>
@@ -411,24 +485,125 @@ body.light .breadcrumb a{color:var(--blue);}
   </div>
 </main>
 
-<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<footer>
+  <div class="wrap" style="max-width:1440px;margin:0 auto;padding:0 80px;">
+    <div class="footer-grid">
+      <div>
+        <img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" style="width:90px;height:60px;object-fit:contain;margin-bottom:12px;display:block;" alt="SiAPKA"/>
+        <div class="f-desc">Pengujian dilakukan pada semua sistem perkeretaapian meliputi Prasarana, Sarana dan Sumber Daya Manusia Perkeretaapian.</div>
+        <div class="f-visitor">Pengunjung: <strong>58.125</strong></div>
+      </div>
+      <div>
+        <div class="f-col-h">Tautan</div>
+        <ul class="f-list">
+          <li><a href="#">DJKA</a></li>
+          <li><a href="#">Direktorat Prasarana</a></li>
+          <li><a href="#">Direktorat Sarana</a></li>
+          <li><a href="#">Direktorat Keselamatan</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-h">Alamat &amp; Kontak</div>
+        <div class="f-contact-list">
+          <div class="f-ci"><span class="ic"><i data-lucide="map-pin"></i> :</span><span>Jl. Perjuangan No.25, RT.001/RW.001, Marga Mulya, Kec. Bekasi Utara, Kota Bks, Jawa Barat 17143</span></div>
+          <div class="f-ci"><span class="ic"><i data-lucide="phone"></i> :</span><span>087888969530</span></div>
+          <div class="f-ci"><span class="ic"><i data-lucide="mail"></i> :</span><span>balaipengujianka@gmail.com</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar">
+    © Copyright 2025 &nbsp;<strong>Balai Pengujian Perkeretaapian</strong>&nbsp; All Rights Reserved
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="to-top-ring" viewBox="0 0 48 48"><circle class="to-top-track" cx="24" cy="24" r="22"/><circle class="to-top-progress" id="toTopProgress" cx="24" cy="24" r="22"/></svg>↑</button>
 
 <script>
-const nav = document.getElementById('navbar');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+const nav = document.querySelector('.navbar');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 80));
 
 const themeToggle = document.getElementById('themeToggle');
-const toggleMoon  = themeToggle.querySelector('.nb-toggle-moon');
-const toggleDot   = themeToggle.querySelector('.nb-toggle-dot');
+const toggleDot   = themeToggle.querySelector(".nb-toggle-dot");
 let isLight = false;
-themeToggle.addEventListener('click', () => {
+themeToggle.addEventListener("click", () => {
   isLight = !isLight;
-  document.body.classList.toggle('light', isLight);
-  toggleMoon.textContent = isLight ? '☀️' : '🌙';
+  document.body.classList.toggle("light", isLight);
   toggleDot.style.right  = isLight ? 'auto' : '3px';
   toggleDot.style.left   = isLight ? '3px'  : 'auto';
   toggleDot.style.background = isLight ? '#94a3b8' : '#3B82F6';
 });
+
+/* Dropdown toggle */
+document.querySelectorAll('.nb-has-dropdown').forEach(item => {
+  item.querySelector('a').addEventListener('click', e => {
+    e.preventDefault();
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.nb-has-dropdown').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nb-has-dropdown')) {
+    document.querySelectorAll('.nb-has-dropdown').forEach(i => i.classList.remove('open'));
+  }
+});
+</script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>lucide.createIcons();</script>
+
+<!-- ── HELPDESK FAB ── -->
+<button class="hd-fab" onclick="toggleHdPanel()" aria-label="Helpdesk">
+  <img src="Asset/icon-helpdesk.png" alt="Helpdesk">
+</button>
+<div class="hd-panel" id="hdPanel">
+  <div class="hd-panel-head">
+    <button class="hd-panel-head-close" onclick="closeHdPanel()">✕</button>
+    <div class="hd-panel-logo">
+      <img src="Asset/icon-helpdesk.png" alt="CS">
+      <div class="hd-panel-logo-text">
+        <strong>Balai Pengujian Perkeretaapian</strong>
+        <span>Customer Service</span>
+      </div>
+    </div>
+    <div class="hd-online"><span class="hd-online-dot"></span> Online sekarang</div>
+  </div>
+  <div class="hd-panel-body">
+    <p>Halo! Ada yang bisa kami bantu? Pilih saluran di bawah untuk menghubungi tim kami.</p>
+    <div class="hd-contact-list">
+      <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="hd-contact-btn">
+        <div class="hd-contact-icon wa"><svg width="18" height="18" viewBox="0 0 24 24" fill="#16a34a"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.555 4.12 1.527 5.845L.057 23.882l6.194-1.624A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.373l-.36-.213-3.676.964.981-3.585-.234-.369A9.818 9.818 0 1112 21.818z"/></svg></div>
+        <div class="hd-contact-info"><strong>WhatsApp</strong><span>Chat langsung dengan kami</span></div>
+      </a>
+      <a href="mailto:helpdesk@ujidjka.kemenhub.go.id" class="hd-contact-btn">
+        <div class="hd-contact-icon mail"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
+        <div class="hd-contact-info"><strong>Email</strong><span>helpdesk@ujidjka.kemenhub.go.id</span></div>
+      </a>
+      <a href="tel:+62215671234" class="hd-contact-btn">
+        <div class="hd-contact-icon phone"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 5.99 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div class="hd-contact-info"><strong>Telepon</strong><span>(021) 567-1234</span></div>
+      </a>
+    </div>
+  </div>
+</div>
+<script>
+function toggleHdPanel(){document.getElementById('hdPanel').classList.toggle('open');}
+function closeHdPanel(){document.getElementById('hdPanel').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeHdPanel();});
+document.addEventListener('click',function(e){
+  const p=document.getElementById('hdPanel'),f=document.querySelector('.hd-fab');
+  if(p.classList.contains('open')&&!p.contains(e.target)&&!f.contains(e.target))closeHdPanel();
+});
+</script>
+<script>
+(function(){
+  var btn=document.getElementById('toTop'),ring=document.getElementById('toTopProgress'),C=138.23;
+  window.addEventListener('scroll',function(){
+    var y=window.scrollY,max=document.documentElement.scrollHeight-window.innerHeight;
+    btn.classList.toggle('visible',y>200);
+    ring.style.strokeDashoffset=max>0?C*(1-y/max):C;
+  });
+})();
 </script>
 </body>
 </html>

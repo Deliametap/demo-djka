@@ -1,8 +1,8 @@
-# Design Document: PERONHUB — Portal Layanan & Data Direktorat Jenderal Perkeretaapian
+# Design Document: SiAPKA — Sistem Informasi Aplikasi Pengujian Perkeretaapian
 
 ## Overview
 
-PERONHUB is the official digital service and data portal for Indonesia's Directorate General of Railways (Direktorat Jenderal Perkeretaapian), under the Ministry of Transportation (Kementerian Perhubungan). It functions as a "superapps" — a unified gateway for railway transport services, information, and data management.
+SiAPKA is the official digital portal for **Balai Pengujian Perkeretaapian** — a BLU (Badan Layanan Umum) under the Directorate General of Railways (Direktorat Jenderal Perkeretaapian), Ministry of Transportation (Kementerian Perhubungan). The site serves as a unified gateway for railway testing services, public information, and institutional profile.
 
 ---
 
@@ -10,58 +10,112 @@ PERONHUB is the official digital service and data portal for Indonesia's Directo
 
 ### Brand
 
-- **Product Name:** PERONHUB
-- **Tagline:** Portal Pelayanan Perkeretaapian Online
-- **Parent Institution:** Kementerian Perhubungan — Direktorat Jenderal Perkeretaapian
-- **Mascot:** A 3D humanoid robot character (blue/white, friendly pose), used in the hero section as a digital companion/guide
-- **Institutional Logo:** Globe with eagle (Garuda) — golden/yellow on dark navy, used in footer
-
-### Color Palette
-
-| Role               | Value           | Usage                                      |
-|--------------------|-----------------|--------------------------------------------|
-| Primary Dark       | `#0A1628`       | Main background, navbar, footer            |
-| Navy Mid           | `#0D1F3C`       | Section backgrounds, card backgrounds      |
-| Navy Light         | `#1A2F50`       | Card borders, subtle highlights            |
-| Blue Accent        | `#3B82F6`       | Buttons (CTA), icons, pagination dots      |
-| Blue Icon BG       | `#1E3A5F`       | Circular icon containers on cards          |
-| Red Accent         | `#E53E3E` / `#C0392B` | Section divider lines under headings, service code separators |
-| White Primary      | `#FFFFFF`       | Headings, body text on dark backgrounds    |
-| White Secondary    | `rgba(255,255,255,0.75)` | Subtitles, descriptions              |
-| Gray Muted         | `rgba(255,255,255,0.4)`  | Placeholder text, secondary labels   |
-| Gold (Footer Logo) | `#F5C842`       | Institutional globe logo                   |
-
-### Typography
-
-| Element             | Style                                 |
-|---------------------|---------------------------------------|
-| Hero Heading        | Bold, ~40–48px, white, line-height tight |
-| Section Heading     | Bold, ~32–36px, white, centered       |
-| Card Title          | Semi-bold, ~16–18px, white            |
-| Body Text           | Regular, ~14–15px, white/muted        |
-| Service Codes       | Bold, ~16px, white, preceded by red line |
-| Navbar Links        | Medium, ~14px, white, with dropdown chevrons |
-| Footer Text         | Regular, ~13px, white                 |
-
-- Font family: System sans-serif stack, likely **Inter** or similar geometric sans-serif
-- All text on dark backgrounds — no light-mode typography documented in current screenshots
+- **Product Name:** SiAPKA
+- **Full Name:** Sistem Informasi Aplikasi Pengujian Perkeretaapian
+- **Parent Institution:** Kementerian Perhubungan — Direktorat Jenderal Perkeretaapian — Balai Pengujian Perkeretaapian
+- **Logo:** Blue gradient square tile (`#3B82F6` → `#1E40AF`) with bold white letter mark, + text wordmark "SiAPKA" with tagline beneath
 
 ---
 
-## Layout & Structure
+## Design System
 
-### Page Structure (Top to Bottom)
+### Mode
 
-1. **Navbar**
-2. **Hero Section**
-3. **About / Value Proposition Section**
-4. **Layanan Utama (Main Services)**
-5. **Layanan Unggulan (Featured Services)**
-6. **Berita Terbaru (Latest News)**
-7. **Berita Foto (Photo News)**
-8. **Video & Podcast**
-9. **Sosial Media (Social Media)**
-10. **Footer**
+- **Dark-first design** with full light mode support
+- Default: dark navy
+- Light mode toggled via `.light` class on `<body>`
+- Navbar always stays dark (`#0E1937`) even in light mode
+
+---
+
+## Color Tokens
+
+### Dark Mode (`:root`)
+
+| Token         | Value                        | Usage                                      |
+|---------------|------------------------------|--------------------------------------------|
+| `--bg`        | `#0E1937`                    | Main page background, section backgrounds  |
+| `--bg-mid`    | `#0E1937`                    | Alternate section backgrounds              |
+| `--bg-card`   | `rgba(255,255,255,0.06)`     | Card surfaces                              |
+| `--border`    | `rgba(255,255,255,0.1)`      | Card borders, dividers                     |
+| `--blue`      | `#3B82F6`                    | CTA buttons, icons, accents                |
+| `--blue-ic`   | `#1E3A5F`                    | Icon container backgrounds                 |
+| `--red`       | `#DC2626`                    | Section heading underlines, accents        |
+| `--white`     | `#FFFFFF`                    | Primary text                               |
+| `--muted`     | `rgba(255,255,255,0.6)`      | Secondary / descriptive text               |
+| `--faint`     | `rgba(255,255,255,0.25)`     | Placeholder, disabled text                 |
+| `--r-xl`      | `16px`                       | Large radius (cards, modals)               |
+| `--r-lg`      | `12px`                       | Medium radius                              |
+| `--r-md`      | `8px`                        | Small radius                               |
+| `--r-pill`    | `9999px`                     | Full pill buttons                          |
+
+### Light Mode (`body.light`)
+
+| Token         | Value                        |
+|---------------|------------------------------|
+| `--bg`        | `#F0F4FA`                    |
+| `--bg-mid`    | `#E4EAF4`                    |
+| `--bg-card`   | `rgba(255,255,255,0.9)`      |
+| `--border`    | `rgba(0,0,0,0.09)`           |
+| `--blue`      | `#2563EB`                    |
+| `--blue-ic`   | `#DBEAFE`                    |
+| `--white`     | `#0F172A`                    |
+| `--muted`     | `rgba(15,23,42,0.55)`        |
+| `--faint`     | `rgba(15,23,42,0.18)`        |
+
+### Dropdown Tokens
+
+| Token            | Dark                          | Light                         |
+|------------------|-------------------------------|-------------------------------|
+| `--dd-bg`        | `#1a2744`                     | `#ffffff`                     |
+| `--dd-text`      | `rgba(255,255,255,0.85)`      | `#1a1a2e`                     |
+| `--dd-hover-bg`  | `rgba(255,255,255,0.07)`      | `#f5f7ff`                     |
+| `--dd-divider`   | `rgba(255,255,255,0.08)`      | `rgba(0,0,0,0.07)`            |
+| `--dd-shadow`    | `0 8px 40px rgba(0,0,0,0.45)`| `0 8px 40px rgba(0,0,0,0.14)` |
+
+---
+
+## Typography
+
+- **Font Family:** `'Inter'`, system-ui, sans-serif (Google Fonts)
+- **Weights used:** 300, 400, 500, 600, 700, 800
+
+| Element              | Size         | Weight | Notes                          |
+|----------------------|--------------|--------|--------------------------------|
+| Hero wordmark        | 56–110px     | 900    | Clamp, letter-spacing 12–28px  |
+| Hero welcome text    | 18–26px      | 600    | Centered, 0.5px tracking       |
+| Section heading h2   | 32px         | 700    | Centered, `--white`            |
+| Card title           | 14–16px      | 600    | `--white`                      |
+| Body / description   | 13.5–15px    | 400    | `--muted`                      |
+| Nav links            | 14px         | 600    | `rgba(255,255,255,0.75)`       |
+| Dropdown items       | 15px         | 500    | `--dd-text`                    |
+| Page banner h1       | 2rem         | 800    | Letter-spacing -0.4px          |
+| Page banner sub      | 14.5px       | 400    | `--muted`, max-width 640px     |
+
+---
+
+## Layout & Grid
+
+- **Container max-width:** `1440px`, centered, `padding: 0 80px`
+- **Section vertical padding:** `100px 0`
+- **Card gap:** `24px`
+- **Card padding:** `24–32px`
+- **Navbar height:** `68px`
+
+---
+
+## Page Structure (Top to Bottom)
+
+1. **Navbar** — fixed, transparent over hero, dark on scroll
+2. **Hero Section** — full viewport, glassmorphism card, search bar
+3. **About Section** — 2-column text + image mockup
+4. **Informasi Layanan (Layanan Utama)** — 4-col card grid with service image + code
+5. **Link Layanan (Layanan Unggulan)** — 3-col card grid with icon + label
+6. **Monitoring** — tabbed data table section
+7. **Berita Terbaru** — 3-col news card carousel
+8. **Sosial Media** — 3-col social media card grid
+9. **Mitra** — horizontal logo marquee slider
+10. **Footer** — 3-col: logo+visitor / links / address+contact
 
 ---
 
@@ -69,229 +123,169 @@ PERONHUB is the official digital service and data portal for Indonesia's Directo
 
 ### 1. Navbar
 
-- **Background:** Transparent over hero, dark on scroll
-- **Height:** ~64px
-- **Logo:** PERONHUB wordmark + diamond icon, left-aligned, with subtitle "Portal Pelayanan Perkeretaapian Online"
-- **Nav Links (center/right):** Tentang Kami ▾ | Kebijakan ▾ | Program Pembangunan ▾ | Berita ▾ | ✦ HUBNET
-- **Right Actions:** Login button (outlined, rounded-pill, with person icon) | Dark mode toggle (moon icon + toggle switch)
-- **Login Button Style:** Border `1px solid white`, rounded-full, text "Login", icon left
+- **Height:** `68px`, `position: fixed`
+- **Background:** `rgba(255,255,255,0)` over hero; `#0E1937` on scroll (`.scrolled`) — always `#0E1937` in light mode
+- **Logo:** Blue gradient 40×40px tile + "SiAPKA" 19px/800 + subtitle 9px/500
+- **Nav Links:** Semi-bold 14px/600, hover: white + `rgba(255,255,255,0.08)` bg + red underline animation
+- **Dropdowns:** Click-triggered; pill panel `border-radius:16px`; items 15px/500 with hover tint
+- **Login Button:** Frosted glass, `border: 1.5px solid rgba(255,255,255,0.55)`, `border-radius: 12px`, circle-arrow icon
+- **Theme Toggle:** 62×32px pill, dark track `#0E1937`, blue dot right (dark) / left (light), moon/sun Lucide icons
 
 ### 2. Hero Section
 
-- **Layout:** Full-viewport-height section
-- **Background:** Photographic scene — high-speed trains on railway tracks, urban skyline with skyscrapers, green grass, blue sky; heavy dark navy color overlay (~60% opacity)
-- **Foreground Card:** Glassmorphism card, centered-left (approx 60% width, vertically centered)
-  - Background: `rgba(255,255,255,0.1)` with backdrop blur
-  - Border: `1px solid rgba(255,255,255,0.2)`
-  - Border-radius: `16px`
-  - Padding: `40px`
-  - Contains: H1 heading, subtitle paragraph, "Layanan Kami" CTA button
-  - Mascot robot floats on the right side of the card
-- **CTA Button:** "Layanan Kami" — solid blue (`#3B82F6`), rounded-full, bold white text, ~48px height
-- **Search Bar:** Full-width pill below the hero card — `rgba(255,255,255,0.1)` background, white border, magnifier icon, placeholder "Cari Layanan ..."
-- **Bird silhouettes** visible in background for depth
+- **Height:** `100vh`, min 600px
+- **Background image:** `Asset/ba43df5f-628d-464e-a876-7df3c6c86d3c.png`, cover, centered
+- **Tint overlay:** `rgba(10,22,40,0.15)`
+- **Bottom fade:** `linear-gradient(to top, rgba(10,22,40,0.6), transparent)`, 160px
+- **Glass card:**
+  - `background: rgba(40,55,80,0.52)`, `backdrop-filter: blur(28px) saturate(140%)`
+  - `border: 1px solid rgba(255,255,255,0.18)`, `border-radius: 20px`
+  - `padding: 36px 48px 28px`, `width: min(1000px, 80vw)`
+  - Contains: institution badges, welcome text, SiAPKA wordmark, tagline, social strip
+- **Search bar:** Below card, same glass treatment, pill shape, width matches card
 
-### 3. About Section (Value Proposition)
+### 3. Section Heading Pattern
 
-- **Background:** Deep navy `#0A1628`
-- **Layout:** 2-column, 50/50 split
-  - Left: Rounded image of person using laptop showing DJKA login portal (`border-radius: 16px`)
-  - Right: Text block
-    - H2: "Layanan dan Data Perkeretaapian dalam Satu Portal Terpadu" (~32px, bold, white)
-    - Two body paragraphs in white/muted text, ~15px
-- **Scroll-to-top button:** Blue circular button, bottom-right corner, arrow-up icon
+```
+[Centered Bold White h2, 32px, font-weight:700]
+[Red line — width:56px, height:3px, centered, border-radius:2px]
+```
 
-### 4. Layanan Utama (Main Services)
+### 4. Informasi Layanan (Layanan Utama)
 
-- **Background:** Dark navy with subtle blurred city imagery overlay
-- **Section Heading:** "Layanan Utama" — white, bold, centered; red underline accent (`4px`, ~60px wide)
-- **Grid:** 2×2 card grid
-- **Card Design:**
-  - Background: `rgba(255,255,255,0.05)` with subtle glass effect
-  - Border: `1px solid rgba(255,255,255,0.15)`
-  - Border-radius: `12px`
-  - Padding: `32px`
-  - Icon: White line icon inside dark navy circle (`#1E3A5F`), ~56px diameter
-  - Service Code: Bold white text with red horizontal line left separator (e.g., "— HUB - 06.04")
-  - Service Name: White text below code
-- **Services Listed:**
-  - HUB-06.04: Pelayanan Transportasi Perkeretaapian
-  - HUB-07.04: Keselamatan dan Keamanan Perkeretaapian
-  - HUB-08.04: Pengelolaan Sarana dan Prasarana Transportasi Perkeretaapian
-  - HUB-09: Aksesibilitas dan Konektivitas Transportasi Perkeretaapian
+- **Background:** `--bg-mid`
+- **Grid:** `repeat(4, 1fr)`, gap `24px`
+- **Card:** `background:#092237` (dark), no border, `border-radius:16px`
+- **Card hover:** lift `translateY(-4px)`, content slides up
+- **Card structure:** 16:9 image top → icon circle → service code (red line + text) → title → description
 
-### 5. Layanan Unggulan (Featured Services)
+### 5. Link Layanan (Layanan Unggulan)
 
-- **Background:** Deep navy `#0A1628`
-- **Section Heading:** "Layanan Unggulan" — same style as above (white bold, red underline)
-- **Layout:** Horizontal carousel, 4 cards visible
-- **Card Design:**
-  - Background: `rgba(255,255,255,0.05)`
-  - Border: `1px solid rgba(255,255,255,0.1)`
-  - Border-radius: `16px`
-  - Icon: Blue line icon in dark circular container
-  - Label: Bold white, centered, 2–3 lines
-  - No service code — just icon + title
-- **Navigation:** Left/right circular buttons (blue, `#3B82F6`) — bottom right of section
-- **Services Shown:**
-  - Pemantauan CCTV Stasiun
-  - Dukungan Manajemen Lainnya
-  - Layanan Sertifikasi Kelaikan Sarana Perkeretaapian
-  - Layanan Sertifikasi SDM Perkeretaapian
+- **Background:** `--bg`
+- **Grid:** `repeat(3, 1fr)`, gap `20px`
+- **Card:** glass surface, border, `border-radius:16px`, centered icon + label
 
-### 6. Berita Terbaru (Latest News)
+### 6. Berita Terbaru
 
-- **Section Heading:** "Berita Terbaru" — same heading style
-- **Layout:** 3-column horizontal carousel
-- **Card Design:**
-  - Background: Transparent (dark bg shows through)
-  - Image: Rounded thumbnail (~16px radius), 16:9 aspect ratio
-  - Title: Bold white, 2 lines, centered, ~16px
-  - Date: Muted white, centered, ~13px
-- **Navigation:** Left/right circle buttons; pagination dots at bottom (filled blue dot = active)
-- **Sample Articles:**
-  - "Momentum Hari Transportasi Nasional: Sinergi Kuat untuk Masa..." — 22 April 2026
-  - "DJKA Bersama Chodai dan KfW Kunjungi Lokasi Proyek SRRL di S..." — 22 April 2026
-  - "Siaran Pers Nomor: 93/SP/IV/BKIP/2026: Presiden Prabowo dan..." — 28 April 2026
+- **Grid:** 3-column
+- **Card:** glass surface, image thumbnail (16:9, `border-radius:12px`), title, date
+- **Navigation:** Left/right circle buttons + pagination dots
+- **Hover:** border-color lift to `rgba(59,130,246,0.25)`
 
-### 7. Berita Foto & Video/Podcast
+### 7. Sosial Media
 
-- **Layout:** 2-column equal split
-  - Left column: "Berita Foto" — carousel with image thumbnail and title/date
-  - Right column: "Video & Podcast" — carousel with video thumbnail and title/date
-- **Column Headings:** White, bold, with red underline separator
-- **Card Design:** Image with rounded corners, left/right nav arrows overlaid on image edges (blue circles)
-- **Thumbnail Style:** Full-bleed rounded rectangle image, caption below
+- **Grid:** 3-column equal
+- **Card:** glass surface, hover: `border-color: #e53e3e` (2px solid)
+- **Platforms:** Instagram, X/Twitter, YouTube — colored icon containers
 
-### 8. Sosial Media
+### 8. Footer
 
-- **Section Heading:** "Sosial Media" — centered, white bold, red underline
-- **Layout:** 3-column grid of embedded social cards
-  - Column 1: Facebook page embed (DJKA — Direktorat Jenderal Perkeretaapian)
-  - Column 2: X/Twitter post embed
-  - Column 3: Instagram profile embed (ditjenperkeretaapian — 4,054 posts, 100K followers)
-- **Card Style:** White/light background cards (native social embed appearance) within dark navy page
-
-### 9. Footer
-
-- **Background:** Dark navy `#0A1628`
-- **Layout:** 4-column horizontal
-  1. **Logo Column:** Institutional globe/eagle logo (gold/yellow), organization name "Kementerian Perhubungan / Direktorat Jenderal Perkeretaapian"
-  2. **Map Column:** Embedded Google Maps showing location near National Monument, Jakarta
-  3. **Contact Column:**
-     - Alamat: Jl. Medan Merdeka Barat No.8 Jakarta Pusat 10110 - Indonesia
-     - Telepon: +62 813-6001-3838
-     - Email: ditjenka@kemenhub.go.id
-  4. **Social Media Column:** Handles listed with platform prefix
-     - ig: @ditjenperkeretaapian
-     - fb: @ditjenperkeretaapian
-     - tiktok: @ditjenperkeretaapian
-     - youtube: @ditjenperkeretaapian
-     - X: @perkeretaapian
-- **Bottom Bar:** Thin divider line + copyright "© Copyright 2025 Direktorat Jenderal Perkeretaapian All Rights Reserved"
+- **Background:** `#0E1937`, always dark
+- **Grid:** `1.2fr 1fr 1.4fr`, gap `80px`
+- **Columns:** Logo + visitor counter | Quick links | Address + contact (Lucide icons)
+- **Bottom bar:** copyright, `padding: 18px 80px`
 
 ---
 
 ## Component Patterns
 
-### Section Heading Pattern
-```
-[Centered Bold White Text ~32px]
-[Red horizontal line, ~60px wide, 3px thick, centered beneath]
-```
-
-### Service Card Pattern
-```
-[Dark circular icon container]
-[Red line — SERVICE CODE]
-[Service Name text]
-```
-
-### Glassmorphism Card
-```
-background: rgba(255,255,255,0.08)
-backdrop-filter: blur(12px)
-border: 1px solid rgba(255,255,255,0.15)
-border-radius: 16px
-```
-
 ### CTA Button (Primary)
-```
-background: #3B82F6
-color: white
-border-radius: 9999px (pill)
-padding: 12px 28px
-font-weight: 700
+```css
+background: #3B82F6;
+color: white;
+border-radius: 9999px;
+padding: 13px 28px;
+font-size: 14px;
+font-weight: 700;
 ```
 
-### Navigation Arrow Button
+### Login Button
+```css
+border: 1.5px solid rgba(255,255,255,0.55);
+border-radius: 12px;
+background: rgba(255,255,255,0.1);
+backdrop-filter: blur(8px);
+font-size: 13.5px;
+font-weight: 600;
 ```
-background: #3B82F6
-color: white
-width: 40px
-height: 40px
-border-radius: 50%
-display: flex; align-items: center; justify-content: center
+
+### Card (Default)
+```css
+background: rgba(255,255,255,0.06);
+border: 1px solid rgba(255,255,255,0.1);
+border-radius: 16px;
+padding: 24px;
+```
+
+### Page Banner (used on PPID, FAQ, Profil pages)
+```css
+padding: 110px 0 56px;
+background: --bg;
+/* radial blue glow overlay */
+.page-banner-inner: max-width 1160px, padding 0 80px
+h1: 2rem, font-weight:800, letter-spacing:-0.4px
+sub: 14.5px, max-width:640px
+.banner-accent: 44×3px red bar, margin-top:18px
 ```
 
 ### Scroll-to-Top Button
+```css
+background: #3B82F6;
+width: 48px; height: 48px;
+border-radius: 50%;
+position: fixed; bottom: 24px; right: 24px;
 ```
-background: #3B82F6
-color: white
-width: 48px
-height: 48px
-border-radius: 50%
-position: fixed
-bottom: 24px
-right: 24px
-```
-
----
-
-## Spacing & Grid
-
-- **Container max-width:** ~1440px, centered
-- **Horizontal padding:** `80–120px` on desktop
-- **Section vertical padding:** `80–100px` top and bottom
-- **Card gap:** `24px`
-- **Card padding:** `32px`
 
 ---
 
 ## Interaction Patterns
 
-- **Dark mode toggle:** Moon icon + blue pill toggle in navbar (appears to be in dark mode by default)
-- **Dropdown menus:** Navbar items with ▾ chevron (Tentang Kami, Kebijakan, Program Pembangunan, Berita)
-- **Carousels:** Left/right navigation arrows; pagination dots for news section
-- **Search bar:** Full-width pill with focus state
-- **Hover states:** Cards likely have subtle glow/border brightening (inferred from design language)
-- **Scroll-to-top:** Fixed blue circle button, bottom-right
+- **Navbar:** Transparent → opaque on scroll; dropdown on click with chevron flip
+- **Theme toggle:** Moon ↔ Sun icon swap via `body.light` CSS class (no JS at toggle time)
+- **Cards:** `translateY(-4px)` lift on hover; border-color transitions
+- **Carousels:** JS-driven left/right nav; pagination dots
+- **Fade-up animation:** `IntersectionObserver` adds `.visible` class → `opacity:0 → 1`, `translateY(24px → 0)`
+- **Search bar:** Focus state: `border-color: rgba(59,130,246,0.7)`
 
 ---
 
-## Dark Mode
+## Spacing System
 
-The entire site appears to be in a **dark-first** design. The dark mode toggle in the navbar suggests light mode may exist, but all screenshots show the dark variant:
-- Background: Deep navy (`#0A1628`)
-- Text: White and light gray
-- Icons and accents: Blue (`#3B82F6`) and Red (`#E53E3E`)
-
----
-
-## Accessibility Notes
-
-- High contrast white text on dark navy backgrounds
-- Icon + text labeling on all service cards
-- Search bar with magnifier icon and placeholder text
-- Navigation landmarks: navbar, main, footer
-- All interactive elements (buttons, nav links) appear large enough for touch targets
+| Context            | Value  |
+|--------------------|--------|
+| Section padding    | 100px  |
+| Container padding  | 80px   |
+| Card gap           | 24px   |
+| Card padding       | 24–32px |
+| Navbar height      | 68px   |
+| Scrollbar width    | 5px    |
 
 ---
 
-## Assets & Media
+## Sub-pages
 
-- Hero background: Full-bleed photographic image of high-speed trains + city skyline
-- Robot mascot: 3D rendered character, appears as PNG with transparent background
-- Institutional logo: SVG/PNG globe with Garuda eagle, gold/yellow color
-- Google Maps embed in footer
-- Social media embeds (Facebook, Twitter/X, Instagram) rendered as native widgets
+All sub-pages share the same navbar, footer, color tokens, and font stack.
+
+| Page                | File                        | Unique Structure                          |
+|---------------------|-----------------------------|-------------------------------------------|
+| Home                | `siapka-redesign.html`      | Hero + sections                           |
+| Profil BLU          | `siapka-profil.html`        | Page banner + 2-col sidebar/content       |
+| PPID                | `siapka-ppid.html`          | Page banner + tab-based content           |
+| FAQ                 | `siapka-faq.html`           | Page banner + accordion FAQ               |
+| Berita Detail       | `siapka-berita-detail.html` | Article layout                            |
+
+### 2-Column Profile Layout (siapka-profil.html)
+- **Left sidebar:** `300px`, sticky `top:68px`, accordion nav buttons with blue left-border active state
+- **Right content:** `flex:1`, scrollable, `padding: 56px 64px 80px`
+- **Sections:** Tentang Kami, Struktur Organisasi, Visi & Misi, Ruang Lingkup
+
+---
+
+## Assets
+
+- Hero background: `Asset/ba43df5f-628d-464e-a876-7df3c6c86d3c.png`
+- Logo (footer/header): `Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png`
+- Public header logo: `Asset/1730709636-logopublicheader.png`
+- Org chart: `Asset/org-struktur.png`
+- SDM data: `Asset/sdm-pegawai.jpg`
+- Icons: Lucide via CDN (`unpkg.com/lucide@latest/dist/umd/lucide.min.js`)

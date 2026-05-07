@@ -12,7 +12,7 @@
 html{scroll-behavior:smooth}
 body{
   font-family:'Inter',system-ui,sans-serif;
-  background:var(--bg);color:var(--text-primary);
+  background:var(--bg);color:var(--white);
   line-height:1.65;overflow-x:hidden;
   transition:background .3s,color .3s;
 }
@@ -23,56 +23,59 @@ button,select,input,textarea{font-family:inherit}
 /* ── TOKENS ── */
 :root{
   --bg:           #0E1937;
-  --bg-raised:    #0d1f3a;
-  --bg-card:      #092237;
-  --bg-input:     #071828;
-  --border:       rgba(255,255,255,0.09);
+  --bg-mid:       #0E1937;
+  --bg-raised:    #0E1937;
+  --bg-card:      rgba(255,255,255,0.06);
+  --bg-input:     #0E1937;
+  --border:       rgba(255,255,255,0.1);
   --border-soft:  rgba(255,255,255,0.05);
   --blue:         #3B82F6;
+  --blue-ic:      #1E3A5F;
   --blue-dim:     rgba(59,130,246,0.15);
   --red:          #DC2626;
   --gold:         #F5C842;
   --gold-dim:     rgba(245,200,66,0.12);
   --green:        #22C55E;
   --green-dim:    rgba(34,197,94,0.12);
+  /* standard tokens */
+  --white:        #FFFFFF;
+  --muted:        rgba(255,255,255,0.6);
+  --faint:        rgba(255,255,255,0.25);
+  /* aliases → standard */
   --text-primary: #FFFFFF;
-  --text-secondary:rgba(255,255,255,0.72);
+  --text-secondary: rgba(255,255,255,0.6);
   --text-tertiary: rgba(255,255,255,0.45);
-  --text-muted:   rgba(255,255,255,0.28);
+  --text-muted:   rgba(255,255,255,0.25);
   --r-xl:16px;--r-lg:12px;--r-md:8px;--r-sm:6px;--r-pill:9999px;
   --dd-bg:#1a2744;--dd-text:rgba(255,255,255,0.85);
   --dd-hover:rgba(255,255,255,0.07);--dd-div:rgba(255,255,255,0.08);
   --dd-shadow:0 8px 40px rgba(0,0,0,0.45);
 }
 body.light{
-  --bg:#F0F4FA;--bg-raised:#E8EEF8;--bg-card:#FFFFFF;
-  --bg-input:#F5F7FB;
-  --border:rgba(0,0,0,0.08);--border-soft:rgba(0,0,0,0.04);
-  --blue:#2563EB;--blue-dim:rgba(37,99,235,0.08);
+  --bg:#F0F4FA;--bg-mid:#E4EAF4;--bg-raised:#E4EAF4;--bg-card:rgba(255,255,255,0.9);
+  --bg-input:#F0F4FA;
+  --border:rgba(0,0,0,0.09);--border-soft:rgba(0,0,0,0.04);
+  --blue:#2563EB;--blue-ic:#DBEAFE;--blue-dim:rgba(37,99,235,0.08);
   --red:#DC2626;--gold:#B8860B;--gold-dim:rgba(184,134,11,0.1);
   --green:#16A34A;--green-dim:rgba(22,163,74,0.1);
-  --text-primary:#0F172A;--text-secondary:#374151;
-  --text-tertiary:rgba(15,23,42,0.5);--text-muted:rgba(15,23,42,0.28);
+  /* standard tokens */
+  --white:#0F172A;--muted:rgba(15,23,42,0.55);--faint:rgba(15,23,42,0.18);
+  /* aliases → standard */
+  --text-primary:#0F172A;--text-secondary:rgba(15,23,42,0.55);
+  --text-tertiary:rgba(15,23,42,0.45);--text-muted:rgba(15,23,42,0.25);
   background:#F0F4FA;color:#0F172A;
   --dd-bg:#fff;--dd-text:#1a1a2e;--dd-hover:#f5f7ff;
   --dd-div:rgba(0,0,0,0.07);--dd-shadow:0 8px 40px rgba(0,0,0,0.14);
 }
 
 /* ── NAVBAR ── */
-body.light .navbar{background:#fff!important;border-bottom-color:rgba(0,0,0,0.1)!important;}
-body.light .nb-links a{color:rgba(15,23,42,0.65);}
-body.light .nb-links a:hover{color:#0F172A;background:rgba(0,0,0,0.05);}
-body.light .nb-links a.act{color:#0F172A;}
-body.light .nb-portal{color:rgba(15,23,42,0.65)!important;}
-body.light .btn-login{border-color:rgba(15,23,42,0.3);background:rgba(15,23,42,0.05);color:#0F172A;}
-body.light .btn-login-icon{border-color:rgba(15,23,42,0.4);}
-body.light .btn-login-icon i[data-lucide] svg{stroke:#0F172A;}
-body.light .nb-toggle{background:#e2e8f0;border-color:rgba(0,0,0,0.15);}
+body.light .navbar{background:#0E1937!important;border-bottom:1px solid rgba(255,255,255,0.1)!important;}
+body.light .navbar.scrolled{background:#0E1937!important;}
 
 .navbar{
   position:fixed;top:0;left:0;right:0;z-index:200;
   height:68px;display:flex;align-items:center;
-  background:var(--bg);border-bottom:1px solid var(--border);
+  background:#0E1937;border-bottom:1px solid rgba(255,255,255,0.1);
   transition:background .3s,border-color .3s;
 }
 .nb-inner{width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 80px;}
@@ -107,7 +110,13 @@ body.light .nb-toggle{background:#e2e8f0;border-color:rgba(0,0,0,0.15);}
 .btn-login-icon i[data-lucide] svg{width:10px;height:10px;stroke:#fff;fill:none;stroke-width:2.5}
 .nb-theme{display:flex;align-items:center;}
 .nb-toggle{position:relative;width:62px;height:32px;background:#0E1937;border-radius:9999px;cursor:pointer;border:1.5px solid rgba(255,255,255,0.15);padding:0;display:flex;align-items:center;}
-.nb-toggle-moon{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:13px;pointer-events:none;}
+.nb-toggle-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);display:flex;align-items:center;justify-content:center;pointer-events:none;user-select:none;}
+.nb-toggle-icon [data-lucide]{display:flex;}
+.nb-toggle-icon [data-lucide] svg,.nb-toggle-icon svg{width:14px;height:14px;}
+.nb-toggle-icon .icon-moon{color:#fff;display:flex;}
+.nb-toggle-icon .icon-sun{color:#f59e0b;display:none;}
+body.light .nb-toggle-icon .icon-moon{display:none;}
+body.light .nb-toggle-icon .icon-sun{display:flex;}
 .nb-toggle-dot{position:absolute;right:3px;top:50%;transform:translateY(-50%);width:24px;height:24px;background:#3B82F6;border-radius:50%;box-shadow:0 2px 8px rgba(59,130,246,0.5);transition:right .25s cubic-bezier(.4,0,.2,1);pointer-events:none;}
 
 /* ── PAGE BANNER ── */
@@ -217,6 +226,17 @@ body.light .nb-toggle{background:#e2e8f0;border-color:rgba(0,0,0,0.15);}
 .struct-name{font-size:12px;color:var(--text-secondary);line-height:1.4;}
 
 /* ── PUBLIC INFO TAB ── */
+/* ── PPID Doc List ── */
+.ppid-list{display:flex;flex-direction:column;margin-bottom:36px;}
+.ppid-list-item{padding:28px 0;border-bottom:1px solid var(--border);}
+.ppid-list-item:last-child{border-bottom:none;}
+.ppid-list-title{font-size:17px;font-weight:700;color:var(--text-primary);margin-bottom:18px;line-height:1.45;}
+.ppid-list-field{margin-bottom:10px;}
+.ppid-list-label{font-size:13px;color:var(--text-tertiary);margin-bottom:2px;}
+.ppid-list-value{font-size:14px;color:var(--text-secondary);line-height:1.6;}
+.ppid-file-link{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;color:var(--text-primary);text-decoration:none;border:1.5px solid var(--border);padding:6px 14px;border-radius:8px;transition:background .15s,border-color .15s;margin-top:4px;}
+.ppid-file-link:hover{background:var(--blue-dim);border-color:var(--blue);}
+.ppid-file-link svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0;}
 .info-cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:36px;}
 .info-cat-card{
   background:var(--bg-card);border:1px solid var(--border);
@@ -358,35 +378,70 @@ body.light .nb-toggle{background:#e2e8f0;border-color:rgba(0,0,0,0.15);}
 .btn-help i[data-lucide] svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.5;}
 
 /* ── FOOTER ── */
-body.light footer{background:var(--bg);border-top-color:rgba(0,0,0,0.08);}
-body.light .footer-bar{color:rgba(15,23,42,0.4);}
-body.light .footer-bar strong{color:rgba(15,23,42,0.6);}
-footer{background:var(--bg);border-top:1px solid var(--border);transition:background .3s;}
-.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1.6fr;gap:48px;padding:36px 0 0;align-items:start;}
-.f-desc{font-size:13px;color:var(--text-tertiary);line-height:1.7;margin-bottom:16px;}
-.f-visitor{font-size:13px;color:var(--text-tertiary);}
-.f-visitor strong{color:var(--text-primary);}
-.f-col-h{font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--text-primary);margin-bottom:16px;}
+footer{background:#0E1937;border-top:1px solid rgba(255,255,255,0.08);padding:36px 0 0;}
+body.light footer{background:#1e293b;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1.6fr;gap:48px;padding-bottom:32px;align-items:start;}
+.f-desc{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.75;margin-bottom:18px;}
+.f-visitor{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border:1px solid rgba(255,255,255,0.15);border-radius:9999px;font-size:12px;color:rgba(255,255,255,0.45);}
+.f-visitor strong{color:#fff;}
+.f-col-h{font-size:14px;font-weight:700;color:#fff;margin-bottom:18px;}
 .f-list{list-style:none;}
 .f-list li{margin-bottom:8px;}
-.f-list a{font-size:13px;color:var(--text-tertiary);transition:color .15s;}
-.f-list a:hover{color:var(--text-primary);}
-.f-contact-list{display:flex;flex-direction:column;gap:10px;}
-.f-ci{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--text-tertiary);}
-.f-ci .ic{color:var(--text-secondary);display:flex;align-items:center;gap:4px;flex-shrink:0;min-width:22px;}
-.f-ci .ic i[data-lucide]{display:flex;}
-.f-ci .ic i[data-lucide] svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;}
-.footer-bar{border-top:1px solid var(--border-soft);padding:20px 0;margin-top:32px;text-align:center;font-size:12px;color:var(--text-muted);}
-.footer-bar strong{color:var(--text-tertiary);}
+.f-list a{font-size:13px;color:rgba(255,255,255,0.45);transition:color .18s;}
+.f-list a:hover{color:#fff;}
+.f-contact-list{display:flex;flex-direction:column;gap:11px;}
+.f-ci{display:flex;gap:6px;font-size:13px;color:rgba(255,255,255,0.45);line-height:1.6;align-items:flex-start;margin-bottom:2px;}
+.f-ci .ic{flex-shrink:0;display:flex;align-items:center;gap:4px;padding-top:1px;color:rgba(255,255,255,0.65);white-space:nowrap;}
+.f-ci .ic svg,.f-ci .ic i[data-lucide] svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;}
+.f-ci .ic i[data-lucide]{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;}
+.footer-bar{border-top:1px solid rgba(255,255,255,0.08);padding:18px 0;text-align:center;font-size:12px;color:rgba(255,255,255,0.45);}
+.footer-bar strong{color:#fff;}
 .wrap-footer{max-width:1160px;margin:0 auto;padding:0 80px;}
 
 /* Scroll to top */
-.to-top{position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;background:var(--blue);color:#fff;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(59,130,246,0.4);transition:background .2s,transform .2s;z-index:500;}
-.to-top:hover{background:#2563EB;transform:translateY(-2px);}
+.to-top{position:fixed;bottom:112px;right:40px;z-index:8998;width:48px;height:48px;border-radius:50%;background:#1d4ed8;color:#fff;border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s,transform .2s;}
+.to-top.visible{opacity:1;pointer-events:auto;}
+.to-top:hover{transform:translateY(-3px);}
+.to-top-ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);pointer-events:none;overflow:visible;}
+.to-top-track{fill:none;stroke:rgba(255,255,255,0.2);stroke-width:3;}
+.to-top-progress{fill:none;stroke:#93c5fd;stroke-width:3;stroke-linecap:round;stroke-dasharray:138.23;stroke-dashoffset:138.23;transition:stroke-dashoffset .08s linear;}
 
 /* Animations */
 .fade-up{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
 .fade-up.visible{opacity:1;transform:none}
+/* ════ HELPDESK FAB ════ */
+.hd-fab{position:fixed;bottom:28px;right:28px;z-index:9000;cursor:pointer;width:72px;height:72px;border-radius:50%;background:none;border:none;padding:0;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.35));transition:transform .2s ease,filter .2s ease;}
+.hd-fab:hover{transform:scale(1.08);filter:drop-shadow(0 8px 24px rgba(0,0,0,0.45));}
+.hd-fab img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;}
+.hd-panel{position:fixed;bottom:112px;right:28px;z-index:9001;width:320px;background:#fff;border-radius:20px;box-shadow:0 12px 48px rgba(0,0,0,0.22);overflow:hidden;opacity:0;transform:translateY(16px) scale(.96);pointer-events:none;transition:opacity .25s ease,transform .25s ease;}
+.hd-panel.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+.hd-panel-head{background:linear-gradient(135deg,#0E3FA8 0%,#1a56db 100%);padding:20px 20px 16px;position:relative;}
+.hd-panel-head-close{position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1;transition:background .15s;}
+.hd-panel-head-close:hover{background:rgba(255,255,255,0.28);}
+.hd-panel-logo{display:flex;align-items:center;gap:12px;}
+.hd-panel-logo img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.35);}
+.hd-panel-logo-text{color:#fff;}
+.hd-panel-logo-text strong{display:block;font-size:13.5px;font-weight:700;line-height:1.3;}
+.hd-panel-logo-text span{font-size:11.5px;opacity:.8;}
+.hd-online{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,0.85);margin-top:8px;}
+.hd-online-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 2px rgba(34,197,94,0.35);}
+.hd-panel-body{padding:18px 16px 20px;}
+.hd-panel-body p{font-size:13.5px;color:#475569;margin-bottom:16px;line-height:1.6;}
+.hd-contact-list{display:flex;flex-direction:column;gap:10px;}
+.hd-contact-btn{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;border:1.5px solid #e2e8f0;text-decoration:none;transition:background .15s,border-color .15s;cursor:pointer;background:#fff;}
+.hd-contact-btn:hover{background:#f8faff;border-color:#bfdbfe;}
+.hd-contact-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hd-contact-icon.wa{background:#dcfce7;}
+.hd-contact-icon.mail{background:#e0f2fe;}
+.hd-contact-icon.phone{background:#fef3c7;}
+.hd-contact-info strong{display:block;font-size:13px;font-weight:700;color:#1e293b;}
+.hd-contact-info span{font-size:11.5px;color:#64748b;}
+body:not(.light) .hd-panel{background:#1e293b;box-shadow:0 12px 48px rgba(0,0,0,0.5);}
+body:not(.light) .hd-panel-body p{color:#94a3b8;}
+body:not(.light) .hd-contact-btn{background:#0f172a;border-color:rgba(255,255,255,0.08);}
+body:not(.light) .hd-contact-btn:hover{background:#1e3a5f;border-color:#3b82f6;}
+body:not(.light) .hd-contact-info strong{color:#f1f5f9;}
+body:not(.light) .hd-contact-info span{color:#64748b;}
 </style>
 </head>
 <body>
@@ -402,34 +457,37 @@ footer{background:var(--bg);border-top:1px solid var(--border);transition:backgr
       <li><a href="siapka-profil.html">Profil</a></li>
       <li class="nb-has-dropdown">
         <a href="#">Layanan <span class="chv"><i data-lucide="chevron-down"></i></span></a>
-        <div class="nb-dropdown">
-          <a href="#" class="nb-dd-simple-item">Informasi Layanan</a>
+        <div class="nb-dropdown nb-dropdown-simple">
+          <a href="siapka-redesign.html#informasi-layanan" class="nb-dd-simple-item">Informasi Layanan</a>
           <div class="nb-dd-divider"></div>
-          <a href="#" class="nb-dd-simple-item">Link Layanan</a>
+          <a href="siapka-redesign.html#link-layanan" class="nb-dd-simple-item">Link Layanan</a>
         </div>
       </li>
-      <li><a href="#">Monitoring</a></li>
+      <li><a href="siapka-redesign.html#monitoring">Monitoring</a></li>
       <li class="nb-has-dropdown">
         <a href="#">Publikasi <span class="chv"><i data-lucide="chevron-down"></i></span></a>
-        <div class="nb-dropdown">
-          <a href="#" class="nb-dd-simple-item">Berita &amp; Informasi</a>
+        <div class="nb-dropdown nb-dropdown-simple">
+          <a href="siapka-redesign.html#berita-informasi" class="nb-dd-simple-item">Berita &amp; Informasi</a>
           <div class="nb-dd-divider"></div>
-          <a href="#" class="nb-dd-simple-item">Media Sosial</a>
+          <a href="siapka-redesign.html#media-sosial" class="nb-dd-simple-item">Media Sosial</a>
         </div>
       </li>
       <li><a href="#" class="act">PPID</a></li>
-      <li><a href="#">Mitra</a></li>
+      <li><a href="siapka-redesign.html#mitra">Mitra</a></li>
       <li><a href="siapka-faq.html">FAQ</a></li>
-      <li><a href="#" class="nb-portal">Portal DJKA</a></li>
+      <li><a href="https://portal.djka.kemenhub.go.id/pld/" target="_blank" class="nb-portal">Portal DJKA</a></li>
     </ul>
     <div style="display:flex;align-items:center;gap:12px;">
-      <button class="btn-login">
+      <a href="https://ujidjka.kemenhub.go.id/login" target="_blank" style="text-decoration:none;"><button class="btn-login">
         <span class="btn-login-icon"><i data-lucide="arrow-right"></i></span>
         Login
-      </button>
+      </button></a>
       <div class="nb-theme">
         <button class="nb-toggle" id="themeToggle" aria-label="Toggle theme">
-          <span class="nb-toggle-moon">🌙</span>
+          <span class="nb-toggle-icon">
+            <i data-lucide="moon" class="icon-moon"></i>
+            <i data-lucide="sun" class="icon-sun"></i>
+          </span>
           <span class="nb-toggle-dot"></span>
         </button>
       </div>
@@ -572,155 +630,66 @@ footer{background:var(--bg);border-top:1px solid var(--border);transition:backgr
   <!-- ══ TAB 2: INFORMASI PUBLIK ══ -->
   <div class="tab-panel" id="tab-publik">
 
-    <div class="info-cat-grid fade-up">
+    <div class="ppid-list fade-up">
 
-      <!-- Informasi Berkala -->
-      <div class="info-cat-card">
-        <div class="info-cat-head">
-          <div class="info-cat-icon" style="background:var(--blue-dim);border:1px solid rgba(59,130,246,0.2);">
-            <i data-lucide="calendar" style="width:20px;height:20px;stroke:var(--blue);fill:none;stroke-width:1.8;display:flex;"></i>
-          </div>
-          <div class="info-cat-meta">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
-              <div class="info-cat-title">Informasi Berkala</div>
-              <span class="info-cat-count" style="background:var(--blue-dim);color:var(--blue);">8 dok</span>
-            </div>
-            <div class="info-cat-desc">Informasi yang wajib disediakan dan diumumkan secara berkala minimal 6 bulan sekali.</div>
-          </div>
+      <!-- Item 1 -->
+      <div class="ppid-list-item">
+        <div class="ppid-list-title">1. INFORMASI BERKALA - RKA Balai Pengujian Perkeretaapian Tahun 2025</div>
+        <div class="ppid-list-field">
+          <div class="ppid-list-label">Tahun: 2025</div>
         </div>
-        <div class="info-cat-divider"></div>
-        <div class="info-cat-docs">
-          <div class="doc-row">
-            <div class="doc-icon" style="background:rgba(239,68,68,0.1);"><i data-lucide="file-text" style="width:14px;height:14px;stroke:#EF4444;fill:none;stroke-width:2;display:flex;"></i></div>
-            <div class="doc-info"><div class="doc-name">Rencana Kerja dan Anggaran 2025</div><div class="doc-meta">PDF · 2.1 MB · Jan 2025</div></div>
-            <button class="doc-dl">Unduh</button>
-          </div>
-          <div class="doc-row">
-            <div class="doc-icon" style="background:rgba(239,68,68,0.1);"><i data-lucide="file-text" style="width:14px;height:14px;stroke:#EF4444;fill:none;stroke-width:2;display:flex;"></i></div>
-            <div class="doc-info"><div class="doc-name">Laporan Keuangan BLU 2024</div><div class="doc-meta">PDF · 3.4 MB · Des 2024</div></div>
-            <button class="doc-dl">Unduh</button>
-          </div>
-          <div class="doc-row">
-            <div class="doc-icon" style="background:rgba(239,68,68,0.1);"><i data-lucide="file-text" style="width:14px;height:14px;stroke:#EF4444;fill:none;stroke-width:2;display:flex;"></i></div>
-            <div class="doc-info"><div class="doc-name">LAKIP / LKj Tahun 2024</div><div class="doc-meta">PDF · 1.8 MB · Feb 2025</div></div>
-            <button class="doc-dl">Unduh</button>
-          </div>
-          <div class="doc-row">
-            <div class="doc-icon" style="background:rgba(239,68,68,0.1);"><i data-lucide="file-text" style="width:14px;height:14px;stroke:#EF4444;fill:none;stroke-width:2;display:flex;"></i></div>
-            <div class="doc-info"><div class="doc-name">Profil & Struktur Organisasi</div><div class="doc-meta">PDF · 0.9 MB · Mar 2025</div></div>
-            <button class="doc-dl">Unduh</button>
-          </div>
+        <div class="ppid-list-field">
+          <div class="ppid-list-label">Deskripsi:</div>
+          <div class="ppid-list-value">RKA Balai Pengujian Perkeretaapian Tahun 2025</div>
+        </div>
+        <div class="ppid-list-field">
+          <div class="ppid-list-label">Dokumen:</div>
+          <a href="https://ppid.kemenhub.go.id/" target="_blank" rel="noopener noreferrer" class="ppid-file-link">
+            File PPID!
+            <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
         </div>
       </div>
 
-      <!-- Informasi Serta Merta -->
-      <div class="info-cat-card">
-        <div class="info-cat-head">
-          <div class="info-cat-icon" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);">
-            <i data-lucide="zap" style="width:20px;height:20px;stroke:#EF4444;fill:none;stroke-width:1.8;display:flex;"></i>
-          </div>
-          <div class="info-cat-meta">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
-              <div class="info-cat-title">Informasi Serta Merta</div>
-              <span class="info-cat-count" style="background:rgba(239,68,68,0.1);color:#EF4444;">3 dok</span>
-            </div>
-            <div class="info-cat-desc">Informasi yang harus diumumkan segera tanpa penundaan karena berkaitan keselamatan publik.</div>
-          </div>
+      <!-- Item 2 -->
+      <div class="ppid-list-item">
+        <div class="ppid-list-title">2. INFORMASI BERKALA - Laporan Keuangan Balai Pengujian Perkeretaapian Tahun 2024</div>
+        <div class="ppid-list-field">
+          <div class="ppid-list-label">Tahun: 2024</div>
         </div>
-        <div class="info-cat-divider"></div>
-        <div class="info-cat-docs">
-          <div class="doc-row">
-            <div class="doc-icon" style="background:rgba(239,68,68,0.1);"><i data-lucide="alert-triangle" style="width:14px;height:14px;stroke:#EF4444;fill:none;stroke-width:2;display:flex;"></i></div>
-            <div class="doc-info"><div class="doc-name">Prosedur Keselamatan Pengujian</div><div class="doc-meta">PDF · 1.2 MB · Apr 2025</div></div>
-            <button class="doc-dl">Unduh</button>
-          </div>
-          <div class="doc-row">
-            <div class="doc-icon" style="background:rgba(239,68,68,0.1);"><i data-lucide="alert-triangle" style="width:14px;height:14px;stroke:#EF4444;fill:none;stroke-width:2;display:flex;"></i></div>
-            <div class="doc-info"><div class="doc-name">Protokol Darurat & Evakuasi</div><div class="doc-meta">PDF · 0.7 MB · Jan 2025</div></div>
-            <button class="doc-dl">Unduh</button>
-          </div>
-          <div class="doc-row">
-            <div class="doc-icon" style="background:rgba(239,68,68,0.1);"><i data-lucide="alert-triangle" style="width:14px;height:14px;stroke:#EF4444;fill:none;stroke-width:2;display:flex;"></i></div>
-            <div class="doc-info"><div class="doc-name">Gangguan Layanan & Tindak Lanjut</div><div class="doc-meta">PDF · 0.5 MB · Mar 2025</div></div>
-            <button class="doc-dl">Unduh</button>
-          </div>
+        <div class="ppid-list-field">
+          <div class="ppid-list-label">Deskripsi:</div>
+          <div class="ppid-list-value">Berisi Laporan Keuangan Balai Pengujian Perkeretaapian yang telah diaudit</div>
+        </div>
+        <div class="ppid-list-field">
+          <div class="ppid-list-label">Dokumen:</div>
+          <a href="https://ppid.kemenhub.go.id/" target="_blank" rel="noopener noreferrer" class="ppid-file-link">
+            File PPID!
+            <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
         </div>
       </div>
 
-      <!-- Informasi Setiap Saat -->
-      <div class="info-cat-card">
-        <div class="info-cat-head">
-          <div class="info-cat-icon" style="background:var(--green-dim);border:1px solid rgba(34,197,94,0.2);">
-            <i data-lucide="clock" style="width:20px;height:20px;stroke:var(--green);fill:none;stroke-width:1.8;display:flex;"></i>
-          </div>
-          <div class="info-cat-meta">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
-              <div class="info-cat-title">Informasi Setiap Saat</div>
-              <span class="info-cat-count" style="background:var(--green-dim);color:var(--green);">12 dok</span>
-            </div>
-            <div class="info-cat-desc">Informasi yang dapat diakses oleh pemohon kapan saja sesuai ketentuan yang berlaku.</div>
-          </div>
+      <!-- Item 3 -->
+      <div class="ppid-list-item">
+        <div class="ppid-list-title">3. INFORMASI BERKALA - Laporan Tahunan Balai Pengujian Perkeretaapian 2024</div>
+        <div class="ppid-list-field">
+          <div class="ppid-list-label">Tahun: 2024</div>
         </div>
-        <div class="info-cat-divider"></div>
-        <div class="info-cat-docs">
-          <div class="doc-row">
-            <div class="doc-icon" style="background:var(--green-dim);"><i data-lucide="scroll-text" style="width:14px;height:14px;stroke:var(--green);fill:none;stroke-width:2;display:flex;"></i></div>
-            <div class="doc-info"><div class="doc-name">SOP Pelayanan Pengujian Sarana</div><div class="doc-meta">PDF · 1.6 MB · Feb 2025</div></div>
-            <button class="doc-dl">Unduh</button>
-          </div>
-          <div class="doc-row">
-            <div class="doc-icon" style="background:var(--green-dim);"><i data-lucide="scroll-text" style="width:14px;height:14px;stroke:var(--green);fill:none;stroke-width:2;display:flex;"></i></div>
-            <div class="doc-info"><div class="doc-name">Daftar Tarif Layanan BLU 2025</div><div class="doc-meta">PDF · 0.8 MB · Jan 2025</div></div>
-            <button class="doc-dl">Unduh</button>
-          </div>
-          <div class="doc-row">
-            <div class="doc-icon" style="background:var(--green-dim);"><i data-lucide="scroll-text" style="width:14px;height:14px;stroke:var(--green);fill:none;stroke-width:2;display:flex;"></i></div>
-            <div class="doc-info"><div class="doc-name">Peraturan Internal Balai</div><div class="doc-meta">PDF · 2.3 MB · Des 2024</div></div>
-            <button class="doc-dl">Unduh</button>
-          </div>
-          <div class="doc-row">
-            <div class="doc-icon" style="background:var(--green-dim);"><i data-lucide="scroll-text" style="width:14px;height:14px;stroke:var(--green);fill:none;stroke-width:2;display:flex;"></i></div>
-            <div class="doc-info"><div class="doc-name">Daftar Izin Operasional yang Diterbitkan</div><div class="doc-meta">PDF · 1.1 MB · Apr 2025</div></div>
-            <button class="doc-dl">Unduh</button>
-          </div>
+        <div class="ppid-list-field">
+          <div class="ppid-list-label">Deskripsi:</div>
+          <div class="ppid-list-value">Berisi Laporan Tahunan Balai Pengujian Perkeretaapian Tahun 2024</div>
+        </div>
+        <div class="ppid-list-field">
+          <div class="ppid-list-label">Dokumen:</div>
+          <a href="https://ppid.kemenhub.go.id/" target="_blank" rel="noopener noreferrer" class="ppid-file-link">
+            File PPID!
+            <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
         </div>
       </div>
 
-      <!-- Informasi Dikecualikan -->
-      <div class="info-cat-card">
-        <div class="info-cat-head">
-          <div class="info-cat-icon" style="background:var(--gold-dim);border:1px solid rgba(245,200,66,0.2);">
-            <i data-lucide="lock" style="width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.8;display:flex;"></i>
-          </div>
-          <div class="info-cat-meta">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
-              <div class="info-cat-title">Informasi Dikecualikan</div>
-              <span class="info-cat-count" style="background:var(--gold-dim);color:var(--gold);">4 dok</span>
-            </div>
-            <div class="info-cat-desc">Informasi yang dikecualikan dari keterbukaan berdasarkan ketentuan peraturan perundang-undangan.</div>
-          </div>
-        </div>
-        <div class="info-cat-divider"></div>
-        <div class="info-cat-docs">
-          <div class="doc-row">
-            <div class="doc-icon" style="background:var(--gold-dim);"><i data-lucide="shield" style="width:14px;height:14px;stroke:var(--gold);fill:none;stroke-width:2;display:flex;"></i></div>
-            <div class="doc-info"><div class="doc-name">Daftar Informasi Dikecualikan 2024</div><div class="doc-meta">PDF · 0.4 MB · Jan 2025</div></div>
-            <button class="doc-dl">Unduh</button>
-          </div>
-          <div class="doc-row">
-            <div class="doc-icon" style="background:var(--gold-dim);"><i data-lucide="shield" style="width:14px;height:14px;stroke:var(--gold);fill:none;stroke-width:2;display:flex;"></i></div>
-            <div class="doc-info"><div class="doc-name">Keputusan Uji Konsekuensi 2024</div><div class="doc-meta">PDF · 0.6 MB · Feb 2025</div></div>
-            <button class="doc-dl">Unduh</button>
-          </div>
-          <div class="doc-row">
-            <div class="doc-icon" style="background:var(--gold-dim);"><i data-lucide="shield" style="width:14px;height:14px;stroke:var(--gold);fill:none;stroke-width:2;display:flex;"></i></div>
-            <div class="doc-info"><div class="doc-name">Perjanjian Kerjasama (Pasal 17 UU KIP)</div><div class="doc-meta">PDF · 1.0 MB · Mar 2025</div></div>
-            <button class="doc-dl">Unduh</button>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /info-cat-grid -->
+    </div><!-- /ppid-list -->
 
   </div><!-- /tab-publik -->
 
@@ -740,7 +709,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);transition:backgr
           </div>
           <div>
             <div style="font-size:14px;color:var(--text-secondary);margin-bottom:4px;">Dokumen:</div>
-            <a href="#" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--text-primary);">
+            <a href="#" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--text-primary);border:1.5px solid var(--border);padding:7px 16px;border-radius:8px;text-decoration:none;">
               File PPID!
               <i data-lucide="external-link" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;display:flex;"></i>
             </a>
@@ -759,7 +728,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);transition:backgr
           </div>
           <div>
             <div style="font-size:14px;color:var(--text-secondary);margin-bottom:4px;">Dokumen:</div>
-            <a href="#" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--text-primary);">
+            <a href="#" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--text-primary);border:1.5px solid var(--border);padding:7px 16px;border-radius:8px;text-decoration:none;">
               File PPID!
               <i data-lucide="external-link" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;display:flex;"></i>
             </a>
@@ -778,7 +747,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);transition:backgr
           </div>
           <div>
             <div style="font-size:14px;color:var(--text-secondary);margin-bottom:4px;">Dokumen:</div>
-            <a href="#" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--text-primary);">
+            <a href="#" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--text-primary);border:1.5px solid var(--border);padding:7px 16px;border-radius:8px;text-decoration:none;">
               File PPID!
               <i data-lucide="external-link" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;display:flex;"></i>
             </a>
@@ -825,7 +794,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);transition:backgr
   <div class="footer-bar">© Copyright 2025 &nbsp;<strong>Balai Pengujian Perkeretaapian</strong>&nbsp; All Rights Reserved</div>
 </footer>
 
-<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button class="to-top" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="to-top-ring" viewBox="0 0 48 48"><circle class="to-top-track" cx="24" cy="24" r="22"/><circle class="to-top-progress" id="toTopProgress" cx="24" cy="24" r="22"/></svg>↑</button>
 
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
@@ -837,13 +806,11 @@ window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.
 
 /* Dark/light toggle */
 const themeToggle = document.getElementById('themeToggle');
-const toggleMoon  = themeToggle.querySelector('.nb-toggle-moon');
-const toggleDot   = themeToggle.querySelector('.nb-toggle-dot');
+const toggleDot   = themeToggle.querySelector(".nb-toggle-dot");
 let isLight = false;
-themeToggle.addEventListener('click', () => {
+themeToggle.addEventListener("click", () => {
   isLight = !isLight;
-  document.body.classList.toggle('light', isLight);
-  toggleMoon.textContent = isLight ? '☀️' : '🌙';
+  document.body.classList.toggle("light", isLight);
   toggleDot.style.right  = isLight ? 'auto' : '3px';
   toggleDot.style.left   = isLight ? '3px'  : 'auto';
   toggleDot.style.background = isLight ? '#94a3b8' : '#3B82F6';
@@ -880,6 +847,60 @@ const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
 }, { threshold: 0.06 });
 document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+
+<!-- ── HELPDESK FAB ── -->
+<button class="hd-fab" onclick="toggleHdPanel()" aria-label="Helpdesk">
+  <img src="Asset/icon-helpdesk.png" alt="Helpdesk">
+</button>
+<div class="hd-panel" id="hdPanel">
+  <div class="hd-panel-head">
+    <button class="hd-panel-head-close" onclick="closeHdPanel()">✕</button>
+    <div class="hd-panel-logo">
+      <img src="Asset/icon-helpdesk.png" alt="CS">
+      <div class="hd-panel-logo-text">
+        <strong>Balai Pengujian Perkeretaapian</strong>
+        <span>Customer Service</span>
+      </div>
+    </div>
+    <div class="hd-online"><span class="hd-online-dot"></span> Online sekarang</div>
+  </div>
+  <div class="hd-panel-body">
+    <p>Halo! Ada yang bisa kami bantu? Pilih saluran di bawah untuk menghubungi tim kami.</p>
+    <div class="hd-contact-list">
+      <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="hd-contact-btn">
+        <div class="hd-contact-icon wa"><svg width="18" height="18" viewBox="0 0 24 24" fill="#16a34a"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.555 4.12 1.527 5.845L.057 23.882l6.194-1.624A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.373l-.36-.213-3.676.964.981-3.585-.234-.369A9.818 9.818 0 1112 21.818z"/></svg></div>
+        <div class="hd-contact-info"><strong>WhatsApp</strong><span>Chat langsung dengan kami</span></div>
+      </a>
+      <a href="mailto:helpdesk@ujidjka.kemenhub.go.id" class="hd-contact-btn">
+        <div class="hd-contact-icon mail"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
+        <div class="hd-contact-info"><strong>Email</strong><span>helpdesk@ujidjka.kemenhub.go.id</span></div>
+      </a>
+      <a href="tel:+62215671234" class="hd-contact-btn">
+        <div class="hd-contact-icon phone"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 5.99 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div class="hd-contact-info"><strong>Telepon</strong><span>(021) 567-1234</span></div>
+      </a>
+    </div>
+  </div>
+</div>
+<script>
+function toggleHdPanel(){document.getElementById('hdPanel').classList.toggle('open');}
+function closeHdPanel(){document.getElementById('hdPanel').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeHdPanel();});
+document.addEventListener('click',function(e){
+  const p=document.getElementById('hdPanel'),f=document.querySelector('.hd-fab');
+  if(p.classList.contains('open')&&!p.contains(e.target)&&!f.contains(e.target))closeHdPanel();
+});
+</script>
+<script>
+(function(){
+  var btn=document.getElementById('toTop'),ring=document.getElementById('toTopProgress'),C=138.23;
+  window.addEventListener('scroll',function(){
+    var y=window.scrollY,max=document.documentElement.scrollHeight-window.innerHeight;
+    btn.classList.toggle('visible',y>200);
+    ring.style.strokeDashoffset=max>0?C*(1-y/max):C;
+  });
+})();
 </script>
 </body>
 </html>

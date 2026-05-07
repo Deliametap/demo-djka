@@ -60,28 +60,10 @@ body.light{
 }
 
 /* ── Navbar ── */
-body.light .navbar{background:rgba(240,244,250,0.82)!important;border-bottom-color:rgba(0,0,0,0.08);}
-body.light .navbar.scrolled{background:rgba(240,244,250,0.97)!important;}
-body.light .nb-links a{color:rgba(15,23,42,0.7);}
-body.light .nb-links a:hover{color:#0F172A;background:rgba(0,0,0,0.05);}
-body.light .nb-portal{color:rgba(15,23,42,0.7)!important;}
-body.light .btn-login{border-color:rgba(15,23,42,0.3);background:rgba(15,23,42,0.05);color:#0F172A;}
-body.light .btn-login-icon{border-color:rgba(15,23,42,0.4);}
-body.light .btn-login-icon svg,body.light .btn-login-icon i[data-lucide] svg{stroke:#0F172A;}
-body.light .nb-toggle{background:#e2e8f0;border-color:rgba(0,0,0,0.15);}
+body.light .navbar{background:#0E1937!important;border-bottom:1px solid rgba(255,255,255,0.1)!important;}
+body.light .navbar.scrolled{background:#0E1937!important;}
 
 /* ── Dropdown ── */
-body.light .nb-dropdown{background:#fff;border-color:rgba(0,0,0,0.1);box-shadow:0 8px 32px rgba(0,0,0,0.12);}
-body.light .nb-dropdown::before{background:#fff;border-color:rgba(0,0,0,0.1);}
-body.light .nb-dd-item{color:rgba(15,23,42,0.7);}
-body.light .nb-dd-item:hover{background:rgba(37,99,235,0.08);color:#0F172A;}
-body.light .nb-dd-icon{background:#EFF6FF;border-color:rgba(37,99,235,0.15);}
-body.light .nb-dd-icon svg,body.light .nb-dd-icon i[data-lucide] svg{stroke:#2563EB;}
-body.light .nb-dd-title{color:#0F172A;}
-body.light .nb-dd-sub{color:rgba(15,23,42,0.4);}
-body.light .nb-dd-divider{background:rgba(0,0,0,0.06);}
-body.light .nb-dd-simple-item{color:rgba(15,23,42,0.65);}
-body.light .nb-dd-simple-item:hover{background:rgba(37,99,235,0.08);color:#0F172A;}
 
 /* ── Hero ── */
 body.light .hero-tint{background:rgba(240,244,250,0.25);}
@@ -138,8 +120,8 @@ body.light .dot.act{background:var(--blue);}
 body.light .berita-nav-btn{background:var(--blue);}
 
 /* ── Sosial Media ── */
-body.light .sm-card{background:#fff;border-color:rgba(0,0,0,0.08);box-shadow:0 2px 16px rgba(0,0,0,0.07);}
-body.light .sm-card:hover{border-color:rgba(37,99,235,0.2);}
+body.light .sm-card{background:#fff;border:2px solid rgba(0,0,0,0.08);box-shadow:0 2px 16px rgba(0,0,0,0.07);}
+body.light .sm-card:hover{border-color:#e53e3e;}
 body.light .sm-name{color:#0F172A;}
 body.light .sm-link{color:var(--blue);}
 body.light .sm-ico.ig{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);}
@@ -368,13 +350,19 @@ body.light{
   display:flex;align-items:center;
 }
 /* Moon icon — left side inside track */
-.nb-toggle-moon{
+.nb-toggle-icon{
   position:absolute;
   left:9px;top:50%;transform:translateY(-50%);
-  font-size:13px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
   pointer-events:none;
   user-select:none;
 }
+.nb-toggle-icon [data-lucide]{display:flex;}
+.nb-toggle-icon [data-lucide] svg,.nb-toggle-icon svg{width:14px;height:14px;}
+.nb-toggle-icon .icon-moon{color:#fff;display:flex;}
+.nb-toggle-icon .icon-sun{color:#f59e0b;display:none;}
+body.light .nb-toggle-icon .icon-moon{display:none;}
+body.light .nb-toggle-icon .icon-sun{display:flex;}
 /* Blue circle dot — right side */
 .nb-toggle-dot{
   position:absolute;
@@ -907,14 +895,14 @@ body.light{
 .sm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .sm-card{
   background:#092237;
-  border:none;
+  border:2px solid transparent;
   border-radius:var(--r-xl);
   padding:48px 32px;
   display:flex;flex-direction:column;align-items:center;text-align:center;
   cursor:pointer;
-  transition:background .25s,transform .25s;
+  transition:background .25s,transform .25s,border-color .25s;
 }
-.sm-card:hover{background:#0d2d47;transform:translateY(-4px)}
+.sm-card:hover{background:#0d2d47;transform:translateY(-4px);border-color:#e53e3e}
 .sm-ico{
   width:72px;height:72px;border-radius:18px;
   display:flex;align-items:center;justify-content:center;
@@ -930,6 +918,104 @@ body.light{
   transition:gap .2s;
 }
 .sm-link:hover{gap:9px}
+
+/* ── INSTAGRAM MODAL ── */
+.ig-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,0.82);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .3s;}
+.ig-overlay.open{opacity:1;pointer-events:auto;}
+.ig-modal{position:fixed;inset:0;z-index:901;overflow-y:auto;padding:0 20px 60px;opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .3s,transform .3s;}
+.ig-modal.open{opacity:1;transform:none;pointer-events:auto;}
+.ig-modal-inner{max-width:1060px;margin:0 auto;padding:0 20px;}
+.ig-modal-header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:22px 0 20px;margin-bottom:24px;background:rgba(9,22,42,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);}
+.ig-modal-brand{display:flex;align-items:center;gap:14px;}
+.ig-modal-brand img{width:34px;height:34px;border-radius:9px;object-fit:contain;}
+.ig-modal-brand h3{font-size:18px;font-weight:700;color:#fff;margin:0;}
+.ig-modal-brand span{font-size:13px;color:rgba(255,255,255,0.45);margin-left:4px;}
+.ig-close{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.8);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;flex-shrink:0;}
+.ig-close:hover{background:rgba(255,255,255,0.16);color:#fff;}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+.ig-post{position:relative;aspect-ratio:1/1;overflow:hidden;cursor:pointer;background:#0d2035;}
+.ig-post img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;}
+.ig-post-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
+.ig-post:hover img,.ig-post:hover .ig-post-bg{transform:scale(1.06);}
+.ig-post-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.42);opacity:0;display:flex;align-items:center;justify-content:center;gap:28px;transition:opacity .25s;}
+.ig-post:hover .ig-post-overlay{opacity:1;}
+.ig-stat{display:flex;align-items:center;gap:6px;color:#fff;font-size:15px;font-weight:700;}
+.ig-stat svg{width:20px;height:20px;}
+.ig-load-wrap{display:flex;justify-content:center;padding-top:36px;}
+.ig-load-btn{padding:11px 36px;border:1.5px solid rgba(255,255,255,0.22);border-radius:9999px;color:rgba(255,255,255,0.75);background:rgba(255,255,255,0.04);font-size:13.5px;font-weight:600;cursor:pointer;transition:background .2s,border-color .2s,color .2s;}
+.ig-load-btn:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.45);color:#fff;}
+
+/* ── YOUTUBE MODAL ── */
+.yt-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .3s;}
+.yt-overlay.open{opacity:1;pointer-events:auto;}
+.yt-modal{position:fixed;inset:0;z-index:901;overflow-y:auto;padding:0 20px 60px;opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .3s,transform .3s;}
+.yt-modal.open{opacity:1;transform:none;pointer-events:auto;}
+.yt-modal-inner{max-width:1100px;margin:0 auto;padding:0 20px;}
+.yt-modal-header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:22px 0 20px;margin-bottom:28px;background:rgba(9,22,42,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);}
+.yt-modal-brand{display:flex;align-items:center;gap:14px;}
+.yt-modal-brand img{width:36px;height:36px;border-radius:8px;object-fit:contain;}
+.yt-modal-brand h3{font-size:18px;font-weight:700;color:#fff;margin:0;}
+.yt-modal-brand span{font-size:13px;color:rgba(255,255,255,0.45);margin-left:4px;}
+.yt-close{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.8);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;flex-shrink:0;}
+.yt-close:hover{background:rgba(255,255,255,0.16);color:#fff;}
+.yt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.yt-card{background:#0d1f33;border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .25s,box-shadow .25s;border:1px solid rgba(255,255,255,0.06);}
+.yt-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.5);}
+.yt-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:#071526;}
+.yt-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;}
+.yt-card:hover .yt-thumb img{transform:scale(1.05);}
+.yt-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s;}
+.yt-card:hover .yt-play{opacity:1;}
+.yt-play-btn{width:52px;height:52px;background:rgba(255,0,0,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(255,0,0,0.4);}
+.yt-play-btn svg{width:22px;height:22px;fill:#fff;margin-left:3px;}
+.yt-duration{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.82);color:#fff;font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:.3px;}
+.yt-info{padding:14px 16px 16px;}
+.yt-title{font-size:13.5px;font-weight:600;color:#fff;line-height:1.45;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.yt-meta{display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(255,255,255,0.4);}
+.yt-meta span{display:flex;align-items:center;gap:4px;}
+.yt-meta svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;}
+.yt-load-wrap{display:flex;justify-content:center;padding-top:36px;}
+.yt-load-btn{padding:11px 36px;border:1.5px solid rgba(255,255,255,0.22);border-radius:9999px;color:rgba(255,255,255,0.75);background:rgba(255,255,255,0.04);font-size:13.5px;font-weight:600;cursor:pointer;transition:background .2s,border-color .2s,color .2s;}
+.yt-load-btn:hover{background:rgba(255,0,0,0.15);border-color:#ff4444;color:#fff;}
+
+/* ── X / TWITTER MODAL ── */
+.x-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .3s;}
+.x-overlay.open{opacity:1;pointer-events:auto;}
+.x-modal{position:fixed;inset:0;z-index:901;overflow-y:auto;padding:0 20px 60px;opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .3s,transform .3s;}
+.x-modal.open{opacity:1;transform:none;pointer-events:auto;}
+.x-modal-inner{max-width:900px;margin:0 auto;padding:0 20px;}
+.x-modal-header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:22px 0 20px;margin-bottom:24px;background:rgba(9,22,42,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);}
+.x-modal-brand{display:flex;align-items:center;gap:14px;}
+.x-modal-brand img{width:30px;height:30px;object-fit:contain;}
+.x-modal-brand h3{font-size:18px;font-weight:700;color:#fff;margin:0;}
+.x-modal-brand span{font-size:13px;color:rgba(255,255,255,0.45);margin-left:4px;}
+.x-close{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.8);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;flex-shrink:0;}
+.x-close:hover{background:rgba(255,255,255,0.16);color:#fff;}
+.x-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.x-card{background:#0d1f33;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;cursor:pointer;transition:background .2s,border-color .2s;}
+.x-card:hover{background:#112840;border-color:rgba(255,255,255,0.16);}
+.x-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.x-avatar{display:flex;align-items:center;gap:10px;}
+.x-avatar-img{width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;overflow:hidden;background:linear-gradient(135deg,#1e3a8a,#3b82f6);}
+.x-avatar-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.x-avatar-info{}
+.x-avatar-name{font-size:14px;font-weight:700;color:#fff;line-height:1.2;}
+.x-avatar-handle{font-size:12px;color:rgba(255,255,255,0.4);}
+.x-brand-icon svg{width:18px;height:18px;fill:rgba(255,255,255,0.3);}
+.x-text{font-size:14px;color:rgba(255,255,255,0.85);line-height:1.6;margin-bottom:14px;}
+.x-text a{color:#1d9bf0;text-decoration:none;}
+.x-img{width:100%;border-radius:10px;overflow:hidden;margin-bottom:14px;}
+.x-img img{width:100%;height:180px;object-fit:cover;display:block;}
+.x-date{font-size:12px;color:rgba(255,255,255,0.35);margin-bottom:14px;}
+.x-stats{display:flex;align-items:center;gap:24px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.07);}
+.x-stat{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,0.4);transition:color .15s;}
+.x-stat:hover{color:rgba(255,255,255,0.8);}
+.x-stat svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;}
+.x-stat.like:hover{color:#f91880;}
+.x-stat.rt:hover{color:#00ba7c;}
+.x-load-wrap{display:flex;justify-content:center;padding-top:36px;}
+.x-load-btn{padding:11px 36px;border:1.5px solid rgba(255,255,255,0.22);border-radius:9999px;color:rgba(255,255,255,0.75);background:rgba(255,255,255,0.04);font-size:13.5px;font-weight:600;cursor:pointer;transition:background .2s,border-color .2s,color .2s;}
+.x-load-btn:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.45);color:#fff;}
 
 /* ════════════════════════════
    MITRA — infinite marquee slider
@@ -1066,23 +1152,58 @@ footer{
 /* ════════════════════════════
    SCROLL TO TOP
 ════════════════════════════ */
-.to-top{
-  position:fixed;bottom:28px;right:28px;
-  width:44px;height:44px;border-radius:50%;
-  background:var(--blue);color:#fff;
-  border:none;font-size:18px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(59,130,246,0.35);
-  z-index:100;
-  transition:opacity .2s,transform .2s;
-}
-.to-top:hover{opacity:.88;transform:translateY(-3px)}
+.to-top{position:fixed;bottom:112px;right:40px;z-index:8998;width:48px;height:48px;border-radius:50%;background:#1d4ed8;color:#fff;border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s,transform .2s;}
+.to-top.visible{opacity:1;pointer-events:auto;}
+.to-top:hover{transform:translateY(-3px);}
+.to-top-ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);pointer-events:none;overflow:visible;}
+.to-top-track{fill:none;stroke:rgba(255,255,255,0.2);stroke-width:3;}
+.to-top-progress{fill:none;stroke:#93c5fd;stroke-width:3;stroke-linecap:round;stroke-dasharray:138.23;stroke-dashoffset:138.23;transition:stroke-dashoffset .08s linear;}
 
 /* ════════════════════════════
    ANIMATIONS
 ════════════════════════════ */
 .fade-up{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
 .fade-up.visible{opacity:1;transform:none}
+
+/* ════════════════════════════
+   HELPDESK FAB
+════════════════════════════ */
+.hd-fab{position:fixed;bottom:28px;right:28px;z-index:9000;cursor:pointer;width:72px;height:72px;border-radius:50%;background:none;border:none;padding:0;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.35));transition:transform .2s ease,filter .2s ease;}
+.hd-fab:hover{transform:scale(1.08);filter:drop-shadow(0 8px 24px rgba(0,0,0,0.45));}
+.hd-fab img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;}
+
+/* Panel */
+.hd-panel{position:fixed;bottom:112px;right:28px;z-index:9001;width:320px;background:#fff;border-radius:20px;box-shadow:0 12px 48px rgba(0,0,0,0.22);overflow:hidden;opacity:0;transform:translateY(16px) scale(.96);pointer-events:none;transition:opacity .25s ease,transform .25s ease;}
+.hd-panel.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+.hd-panel-head{background:linear-gradient(135deg,#0E3FA8 0%,#1a56db 100%);padding:20px 20px 16px;position:relative;}
+.hd-panel-head-close{position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1;transition:background .15s;}
+.hd-panel-head-close:hover{background:rgba(255,255,255,0.28);}
+.hd-panel-logo{display:flex;align-items:center;gap:12px;}
+.hd-panel-logo img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.35);}
+.hd-panel-logo-text{color:#fff;}
+.hd-panel-logo-text strong{display:block;font-size:13.5px;font-weight:700;line-height:1.3;}
+.hd-panel-logo-text span{font-size:11.5px;opacity:.8;}
+.hd-online{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,0.85);margin-top:8px;}
+.hd-online-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 2px rgba(34,197,94,0.35);}
+.hd-panel-body{padding:18px 16px 20px;}
+.hd-panel-body p{font-size:13.5px;color:#475569;margin-bottom:16px;line-height:1.6;}
+.hd-contact-list{display:flex;flex-direction:column;gap:10px;}
+.hd-contact-btn{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;border:1.5px solid #e2e8f0;text-decoration:none;transition:background .15s,border-color .15s;cursor:pointer;background:#fff;}
+.hd-contact-btn:hover{background:#f8faff;border-color:#bfdbfe;}
+.hd-contact-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hd-contact-icon.wa{background:#dcfce7;}
+.hd-contact-icon.mail{background:#e0f2fe;}
+.hd-contact-icon.phone{background:#fef3c7;}
+.hd-contact-info strong{display:block;font-size:13px;font-weight:700;color:#1e293b;}
+.hd-contact-info span{font-size:11.5px;color:#64748b;}
+
+/* dark mode panel */
+body:not(.light) .hd-panel{background:#1e293b;box-shadow:0 12px 48px rgba(0,0,0,0.5);}
+body:not(.light) .hd-panel-body p{color:#94a3b8;}
+body:not(.light) .hd-contact-btn{background:#0f172a;border-color:rgba(255,255,255,0.08);}
+body:not(.light) .hd-contact-btn:hover{background:#1e3a5f;border-color:#3b82f6;}
+body:not(.light) .hd-contact-info strong{color:#f1f5f9;}
+body:not(.light) .hd-contact-info span{color:#64748b;}
 </style>
 </head>
 <body>
@@ -1104,42 +1225,45 @@ footer{
       <li class="nb-has-dropdown">
         <a href="#">Layanan <span class="chv"><i data-lucide="chevron-down"></i></span></a>
         <div class="nb-dropdown nb-dropdown-simple">
-          <a href="#" class="nb-dd-simple-item">Informasi Layanan</a>
+          <a href="#informasi-layanan" class="nb-dd-simple-item">Informasi Layanan</a>
           <div class="nb-dd-divider"></div>
-          <a href="#" class="nb-dd-simple-item">Link Layanan</a>
+          <a href="#link-layanan" class="nb-dd-simple-item">Link Layanan</a>
         </div>
       </li>
 
-      <li><a href="#">Monitoring</a></li>
+      <li><a href="#monitoring">Monitoring</a></li>
 
       <!-- Publikasi dropdown -->
       <li class="nb-has-dropdown">
         <a href="#">Publikasi <span class="chv"><i data-lucide="chevron-down"></i></span></a>
         <div class="nb-dropdown nb-dropdown-simple">
-          <a href="#" class="nb-dd-simple-item">Berita &amp; Informasi</a>
+          <a href="#berita-informasi" class="nb-dd-simple-item">Berita &amp; Informasi</a>
           <div class="nb-dd-divider"></div>
-          <a href="#" class="nb-dd-simple-item">Media Sosial</a>
+          <a href="#media-sosial" class="nb-dd-simple-item">Media Sosial</a>
         </div>
       </li>
 
-      <li><a href="#">PPID</a></li>
-      <li><a href="#">Mitra</a></li>
-      <li><a href="#">FAQ</a></li>
-      <li><a href="#" class="nb-portal">Portal DJKA</a></li>
+      <li><a href="siapka-ppid.html">PPID</a></li>
+      <li><a href="#mitra">Mitra</a></li>
+      <li><a href="siapka-faq.html">FAQ</a></li>
+      <li><a href="https://portal.djka.kemenhub.go.id/pld/" target="_blank" class="nb-portal">Portal DJKA</a></li>
     </ul>
 
     <div style="display:flex;align-items:center;gap:12px;">
       <!-- Login button — frosted glass rounded-rect + arrow icon -->
-      <button class="btn-login">
+      <a href="https://ujidjka.kemenhub.go.id/login" target="_blank" style="text-decoration:none;"><button class="btn-login">
         <span class="btn-login-icon">
           <i data-lucide="arrow-right"></i>
         </span>
         Login
-      </button>
+      </button></a>
       <!-- Dark toggle — dark track, moon left, blue dot right -->
       <div class="nb-theme">
         <button class="nb-toggle" id="themeToggle" aria-label="Toggle theme">
-          <span class="nb-toggle-moon">🌙</span>
+          <span class="nb-toggle-icon">
+            <i data-lucide="moon" class="icon-moon"></i>
+            <i data-lucide="sun" class="icon-sun"></i>
+          </span>
           <span class="nb-toggle-dot"></span>
         </button>
       </div>
@@ -1204,7 +1328,7 @@ footer{
 <!-- ══ ABOUT ══ -->
 
 <!-- ══ LAYANAN UTAMA (2×2 — matching PERONHUB structure) ══ -->
-<section class="layanan-utama fade-up">
+<section class="layanan-utama fade-up" id="informasi-layanan">
   <div class="wrap">
     <div class="sh">
       <h2>Informasi Layanan</h2>
@@ -1276,7 +1400,7 @@ footer{
 </section>
 
 <!-- ══ LAYANAN UNGGULAN (4-col) ══ -->
-<section class="layanan-unggulan fade-up">
+<section class="layanan-unggulan fade-up" id="link-layanan">
   <div class="wrap">
     <div class="sh">
       <h2>Link Layanan</h2>
@@ -1284,42 +1408,42 @@ footer{
     </div>
 
     <div class="lug-grid">
-      <div class="lug-card">
+      <a class="lug-card" href="https://ujidjka.kemenhub.go.id/login" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
         <div class="lug-icon">
           <i data-lucide="layout-dashboard"></i>
         </div>
         <div class="lug-title">CEO Dashboard Balai Pengujian Perkeretaapian</div>
-      </div>
-      <div class="lug-card">
+      </a>
+      <a class="lug-card" href="https://ujidjka.kemenhub.go.id/paymentbalaiuji/public/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
         <div class="lug-icon">
           <i data-lucide="credit-card"></i>
         </div>
         <div class="lug-title">HUB Payment BLU Balai Pengujian</div>
-      </div>
-      <div class="lug-card">
+      </a>
+      <a class="lug-card" href="https://ujidjka.kemenhub.go.id/login" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
         <div class="lug-icon">
           <i data-lucide="users"></i>
         </div>
         <div class="lug-title">Pelayanan Uji SDM Perkeretaapian</div>
-      </div>
-      <div class="lug-card">
+      </a>
+      <a class="lug-card" href="https://ujidjka.kemenhub.go.id/ujisarana/public/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
         <div class="lug-icon">
           <i data-lucide="tram-front"></i>
         </div>
         <div class="lug-title">Pelayanan Uji Sarana Perkeretaapian</div>
-      </div>
-      <div class="lug-card">
+      </a>
+      <a class="lug-card" href="https://ujidjka.kemenhub.go.id/login" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
         <div class="lug-icon">
           <i data-lucide="home"></i>
         </div>
         <div class="lug-title">Pelayanan Uji Prasarana Perkeretaapian</div>
-      </div>
-      <div class="lug-card">
+      </a>
+      <a class="lug-card" href="https://ujidjka.kemenhub.go.id/noncore/public/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
         <div class="lug-icon">
           <i data-lucide="clock"></i>
         </div>
         <div class="lug-title">NonCore — Sewa Aset BMN Perkeretaapian</div>
-      </div>
+      </a>
     </div>
 
   </div>
@@ -1328,7 +1452,7 @@ footer{
 <!-- ══ LINK LAYANAN ══ -->
 
 <!-- ══ MONITORING ══ -->
-<section class="monitoring fade-up">
+<section class="monitoring fade-up" id="monitoring">
   <div class="wrap">
     <div class="mon-panel">
       <div class="sh">
@@ -1361,7 +1485,7 @@ footer{
 </section>
 
 <!-- ══ BERITA TERBARU ══ -->
-<section class="berita fade-up">
+<section class="berita fade-up" id="berita-informasi">
   <div class="wrap">
     <div class="sh">
       <h2>Berita Terbaru</h2>
@@ -1426,7 +1550,7 @@ footer{
 </section>
 
 <!-- ══ SOSIAL MEDIA ══ -->
-<section class="sosmed fade-up">
+<section class="sosmed fade-up" id="media-sosial">
   <div class="wrap">
     <div class="sh">
       <h2>Sosial Media</h2>
@@ -1434,27 +1558,27 @@ footer{
     </div>
 
     <div class="sm-grid">
-      <div class="sm-card">
+      <div class="sm-card" onclick="openIgModal()" style="cursor:pointer;">
         <div class="sm-ico"><img src="Asset/instagram.png" alt="Instagram"/></div>
         <div class="sm-name">Instagram</div>
-        <a href="#" class="sm-link">Lihat Semua Postingan →</a>
+        <span class="sm-link">Lihat Semua Postingan →</span>
       </div>
-      <div class="sm-card">
+      <div class="sm-card" onclick="openYtModal()" style="cursor:pointer;">
         <div class="sm-ico"><img src="Asset/youtube.png" alt="YouTube"/></div>
         <div class="sm-name">YouTube</div>
-        <a href="#" class="sm-link">Lihat Semua Postingan →</a>
+        <span class="sm-link">Lihat Semua Video →</span>
       </div>
-      <div class="sm-card">
+      <div class="sm-card" onclick="openXModal()" style="cursor:pointer;">
         <div class="sm-ico"><img src="Asset/x.png" alt="X / Twitter"/></div>
         <div class="sm-name">Twitter / X</div>
-        <a href="#" class="sm-link">Lihat Semua Postingan →</a>
+        <span class="sm-link">Lihat Semua Postingan →</span>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ══ MITRA ══ -->
-<section class="mitra fade-up">
+<section class="mitra fade-up" id="mitra">
   <div class="wrap">
     <div class="sh">
       <h2>Mitra</h2>
@@ -1466,15 +1590,15 @@ footer{
   <div class="mitra-track-wrap">
     <div class="mitra-track">
       <!-- Set 1 -->
-      <div class="mitra-card"><img src="Asset/PLZeGsjJ7huMvyE1F2KY.png" alt="PTDI STTD"/></div>
-      <div class="mitra-card"><img src="Asset/YzBQ0RCGNJD5EMsFZWaw.png" alt="Kereta Commuter Indonesia"/></div>
-      <div class="mitra-card"><img src="Asset/5x8qYGb41HjUF7AcTiIR.png" alt="Kereta Api Indonesia"/></div>
-      <div class="mitra-card"><img src="Asset/b4nSNUqe9z75dJLKcRMB.png" alt="MRT Jakarta"/></div>
+      <a class="mitra-card" href="https://www.ptdisttd.ac.id/" target="_blank" rel="noopener noreferrer"><img src="Asset/PLZeGsjJ7huMvyE1F2KY.png" alt="PTDI STTD"/></a>
+      <a class="mitra-card" href="https://kci.id/" target="_blank" rel="noopener noreferrer"><img src="Asset/YzBQ0RCGNJD5EMsFZWaw.png" alt="Kereta Commuter Indonesia"/></a>
+      <a class="mitra-card" href="https://www.kai.id/" target="_blank" rel="noopener noreferrer"><img src="Asset/5x8qYGb41HjUF7AcTiIR.png" alt="Kereta Api Indonesia"/></a>
+      <a class="mitra-card" href="https://jakartamrt.co.id/id" target="_blank" rel="noopener noreferrer"><img src="Asset/b4nSNUqe9z75dJLKcRMB.png" alt="MRT Jakarta"/></a>
       <!-- Set 2 — identical copy for seamless infinite loop -->
-      <div class="mitra-card"><img src="Asset/PLZeGsjJ7huMvyE1F2KY.png" alt="PTDI STTD"/></div>
-      <div class="mitra-card"><img src="Asset/YzBQ0RCGNJD5EMsFZWaw.png" alt="Kereta Commuter Indonesia"/></div>
-      <div class="mitra-card"><img src="Asset/5x8qYGb41HjUF7AcTiIR.png" alt="Kereta Api Indonesia"/></div>
-      <div class="mitra-card"><img src="Asset/b4nSNUqe9z75dJLKcRMB.png" alt="MRT Jakarta"/></div>
+      <a class="mitra-card" href="https://www.ptdisttd.ac.id/" target="_blank" rel="noopener noreferrer"><img src="Asset/PLZeGsjJ7huMvyE1F2KY.png" alt="PTDI STTD"/></a>
+      <a class="mitra-card" href="https://kci.id/" target="_blank" rel="noopener noreferrer"><img src="Asset/YzBQ0RCGNJD5EMsFZWaw.png" alt="Kereta Commuter Indonesia"/></a>
+      <a class="mitra-card" href="https://www.kai.id/" target="_blank" rel="noopener noreferrer"><img src="Asset/5x8qYGb41HjUF7AcTiIR.png" alt="Kereta Api Indonesia"/></a>
+      <a class="mitra-card" href="https://jakartamrt.co.id/id" target="_blank" rel="noopener noreferrer"><img src="Asset/b4nSNUqe9z75dJLKcRMB.png" alt="MRT Jakarta"/></a>
     </div>
   </div>
 </section>
@@ -1520,7 +1644,7 @@ footer{
 </footer>
 
 <!-- Scroll to top -->
-<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button class="to-top" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="to-top-ring" viewBox="0 0 48 48"><circle class="to-top-track" cx="24" cy="24" r="22"/><circle class="to-top-progress" id="toTopProgress" cx="24" cy="24" r="22"/></svg>↑</button>
 
 <script>
 /* Scroll fade-up reveal */
@@ -1538,13 +1662,11 @@ window.addEventListener('scroll', () => {
 
 /* Light / Dark mode toggle */
 const themeToggle = document.getElementById('themeToggle');
-const toggleMoon  = themeToggle.querySelector('.nb-toggle-moon');
 const toggleDot   = themeToggle.querySelector('.nb-toggle-dot');
 let isLight = false;
 themeToggle.addEventListener('click', () => {
   isLight = !isLight;
   document.body.classList.toggle('light', isLight);
-  toggleMoon.textContent = isLight ? '☀️' : '🌙';
   toggleDot.style.right  = isLight ? 'auto' : '3px';
   toggleDot.style.left   = isLight ? '3px'  : 'auto';
   toggleDot.style.background = isLight ? '#94a3b8' : '#3B82F6';
@@ -1581,6 +1703,382 @@ function switchTab(el, placeholder){
 })();
 </script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<!-- ══ X / TWITTER MODAL ══ -->
+<div class="x-overlay" id="xOverlay" onclick="closeXModal()"></div>
+<div class="x-modal" id="xModal">
+  <div class="x-modal-inner">
+    <div class="x-modal-header">
+      <div class="x-modal-brand">
+        <img src="Asset/x.png" alt="X"/>
+        <h3>Semua Konten Twitter / X</h3>
+        <span>@BalaiUjiKA</span>
+      </div>
+      <button class="x-close" onclick="closeXModal()" aria-label="Tutup">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="x-grid">
+
+      <!-- Tweet 1 -->
+      <div class="x-card" onclick="window.open('https://x.com/BalaiUjiKA','_blank')">
+        <div class="x-card-head">
+          <div class="x-avatar">
+            <div class="x-avatar-img"><img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" alt="avatar"/></div>
+            <div class="x-avatar-info">
+              <div class="x-avatar-name">Balai Pengujian KA</div>
+              <div class="x-avatar-handle">@BalaiUjiKA</div>
+            </div>
+          </div>
+          <div class="x-brand-icon"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.254 5.622 5.91-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+        </div>
+        <div class="x-text">
+          Pengujian LRT Jabodebek fase operasi komersial telah selesai dilaksanakan. Seluruh rangkaian dinyatakan laik jalan sesuai standar keselamatan nasional. 🚈 <a href="#">#PerkeretaapianIndonesia</a> <a href="#">#LRTJabodebek</a>
+        </div>
+        <div class="x-img"><img src="Asset/062e197e3f76195cda11ae2e9ba9e34e.png" alt="media"/></div>
+        <div class="x-date">10.45 · 15 Apr 2025</div>
+        <div class="x-stats">
+          <span class="x-stat"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>42</span>
+          <span class="x-stat rt"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>87</span>
+          <span class="x-stat like"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>312</span>
+        </div>
+      </div>
+
+      <!-- Tweet 2 -->
+      <div class="x-card" onclick="window.open('https://x.com/BalaiUjiKA','_blank')">
+        <div class="x-card-head">
+          <div class="x-avatar">
+            <div class="x-avatar-img"><img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" alt="avatar"/></div>
+            <div class="x-avatar-info">
+              <div class="x-avatar-name">Balai Pengujian KA</div>
+              <div class="x-avatar-handle">@BalaiUjiKA</div>
+            </div>
+          </div>
+          <div class="x-brand-icon"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.254 5.622 5.91-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+        </div>
+        <div class="x-text">
+          📢 Pendaftaran Sertifikasi SDM Perkeretaapian periode Mei 2025 dibuka! Daftarkan diri Anda melalui portal SiAPKA. Kuota terbatas. <a href="#">#SDMPerkeretaapian</a> <a href="#">#DJKA</a>
+        </div>
+        <div class="x-date">08.30 · 2 Mei 2025</div>
+        <div class="x-stats">
+          <span class="x-stat"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>18</span>
+          <span class="x-stat rt"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>54</span>
+          <span class="x-stat like"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>198</span>
+        </div>
+      </div>
+
+      <!-- Tweet 3 -->
+      <div class="x-card" onclick="window.open('https://x.com/BalaiUjiKA','_blank')">
+        <div class="x-card-head">
+          <div class="x-avatar">
+            <div class="x-avatar-img"><img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" alt="avatar"/></div>
+            <div class="x-avatar-info">
+              <div class="x-avatar-name">Balai Pengujian KA</div>
+              <div class="x-avatar-handle">@BalaiUjiKA</div>
+            </div>
+          </div>
+          <div class="x-brand-icon"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.254 5.622 5.91-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+        </div>
+        <div class="x-text">
+          Kunjungan tim teknis dari KAI dan MRT Jakarta ke fasilitas laboratorium pengujian Balai Uji Perkeretaapian Bekasi. Sinergi untuk mewujudkan transportasi rel yang aman dan andal. 🤝
+        </div>
+        <div class="x-img"><img src="Asset/sdm-pegawai.jpg" alt="media"/></div>
+        <div class="x-date">14.22 · 28 Mar 2025</div>
+        <div class="x-stats">
+          <span class="x-stat"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>31</span>
+          <span class="x-stat rt"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>112</span>
+          <span class="x-stat like"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>445</span>
+        </div>
+      </div>
+
+      <!-- Tweet 4 -->
+      <div class="x-card" onclick="window.open('https://x.com/BalaiUjiKA','_blank')">
+        <div class="x-card-head">
+          <div class="x-avatar">
+            <div class="x-avatar-img"><img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" alt="avatar"/></div>
+            <div class="x-avatar-info">
+              <div class="x-avatar-name">Balai Pengujian KA</div>
+              <div class="x-avatar-handle">@BalaiUjiKA</div>
+            </div>
+          </div>
+          <div class="x-brand-icon"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.254 5.622 5.91-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+        </div>
+        <div class="x-text">
+          🔍 Sistem monitoring SiAPKA kini hadir dengan fitur pelacakan status pengajuan secara real-time. Cek status uji prasarana, sarana, dan SDM langsung dari dashboard. <a href="#">#SiAPKA</a> <a href="#">#Kemenhub</a>
+        </div>
+        <div class="x-date">09.15 · 10 Feb 2025</div>
+        <div class="x-stats">
+          <span class="x-stat"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>27</span>
+          <span class="x-stat rt"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>96</span>
+          <span class="x-stat like"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>267</span>
+        </div>
+      </div>
+
+      <!-- Tweet 5 -->
+      <div class="x-card" onclick="window.open('https://x.com/BalaiUjiKA','_blank')">
+        <div class="x-card-head">
+          <div class="x-avatar">
+            <div class="x-avatar-img"><img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" alt="avatar"/></div>
+            <div class="x-avatar-info">
+              <div class="x-avatar-name">Balai Pengujian KA</div>
+              <div class="x-avatar-handle">@BalaiUjiKA</div>
+            </div>
+          </div>
+          <div class="x-brand-icon"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.254 5.622 5.91-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+        </div>
+        <div class="x-text">
+          Selamat kepada 128 peserta yang telah berhasil mendapatkan sertifikasi tenaga penguji perkeretaapian periode Q1 2025. Selamat bertugas! 🎓 <a href="#">#Sertifikasi</a> <a href="#">#PerkeretaapianIndonesia</a>
+        </div>
+        <div class="x-img"><img src="Asset/bd1948bfa4a554b6c1fc83373f3dd451.jpg" alt="media"/></div>
+        <div class="x-date">11.00 · 22 Jan 2025</div>
+        <div class="x-stats">
+          <span class="x-stat"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>56</span>
+          <span class="x-stat rt"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>143</span>
+          <span class="x-stat like"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>521</span>
+        </div>
+      </div>
+
+      <!-- Tweet 6 -->
+      <div class="x-card" onclick="window.open('https://x.com/BalaiUjiKA','_blank')">
+        <div class="x-card-head">
+          <div class="x-avatar">
+            <div class="x-avatar-img"><img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" alt="avatar"/></div>
+            <div class="x-avatar-info">
+              <div class="x-avatar-name">Balai Pengujian KA</div>
+              <div class="x-avatar-handle">@BalaiUjiKA</div>
+            </div>
+          </div>
+          <div class="x-brand-icon"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.254 5.622 5.91-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+        </div>
+        <div class="x-text">
+          Ingin tahu prosedur pengujian sarana KA? Cek halaman FAQ kami di SiAPKA atau hubungi kami melalui <a href="#">balaipengujianka@gmail.com</a>. Tim kami siap membantu 24/7. 📞
+        </div>
+        <div class="x-date">16.45 · 5 Jan 2025</div>
+        <div class="x-stats">
+          <span class="x-stat"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>14</span>
+          <span class="x-stat rt"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>38</span>
+          <span class="x-stat like"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>154</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="x-load-wrap">
+      <button class="x-load-btn" onclick="window.open('https://x.com/BalaiUjiKA','_blank')">Lihat di X / Twitter →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ YOUTUBE MODAL ══ -->
+<div class="yt-overlay" id="ytOverlay" onclick="closeYtModal()"></div>
+<div class="yt-modal" id="ytModal">
+  <div class="yt-modal-inner">
+    <div class="yt-modal-header">
+      <div class="yt-modal-brand">
+        <img src="Asset/youtube.png" alt="YouTube"/>
+        <h3>Semua Konten YouTube</h3>
+        <span>Balai Pengujian Perkeretaapian</span>
+      </div>
+      <button class="yt-close" onclick="closeYtModal()" aria-label="Tutup">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="yt-grid">
+      <!-- Video 1 -->
+      <div class="yt-card" onclick="window.open('https://www.youtube.com/@BalaiPengujianPerkeretaapian','_blank')">
+        <div class="yt-thumb">
+          <img src="Asset/062e197e3f76195cda11ae2e9ba9e34e.png" alt="Video"/>
+          <div class="yt-play"><div class="yt-play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+          <span class="yt-duration">04:32</span>
+        </div>
+        <div class="yt-info">
+          <div class="yt-title">Uji Coba Kereta LRT Jabodebek – Fase Operasi Komersial 2024</div>
+          <div class="yt-meta">
+            <span><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>12.4K tayangan</span>
+            <span>3 bulan lalu</span>
+          </div>
+        </div>
+      </div>
+      <!-- Video 2 -->
+      <div class="yt-card" onclick="window.open('https://www.youtube.com/@BalaiPengujianPerkeretaapian','_blank')">
+        <div class="yt-thumb">
+          <img src="Asset/d7aea56be9fd0e22e63c8c2b0ad02bd8.jpg" alt="Video"/>
+          <div class="yt-play"><div class="yt-play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+          <span class="yt-duration">07:18</span>
+        </div>
+        <div class="yt-info">
+          <div class="yt-title">Pengujian Sarana Kereta Api – Prosedur Standar Nasional Indonesia</div>
+          <div class="yt-meta">
+            <span><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>8.7K tayangan</span>
+            <span>5 bulan lalu</span>
+          </div>
+        </div>
+      </div>
+      <!-- Video 3 -->
+      <div class="yt-card" onclick="window.open('https://www.youtube.com/@BalaiPengujianPerkeretaapian','_blank')">
+        <div class="yt-thumb">
+          <img src="Asset/bd1948bfa4a554b6c1fc83373f3dd451.jpg" alt="Video"/>
+          <div class="yt-play"><div class="yt-play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+          <span class="yt-duration">05:47</span>
+        </div>
+        <div class="yt-info">
+          <div class="yt-title">Mekanisme Pengujian KRL – Balai Pengujian Perkeretaapian DJKA</div>
+          <div class="yt-meta">
+            <span><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>6.2K tayangan</span>
+            <span>6 bulan lalu</span>
+          </div>
+        </div>
+      </div>
+      <!-- Video 4 -->
+      <div class="yt-card" onclick="window.open('https://www.youtube.com/@BalaiPengujianPerkeretaapian','_blank')">
+        <div class="yt-thumb">
+          <img src="Asset/sdm-pegawai.jpg" alt="Video"/>
+          <div class="yt-play"><div class="yt-play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+          <span class="yt-duration">10:05</span>
+        </div>
+        <div class="yt-info">
+          <div class="yt-title">Sertifikasi SDM Perkeretaapian – Syarat, Prosedur dan Jadwal Ujian</div>
+          <div class="yt-meta">
+            <span><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>9.1K tayangan</span>
+            <span>7 bulan lalu</span>
+          </div>
+        </div>
+      </div>
+      <!-- Video 5 -->
+      <div class="yt-card" onclick="window.open('https://www.youtube.com/@BalaiPengujianPerkeretaapian','_blank')">
+        <div class="yt-thumb">
+          <img src="Asset/ba43df5f-628d-464e-a876-7df3c6c86d3c.png" alt="Video"/>
+          <div class="yt-play"><div class="yt-play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+          <span class="yt-duration">08:23</span>
+        </div>
+        <div class="yt-info">
+          <div class="yt-title">Monitoring Real-Time Sistem Perkeretaapian Nasional – SiAPKA 2024</div>
+          <div class="yt-meta">
+            <span><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>5.8K tayangan</span>
+            <span>8 bulan lalu</span>
+          </div>
+        </div>
+      </div>
+      <!-- Video 6 -->
+      <div class="yt-card" onclick="window.open('https://www.youtube.com/@BalaiPengujianPerkeretaapian','_blank')">
+        <div class="yt-thumb">
+          <img src="Asset/ee40bba7076ac73dbd026f798ceba8db.png" alt="Video"/>
+          <div class="yt-play"><div class="yt-play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+          <span class="yt-duration">06:51</span>
+        </div>
+        <div class="yt-info">
+          <div class="yt-title">Inovasi Teknologi Pengujian Prasarana Kereta Api Indonesia</div>
+          <div class="yt-meta">
+            <span><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>4.3K tayangan</span>
+            <span>1 tahun lalu</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="yt-load-wrap">
+      <button class="yt-load-btn" onclick="window.open('https://www.youtube.com/@BalaiPengujianPerkeretaapian','_blank')">Lihat di YouTube →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INSTAGRAM MODAL ══ -->
+<div class="ig-overlay" id="igOverlay" onclick="closeIgModal()"></div>
+<div class="ig-modal" id="igModal">
+  <div class="ig-modal-inner">
+    <div class="ig-modal-header">
+      <div class="ig-modal-brand">
+        <img src="Asset/instagram.png" alt="Instagram"/>
+        <h3>Semua Konten Instagram</h3>
+        <span>@balaipengujianka</span>
+      </div>
+      <button class="ig-close" onclick="closeIgModal()" aria-label="Tutup">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="ig-grid" id="igGrid">
+      <!-- Post 1 -->
+      <div class="ig-post">
+        <img src="Asset/062e197e3f76195cda11ae2e9ba9e34e.png" alt="Post Instagram"/>
+        <div class="ig-post-overlay">
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>312</span>
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>24</span>
+        </div>
+      </div>
+      <!-- Post 2 -->
+      <div class="ig-post">
+        <img src="Asset/d7aea56be9fd0e22e63c8c2b0ad02bd8.jpg" alt="Post Instagram"/>
+        <div class="ig-post-overlay">
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>278</span>
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>31</span>
+        </div>
+      </div>
+      <!-- Post 3 -->
+      <div class="ig-post">
+        <img src="Asset/bd1948bfa4a554b6c1fc83373f3dd451.jpg" alt="Post Instagram"/>
+        <div class="ig-post-overlay">
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>195</span>
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>17</span>
+        </div>
+      </div>
+      <!-- Post 4 -->
+      <div class="ig-post">
+        <img src="Asset/ba43df5f-628d-464e-a876-7df3c6c86d3c.png" alt="Post Instagram"/>
+        <div class="ig-post-overlay">
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>421</span>
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>38</span>
+        </div>
+      </div>
+      <!-- Post 5 -->
+      <div class="ig-post">
+        <img src="Asset/sdm-pegawai.jpg" alt="Post Instagram"/>
+        <div class="ig-post-overlay">
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>387</span>
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>45</span>
+        </div>
+      </div>
+      <!-- Post 6 -->
+      <div class="ig-post">
+        <img src="Asset/ee40bba7076ac73dbd026f798ceba8db.png" alt="Post Instagram"/>
+        <div class="ig-post-overlay">
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>256</span>
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>22</span>
+        </div>
+      </div>
+      <!-- Post 7 -->
+      <div class="ig-post">
+        <img src="Asset/ay5ljoqmg4kabnh6rwic-layananblu.png" alt="Post Instagram"/>
+        <div class="ig-post-overlay">
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>143</span>
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>12</span>
+        </div>
+      </div>
+      <!-- Post 8 -->
+      <div class="ig-post">
+        <img src="Asset/qgklnoe83tc4a9w5l7hv-layananblu.png" alt="Post Instagram"/>
+        <div class="ig-post-overlay">
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>198</span>
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>19</span>
+        </div>
+      </div>
+      <!-- Post 9 -->
+      <div class="ig-post">
+        <img src="Asset/lqgvbsmn7gfnfii1wm6x-layananblu.png" alt="Post Instagram"/>
+        <div class="ig-post-overlay">
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>334</span>
+          <span class="ig-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>29</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ig-load-wrap">
+      <button class="ig-load-btn" onclick="window.open('https://www.instagram.com/balaipengujianka','_blank')">Lihat di Instagram →</button>
+    </div>
+  </div>
+</div>
+
 <script>
 lucide.createIcons();
 
@@ -1598,6 +2096,123 @@ document.addEventListener('click', e => {
     document.querySelectorAll('.nb-has-dropdown.open').forEach(el => el.classList.remove('open'));
   }
 });
+
+/* ── X / Twitter Modal ── */
+function openXModal() {
+  document.getElementById('xOverlay').classList.add('open');
+  document.getElementById('xModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeXModal() {
+  document.getElementById('xOverlay').classList.remove('open');
+  document.getElementById('xModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── YouTube Modal ── */
+function openYtModal() {
+  document.getElementById('ytOverlay').classList.add('open');
+  document.getElementById('ytModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeYtModal() {
+  document.getElementById('ytOverlay').classList.remove('open');
+  document.getElementById('ytModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── Instagram Modal ── */
+function openIgModal() {
+  document.getElementById('igOverlay').classList.add('open');
+  document.getElementById('igModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeIgModal() {
+  document.getElementById('igOverlay').classList.remove('open');
+  document.getElementById('igModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeIgModal(); closeYtModal(); closeXModal(); closeHdPanel(); }
+});
+</script>
+
+<!-- ── HELPDESK FAB ── -->
+<button class="hd-fab" onclick="toggleHdPanel()" aria-label="Helpdesk">
+  <img src="Asset/icon-helpdesk.png" alt="Helpdesk">
+</button>
+
+<div class="hd-panel" id="hdPanel">
+  <div class="hd-panel-head">
+    <button class="hd-panel-head-close" onclick="closeHdPanel()">✕</button>
+    <div class="hd-panel-logo">
+      <img src="Asset/icon-helpdesk.png" alt="CS">
+      <div class="hd-panel-logo-text">
+        <strong>Balai Pengujian Perkeretaapian</strong>
+        <span>Customer Service</span>
+      </div>
+    </div>
+    <div class="hd-online"><span class="hd-online-dot"></span> Online sekarang</div>
+  </div>
+  <div class="hd-panel-body">
+    <p>Halo! Ada yang bisa kami bantu? Pilih saluran di bawah untuk menghubungi tim kami.</p>
+    <div class="hd-contact-list">
+      <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="hd-contact-btn">
+        <div class="hd-contact-icon wa">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#16a34a"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.555 4.12 1.527 5.845L.057 23.882l6.194-1.624A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.373l-.36-.213-3.676.964.981-3.585-.234-.369A9.818 9.818 0 1112 21.818z"/></svg>
+        </div>
+        <div class="hd-contact-info">
+          <strong>WhatsApp</strong>
+          <span>Chat langsung dengan kami</span>
+        </div>
+      </a>
+      <a href="mailto:helpdesk@ujidjka.kemenhub.go.id" class="hd-contact-btn">
+        <div class="hd-contact-icon mail">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </div>
+        <div class="hd-contact-info">
+          <strong>Email</strong>
+          <span>helpdesk@ujidjka.kemenhub.go.id</span>
+        </div>
+      </a>
+      <a href="tel:+62215671234" class="hd-contact-btn">
+        <div class="hd-contact-icon phone">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 5.99 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="hd-contact-info">
+          <strong>Telepon</strong>
+          <span>(021) 567-1234</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleHdPanel(){
+  const p=document.getElementById('hdPanel');
+  p.classList.toggle('open');
+}
+function closeHdPanel(){
+  document.getElementById('hdPanel').classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  const panel=document.getElementById('hdPanel');
+  const fab=document.querySelector('.hd-fab');
+  if(panel.classList.contains('open')&&!panel.contains(e.target)&&!fab.contains(e.target)){
+    closeHdPanel();
+  }
+});
+</script>
+<script>
+(function(){
+  var btn=document.getElementById('toTop'),ring=document.getElementById('toTopProgress'),C=138.23;
+  window.addEventListener('scroll',function(){
+    var y=window.scrollY,max=document.documentElement.scrollHeight-window.innerHeight;
+    btn.classList.toggle('visible',y>200);
+    ring.style.strokeDashoffset=max>0?C*(1-y/max):C;
+  });
+})();
 </script>
 </body>
 </html>
