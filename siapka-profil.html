@@ -17,7 +17,7 @@ button,input{font-family:inherit}
 
 /* ── TOKENS ── */
 :root{
-  --bg:#0A1628;--bg-mid:#0D1F3C;--bg-card:rgba(255,255,255,0.06);
+  --bg:#0E1937;--bg-mid:#0E1937;--bg-card:rgba(255,255,255,0.06);
   --border:rgba(255,255,255,0.1);--blue:#3B82F6;--blue-ic:#1E3A5F;
   --red:#DC2626;--white:#FFFFFF;--muted:rgba(255,255,255,0.65);
   --faint:rgba(255,255,255,0.2);
@@ -26,14 +26,6 @@ button,input{font-family:inherit}
 
 /* ── LIGHT MODE ── */
 body.light{--bg:#F0F4FA;--bg-mid:#E4EAF4;--bg-card:rgba(255,255,255,0.9);--border:rgba(0,0,0,0.09);--blue:#2563EB;--blue-ic:#DBEAFE;--white:#0F172A;--muted:rgba(15,23,42,0.6);--faint:rgba(15,23,42,0.15);background:#F0F4FA;color:#0F172A;}
-body.light .navbar{background:rgba(240,244,250,0.92)!important;border-bottom-color:rgba(0,0,0,0.08);}
-body.light .navbar.scrolled{background:rgba(240,244,250,0.98)!important;}
-body.light .nb-links a{color:rgba(15,23,42,0.7);}
-body.light .nb-links a:hover{color:#0F172A;background:rgba(0,0,0,0.05);}
-body.light .btn-login{border-color:rgba(15,23,42,0.3);background:rgba(15,23,42,0.05);color:#0F172A;}
-body.light .btn-login-icon{border-color:rgba(15,23,42,0.4);}
-body.light .btn-login-icon svg{stroke:#0F172A;}
-body.light .nb-toggle{background:#e2e8f0;border-color:rgba(0,0,0,0.15);}
 body.light .hero-profil{background:linear-gradient(135deg,#1e3a8a,#1e40af);}
 body.light .vm-card{background:#fff;border-color:rgba(0,0,0,0.08);}
 body.light .vm-card-label{color:var(--blue);}
@@ -60,408 +52,659 @@ body.light .org-img-title{color:#0F172A;}
 ::-webkit-scrollbar-thumb{background:#1E3A5F;border-radius:3px}
 
 /* ── NAVBAR ── */
-.navbar{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;background:rgba(10,22,40,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);transition:background .3s;}
-.navbar.scrolled{background:rgba(10,22,40,0.98);backdrop-filter:blur(20px);}
+body.light .navbar{background:#0E1937!important;border-bottom:1px solid rgba(255,255,255,0.1)!important;}
+body.light .navbar.scrolled{background:#0E1937!important;}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;background:#0E1937;border-bottom:1px solid rgba(255,255,255,0.1);transition:background .3s;}
+.navbar.scrolled{background:#0E1937;backdrop-filter:none;border-bottom:1px solid rgba(255,255,255,0.1);}
 .nb-inner{width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 80px;}
-.nb-logo{display:flex;align-items:center;}
-.nb-links{display:flex;align-items:center;gap:0;list-style:none}
-.nb-links a{font-size:14px;font-weight:600;color:rgba(255,255,255,0.75);padding:7px 14px;border-radius:6px;display:flex;align-items:center;gap:4px;transition:color .18s,background .18s;}
-.nb-links a:hover,.nb-links a.act{color:#fff;background:rgba(255,255,255,0.08)}
-.nb-actions{display:flex;align-items:center;gap:12px;}
-.btn-login{display:flex;align-items:center;gap:9px;padding:9px 20px;border:1.5px solid rgba(255,255,255,0.55);border-radius:12px;font-size:13.5px;font-weight:600;color:#fff;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);cursor:pointer;transition:background .2s;}
-.btn-login:hover{background:rgba(255,255,255,0.18);}
+.nb-logo{display:flex;align-items:center;gap:0}
+.nb-links{display:flex;align-items:center;gap:0px;list-style:none}
+.nb-links a{font-size:14px;font-weight:600;color:rgba(255,255,255,0.75);padding:7px 14px;border-radius:6px;display:flex;align-items:center;gap:4px;transition:color .18s,background .18s;letter-spacing:.1px;position:relative;}
+.nb-links a::after{content:'';position:absolute;bottom:-4px;left:14px;right:14px;height:2px;background:#DC2626;border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .2s ease;}
+.nb-links a:hover{color:#fff;background:rgba(255,255,255,0.08)}
+.nb-links a:hover::after{transform:scaleX(1);}
+.nb-links a.act{color:rgba(255,255,255,0.45);font-weight:600}
+.chv{display:inline-flex;align-items:center;opacity:.7;vertical-align:middle;margin-left:2px;}
+.chv i[data-lucide]{display:flex;}
+.chv i[data-lucide] svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.nb-portal{color:rgba(255,255,255,0.75)!important;font-weight:600!important}
+.nb-has-dropdown{position:relative}
+.nb-has-dropdown>a{user-select:none;display:flex;align-items:center;}
+:root{--dd-bg:#1a2744;--dd-text:rgba(255,255,255,0.85);--dd-hover-bg:rgba(255,255,255,0.07);--dd-divider:rgba(255,255,255,0.08);--dd-shadow:0 8px 40px rgba(0,0,0,0.45);}
+body.light{--dd-bg:#ffffff;--dd-text:#1a1a2e;--dd-hover-bg:#f5f7ff;--dd-divider:rgba(0,0,0,0.07);--dd-shadow:0 8px 40px rgba(0,0,0,0.14);}
+.nb-dropdown{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(-6px);min-width:240px;background:var(--dd-bg);border:none;border-radius:16px;padding:8px 0;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:400;box-shadow:var(--dd-shadow);}
+.nb-has-dropdown.open .nb-dropdown{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+.nb-has-dropdown.open>a .chv i[data-lucide] svg{transform:rotate(180deg);}
+.nb-dropdown::before{display:none;}
+.nb-dd-item{display:flex;align-items:center;gap:12px;padding:14px 24px;color:var(--dd-text);font-size:15px;font-weight:500;text-decoration:none;transition:background .15s,color .15s;cursor:pointer;}
+.nb-dd-item:hover{background:var(--dd-hover-bg);}
+.nb-dd-icon{display:none;}
+.nb-dd-title{font-size:15px;font-weight:500;color:inherit;line-height:1.3}
+.nb-dd-sub{display:none;}
+.nb-dd-divider{height:1px;background:var(--dd-divider);margin:4px 0;}
+.nb-dropdown-simple{min-width:220px;padding:8px 0;}
+.nb-dd-simple-item{display:block;padding:14px 24px;font-size:15px;font-weight:500;color:var(--dd-text);text-decoration:none;transition:background .15s,color .15s;}
+.nb-dd-simple-item:hover{background:var(--dd-hover-bg);}
+.nb-dropdown-simple .nb-dd-divider{margin:4px 0;}
+.btn-login{display:flex;align-items:center;gap:9px;padding:9px 20px;border:1.5px solid rgba(255,255,255,0.55);border-radius:12px;font-size:13.5px;font-weight:600;color:#fff;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);cursor:pointer;transition:background .2s,border-color .2s;white-space:nowrap;}
+.btn-login:hover{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.8)}
 .btn-login-icon{width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.8);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.btn-login-icon svg{width:10px;height:10px;stroke:#fff;fill:none;stroke-width:2.5}
-.nb-toggle{position:relative;width:62px;height:32px;background:#1a2744;border-radius:9999px;cursor:pointer;flex-shrink:0;border:1.5px solid rgba(255,255,255,0.15);padding:0;display:flex;align-items:center;}
-.nb-toggle-moon{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:13px;pointer-events:none;user-select:none;}
-.nb-toggle-dot{position:absolute;right:3px;top:50%;transform:translateY(-50%);width:24px;height:24px;background:#3B82F6;border-radius:50%;box-shadow:0 2px 8px rgba(59,130,246,0.5);transition:right .25s,left .25s,background .2s;pointer-events:none;}
-.chv{font-size:10px;opacity:.7}
+.btn-login-icon svg,.btn-login-icon i[data-lucide] svg{width:10px;height:10px;stroke:#fff;fill:none;stroke-width:2.5}
+.btn-login-icon i[data-lucide]{display:flex;align-items:center;justify-content:center;}
+.nb-theme{display:flex;align-items:center;}
+.nb-toggle{position:relative;width:62px;height:32px;background:#0E1937;border-radius:9999px;cursor:pointer;flex-shrink:0;border:1.5px solid rgba(255,255,255,0.15);padding:0;display:flex;align-items:center;}
+.nb-toggle-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);display:flex;align-items:center;justify-content:center;pointer-events:none;user-select:none;}
+.nb-toggle-icon [data-lucide]{display:flex;}
+.nb-toggle-icon [data-lucide] svg,.nb-toggle-icon svg{width:14px;height:14px;}
+.nb-toggle-icon .icon-moon{color:#fff;display:flex;}
+.nb-toggle-icon .icon-sun{color:#f59e0b;display:none;}
+body.light .nb-toggle-icon .icon-moon{display:none;}
+body.light .nb-toggle-icon .icon-sun{display:flex;}
+.nb-toggle-dot{position:absolute;right:3px;top:50%;transform:translateY(-50%);width:24px;height:24px;background:#3B82F6;border-radius:50%;box-shadow:0 2px 8px rgba(59,130,246,0.5);transition:right .25s cubic-bezier(.4,0,.2,1);pointer-events:none;}
+/* footer */
+footer{background:#0E1937;border-top:1px solid rgba(255,255,255,0.08);padding:36px 0 0;}
+body.light footer{background:#1e293b;}
+.footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1.4fr;gap:80px;padding-bottom:32px;align-items:start;}
+.f-desc{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.75;margin-bottom:18px}
+.f-visitor{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border:1px solid rgba(255,255,255,0.15);border-radius:9999px;font-size:12px;color:rgba(255,255,255,0.45);}
+.f-visitor strong{color:#fff}
+.f-col-h{font-size:14px;font-weight:700;color:#fff;margin-bottom:18px}
+.f-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.f-list a{font-size:13px;color:rgba(255,255,255,0.45);transition:color .18s;}
+.f-list a:hover{color:#fff}
+.f-contact-list{display:flex;flex-direction:column;gap:11px}
+.f-ci{display:flex;gap:6px;font-size:13px;color:rgba(255,255,255,0.45);line-height:1.6;align-items:flex-start;margin-bottom:2px}
+.f-ci .ic{flex-shrink:0;display:flex;align-items:center;gap:4px;padding-top:1px;color:rgba(255,255,255,0.65);white-space:nowrap;}
+.f-ci .ic svg,.f-ci .ic i[data-lucide] svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;}
+.f-ci .ic i[data-lucide]{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;}
+.footer-bar{border-top:1px solid rgba(255,255,255,0.08);padding:18px 80px;text-align:center;font-size:12px;color:rgba(255,255,255,0.45);}
+.footer-bar strong{color:#fff}
 
 /* ── WRAP ── */
 .wrap{max-width:1440px;margin:0 auto;padding:0 80px;}
 
-/* ── HERO PROFIL ── */
-.hero-profil{
-  padding:140px 0 80px;
-  background:linear-gradient(135deg,#0a1628 0%,#0d1f3c 50%,#1e3a5f 100%);
-  position:relative;overflow:hidden;
-}
-.hero-profil::before{
-  content:'';position:absolute;inset:0;
-  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233B82F6' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
-.hero-profil-inner{position:relative;z-index:1;display:flex;align-items:center;gap:60px;}
-.hero-profil-text{flex:1;}
-.hero-profil-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);
-  border-radius:9999px;padding:6px 16px;
-  font-size:12px;font-weight:700;color:#60A5FA;letter-spacing:.5px;
-  margin-bottom:20px;
-}
-.hero-profil-badge svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;}
-.hero-profil-title{font-size:clamp(28px,3.5vw,48px);font-weight:800;color:#fff;line-height:1.2;margin-bottom:16px;}
-.hero-profil-sub{font-size:16px;color:rgba(255,255,255,0.65);line-height:1.7;max-width:560px;}
-.hero-profil-img{
-  width:340px;flex-shrink:0;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:20px;
-  overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-  padding:32px;
-}
+/* ── PAGE BANNER ── */
+.page-banner{background:var(--bg);padding:110px 0 56px;position:relative;overflow:hidden;border-bottom:1px solid var(--border);}
+.page-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 100% at 50% 0%,rgba(59,130,246,0.07) 0%,transparent 70%);pointer-events:none;}
+.page-banner-inner{max-width:1160px;margin:0 auto;padding:0 80px;position:relative;z-index:1;}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-bottom:14px;}
+.breadcrumb a{color:var(--muted);text-decoration:none;transition:color .15s;}
+.breadcrumb a:hover{color:var(--white);}
+.breadcrumb .sep{opacity:.4;}
+.breadcrumb .cur{color:rgba(255,255,255,0.7);}
+.page-banner h1{font-size:2rem;font-weight:800;color:var(--white);line-height:1.2;margin-bottom:10px;letter-spacing:-.4px;}
+.page-banner-sub{font-size:14.5px;color:var(--muted);line-height:1.7;max-width:640px;}
+.banner-accent{width:44px;height:3px;background:var(--red);border-radius:2px;margin-top:18px;}
+body.light .page-banner{background:#F0F4FA;}
+body.light .breadcrumb a{color:rgba(15,23,42,0.45);}
+.breadcrumb a{color:rgba(255,255,255,0.5);}
+body.light .breadcrumb a:hover{color:#0F172A;}
+body.light .breadcrumb .cur{color:rgba(15,23,42,0.65);}
+body.light .page-banner h1{color:#0F172A;}
+body.light .page-banner-sub{color:rgba(15,23,42,0.55);}
 
-/* ── BREADCRUMB ── */
-.breadcrumb-bar{padding:18px 0;border-bottom:1px solid var(--border);}
-.breadcrumb{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px;}
-.breadcrumb a{color:var(--blue);transition:opacity .15s;}
-.breadcrumb a:hover{opacity:.75;}
-.breadcrumb .sep{opacity:.35;}
+/* ── PROFIL 2-COLUMN LAYOUT ── */
+.profil-wrap{display:flex;min-height:100vh;}
 
-/* ── SECTION HEADING ── */
-.sh{text-align:center;margin-bottom:52px}
-.sh h2{font-size:32px;font-weight:700;color:var(--white);margin-bottom:14px}
-.sh-line{width:56px;height:3px;background:var(--red);margin:0 auto;border-radius:2px}
-.sh-sub{font-size:15px;color:var(--muted);margin-top:12px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.7;}
+/* Left accordion sidebar */
+.profil-sidebar{
+  width:300px;flex-shrink:0;
+  background:rgba(255,255,255,0.02);
+  border-right:1px solid var(--border);
+  padding:48px 0 80px;
+  position:sticky;top:68px;
+  height:calc(100vh - 68px);
+  overflow-y:auto;
+}
+body.light .profil-sidebar{background:rgba(0,0,0,0.02);}
+.profil-sidebar-label{
+  font-size:10px;font-weight:800;letter-spacing:2px;
+  text-transform:uppercase;color:var(--muted);
+  padding:0 28px;margin-bottom:8px;
+}
+.profil-acc-item{border-bottom:1px solid var(--border);}
+.profil-acc-item:first-of-type{border-top:1px solid var(--border);}
+.profil-acc-btn{
+  display:flex;align-items:center;gap:10px;width:100%;
+  padding:18px 28px;background:none;border:none;
+  cursor:pointer;text-align:left;font-family:'Inter',sans-serif;
+  font-size:13.5px;font-weight:500;
+  color:rgba(255,255,255,0.5);
+  border-left:3px solid transparent;
+  transition:color .15s,background .15s,border-color .15s;
+}
+body.light .profil-acc-btn{color:rgba(15,23,42,0.45);}
+.profil-acc-btn:hover{color:#fff;background:rgba(255,255,255,0.05);}
+body.light .profil-acc-btn:hover{color:#0F172A;background:rgba(0,0,0,0.04);}
+.profil-acc-btn.active{
+  color:#fff;font-weight:600;
+  border-left-color:var(--blue);
+  background:rgba(59,130,246,0.08);
+}
+body.light .profil-acc-btn.active{color:#0F172A;}
+.acc-arr{font-size:15px;color:var(--blue);opacity:0;transition:opacity .15s;flex-shrink:0;}
+.profil-acc-btn.active .acc-arr{opacity:1;}
+.acc-label{flex:1;line-height:1.4;}
+.acc-chv{margin-left:auto;flex-shrink:0;display:flex;transition:transform .2s;}
+.acc-chv svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;opacity:.4;}
+.profil-acc-btn.active .acc-chv{transform:rotate(90deg);}
+.profil-acc-btn.active .acc-chv svg{opacity:1;stroke:#60A5FA;}
 
-/* ── SECTIONS ── */
-.section{padding:80px 0;}
-.section-alt{background:var(--bg-mid);padding:80px 0;}
+/* Right content panel */
+.profil-content{flex:1;min-width:0;padding:56px 64px 80px;overflow-y:auto;height:calc(100vh - 68px);}
+body.light .profil-content{background:#F0F4FA;}
 
-/* ── PROSE CARD ── */
-.prose-card{
-  background:var(--bg-card);border:1px solid var(--border);
-  border-radius:var(--r-xl);padding:40px 48px;
-}
-.prose-card h4{
-  font-size:18px;font-weight:700;color:var(--white);
-  margin-bottom:16px;margin-top:32px;line-height:1.4;
-}
-.prose-card h4:first-child{margin-top:0;}
-.prose-card p{font-size:14.5px;color:var(--muted);line-height:1.85;margin-bottom:14px;text-align:justify;}
-.prose-card ul,.prose-card ol{margin:16px 0 20px 20px;display:flex;flex-direction:column;gap:10px;}
-.prose-card li{font-size:14px;color:var(--muted);line-height:1.75;}
-.prose-card strong{color:var(--white);}
-.prose-divider{height:1px;background:var(--border);margin:36px 0;}
+/* Section heading */
+.sec-heading{margin-bottom:36px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.sec-heading h2{font-size:28px;font-weight:800;color:var(--white);line-height:1.2;margin-bottom:6px;}
+.sec-heading p{font-size:14px;color:var(--muted);line-height:1.6;}
+body.light .sec-heading h2{color:#0F172A;}
 
-/* ── VISI MISI ── */
-.vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
-.vm-card{
-  background:var(--bg-card);border:1px solid var(--border);
-  border-radius:var(--r-xl);padding:36px 40px;
-  position:relative;overflow:hidden;
-}
-.vm-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:var(--blue);
-}
-.vm-card.misi::before{background:var(--red);}
-.vm-card-label{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-bottom:12px;}
-.vm-card.misi .vm-card-label{color:#F87171;}
-.vm-card h3{font-size:20px;font-weight:700;color:var(--white);margin-bottom:8px;line-height:1.4;}
-.vm-visi-sub{font-size:13px;color:rgba(96,165,250,0.8);font-weight:600;margin-bottom:16px;letter-spacing:.3px;}
-.vm-card p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:8px;}
-.vm-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:4px;}
-.vm-item{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--muted);line-height:1.7;}
-.vm-item::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:8px;}
-
-/* ── RUANG LINGKUP ── */
-.rl-list{display:flex;flex-direction:column;gap:12px;}
-.rl-item{
-  display:flex;gap:16px;align-items:flex-start;
-  background:var(--bg-card);border:1px solid var(--border);
-  border-radius:var(--r-lg);padding:18px 20px;
-  transition:border-color .2s;
-}
-.rl-item:hover{border-color:rgba(59,130,246,0.3);}
-.rl-num{
-  min-width:36px;height:36px;border-radius:9px;
-  background:var(--blue-ic);border:1px solid rgba(59,130,246,0.2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;font-weight:800;color:#60A5FA;flex-shrink:0;margin-top:1px;
-}
-.rl-text{font-size:14px;color:var(--muted);line-height:1.7;}
-
-/* ── STRUKTUR ORGANISASI ── */
-.org-img-wrap{
-  background:var(--bg-card);border:1px solid var(--border);
-  border-radius:var(--r-xl);padding:32px;margin-bottom:28px;
-}
-.org-img-title{font-size:15px;font-weight:700;color:var(--white);text-align:center;margin-bottom:24px;}
-.org-img-wrap img{width:100%;border-radius:var(--r-lg);}
-
-/* ── TABS ── */
-.tabs{display:flex;gap:8px;margin-bottom:36px;flex-wrap:wrap;}
-.tab-btn{padding:10px 22px;border-radius:9999px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);cursor:pointer;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);transition:background .2s,color .2s;}
-.tab-btn.active{background:var(--blue);color:#fff;border-color:var(--blue);}
-.tab-btn:hover:not(.active){color:#fff;background:rgba(255,255,255,0.1);}
+/* Tab content */
 .tab-content{display:none;}
-.tab-content.active{display:block;}
+.tab-content.active{display:block;animation:fadeIn .25s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+/* Prose */
+.prose h4{font-size:16px;font-weight:700;color:var(--white);margin:28px 0 12px;line-height:1.4;display:flex;align-items:center;gap:10px;}
+.prose h4:first-child{margin-top:0;}
+.prose h4::before{content:'';width:3px;height:18px;background:var(--blue);border-radius:2px;flex-shrink:0;}
+.prose p{font-size:14px;color:var(--muted);line-height:1.9;margin-bottom:14px;text-align:justify;}
+.prose ul{margin:12px 0 18px 0;display:flex;flex-direction:column;gap:10px;list-style:none;}
+.prose li{display:flex;gap:12px;font-size:14px;color:var(--muted);line-height:1.75;align-items:flex-start;}
+.prose li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:8px;}
+.prose strong{color:var(--white);font-weight:600;}
+.prose-divider{height:1px;background:var(--border);margin:32px 0;}
+body.light .prose h4{color:#0F172A;}
+body.light .prose h4::before{background:var(--blue);}
+
+/* Visi Misi */
+.vm-grid{display:flex;flex-direction:column;gap:14px;}
+.vm-visi-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px 40px;position:relative;overflow:hidden;}
+.vm-visi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--blue);}
+.vm-visi-card.misi::before{background:#EF4444;}
+.vm-card-label{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#60A5FA;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.vm-card-label::before{content:'';width:6px;height:6px;border-radius:50%;background:#60A5FA;}
+.vm-visi-card.misi .vm-card-label{color:#F87171;}
+.vm-visi-card.misi .vm-card-label::before{background:#F87171;}
+.vm-visi-card h3{font-size:20px;font-weight:800;color:var(--white);line-height:1.4;margin-bottom:18px;}
+.vm-prima{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+.vm-prima-badge{padding:5px 14px;border-radius:9999px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);font-size:12px;font-weight:600;color:#93C5FD;letter-spacing:.3px;}
+.vm-visi-card p{font-size:13.5px;color:var(--muted);line-height:1.8;}
+.vm-misi-items{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+.vm-misi-item{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.1);border-radius:10px;}
+.vm-misi-num{width:28px;height:28px;border-radius:7px;background:rgba(239,68,68,0.12);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#F87171;flex-shrink:0;margin-top:1px;}
+.vm-misi-text{font-size:13px;color:var(--muted);line-height:1.65;}
+body.light .vm-visi-card{background:#fff;border-color:rgba(0,0,0,0.08);}
+body.light .vm-visi-card h3{color:#0F172A;}
+body.light .vm-prima-badge{background:#DBEAFE;border-color:rgba(37,99,235,0.2);color:#2563EB;}
+body.light .vm-misi-item{background:#FEF2F2;border-color:rgba(239,68,68,0.1);}
+body.light .vm-misi-text{color:rgba(15,23,42,0.6);}
+
+/* Ruang Lingkup */
+.rl-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.rl-item{display:flex;flex-direction:column;gap:12px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;transition:border-color .2s,transform .15s;}
+.rl-item:hover{border-color:rgba(59,130,246,0.35);transform:translateY(-2px);}
+.rl-num{width:32px;height:32px;border-radius:8px;background:var(--blue-ic);border:1px solid rgba(59,130,246,0.2);display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;color:#60A5FA;flex-shrink:0;}
+.rl-text{font-size:13px;color:var(--muted);line-height:1.65;}
+body.light .rl-item{background:#fff;border-color:rgba(0,0,0,0.08);}
+body.light .rl-num{background:#DBEAFE;color:#2563EB;}
+
+/* Struktur Org */
+.org-block{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);padding:28px;margin-bottom:24px;}
+.org-block-title{font-size:13px;font-weight:700;color:var(--white);text-align:center;margin-bottom:20px;text-transform:uppercase;letter-spacing:.8px;}
+.org-block img{width:100%;border-radius:var(--r-lg);}
+body.light .org-block{background:#fff;border-color:rgba(0,0,0,0.08);}
+body.light .org-block-title{color:#0F172A;}
+
+/* Data Pegawai cards */
+.dp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.dp-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px 20px;display:flex;align-items:center;gap:14px;}
+.dp-num{width:36px;height:36px;border-radius:9px;background:var(--blue-ic);border:1px solid rgba(59,130,246,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#60A5FA;flex-shrink:0;}
+.dp-info{min-width:0;}
+.dp-title{font-size:12.5px;font-weight:600;color:var(--white);line-height:1.3;margin-bottom:2px;}
+.dp-val{font-size:13px;font-weight:700;color:#60A5FA;}
+.dp-summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.dp-sum-card{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);border-radius:var(--r-lg);padding:16px 20px;}
+.dp-sum-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,0.45);margin-bottom:4px;}
+.dp-sum-val{font-size:20px;font-weight:800;color:#60A5FA;}
+.dp-sum-sub{font-size:12px;color:var(--muted);margin-top:2px;}
+body.light .dp-card{background:#fff;border-color:rgba(0,0,0,0.08);}
+body.light .dp-title{color:#0F172A;}
+body.light .dp-num{background:#DBEAFE;color:#2563EB;}
+body.light .dp-sum-card{background:#EFF6FF;border-color:rgba(37,99,235,0.15);}
+body.light .dp-sum-label{color:rgba(15,23,42,0.45);}
+body.light .dp-sum-sub{color:rgba(15,23,42,0.55);}
 
 /* ── SCROLL TO TOP ── */
-.to-top{position:fixed;bottom:24px;right:24px;z-index:300;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;font-size:20px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(59,130,246,0.4);transition:transform .2s;}
+.to-top{position:fixed;bottom:112px;right:40px;z-index:8998;width:48px;height:48px;border-radius:50%;background:#1d4ed8;color:#fff;border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s,transform .2s;}
+.to-top.visible{opacity:1;pointer-events:auto;}
 .to-top:hover{transform:translateY(-3px);}
+.to-top-ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);pointer-events:none;overflow:visible;}
+.to-top-track{fill:none;stroke:rgba(255,255,255,0.2);stroke-width:3;}
+.to-top-progress{fill:none;stroke:#93c5fd;stroke-width:3;stroke-linecap:round;stroke-dasharray:138.23;stroke-dashoffset:138.23;transition:stroke-dashoffset .08s linear;}
 
 /* ── FADE UP ── */
 .fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
 .fade-up.visible{opacity:1;transform:none;}
+/* ════ HELPDESK FAB ════ */
+.hd-fab{position:fixed;bottom:28px;right:28px;z-index:9000;cursor:pointer;width:72px;height:72px;border-radius:50%;background:none;border:none;padding:0;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.35));transition:transform .2s ease,filter .2s ease;}
+.hd-fab:hover{transform:scale(1.08);filter:drop-shadow(0 8px 24px rgba(0,0,0,0.45));}
+.hd-fab img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;}
+.hd-panel{position:fixed;bottom:112px;right:28px;z-index:9001;width:320px;background:#fff;border-radius:20px;box-shadow:0 12px 48px rgba(0,0,0,0.22);overflow:hidden;opacity:0;transform:translateY(16px) scale(.96);pointer-events:none;transition:opacity .25s ease,transform .25s ease;}
+.hd-panel.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+.hd-panel-head{background:linear-gradient(135deg,#0E3FA8 0%,#1a56db 100%);padding:20px 20px 16px;position:relative;}
+.hd-panel-head-close{position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1;transition:background .15s;}
+.hd-panel-head-close:hover{background:rgba(255,255,255,0.28);}
+.hd-panel-logo{display:flex;align-items:center;gap:12px;}
+.hd-panel-logo img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.35);}
+.hd-panel-logo-text{color:#fff;}
+.hd-panel-logo-text strong{display:block;font-size:13.5px;font-weight:700;line-height:1.3;}
+.hd-panel-logo-text span{font-size:11.5px;opacity:.8;}
+.hd-online{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,0.85);margin-top:8px;}
+.hd-online-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 2px rgba(34,197,94,0.35);}
+.hd-panel-body{padding:18px 16px 20px;}
+.hd-panel-body p{font-size:13.5px;color:#475569;margin-bottom:16px;line-height:1.6;}
+.hd-contact-list{display:flex;flex-direction:column;gap:10px;}
+.hd-contact-btn{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;border:1.5px solid #e2e8f0;text-decoration:none;transition:background .15s,border-color .15s;cursor:pointer;background:#fff;}
+.hd-contact-btn:hover{background:#f8faff;border-color:#bfdbfe;}
+.hd-contact-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hd-contact-icon.wa{background:#dcfce7;}
+.hd-contact-icon.mail{background:#e0f2fe;}
+.hd-contact-icon.phone{background:#fef3c7;}
+.hd-contact-info strong{display:block;font-size:13px;font-weight:700;color:#1e293b;}
+.hd-contact-info span{font-size:11.5px;color:#64748b;}
+body:not(.light) .hd-panel{background:#1e293b;box-shadow:0 12px 48px rgba(0,0,0,0.5);}
+body:not(.light) .hd-panel-body p{color:#94a3b8;}
+body:not(.light) .hd-contact-btn{background:#0f172a;border-color:rgba(255,255,255,0.08);}
+body:not(.light) .hd-contact-btn:hover{background:#1e3a5f;border-color:#3b82f6;}
+body:not(.light) .hd-contact-info strong{color:#f1f5f9;}
+body:not(.light) .hd-contact-info span{color:#64748b;}
 </style>
 </head>
 <body>
 
 <!-- ══ NAVBAR ══ -->
-<nav class="navbar" id="navbar">
+<nav class="navbar">
   <div class="nb-inner">
-    <a href="siapka-redesign.html" class="nb-logo">
-      <img src="Asset/1730709636-logopublicheader.png" style="height:42px;object-fit:contain;" alt="SiAPKA"/>
-    </a>
+    <div class="nb-logo">
+      <img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" alt="SiAPKA — Sistem Informasi Aplikasi Pengujian Perkeretaapian" style="width:90px;height:150px;display:block;object-fit:contain;"/>
+    </div>
     <ul class="nb-links">
       <li><a href="siapka-redesign.html">Home</a></li>
       <li><a href="#" class="act">Profil</a></li>
-      <li><a href="#">Layanan <span class="chv">▾</span></a></li>
-      <li><a href="#">Monitoring</a></li>
-      <li><a href="#">Publikasi <span class="chv">▾</span></a></li>
-      <li><a href="#">Mitra</a></li>
-      <li><a href="#">PPID</a></li>
-      <li><a href="#">FAQ</a></li>
-      <li><a href="#">Portal DJKA</a></li>
+      <li class="nb-has-dropdown">
+        <a href="#">Layanan <span class="chv"><i data-lucide="chevron-down"></i></span></a>
+        <div class="nb-dropdown nb-dropdown-simple">
+          <a href="siapka-redesign.html#informasi-layanan" class="nb-dd-simple-item">Informasi Layanan</a>
+          <div class="nb-dd-divider"></div>
+          <a href="siapka-redesign.html#link-layanan" class="nb-dd-simple-item">Link Layanan</a>
+        </div>
+      </li>
+      <li><a href="siapka-redesign.html#monitoring">Monitoring</a></li>
+      <li class="nb-has-dropdown">
+        <a href="#">Publikasi <span class="chv"><i data-lucide="chevron-down"></i></span></a>
+        <div class="nb-dropdown nb-dropdown-simple">
+          <a href="siapka-redesign.html#berita-informasi" class="nb-dd-simple-item">Berita &amp; Informasi</a>
+          <div class="nb-dd-divider"></div>
+          <a href="siapka-redesign.html#media-sosial" class="nb-dd-simple-item">Media Sosial</a>
+        </div>
+      </li>
+      <li><a href="siapka-ppid.html">PPID</a></li>
+      <li><a href="siapka-redesign.html#mitra">Mitra</a></li>
+      <li><a href="siapka-faq.html">FAQ</a></li>
+      <li><a href="https://portal.djka.kemenhub.go.id/pld/" target="_blank" class="nb-portal">Portal DJKA</a></li>
     </ul>
-    <div class="nb-actions">
-      <button class="nb-toggle" id="themeToggle" aria-label="Toggle theme">
-        <span class="nb-toggle-moon">🌙</span>
-        <span class="nb-toggle-dot"></span>
-      </button>
-      <button class="btn-login">
-        <span class="btn-login-icon"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="https://ujidjka.kemenhub.go.id/login" target="_blank" style="text-decoration:none;"><button class="btn-login">
+        <span class="btn-login-icon"><i data-lucide="arrow-right"></i></span>
         Login
-      </button>
+      </button></a>
+      <div class="nb-theme">
+        <button class="nb-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="nb-toggle-icon">
+            <i data-lucide="moon" class="icon-moon"></i>
+            <i data-lucide="sun" class="icon-sun"></i>
+          </span>
+          <span class="nb-toggle-dot"></span>
+        </button>
+      </div>
     </div>
   </div>
 </nav>
 
-<!-- ══ HERO ══ -->
-<section class="hero-profil">
-  <div class="wrap">
-    <div class="hero-profil-inner">
-      <div class="hero-profil-text">
-        <div class="hero-profil-badge">
-          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          Profil BLU
-        </div>
-        <h1 class="hero-profil-title">Balai Pengujian<br/>Perkeretaapian</h1>
-        <p class="hero-profil-sub">Badan Layanan Umum (BLU) di bawah Direktorat Jenderal Perkeretaapian, Kementerian Perhubungan Republik Indonesia — melaksanakan Pengujian Prasarana, Sarana, dan Sumber Daya Manusia Perkeretaapian.</p>
-      </div>
-      <div class="hero-profil-img">
-        <img src="Asset/1730709636-logopublicheader.png" style="width:100%;max-width:260px;object-fit:contain;" alt="SiAPKA Logo"/>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ BREADCRUMB ══ -->
-<div class="breadcrumb-bar" style="background:var(--bg-mid);">
-  <div class="wrap">
+<!-- ══ PAGE BANNER ══ -->
+<div class="page-banner">
+  <div class="page-banner-inner">
     <div class="breadcrumb">
-      <a href="siapka-redesign.html">Home</a>
+      <a href="siapka-redesign.html">Beranda</a>
       <span class="sep">›</span>
-      <span>Profil BLU</span>
+      <span class="cur">Profil BLU</span>
     </div>
+    <h1>Profil Balai Pengujian Perkeretaapian</h1>
+    <p class="page-banner-sub">Badan Layanan Umum (BLU) di bawah Direktorat Jenderal Perkeretaapian, Kementerian Perhubungan Republik Indonesia.</p>
+    <div class="banner-accent"></div>
   </div>
 </div>
 
-<!-- ══ TAB NAV ══ -->
-<div id="tab-nav" style="background:var(--bg-mid);padding:20px 0;border-bottom:1px solid var(--border);position:sticky;top:68px;z-index:100;">
-  <div class="wrap">
-    <div class="tabs" style="margin-bottom:0;">
-      <button class="tab-btn active" onclick="switchTab('tentang',this)">Tentang Kami</button>
-      <button class="tab-btn" onclick="switchTab('visi-misi',this)">Visi &amp; Misi</button>
-      <button class="tab-btn" onclick="switchTab('ruang-lingkup',this)">Ruang Lingkup</button>
-      <button class="tab-btn" onclick="switchTab('struktur',this)">Struktur Organisasi</button>
-    </div>
-  </div>
-</div>
+<!-- ══ 2-COLUMN PROFIL ══ -->
+<div class="profil-wrap">
 
-<!-- ══ TENTANG KAMI ══ -->
-<section id="tab-tentang" class="tab-content active section fade-up">
-  <div class="wrap">
-    <div class="sh">
-      <h2>Tentang Kami</h2>
-      <div class="sh-line"></div>
-      <p class="sh-sub">Balai Pengujian Perkeretaapian sebagai Badan Layanan Umum di bawah Kementerian Perhubungan</p>
+  <!-- LEFT: accordion sidebar -->
+  <aside class="profil-sidebar">
+    <div class="profil-sidebar-label">Profil BLU</div>
+    <div class="profil-acc-item">
+      <button class="profil-acc-btn active" onclick="switchSection('tentang',this)">
+        <span class="acc-arr">›</span>
+        <span class="acc-label">Tentang Kami</span>
+        <span class="acc-chv"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></span>
+      </button>
     </div>
-    <div class="prose-card">
-      <h4>A. Latar Belakang Balai Pengujian Perkeretaapian</h4>
-      <p>Kereta Api adalah salah satu moda transportasi dalam sistem transportasi nasional yang mempunyai karateristik pengangkutan secara masal. Tujuan penyelenggaraan perkeretaapian yaitu memperlancar perpindahan orang dan/barang secara masal, selamat, aman, nyaman, cepat dan lancar, tepat, tertib dan teratur, efisien, serta menunjang pemerataan pertumbuhan stabilitas, pendorong dan penggerak pembangunan nasional. Agar tercapai tujuan penyelenggaraan perkeretaapian dengan aman dan selamat maka setiap penyelenggara perkeretaapian wajib memenuhi persyaratan teknis dan kelaikan operasi yang berlaku bagi setiap jenis sarana prasarana dan SDM perkeretaapian.</p>
-      <p>Untuk memenuhi persyaratan teknis dan menjamin kelaikan operasi perkeretaapian, wajib dilakukan pengujian dan pemeriksaan yang bertujuan untuk mengetahui kesesuaian antara kondisi dan fungsi persyaratan teknis dan spesifikasi teknis. Persyaratan teknis dapat dinyatakan dalam bentuk standar nilai pengujian. Untuk itu perlu dilakukan pengujian terhadap kelaikan Sarana, Prasarana dan SDM Perkeretaapian.</p>
-      <p>Dengan kebutuhan tersebut, maka Balai Pengujian Perkeretaapian berdiri pada tahun 2015 sesuai dengan Peraturan Menteri Perhubungan Nomor 64 Tahun 2014 dengan tujuan untuk melakukan Pengujian Prasarana, Sarana, dan SDM Perkeretaapian.</p>
-      <p>Dalam melaksanakan tugasnya, Balai Pengujian Perkeretaapian mempunyai fungsi sebagai berikut:</p>
-      <ul>
-        <li>Pelaksanaan pengujian pertama dan berkala jalur kereta api, bangunan perkeretaapian dan fasilitas operasi kereta api;</li>
-        <li>Pelaksanaan pengujian pertama dan berkala sarana perkeretaapian berpenggerak dan tanpa penggerak;</li>
-        <li>Pelaksanaan pengujian pertama dan berkala peralatan khusus;</li>
-        <li>Pelaksanaan pengujian kompetensi awak sarana perkeretaapian;</li>
-        <li>Pelaksanaan pengujian kompetensi petugas pengoperasian prasarana perkeretaapian;</li>
-        <li>Pelaksanaan pengujian kompetensi Penguji Prasarana, Penguji Sarana, Inspektur Prasarana, Inspektur Sarana, dan Auditor Perkeretaapian; dan</li>
-        <li>Pengelolaan urusan tata usaha, rumah tangga, kepegawaian, keuangan, hukum, dan hubungan masyarakat.</li>
-      </ul>
-      <p>Potensi pertumbuhan sarana, prasarana, dan sumber daya manusia perkeretaapian yang sangat tinggi mendorong Balai Pengujian Perkeretaapian untuk bekerja secara cepat dan profesional. Selain itu, diperlukan modernisasi ilmu pengetahuan dan teknologi dalam Pengujian Sarana, Prasarana, dan Sumber Daya Manusia Perkeretaapian.</p>
-      <p>Balai Pengujian Perkeretaapian dituntut untuk melakukan upaya-upaya peningkatan pelayanan dan pendapatan sebagai sumber penerimaan mandiri dengan meningkatkan pelayanan kepada masyarakat tanpa mencari keuntungan dan dalam melakukan kegiatannya didasarkan pada prinsip efisiensi serta produktivitas.</p>
-
-      <div class="prose-divider"></div>
-
-      <h4>B. Badan Layanan Umum (BLU) Balai Pengujian Perkeretaapian</h4>
-      <p>Berdasarkan hal tersebut, maka perlu dibentuk Balai Pengujian Perkeretaapian sebagai Balai yang memiliki sistem Pola Pengelolaan Keuangan-Badan Layanan Umum (PPK-BLU). Sebagai salah satu persyaratan dalam membentuk institusi pelayanan umum yang memiliki sistem PPK–BLU sebagaimana ditetapkan dalam <strong>Peraturan Menteri Keuangan Nomor 129/PMK.05/2020 tahun 2020</strong> tentang <strong>Pedoman Pengelolaan Badan Layanan Umum</strong>.</p>
-      <p>Untuk menerapkan Pengelolaan Keuangan Badan Layanan Umum, maka perlu disusun Dokumen Tata Kelola yang akan menjadi salah satu pedoman bagi Balai Pengujian Perkeretaapian untuk menyelenggarakan pelayanan dengan mekanisme Pengelolaan Keuangan Badan Layanan Umum dengan Core Business dibidang pengujian perkeretaapian.</p>
-      <p>Berdasarkan <strong>Peraturan Menteri Perhubungan Nomor PM 56 Tahun 2023</strong> tentang <strong>Organisasi dan Tata Kerja Balai Pengujian Perkeretaapian</strong>, merupakan Unit Kerja di lingkungan Kementerian Perhubungan yang berada di bawah dan bertanggungjawab kepada Direktur Jenderal Perkeretaapian. Sebagai pengemban fungsi Pemerintah, Balai Pengujian Perkeretaapian secara profesional dan berkesinambungan melaksanakan pelayanan kepada masyarakat khususnya dalam kegiatan pengujian yang dimaksudkan untuk meyakinkan bahwa semua aspek kegiatan yang berkaitan dengan operasi kereta api telah laik operasi dan menjamin keselamatan, kenyamanan serta keamanan perjalanan kereta api.</p>
-      <p>Berdasarkan hal tersebut, telah ditetapkan Balai Pengujian Perkeretaapian sebagai Badan Layanan Umum pada tanggal 23 September 2022, berdasarkan <strong>Keputusan Menteri Keuangan Republik Indonesia Nomor: 392/KMK.05/2022</strong> tentang <strong>Penetapan Balai Pengujian Laik Jalan Dan Sertifikasi Kendaraan Bermotor Dan Balai Pengujian Perkeretaapian Pada Kementerian Perhubungan Sebagai Instansi Pemerintah Yang Menerapkan Pola Pengelolaan Keuangan Badan Layanan Umum</strong>.</p>
-      <p>Sebagai institusi pemerintah yang memberikan pelayanan pengujian perkeretaapian, dan mengelola keuangan selayaknya Badan Layanan Umum, maka Balai Pengujian Perkeretaapian juga memiliki peluang untuk melaksanakan usaha bisnis guna menunjang kegiatan utamanya.</p>
+    <div class="profil-acc-item">
+      <button class="profil-acc-btn" onclick="switchSection('struktur',this)">
+        <span class="acc-arr">›</span>
+        <span class="acc-label">Struktur Organisasi</span>
+        <span class="acc-chv"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></span>
+      </button>
     </div>
-  </div>
-</section>
-
-<!-- ══ VISI MISI ══ -->
-<section id="tab-visi-misi" class="tab-content section-alt fade-up">
-  <div class="wrap">
-    <div class="sh">
-      <h2>Visi &amp; Misi</h2>
-      <div class="sh-line"></div>
-      <p class="sh-sub">Landasan nilai dan arah strategis Balai Pengujian Perkeretaapian dalam melayani bangsa</p>
+    <div class="profil-acc-item">
+      <button class="profil-acc-btn" onclick="switchSection('visi-misi',this)">
+        <span class="acc-arr">›</span>
+        <span class="acc-label">Visi &amp; Misi</span>
+        <span class="acc-chv"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></span>
+      </button>
     </div>
-    <div class="vm-grid">
-      <div class="vm-card">
-        <div class="vm-card-label">Visi</div>
-        <h3>Menjadi Pusat Pengujian Perkeretaapian Nasional yang Profesional dengan Pelayanan PRIMA</h3>
-        <div class="vm-visi-sub">Profesional · Ramah · Inovatif · Mandiri · Akuntabel</div>
-        <p>Pelayanan <strong>PRIMA</strong> yang memiliki arti Profesional, Ramah, Inovatif, Mandiri, dan Akuntabel — menjadi standar pelayanan Balai Pengujian Perkeretaapian kepada seluruh pemangku kepentingan.</p>
+    <div class="profil-acc-item">
+      <button class="profil-acc-btn" onclick="switchSection('ruang-lingkup',this)">
+        <span class="acc-arr">›</span>
+        <span class="acc-label">Ruang Lingkup</span>
+        <span class="acc-chv"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- RIGHT: content panels -->
+  <div class="profil-content">
+
+    <!-- TENTANG KAMI -->
+    <div id="tab-tentang" class="tab-content active">
+      <div class="sec-heading">
+        <h2>Tentang Kami</h2>
+        <p>Balai Pengujian Perkeretaapian sebagai Badan Layanan Umum di bawah Kementerian Perhubungan</p>
       </div>
-      <div class="vm-card misi">
-        <div class="vm-card-label">Misi</div>
-        <h3>Langkah Strategis Menuju Perkeretaapian yang Profesional dan Terstandarisasi</h3>
-        <ul class="vm-list">
-          <li class="vm-item">Melaksanakan dan Memelihara Sistem Manajemen Mutu Pengujian Perkeretaapian.</li>
-          <li class="vm-item">Meningkatkan Kemampuan Sumber Daya Manusia.</li>
-          <li class="vm-item">Meningkatkan Sarana dan Prasarana Pengujian.</li>
-          <li class="vm-item">Meningkatkan Pengembangan Metode Pengujian sesuai Perkembangan IPTEK (Ilmu Pengetahuan dan Teknologi).</li>
-          <li class="vm-item">Meningkatkan Dukungan Manajemen dan Dukungan Teknis Lainnya.</li>
+      <div class="prose">
+        <h4>A. Latar Belakang Balai Pengujian Perkeretaapian</h4>
+        <p>Kereta Api adalah salah satu moda transportasi dalam sistem transportasi nasional yang mempunyai karateristik pengangkutan secara masal. Tujuan penyelenggaraan perkeretaapian yaitu memperlancar perpindahan orang dan/barang secara masal, selamat, aman, nyaman, cepat dan lancar, tepat, tertib dan teratur, efisien, serta menunjang pemerataan pertumbuhan stabilitas, pendorong dan penggerak pembangunan nasional. Agar tercapai tujuan penyelenggaraan perkeretaapian dengan aman dan selamat maka setiap penyelenggara perkeretaapian wajib memenuhi persyaratan teknis dan kelaikan operasi yang berlaku bagi setiap jenis sarana prasarana dan SDM perkeretaapian.</p>
+        <p>Untuk memenuhi persyaratan teknis dan menjamin kelaikan operasi perkeretaapian, wajib dilakukan pengujian dan pemeriksaan yang bertujuan untuk mengetahui kesesuaian antara kondisi dan fungsi persyaratan teknis dan spesifikasi teknis. Persyaratan teknis dapat dinyatakan dalam bentuk standar nilai pengujian. Untuk itu perlu dilakukan pengujian terhadap kelaikan Sarana, Prasarana dan SDM Perkeretaapian.</p>
+        <p>Dengan kebutuhan tersebut, maka Balai Pengujian Perkeretaapian berdiri pada tahun 2015 sesuai dengan Peraturan Menteri Perhubungan Nomor 64 Tahun 2014 dengan tujuan untuk melakukan Pengujian Prasarana, Sarana, dan SDM Perkeretaapian.</p>
+        <p>Dalam melaksanakan tugasnya, Balai Pengujian Perkeretaapian mempunyai fungsi sebagai berikut:</p>
+        <ul>
+          <li>Pelaksanaan pengujian pertama dan berkala jalur kereta api, bangunan perkeretaapian dan fasilitas operasi kereta api;</li>
+          <li>Pelaksanaan pengujian pertama dan berkala sarana perkeretaapian berpenggerak dan tanpa penggerak;</li>
+          <li>Pelaksanaan pengujian pertama dan berkala peralatan khusus;</li>
+          <li>Pelaksanaan pengujian kompetensi awak sarana perkeretaapian;</li>
+          <li>Pelaksanaan pengujian kompetensi petugas pengoperasian prasarana perkeretaapian;</li>
+          <li>Pelaksanaan pengujian kompetensi Penguji Prasarana, Penguji Sarana, Inspektur Prasarana, Inspektur Sarana, dan Auditor Perkeretaapian; dan</li>
+          <li>Pengelolaan urusan tata usaha, rumah tangga, kepegawaian, keuangan, hukum, dan hubungan masyarakat.</li>
+        </ul>
+        <p>Potensi pertumbuhan sarana, prasarana, dan sumber daya manusia perkeretaapian yang sangat tinggi mendorong Balai Pengujian Perkeretaapian untuk bekerja secara cepat dan profesional. Selain itu, diperlukan modernisasi ilmu pengetahuan dan teknologi dalam Pengujian Sarana, Prasarana, dan Sumber Daya Manusia Perkeretaapian.</p>
+        <p>Balai Pengujian Perkeretaapian dituntut untuk melakukan upaya-upaya peningkatan pelayanan dan pendapatan sebagai sumber penerimaan mandiri dengan meningkatkan pelayanan kepada masyarakat tanpa mencari keuntungan dan dalam melakukan kegiatannya didasarkan pada prinsip efisiensi serta produktivitas.</p>
+
+        <div class="prose-divider"></div>
+
+        <h4>B. Badan Layanan Umum (BLU) Balai Pengujian Perkeretaapian</h4>
+        <p>Berdasarkan hal tersebut, maka perlu dibentuk Balai Pengujian Perkeretaapian sebagai Balai yang memiliki sistem Pola Pengelolaan Keuangan-Badan Layanan Umum (PPK-BLU). Sebagai salah satu persyaratan dalam membentuk institusi pelayanan umum yang memiliki sistem PPK–BLU sebagaimana ditetapkan dalam <strong>Peraturan Menteri Keuangan Nomor 129/PMK.05/2020 tahun 2020</strong> tentang <strong>Pedoman Pengelolaan Badan Layanan Umum</strong>.</p>
+        <p>Untuk menerapkan Pengelolaan Keuangan Badan Layanan Umum, maka perlu disusun Dokumen Tata Kelola yang akan menjadi salah satu pedoman bagi Balai Pengujian Perkeretaapian untuk menyelenggarakan pelayanan dengan mekanisme Pengelolaan Keuangan Badan Layanan Umum dengan Core Business dibidang pengujian perkeretaapian.</p>
+        <p>Berdasarkan <strong>Peraturan Menteri Perhubungan Nomor PM 56 Tahun 2023</strong> tentang <strong>Organisasi dan Tata Kerja Balai Pengujian Perkeretaapian</strong>, merupakan Unit Kerja di lingkungan Kementerian Perhubungan yang berada di bawah dan bertanggungjawab kepada Direktur Jenderal Perkeretaapian. Sebagai pengemban fungsi Pemerintah, Balai Pengujian Perkeretaapian secara profesional dan berkesinambungan melaksanakan pelayanan kepada masyarakat khususnya dalam kegiatan pengujian yang dimaksudkan untuk meyakinkan bahwa semua aspek kegiatan yang berkaitan dengan operasi kereta api telah laik operasi dan menjamin keselamatan, kenyamanan serta keamanan perjalanan kereta api.</p>
+        <p>Berdasarkan hal tersebut, telah ditetapkan Balai Pengujian Perkeretaapian sebagai Badan Layanan Umum pada tanggal 23 September 2022, berdasarkan <strong>Keputusan Menteri Keuangan Republik Indonesia Nomor: 392/KMK.05/2022</strong> tentang <strong>Penetapan Balai Pengujian Laik Jalan Dan Sertifikasi Kendaraan Bermotor Dan Balai Pengujian Perkeretaapian Pada Kementerian Perhubungan Sebagai Instansi Pemerintah Yang Menerapkan Pola Pengelolaan Keuangan Badan Layanan Umum</strong>.</p>
+        <p>Sebagai institusi pemerintah yang memberikan pelayanan pengujian perkeretaapian, dan mengelola keuangan selayaknya Badan Layanan Umum, maka Balai Pengujian Perkeretaapian juga memiliki peluang untuk melaksanakan usaha bisnis guna menunjang kegiatan utamanya.</p>
+      </div>
+    </div>
+
+    <!-- VISI MISI -->
+    <div id="tab-visi-misi" class="tab-content">
+      <div class="sec-heading">
+        <h2>Visi &amp; Misi</h2>
+        <p>Landasan nilai dan arah strategis Balai Pengujian Perkeretaapian dalam melayani bangsa</p>
+      </div>
+      <div class="vm-grid">
+        <!-- VISI -->
+        <div class="vm-visi-card">
+          <div class="vm-card-label">Visi</div>
+          <h3>Menjadi Pusat Pengujian Perkeretaapian Nasional yang Profesional dengan Pelayanan PRIMA</h3>
+          <div class="vm-prima">
+            <span class="vm-prima-badge">Profesional</span>
+            <span class="vm-prima-badge">Ramah</span>
+            <span class="vm-prima-badge">Inovatif</span>
+            <span class="vm-prima-badge">Mandiri</span>
+            <span class="vm-prima-badge">Akuntabel</span>
+          </div>
+          <p>Pelayanan <strong>PRIMA</strong> yang memiliki arti Profesional, Ramah, Inovatif, Mandiri, dan Akuntabel — menjadi standar pelayanan Balai Pengujian Perkeretaapian kepada seluruh pemangku kepentingan.</p>
+        </div>
+        <!-- MISI -->
+        <div class="vm-visi-card misi">
+          <div class="vm-card-label">Misi</div>
+          <h3>Langkah Strategis Menuju Perkeretaapian yang Profesional dan Terstandarisasi</h3>
+          <div class="vm-misi-items">
+            <div class="vm-misi-item"><div class="vm-misi-num">1</div><div class="vm-misi-text">Melaksanakan dan Memelihara Sistem Manajemen Mutu Pengujian Perkeretaapian.</div></div>
+            <div class="vm-misi-item"><div class="vm-misi-num">2</div><div class="vm-misi-text">Meningkatkan Kemampuan Sumber Daya Manusia.</div></div>
+            <div class="vm-misi-item"><div class="vm-misi-num">3</div><div class="vm-misi-text">Meningkatkan Sarana dan Prasarana Pengujian.</div></div>
+            <div class="vm-misi-item"><div class="vm-misi-num">4</div><div class="vm-misi-text">Meningkatkan Pengembangan Metode Pengujian sesuai Perkembangan IPTEK.</div></div>
+            <div class="vm-misi-item"><div class="vm-misi-num">5</div><div class="vm-misi-text">Meningkatkan Dukungan Manajemen dan Dukungan Teknis Lainnya.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RUANG LINGKUP -->
+    <div id="tab-ruang-lingkup" class="tab-content">
+      <div class="sec-heading">
+        <h2>Ruang Lingkup</h2>
+        <p>Berdasarkan Peraturan Menteri Perhubungan <strong>PM 56 Tahun 2023</strong> tentang Organisasi dan Tata Kerja Balai Pengujian Perkeretaapian</p>
+      </div>
+      <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:24px;">Balai Pengujian Perkeretaapian bertugas melaksanakan Pengujian Prasarana, Sarana, dan Sumber Daya Manusia Perkeretaapian. Dalam melaksanakan tugasnya, Balai Pengujian Perkeretaapian mempunyai fungsi sebagai berikut:</p>
+      <div class="rl-list">
+        <div class="rl-item">
+          <div class="rl-num">1</div>
+          <div class="rl-text">Pelaksanaan penyusunan rencana, program, anggaran, rencana strategis bisnis, dan rencana bisnis anggaran;</div>
+        </div>
+        <div class="rl-item">
+          <div class="rl-num">2</div>
+          <div class="rl-text">Pelaksanaan pengujian pertama dan berkala prasarana perkeretaapian;</div>
+        </div>
+        <div class="rl-item">
+          <div class="rl-num">3</div>
+          <div class="rl-text">Pelaksanaan pengujian pertama dan berkala sarana perkeretaapian;</div>
+        </div>
+        <div class="rl-item">
+          <div class="rl-num">4</div>
+          <div class="rl-text">Pelaksanaan pengujian kecakapan dan keahlian sumber daya manusia bidang perkeretaapian;</div>
+        </div>
+        <div class="rl-item">
+          <div class="rl-num">5</div>
+          <div class="rl-text">Pelaksanaan pengujian komponen, sistem serta peralatan pendukung prasarana dan sarana perkeretaapian lainnya;</div>
+        </div>
+        <div class="rl-item">
+          <div class="rl-num">6</div>
+          <div class="rl-text">Pelaksanaan analisis isu aktual perkembangan perkeretaapian;</div>
+        </div>
+        <div class="rl-item">
+          <div class="rl-num">7</div>
+          <div class="rl-text">Pelaksanaan pengelolaan dan pengawasan keselamatan dan kesehatan kerja di bidang pelaksanaan pengujian perkeretaapian;</div>
+        </div>
+        <div class="rl-item">
+          <div class="rl-num">8</div>
+          <div class="rl-text">Pelaksanaan pemeriksaan intern;</div>
+        </div>
+        <div class="rl-item">
+          <div class="rl-num">9</div>
+          <div class="rl-text">Pelaksanaan urusan pengembangan usaha, pemasaran dan kerja sama; dan</div>
+        </div>
+        <div class="rl-item">
+          <div class="rl-num">10</div>
+          <div class="rl-text">Pelaksanaan urusan keuangan, sumber daya manusia, organisasi, hukum, ketatausahaan, hubungan masyarakat, data dan informasi, pengelolaan barang milik negara, serta evaluasi dan pelaporan.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STRUKTUR ORGANISASI -->
+    <div id="tab-struktur" class="tab-content">
+      <div class="sec-heading">
+        <h2>Struktur Organisasi &amp; Data Pegawai</h2>
+        <p>Susunan organisasi dan data kepegawaian Balai Pengujian Perkeretaapian</p>
+      </div>
+
+      <div class="org-block">
+        <div class="org-block-title">Struktur Organisasi</div>
+        <img src="Asset/org-struktur.png" alt="Struktur Organisasi Balai Pengujian Perkeretaapian"/>
+      </div>
+
+      <div class="org-block">
+        <div class="org-block-title">Data Pegawai</div>
+        <img src="Asset/sdm-pegawai.jpg" alt="Data Pegawai Balai Pengujian Perkeretaapian" style="width:100%;border-radius:var(--r-lg);"/>
+      </div>
+    </div>
+
+  </div><!-- /profil-content -->
+</div><!-- /profil-wrap -->
+
+<footer>
+  <div class="wrap" style="max-width:1440px;margin:0 auto;padding:0 80px;">
+    <div class="footer-grid">
+      <div>
+        <img src="Asset/ChatGPT Image 5 Mei 2026, 15.03.03.png" style="width:90px;height:60px;object-fit:contain;margin-bottom:12px;display:block;" alt="SiAPKA"/>
+        <div class="f-desc">Pengujian dilakukan pada semua sistem perkeretaapian meliputi Prasarana, Sarana dan Sumber Daya Manusia Perkeretaapian.</div>
+        <div class="f-visitor">Pengunjung: <strong>58.125</strong></div>
+      </div>
+      <div>
+        <div class="f-col-h">Tautan</div>
+        <ul class="f-list">
+          <li><a href="#">DJKA</a></li>
+          <li><a href="#">Direktorat Prasarana</a></li>
+          <li><a href="#">Direktorat Sarana</a></li>
+          <li><a href="#">Direktorat Keselamatan</a></li>
         </ul>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ RUANG LINGKUP ══ -->
-<section id="tab-ruang-lingkup" class="tab-content section fade-up">
-  <div class="wrap">
-    <div class="sh">
-      <h2>Ruang Lingkup</h2>
-      <div class="sh-line"></div>
-      <p class="sh-sub">Berdasarkan Peraturan Menteri Perhubungan <strong style="color:var(--white)">PM 56 Tahun 2023</strong> tentang Organisasi dan Tata Kerja Balai Pengujian Perkeretaapian</p>
-    </div>
-    <p style="font-size:14.5px;color:var(--muted);line-height:1.85;margin-bottom:32px;text-align:center;">Balai Pengujian Perkeretaapian bertugas melaksanakan Pengujian Prasarana, Sarana, dan Sumber Daya Manusia Perkeretaapian. Dalam melaksanakan tugasnya, Balai Pengujian Perkeretaapian mempunyai fungsi sebagai berikut:</p>
-    <div class="rl-list">
-      <div class="rl-item">
-        <div class="rl-num">1</div>
-        <div class="rl-text">Pelaksanaan penyusunan rencana, program, anggaran, rencana strategis bisnis, dan rencana bisnis anggaran;</div>
-      </div>
-      <div class="rl-item">
-        <div class="rl-num">2</div>
-        <div class="rl-text">Pelaksanaan pengujian pertama dan berkala prasarana perkeretaapian;</div>
-      </div>
-      <div class="rl-item">
-        <div class="rl-num">3</div>
-        <div class="rl-text">Pelaksanaan pengujian pertama dan berkala sarana perkeretaapian;</div>
-      </div>
-      <div class="rl-item">
-        <div class="rl-num">4</div>
-        <div class="rl-text">Pelaksanaan pengujian kecakapan dan keahlian sumber daya manusia bidang perkeretaapian;</div>
-      </div>
-      <div class="rl-item">
-        <div class="rl-num">5</div>
-        <div class="rl-text">Pelaksanaan pengujian komponen, sistem serta peralatan pendukung prasarana dan sarana perkeretaapian lainnya;</div>
-      </div>
-      <div class="rl-item">
-        <div class="rl-num">6</div>
-        <div class="rl-text">Pelaksanaan analisis isu aktual perkembangan perkeretaapian;</div>
-      </div>
-      <div class="rl-item">
-        <div class="rl-num">7</div>
-        <div class="rl-text">Pelaksanaan pengelolaan dan pengawasan keselamatan dan kesehatan kerja di bidang pelaksanaan pengujian perkeretaapian;</div>
-      </div>
-      <div class="rl-item">
-        <div class="rl-num">8</div>
-        <div class="rl-text">Pelaksanaan pemeriksaan intern;</div>
-      </div>
-      <div class="rl-item">
-        <div class="rl-num">9</div>
-        <div class="rl-text">Pelaksanaan urusan pengembangan usaha, pemasaran dan kerja sama; dan</div>
-      </div>
-      <div class="rl-item">
-        <div class="rl-num">10</div>
-        <div class="rl-text">Pelaksanaan urusan keuangan, sumber daya manusia, organisasi, hukum, ketatausahaan, hubungan masyarakat, data dan informasi, pengelolaan barang milik negara, serta evaluasi dan pelaporan.</div>
+      <div>
+        <div class="f-col-h">Alamat &amp; Kontak</div>
+        <div class="f-contact-list">
+          <div class="f-ci"><span class="ic"><i data-lucide="map-pin"></i> :</span><span>Jl. Perjuangan No.25, RT.001/RW.001, Marga Mulya, Kec. Bekasi Utara, Kota Bks, Jawa Barat 17143</span></div>
+          <div class="f-ci"><span class="ic"><i data-lucide="phone"></i> :</span><span>087888969530</span></div>
+          <div class="f-ci"><span class="ic"><i data-lucide="mail"></i> :</span><span>balaipengujianka@gmail.com</span></div>
+        </div>
       </div>
     </div>
   </div>
-</section>
-
-<!-- ══ STRUKTUR ORGANISASI ══ -->
-<section id="tab-struktur" class="tab-content section-alt fade-up">
-  <div class="wrap">
-    <div class="sh">
-      <h2>Struktur Organisasi &amp; Data Pegawai</h2>
-      <div class="sh-line"></div>
-      <p class="sh-sub">Susunan organisasi dan data kepegawaian Balai Pengujian Perkeretaapian</p>
-    </div>
-
-    <div class="org-img-wrap">
-      <div class="org-img-title">Struktur Organisasi</div>
-      <img src="https://ujidjka.kemenhub.go.id/dist/img/summernote-img/1758705373custom-image.png" alt="Struktur Organisasi Balai Pengujian Perkeretaapian"/>
-    </div>
-
-    <div class="org-img-wrap">
-      <div class="org-img-title">Data Pegawai</div>
-      <img src="https://ujidjka.kemenhub.go.id/dist/img/summernote-img/1758705790custom-image.jpg" alt="Data Pegawai Balai Pengujian Perkeretaapian"/>
-    </div>
+  <div class="footer-bar">
+    © Copyright 2025 &nbsp;<strong>Balai Pengujian Perkeretaapian</strong>&nbsp; All Rights Reserved
   </div>
-</section>
+</footer>
 
-<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button class="to-top" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="to-top-ring" viewBox="0 0 48 48"><circle class="to-top-track" cx="24" cy="24" r="22"/><circle class="to-top-progress" id="toTopProgress" cx="24" cy="24" r="22"/></svg>↑</button>
 
 <script>
 /* Navbar scroll */
-const nav = document.getElementById('navbar');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+const nav = document.querySelector('.navbar');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 80));
 
 /* Theme toggle */
 const themeToggle = document.getElementById('themeToggle');
-const toggleMoon  = themeToggle.querySelector('.nb-toggle-moon');
-const toggleDot   = themeToggle.querySelector('.nb-toggle-dot');
+const toggleDot   = themeToggle.querySelector(".nb-toggle-dot");
 let isLight = false;
-themeToggle.addEventListener('click', () => {
+themeToggle.addEventListener("click", () => {
   isLight = !isLight;
-  document.body.classList.toggle('light', isLight);
-  toggleMoon.textContent = isLight ? '☀️' : '🌙';
+  document.body.classList.toggle("light", isLight);
   toggleDot.style.right  = isLight ? 'auto' : '3px';
   toggleDot.style.left   = isLight ? '3px'  : 'auto';
   toggleDot.style.background = isLight ? '#94a3b8' : '#3B82F6';
 });
 
-/* Tab switching */
-function switchTab(id, btn) {
+/* Section switching (accordion sidebar) */
+function switchSection(id, btn) {
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.profil-acc-btn').forEach(b => b.classList.remove('active'));
   const el = document.getElementById('tab-' + id);
-  if (el) { el.classList.add('active'); el.classList.add('visible'); }
+  if (el) el.classList.add('active');
   if (btn) btn.classList.add('active');
-  const tabNav = document.getElementById('tab-nav');
-  window.scrollTo({top: tabNav.offsetTop - 10, behavior:'smooth'});
+  document.querySelector('.profil-content').scrollTop = 0;
 }
+
+/* Dropdown toggle */
+document.querySelectorAll('.nb-has-dropdown').forEach(item => {
+  item.querySelector('a').addEventListener('click', e => {
+    e.preventDefault();
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.nb-has-dropdown').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nb-has-dropdown')) {
+    document.querySelectorAll('.nb-has-dropdown').forEach(i => i.classList.remove('open'));
+  }
+});
 
 /* Fade-up on scroll */
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
 }, {threshold:0.05});
 document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>lucide.createIcons();</script>
+
+<!-- ── HELPDESK FAB ── -->
+<button class="hd-fab" onclick="toggleHdPanel()" aria-label="Helpdesk">
+  <img src="Asset/icon-helpdesk.png" alt="Helpdesk">
+</button>
+<div class="hd-panel" id="hdPanel">
+  <div class="hd-panel-head">
+    <button class="hd-panel-head-close" onclick="closeHdPanel()">✕</button>
+    <div class="hd-panel-logo">
+      <img src="Asset/icon-helpdesk.png" alt="CS">
+      <div class="hd-panel-logo-text">
+        <strong>Balai Pengujian Perkeretaapian</strong>
+        <span>Customer Service</span>
+      </div>
+    </div>
+    <div class="hd-online"><span class="hd-online-dot"></span> Online sekarang</div>
+  </div>
+  <div class="hd-panel-body">
+    <p>Halo! Ada yang bisa kami bantu? Pilih saluran di bawah untuk menghubungi tim kami.</p>
+    <div class="hd-contact-list">
+      <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="hd-contact-btn">
+        <div class="hd-contact-icon wa"><svg width="18" height="18" viewBox="0 0 24 24" fill="#16a34a"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.555 4.12 1.527 5.845L.057 23.882l6.194-1.624A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.373l-.36-.213-3.676.964.981-3.585-.234-.369A9.818 9.818 0 1112 21.818z"/></svg></div>
+        <div class="hd-contact-info"><strong>WhatsApp</strong><span>Chat langsung dengan kami</span></div>
+      </a>
+      <a href="mailto:helpdesk@ujidjka.kemenhub.go.id" class="hd-contact-btn">
+        <div class="hd-contact-icon mail"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
+        <div class="hd-contact-info"><strong>Email</strong><span>helpdesk@ujidjka.kemenhub.go.id</span></div>
+      </a>
+      <a href="tel:+62215671234" class="hd-contact-btn">
+        <div class="hd-contact-icon phone"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 5.99 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div class="hd-contact-info"><strong>Telepon</strong><span>(021) 567-1234</span></div>
+      </a>
+    </div>
+  </div>
+</div>
+<script>
+function toggleHdPanel(){document.getElementById('hdPanel').classList.toggle('open');}
+function closeHdPanel(){document.getElementById('hdPanel').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeHdPanel();});
+document.addEventListener('click',function(e){
+  const p=document.getElementById('hdPanel'),f=document.querySelector('.hd-fab');
+  if(p.classList.contains('open')&&!p.contains(e.target)&&!f.contains(e.target))closeHdPanel();
+});
+</script>
+<script>
+(function(){
+  var btn=document.getElementById('toTop'),ring=document.getElementById('toTopProgress'),C=138.23;
+  window.addEventListener('scroll',function(){
+    var y=window.scrollY,max=document.documentElement.scrollHeight-window.innerHeight;
+    btn.classList.toggle('visible',y>200);
+    ring.style.strokeDashoffset=max>0?C*(1-y/max):C;
+  });
+})();
 </script>
 </body>
 </html>
