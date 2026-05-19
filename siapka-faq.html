@@ -188,7 +188,13 @@ body.light .footer-bar strong{color:#fff;}
 .btn-login-icon i[data-lucide]{display:flex;align-items:center;justify-content:center;}
 .nb-theme{display:flex;align-items:center;}
 .nb-toggle{position:relative;width:62px;height:32px;background:#0E1937;border-radius:var(--r-pill);cursor:pointer;flex-shrink:0;border:1.5px solid rgba(255,255,255,0.15);padding:0;display:flex;align-items:center;}
-.nb-toggle-moon{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:13px;line-height:1;pointer-events:none;user-select:none;}
+.nb-toggle-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);display:flex;align-items:center;justify-content:center;pointer-events:none;user-select:none;}
+.nb-toggle-icon [data-lucide]{display:flex;}
+.nb-toggle-icon [data-lucide] svg,.nb-toggle-icon svg{width:14px;height:14px;}
+.nb-toggle-icon .icon-moon{color:#fff;display:flex;}
+.nb-toggle-icon .icon-sun{color:#f59e0b;display:none;}
+body.light .nb-toggle-icon .icon-moon{display:none;}
+body.light .nb-toggle-icon .icon-sun{display:flex;}
 .nb-toggle-dot{position:absolute;right:3px;top:50%;transform:translateY(-50%);width:24px;height:24px;background:#3B82F6;border-radius:50%;box-shadow:0 2px 8px rgba(59,130,246,0.5);transition:right .25s cubic-bezier(.4,0,.2,1);pointer-events:none;}
 
 /* ════════════════════════════
@@ -418,7 +424,7 @@ body:not(.light) .hd-contact-info span{color:#64748b;}
 <nav class="navbar" id="navbar">
   <div class="nb-inner">
     <div class="nb-logo">
-      <img src="Asset/siapka-logo.png" alt="SiAPKA" style="width:220px;height:220px;display:block;object-fit:contain;" />
+      <img id="navLogo" src="Asset/siapka-logo.png" alt="SiAPKA" style="width:220px;height:220px;display:block;object-fit:contain;" />
     </div>
 
     <ul class="nb-links">
@@ -674,8 +680,11 @@ lucide.createIcons();
 
 /* Navbar scroll */
 const nav = document.getElementById('navbar');
+const navLogo = document.getElementById('navLogo');
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 20);
+  const scrolled = window.scrollY > 20;
+  nav.classList.toggle('scrolled', scrolled);
+  navLogo.src = scrolled ? 'Asset/negative logo.png' : 'Asset/siapka-logo.png';
 });
 
 /* Dark/light toggle */
