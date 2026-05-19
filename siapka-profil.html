@@ -328,7 +328,7 @@ body:not(.light) .hd-contact-info span{color:#64748b;}
 <nav class="navbar">
   <div class="nb-inner">
     <div class="nb-logo">
-      <img src="Asset/siapka-logo.png" alt="SiAPKA" style="width:220px;height:220px;display:block;object-fit:contain;" />
+      <img id="navLogo" src="Asset/siapka-logo.png" alt="SiAPKA" style="width:220px;height:220px;display:block;object-fit:contain;" />
     </div>
     <ul class="nb-links">
       <li><a href="siapka-redesign.html">Home</a></li>
@@ -604,7 +604,12 @@ body:not(.light) .hd-contact-info span{color:#64748b;}
 <script>
 /* Navbar scroll */
 const nav = document.querySelector('.navbar');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 80));
+const navLogo = document.getElementById('navLogo');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY > 80;
+  nav.classList.toggle('scrolled', scrolled);
+  navLogo.src = scrolled ? 'Asset/negative logo.png' : 'Asset/siapka-logo.png';
+});
 
 /* Theme toggle */
 const themeToggle = document.getElementById('themeToggle');
