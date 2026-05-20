@@ -84,10 +84,10 @@ body.light .sh h2{color:#0F172A;}
 body.light .lu-code-text{color:#0F172A;}
 
 /* ── Informasi Layanan cards ── */
-body.light .lu-card{background:#fff;border-color:rgba(0,0,0,0.08);box-shadow:0 2px 16px rgba(0,0,0,0.07);}
-body.light .lu-card:hover{background:#f8faff;border-color:rgba(37,99,235,0.2);}
-body.light .lu-icon{background:#EFF6FF;border-color:rgba(37,99,235,0.15);}
-body.light .lu-icon svg,body.light .lu-icon i[data-lucide] svg{stroke:#2563EB;}
+body.light .lu-card{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 2px 16px rgba(0,0,0,0.07);}
+body.light .lu-card:hover{background:#fff;border-color:rgba(37,99,235,0.2);}
+body.light .lu-arrow{border-color:rgba(0,0,0,0.25);color:rgba(0,0,0,0.5);}
+body.light .lu-card:hover .lu-arrow{border-color:#0F172A;color:#0F172A;}
 body.light .lu-title{color:#0F172A;}
 body.light .lu-desc{color:rgba(15,23,42,0.58);}
 
@@ -573,69 +573,106 @@ body.light .nb-toggle-icon .icon-sun{display:flex;}
   padding:100px 0;
   position:relative;overflow:hidden;
 }
+/* Building background image */
+.layanan-utama::after{
+  content:'';position:absolute;inset:0;
+  background-image:url('Asset/building.png');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  opacity:0.18;
+  pointer-events:none;
+  z-index:0;
+}
+.layanan-utama .wrap{position:relative;z-index:1;}
 /* Subtle city backdrop blur effect */
 .layanan-utama::before{
   content:'';position:absolute;inset:0;
   background:
     radial-gradient(ellipse 60% 50% at 50% 50%, rgba(59,130,246,0.04) 0%, transparent 70%);
   pointer-events:none;
+  z-index:0;
 }
 
 .lu-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:24px;
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:20px;
 }
 
 .lu-card{
-  background:#092237;
-  border:none;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.12);
   border-radius:var(--r-xl);
-  display:flex;flex-direction:column;align-items:stretch;
+  display:flex;flex-direction:row;align-items:stretch;
   cursor:pointer;
-  transition:background .25s,border-color .25s,transform .2s;
+  transition:background .25s,border-color .25s,transform .2s,box-shadow .25s;
   position:relative;
   overflow:hidden;
+  min-height:200px;
 }
 .lu-card:hover{
-  background:#0d2d47;
+  background:rgba(255,255,255,0.09);
+  border-color:rgba(255,255,255,0.45);
   transform:translateY(-4px);
+  box-shadow:0 0 0 1px rgba(255,255,255,0.15), 0 12px 40px rgba(0,0,0,0.35);
 }
+.lu-card:hover .lu-img img{transform:scale(1.06);}
+.lu-card:hover .lu-icon{
+  background:#fff;
+  border-color:#fff;
+}
+.lu-card:hover .lu-icon svg,
+.lu-card:hover .lu-icon i[data-lucide] svg{stroke:#0E1937;}
+.lu-card:hover .lu-code-text{color:#fff;}
+.lu-card:hover .lu-title{color:#fff;}
+
+/* Arrow icon top-right */
+.lu-arrow{
+  position:absolute;top:20px;right:20px;
+  width:36px;height:36px;border-radius:50%;
+  background:#fff;
+  border:none;
+  display:flex;align-items:center;justify-content:center;
+  color:#0E1937;
+  opacity:0;
+  transform:scale(0.8);
+  transition:opacity .25s,transform .25s;
+  z-index:2;
+}
+.lu-card:hover .lu-arrow{opacity:1;transform:scale(1);}
+.lu-arrow svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;}
+
 .lu-img{
-  width:100%;aspect-ratio:16/9;flex-shrink:0;
+  width:42%;flex-shrink:0;
   overflow:hidden;position:relative;
 }
 .lu-img img{
   width:100%;height:100%;object-fit:cover;display:block;
   transition:transform .4s;
 }
-.lu-card:hover .lu-img img{transform:scale(1.05);}
+.lu-card:hover .lu-img img{transform:scale(1.04);}
 
 .lu-icon{
-  width:44px;height:44px;border-radius:50%;
+  width:48px;height:48px;border-radius:50%;
   background:#0E1937;
-  border:1px solid rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.15);
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;
-  transition:opacity .25s,transform .25s;
-  margin-bottom:14px;
+  margin-bottom:20px;
+  transition:background .25s,border-color .25s;
 }
-.lu-card:hover .lu-icon{opacity:0;transform:translateY(-8px);}
-.lu-icon svg,.lu-icon i[data-lucide] svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.8}
+.lu-icon svg,.lu-icon i[data-lucide] svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.8;transition:stroke .25s;}
 .lu-icon i[data-lucide]{display:flex;align-items:center;justify-content:center;}
 
-.lu-body{padding:24px;display:flex;flex-direction:column;flex:1;}
+.lu-body{padding:28px 32px;display:flex;flex-direction:column;flex:1;}
 .lu-code{
-  display:flex;align-items:center;gap:10px;margin-bottom:8px;
-  transition:transform .3s ease;
+  display:flex;align-items:center;gap:10px;margin-bottom:10px;
 }
-.lu-card:hover .lu-code{transform:translateY(-10px);}
 .lu-code-line{width:28px;height:2px;background:var(--red);flex-shrink:0}
-.lu-code-text{font-size:13px;font-weight:700;color:var(--white);letter-spacing:.5px}
+.lu-code-text{font-size:14px;font-weight:700;color:var(--white);letter-spacing:.5px}
 
-.lu-title{font-size:14px;font-weight:600;color:var(--white);line-height:1.4;margin-bottom:8px;transition:transform .3s ease;}
-.lu-card:hover .lu-title{transform:translateY(-10px);}
-.lu-desc{font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6;transition:transform .3s ease;}
-.lu-card:hover .lu-desc{transform:translateY(-10px);}
+.lu-title{font-size:15px;font-weight:600;color:var(--white);line-height:1.45;margin-bottom:0;}
+.lu-desc{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;margin-top:6px;}
 
 /* ════════════════════════════
    LAYANAN UNGGULAN — 4-col carousel (PERONHUB)
@@ -1398,11 +1435,14 @@ body:not(.light) .hd-contact-info span{color:#64748b;}
     <div class="lu-grid">
       <div class="lu-card">
         <div class="lu-img"><img src="Asset/ay5ljoqmg4kabnh6rwic-layananblu.png" alt="Sarana"/></div>
+        <div class="lu-arrow">
+          <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </div>
         <div class="lu-body">
           <div class="lu-icon"><i data-lucide="tram-front"></i></div>
           <div class="lu-code">
             <div class="lu-code-line"></div>
-            <span class="lu-code-text"> Sarana</span>
+            <span class="lu-code-text">Sarana</span>
           </div>
           <div class="lu-title">Layanan Pengujian Sarana Perkeretaapian</div>
           <div class="lu-desc">Regulasi serta Persyaratan pengajuan Uji Kelaikan Sarana Perkeretaapian untuk memastikan Sarana laik operasi.</div>
@@ -1411,11 +1451,14 @@ body:not(.light) .hd-contact-info span{color:#64748b;}
 
       <div class="lu-card">
         <div class="lu-img"><img src="Asset/qgklnoe83tc4a9w5l7hv-layananblu.png" alt="Prasarana"/></div>
+        <div class="lu-arrow">
+          <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </div>
         <div class="lu-body">
           <div class="lu-icon"><i data-lucide="home"></i></div>
           <div class="lu-code">
             <div class="lu-code-line"></div>
-            <span class="lu-code-text"> Prasarana</span>
+            <span class="lu-code-text">Prasarana</span>
           </div>
           <div class="lu-title">Layanan Pengujian Prasarana Perkeretaapian</div>
           <div class="lu-desc">Regulasi serta Persyaratan pengajuan Uji Kelaikan Prasarana Perkeretaapian untuk memastikan Sarana laik operasi.</div>
@@ -1424,11 +1467,14 @@ body:not(.light) .hd-contact-info span{color:#64748b;}
 
       <div class="lu-card">
         <div class="lu-img"><img src="Asset/u0det5jpfzkusdtbhkwi-layananblu.png" alt="Non-Core"/></div>
+        <div class="lu-arrow">
+          <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </div>
         <div class="lu-body">
           <div class="lu-icon"><i data-lucide="clock"></i></div>
           <div class="lu-code">
             <div class="lu-code-line"></div>
-            <span class="lu-code-text"> Non-Core</span>
+            <span class="lu-code-text">Non-Core</span>
           </div>
           <div class="lu-title">Layanan Penunjang (Non-Core)</div>
           <div class="lu-desc">Layanan Penunjang (Non-Core) pada BLU Balai Pengujian Perkeretaapian.</div>
@@ -1437,11 +1483,14 @@ body:not(.light) .hd-contact-info span{color:#64748b;}
 
       <div class="lu-card">
         <div class="lu-img"><img src="Asset/lqgvbsmn7gfnfii1wm6x-layananblu.png" alt="SDM"/></div>
+        <div class="lu-arrow">
+          <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </div>
         <div class="lu-body">
           <div class="lu-icon"><i data-lucide="users"></i></div>
           <div class="lu-code">
             <div class="lu-code-line"></div>
-            <span class="lu-code-text"> SDM</span>
+            <span class="lu-code-text">SDM</span>
           </div>
           <div class="lu-title">Layanan Pengujian SDM Perkeretaapian</div>
           <div class="lu-desc">Regulasi serta Persyaratan sertifikasi SDM Perkeretaapian untuk meningkatkan kualitas SDM di bidang Perkeretaapian Indonesia.</div>
