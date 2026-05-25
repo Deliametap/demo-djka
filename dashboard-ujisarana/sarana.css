@@ -1,0 +1,445 @@
+/* ═══════════════════════════════════════════════════════════
+   sarana.css — Halaman Sarana
+   Berdasarkan Dashboard Design Guidelines v1.2
+═══════════════════════════════════════════════════════════ */
+
+/* ── Info Alert Teal ── */
+.sarana-info-alert {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  background: #F0FDFA;
+  border: 1px solid #99F6E4;
+  border-radius: 10px;
+  padding: 16px 20px;
+  color: #0D9488;
+}
+
+.sarana-info-alert-body {
+  flex: 1;
+}
+
+.sarana-info-alert-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F766E;
+  margin-bottom: 8px;
+}
+
+.sarana-info-alert-list {
+  list-style: disc;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sarana-info-alert-list li {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #0D9488;
+}
+
+.sarana-info-alert-action {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 2px;
+}
+
+/* Tombol Sinkronisasi */
+
+/* ── Filter Card ── */
+.sarana-filter-card {
+  padding: 16px 20px;
+}
+
+.sarana-filter-body {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.sarana-filter-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sarana-filter-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sarana-select {
+  height: 38px;
+  padding: 0 32px 0 12px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--color-text);
+  background: var(--color-surface);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  min-width: 200px;
+  transition: border-color 0.15s;
+}
+
+.sarana-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+  outline: none;
+}
+
+/* Tombol Filter */
+
+/* ── Rekapitulasi Card ── */
+.sarana-rekap-card {
+  background: #F8FAFC;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+
+.sarana-rekap-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+  color: #334155;
+}
+
+.sarana-rekap-header svg {
+  color: var(--color-info);
+  flex-shrink: 0;
+}
+
+.sarana-rekap-list {
+  list-style: disc;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sarana-rekap-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.rekap-label {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.rekap-sep {
+  color: var(--color-muted);
+  flex-shrink: 0;
+}
+
+.rekap-val {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+/* ── Kode Sarana — monospace biru ── */
+.td-kode {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+/* ── Tahun Dinas ── */
+.td-tahun {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* ── Masa Berlaku ── */
+.td-masa-berlaku {
+  font-size: 12.5px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* ── No. Sertifikasi — truncate + tooltip ── */
+.td-sertifikasi {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--color-text-secondary);
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Jenis Sarana ── */
+.td-jenis {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+/* ── Pemilik ── */
+.td-pemilik {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* ── Status Badge ── */
+.td-status {
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Badge component — sdot-badge */
+.sdot-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+.sdot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Teal badge — AKTIF */
+.s-teal {
+  background: #F0FDFA;
+  color: #0D9488;
+  border: 1px solid #99F6E4;
+}
+
+.s-teal .sdot { background: #0D9488; }
+
+/* Blue badge */
+.s-blue {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary-border);
+}
+
+.s-blue .sdot { background: var(--color-primary); }
+
+/* Gray badge */
+.s-gray {
+  background: #F1F5F9;
+  color: #475569;
+  border: 1px solid #CBD5E1;
+}
+
+.s-gray .sdot { background: #64748B; }
+
+/* ── Print ── */
+@media print {
+  .topbar, .sidebar, .page-header,
+  .sarana-info-alert, .sarana-filter-card, .sarana-rekap-card,
+  .tbl-card-header, .tbl-filters, .tbl-pagination { display: none !important; }
+  .main-content { padding: 0; }
+  .card { border: none; box-shadow: none; }
+  .data-table { font-size: 11px; }
+}
+
+/* ── Filter di kanan search bar ── */
+.tbl-filter-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.tbl-filter-select {
+  height: 36px;
+  padding: 0 28px 0 10px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  transition: border-color 0.15s;
+  white-space: nowrap;
+  min-width: 0;
+  max-width: 180px;
+}
+
+.tbl-filter-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+}
+
+/* ── Filter Dropdown Panel ── */
+.filter-dropdown {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+/* Panel yang muncul saat klik Filter */
+.filter-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 280px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,.04), 0 10px 32px rgba(0,0,0,.10);
+  z-index: 150;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.filter-dropdown.open .filter-panel {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+.filter-panel-body {
+  padding: 16px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filter-panel-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.filter-panel-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-panel-select {
+  height: 38px;
+  padding: 0 32px 0 12px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+
+.filter-panel-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+}
+
+.filter-panel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 14px;
+  border-top: 1px solid var(--color-border-light);
+  gap: 8px;
+}
+
+/* Tombol Atur Ulang — ghost */
+.filter-panel-reset {
+  height: 34px;
+  padding: 0 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 6px;
+  background: transparent;
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background 0.13s, border-color 0.13s;
+}
+
+.filter-panel-reset:hover {
+  background: #F8FAFC;
+  border-color: #CBD5E1;
+}
+
+/* Tombol Terapkan Filter — primary */
+.filter-panel-apply {
+  height: 34px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background 0.15s;
+  flex: 1;
+}
+
+.filter-panel-apply:hover { background-color: var(--color-primary-hover); }
+
+/* Search + Filter dalam satu group kanan, gap kecil */
+.tbl-search-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}

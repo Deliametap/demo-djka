@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDM · BLU Balai Pengujian Perkeretaapian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+</head>
+<body data-active-nav="SDM">
+  <!-- ══════════════ TOPBAR (full width) ══════════════ -->
+  <header class="topbar" role="banner">
+
+    <!-- Active module icon (flush-left, matches sidebar rail) -->
+    <div class="topbar-module-icon" id="topbarModuleIcon" aria-hidden="true">
+      <!-- Dashboard icon (default) -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" id="topbarModuleSvg">
+        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+    </div>
+
+    <div class="topbar-brand">
+      <img src="Asset/1691134668-logobackendheader (1).png" alt="Balai Pengujian Perkeretaapian" class="topbar-brand-logo">
+      <div class="topbar-brand-sep" aria-hidden="true"></div>
+    </div>
+
+    <div class="search-bar" role="search" aria-label="Cari data atau menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <span>Cari data atau menu...</span>
+      <kbd aria-label="Ctrl K untuk pencarian">Ctrl K</kbd>
+    </div>
+
+    <div class="topbar-spacer"></div>
+
+    <div class="topbar-date" id="topbarDate">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span id="currentDate"></span>
+    </div>
+
+    <button class="topbar-btn" aria-label="Notifikasi — ada notifikasi baru">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+      <span class="notif-dot" aria-hidden="true"></span>
+    </button>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <div class="topbar-user" role="button" tabindex="0" aria-label="Menu pengguna">
+      <div class="user-avatar" aria-hidden="true">KR</div>
+    </div>
+  </header>
+
+  <div class="app-shell">
+
+  <!-- ══════════════ SIDEBAR ══════════════ -->
+  <aside class="sidebar" role="navigation" aria-label="Navigasi Utama">
+
+    <div class="sidebar-logo" aria-hidden="true"></div>
+
+    <nav class="sidebar-nav" aria-label="Menu Utama">
+      <a href="#" class="nav-item active" aria-label="Dashboard" aria-current="page">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="SDM" data-menu="SDM">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">SDM</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Masterisasi" data-menu="Masterisasi">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2z"/>
+            <path d="M7 7h.01"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Masterisasi</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Manajemen Portal">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Manajemen Portal</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Akses SSO" data-menu="AksesSso">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Akses SSO</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Pengelola Portal" data-menu="PengelolaPortal">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Pengelola Portal</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="API">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">API</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Data SIK">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <ellipse cx="12" cy="5" rx="9" ry="3"/>
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Data SIK</span>
+      </a>
+    </nav>
+
+  </aside>
+
+  <!-- ══════════════ SUB-NAV PANEL ══════════════ -->
+  <aside class="subnav-panel" id="subnavPanel" role="navigation" aria-label="Submenu Kontekstual">
+    <div class="subnav-inner">
+
+      <!-- Masterisasi Section -->
+      <div class="subnav-section" id="subnav-masterisasi">
+        <p class="subnav-section-label">Masterisasi</p>
+        <button class="subnav-item active" data-page="masterisasi-aplikasi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Aplikasi
+        </button>
+        <button class="subnav-item" data-page="masterisasi-level-aplikasi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2z"/><path d="M7 7h.01"/></svg>
+          Level Aplikasi
+        </button>
+      </div>
+
+      <!-- Pengelola Portal Section -->
+      <div class="subnav-section" id="subnav-pengelola-portal">
+        <p class="subnav-section-label">Pengelola Portal</p>
+        <button class="subnav-item active" data-page="pengelola-portal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Data Pengelola Portal
+        </button>
+      </div>
+
+      <!-- Akses SSO Section -->
+      <div class="subnav-section" id="subnav-akses-sso">
+        <p class="subnav-section-label">Akses SSO</p>
+        <button class="subnav-item active" data-page="akses-sso">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Data Akses SSO
+        </button>
+      </div>
+
+      <!-- SDM Section -->
+      <div class="subnav-section" id="subnav-sdm">
+        <p class="subnav-section-label">SDM</p>
+        <button class="subnav-item active" data-page="unit-kerja">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Unit Kerja
+        </button>
+        <button class="subnav-item" data-page="jabatan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          Jabatan
+        </button>
+        <button class="subnav-item" data-page="data-pegawai">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Data Pegawai
+        </button>
+      </div>
+
+    </div>
+    <button class="subnav-collapse-btn" id="subnavCollapse" title="Tutup panel">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+  </aside>
+
+  <!-- ══════════════ MAIN CONTENT ══════════════ -->
+  <div class="main-content">
+
+    <!-- Page Content -->
+    <main class="page-content" id="main-content">
+
+      <!-- ══ VIEW: Dashboard ══ -->
+      <div class="page-view active" id="view-unit-kerja">
+
+        <div class="sdm-page-header">
+          <h1 class="sdm-page-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            Kelola Data Unit Kerja
+          </h1>
+          <nav class="sdm-breadcrumb" aria-label="Lokasi halaman">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="color:var(--color-subtle)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="sdm-breadcrumb-sep">*</span>
+            <span>SDM</span>
+            <span class="sdm-breadcrumb-sep">•</span>
+            <span class="sdm-breadcrumb-current">Unit Kerja</span>
+          </nav>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <p class="info-card-text">Halaman ini berfungsi untuk mengelola data unit kerja.</p>
+        </div>
+
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Data Unit Kerja
+            </div>
+            <button class="btn-tambah" aria-label="Tambah Unit Kerja">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Tambah
+            </button>
+          </div>
+
+          <div class="tbl-filters">
+            <div class="tbl-filter-group">
+              <div class="tbl-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <input type="text" placeholder="Cari data..." aria-label="Cari unit kerja">
+              </div>
+            </div>
+            <div class="tbl-show">
+              Tampilkan
+              <select aria-label="Jumlah data per halaman"><option>10</option><option>25</option><option>50</option><option>100</option></select>
+              entri
+            </div>
+          </div>
+
+          <table class="data-table" aria-label="Daftar Unit Kerja">
+            <thead>
+              <tr>
+                <th class="center"><span class="th-sort">NO <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                <th><span class="th-sort">UNIT KERJA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                <th class="center">STATUS</th>
+                <th class="center">AKSI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="no">1</td><td>Balai Pengujian Perkeretaapian</td><td class="center"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></td><td class="center"><div class="action-cell"><button class="btn-act btn-act-edit" aria-label="Edit unit kerja"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button></div></td></tr>
+              <tr><td class="no">2</td><td>Subbagian Keuangan dan Tata Usaha</td><td class="center"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></td><td class="center"><div class="action-cell"><button class="btn-act btn-act-edit" aria-label="Edit unit kerja"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button></div></td></tr>
+              <tr><td class="no">3</td><td>Seksi Pengujian Prasarana Perkeretaapian</td><td class="center"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></td><td class="center"><div class="action-cell"><button class="btn-act btn-act-edit" aria-label="Edit unit kerja"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button></div></td></tr>
+              <tr><td class="no">4</td><td>Seksi Pengujian Sarana Perkeretaapian</td><td class="center"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></td><td class="center"><div class="action-cell"><button class="btn-act btn-act-edit" aria-label="Edit unit kerja"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button></div></td></tr>
+              <tr><td class="no">5</td><td>Seksi Pengujian SDM Perkeretaapian</td><td class="center"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></td><td class="center"><div class="action-cell"><button class="btn-act btn-act-edit" aria-label="Edit unit kerja"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button></div></td></tr>
+            </tbody>
+          </table>
+          <div class="tbl-pagination">
+            <span>Menampilkan 1 sampai 5 dari 5 data</span>
+            <div class="page-btns">
+              <button class="page-btn" aria-label="Sebelumnya">&#8249;</button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn" aria-label="Selanjutnya">&#8250;</button>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer"><p>© 2026 <a href="#">Balai Pengujian Perkeretaapian</a> · Direktorat Jenderal Perkeretaapian · Kementerian Perhubungan Republik Indonesia</p></footer>
+      </div><!-- /#view-unit-kerja -->
+      <div class="page-view" id="view-jabatan">
+
+        <div class="sdm-page-header">
+          <h1 class="sdm-page-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            Kelola Data Jabatan
+          </h1>
+          <nav class="sdm-breadcrumb">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="color:var(--color-subtle)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="sdm-breadcrumb-sep">*</span>
+            <span>SDM</span>
+            <span class="sdm-breadcrumb-sep">•</span>
+            <span class="sdm-breadcrumb-current">Jabatan</span>
+          </nav>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <p class="info-card-text">Halaman ini berfungsi untuk mengelola data jabatan.</p>
+        </div>
+
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Data Jabatan
+            </div>
+            <button class="btn-tambah" aria-label="Tambah Jabatan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Tambah
+            </button>
+          </div>
+
+          <div class="tbl-filters">
+            <div class="tbl-filter-group">
+              <div class="tbl-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <input type="text" placeholder="Cari data..." aria-label="Cari jabatan">
+              </div>
+            </div>
+            <div class="tbl-show">
+              Tampilkan
+              <select aria-label="Jumlah data per halaman"><option>10</option><option>25</option><option>50</option><option>100</option></select>
+              entri
+            </div>
+          </div>
+
+          <table class="data-table" aria-label="Daftar Jabatan">
+            <thead>
+              <tr>
+                <th class="center"><span class="th-sort">NO <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                <th><span class="th-sort">JABATAN <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                <th class="center">STATUS</th>
+                <th class="center">AKSI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="no">1</td><td>Kepala Balai Pengujian Perkeretaapian</td><td class="center"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></td><td class="center"><div class="action-cell"><button class="btn-act btn-act-edit" aria-label="Edit jabatan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button></div></td></tr>
+              <tr><td class="no">2</td><td>Kepala Subbagian Keuangan dan Tata Usaha</td><td class="center"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></td><td class="center"><div class="action-cell"><button class="btn-act btn-act-edit" aria-label="Edit jabatan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button></div></td></tr>
+              <tr><td class="no">3</td><td>Staff Subbagian Keuangan dan Tata Usaha</td><td class="center"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></td><td class="center"><div class="action-cell"><button class="btn-act btn-act-edit" aria-label="Edit jabatan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button></div></td></tr>
+              <tr><td class="no">4</td><td>Kepala Seksi Pengujian Prasarana</td><td class="center"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></td><td class="center"><div class="action-cell"><button class="btn-act btn-act-edit" aria-label="Edit jabatan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button></div></td></tr>
+              <tr><td class="no">5</td><td>Staff Seksi Pengujian Prasarana</td><td class="center"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></td><td class="center"><div class="action-cell"><button class="btn-act btn-act-edit" aria-label="Edit jabatan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button></div></td></tr>
+              <tr><td class="no">6</td><td>Kepala Seksi Pengujian Sarana</td><td class="center"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></td><td class="center"><div class="action-cell"><button class="btn-act btn-act-edit" aria-label="Edit jabatan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button></div></td></tr>
+              <tr><td class="no">7</td><td>Staff Seksi Pengujian Sarana</td><td class="center"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></td><td class="center"><div class="action-cell"><button class="btn-act btn-act-edit" aria-label="Edit jabatan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button></div></td></tr>
+            </tbody>
+          </table>
+          <div class="tbl-pagination">
+            <span>Menampilkan 1 sampai 7 dari 7 data</span>
+            <div class="page-btns">
+              <button class="page-btn" aria-label="Sebelumnya">&#8249;</button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn" aria-label="Selanjutnya">&#8250;</button>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer"><p>© 2026 <a href="#">Balai Pengujian Perkeretaapian</a> · Direktorat Jenderal Perkeretaapian · Kementerian Perhubungan Republik Indonesia</p></footer>
+      </div><!-- /#view-jabatan -->
+      <div class="page-view" id="view-data-pegawai">
+
+        <div class="sdm-page-header">
+          <h1 class="sdm-page-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Kelola Data Pegawai
+          </h1>
+          <nav class="sdm-breadcrumb">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="color:var(--color-subtle)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="sdm-breadcrumb-sep">*</span>
+            <span>SDM</span>
+            <span class="sdm-breadcrumb-sep">•</span>
+            <span class="sdm-breadcrumb-current">Data Pegawai</span>
+          </nav>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <p class="info-card-text">Halaman ini berfungsi untuk mengelola data pegawai.</p>
+        </div>
+
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Data Pegawai
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <!-- Filter button with inline popover -->
+              <div class="filter-popover-wrap" id="filterPopoverWrap">
+                <button class="btn-filter-outline" id="btnFilterPegawai" aria-label="Filter Data Pegawai" aria-haspopup="true" aria-expanded="false">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                  Filter
+                </button>
+                <div class="filter-popover" id="filterPopover" role="dialog">
+                  <div class="filter-popover-header">
+                    <span class="filter-popover-title">Filter Data Pegawai</span>
+                  </div>
+                  <div class="filter-popover-body">
+                    <label class="form-label" style="margin-bottom:6px;display:block;">Status Pegawai</label>
+                    <div class="cdd" id="cddStatusPegawai">
+                      <button class="cdd-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="cdd-value">Semua Status</span>
+                        <svg class="cdd-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <ul class="cdd-menu" role="listbox" aria-label="Status pegawai">
+                        <li class="cdd-item selected" role="option" data-value="">Semua Status</li>
+                        <li class="cdd-item" role="option" data-value="ASN">ASN</li>
+                        <li class="cdd-item" role="option" data-value="P3K">P3K</li>
+                        <li class="cdd-item" role="option" data-value="PPNPN">PPNPN</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="filter-popover-footer">
+                    <button class="btn-filter-reset" id="btnResetFilterPegawai">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.65"/></svg>
+                      Reset
+                    </button>
+                    <button class="btn-modal-primary" style="padding:8px 16px;font-size:13px;" id="btnApplyFilterPegawai">Terapkan</button>
+                  </div>
+                </div>
+              </div>
+              <button class="btn-tambah" aria-label="Tambah Pegawai">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Tambah
+              </button>
+            </div>
+          </div>
+
+          <div class="tbl-filters">
+            <div class="tbl-filter-group">
+              <div class="tbl-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <input type="text" placeholder="Cari data..." aria-label="Cari pegawai">
+              </div>
+            </div>
+            <div class="tbl-show">
+              Tampilkan
+              <select aria-label="Jumlah data per halaman"><option>10</option><option>25</option><option>50</option><option>100</option></select>
+              entri
+            </div>
+          </div>
+
+          <table class="data-table" aria-label="Daftar Data Pegawai">
+            <thead>
+              <tr>
+                <th class="center"><span class="th-sort">NO <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                <th><span class="th-sort">PEGAWAI <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                <th><span class="th-sort">NIK / NIP <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                <th><span class="th-sort">EMAIL <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                <th class="center"><span class="th-sort">STATUS PEGAWAI <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                <th class="center">FOTO</th>
+                <th class="center">STATUS</th>
+                <th class="center">AKSI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="no">1</td>
+                <td>
+                  <div class="employee-name">Balai Dev Apps</div>
+                  <div class="employee-meta">
+                    <span class="meta-row"><span class="meta-label">Unit Kerja : </span><a href="#">Balai Pengujian Perkeretaapian</a></span>
+                    <span class="meta-row"><span class="meta-label">Jabatan Fungsional: </span><a href="#">Pengelola IT</a></span>
+                    <span class="meta-row"><span class="meta-label">Jabatan Struktural: </span><a href="#" class="struktural">Unit Pengembangan Usaha dan Kerja Sama</a></span>
+                  </div>
+                </td>
+                <td>
+                  <div class="mono-cell">
+                    <div class="mono-row"><span class="mono-label">NIK</span><span class="mono-sep">:</span><span class="mono-val">6201012909950001</span></div>
+                    <div class="mono-row"><span class="mono-label">NIP</span><span class="mono-sep">:</span><span class="mono-val">0</span></div>
+                  </div>
+                </td>
+                <td style="font-size:13px;color:var(--color-text-secondary)">balaidev@gmail.com</td>
+                <td class="center"><span class="status-peg">P3K</span></td>
+                <td class="photo-cell center"><div class="photo-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div></td>
+                <td class="center"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></td>
+                <td class="center"><div class="action-cell">
+                  <button class="btn-act btn-act-edit" aria-label="Edit pegawai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button>
+                  <button class="btn-act btn-act-sync" aria-label="Reset password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> Sync</button>
+                </div></td>
+              </tr>
+              <tr>
+                <td class="no">2</td>
+                <td>
+                  <div class="employee-name">Sigit Sukmoro, S.Kom</div>
+                  <div class="employee-meta">
+                    <span class="meta-row"><span class="meta-label">Unit Kerja : </span><a href="#">Direktorat Jenderal Perkeretaapian</a></span>
+                    <span class="meta-row"><span class="meta-label">Jabatan Fungsional: </span><a href="#">Pengevaluasi Program dan Kegiatan</a></span>
+                    <span class="meta-row"><span class="meta-label">Jabatan Struktural: </span><a href="#" class="struktural">Unit Pengembangan Usaha dan Kerja Sama</a></span>
+                  </div>
+                </td>
+                <td>
+                  <div class="mono-cell">
+                    <div class="mono-row"><span class="mono-label">NIK</span><span class="mono-sep">:</span><span class="mono-val">3275051311840014</span></div>
+                    <div class="mono-row"><span class="mono-label">NIP</span><span class="mono-sep">:</span><span class="mono-val">198411132008121003</span></div>
+                  </div>
+                </td>
+                <td style="font-size:13px;color:var(--color-text-secondary)">sigit_sukmoro@dephub.go.id</td>
+                <td class="center"><span class="status-peg">ASN</span></td>
+                <td class="photo-cell center"><div class="photo-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div></td>
+                <td class="center"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></td>
+                <td class="center"><div class="action-cell">
+                  <button class="btn-act btn-act-edit" aria-label="Edit pegawai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button>
+                  <button class="btn-act btn-act-sync" aria-label="Reset password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> Sync</button>
+                </div></td>
+              </tr>
+              <tr>
+                <td class="no">3</td>
+                <td>
+                  <div class="employee-name">Ronald Jackson Simbolon, ST, MT</div>
+                  <div class="employee-meta">
+                    <span class="meta-row"><span class="meta-label">Unit Kerja : </span><a href="#">Seksi Pengujian Sarana Perkeretaapian</a></span>
+                    <span class="meta-row"><span class="meta-label">Jabatan Fungsional: </span><a href="#">Penguji Sarana Perkeretaapian</a></span>
+                    <span class="meta-row"><span class="meta-label">Jabatan Struktural: </span><a href="#" class="struktural">Seksi Pengujian Sarana</a></span>
+                  </div>
+                </td>
+                <td>
+                  <div class="mono-cell">
+                    <div class="mono-row"><span class="mono-label">NIK</span><span class="mono-sep">:</span><span class="mono-val">3276020303790009</span></div>
+                    <div class="mono-row"><span class="mono-label">NIP</span><span class="mono-sep">:</span><span class="mono-val">197903032006041006</span></div>
+                  </div>
+                </td>
+                <td style="font-size:13px;color:var(--color-text-secondary)">ronald_jackson@kemenhub.go.id</td>
+                <td class="center"><span class="status-peg">ASN</span></td>
+                <td class="photo-cell center"><div class="photo-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div></td>
+                <td class="center"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></td>
+                <td class="center"><div class="action-cell">
+                  <button class="btn-act btn-act-edit" aria-label="Edit pegawai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button>
+                  <button class="btn-act btn-act-sync" aria-label="Reset password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> Sync</button>
+                </div></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="tbl-pagination">
+            <span>Menampilkan 1 sampai 3 dari 161 data</span>
+            <div class="page-btns">
+              <button class="page-btn" aria-label="Sebelumnya">&#8249;</button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn">3</button>
+              <button class="page-btn ellipsis">...</button>
+              <button class="page-btn">17</button>
+              <button class="page-btn" aria-label="Selanjutnya">&#8250;</button>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer"><p>© 2026 <a href="#">Balai Pengujian Perkeretaapian</a> · Direktorat Jenderal Perkeretaapian · Kementerian Perhubungan Republik Indonesia</p></footer>
+      </div><!-- /#view-data-pegawai -->
+    </main>
+  </div><!-- /.main-content -->
+  </div><!-- /.app-shell -->
+  <div class="modal-overlay" id="modal-tambah-uk" role="dialog" aria-modal="true" aria-labelledby="modal-tambah-uk-title">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="modal-title-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <span id="modal-tambah-uk-title">Tambah Unit Kerja</span>
+        </div>
+        <button class="modal-close" id="modal-tambah-uk-close" aria-label="Tutup modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="input-nama-uk">Nama Unit Kerja <span class="req">*</span></label>
+          <input class="form-input" id="input-nama-uk" type="text" placeholder="Isikan nama unit kerja..." autocomplete="off">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-ghost" id="modal-tambah-uk-batal">Batal</button>
+        <button class="btn-modal-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Simpan Data
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODAL: Detail / Edit Unit Kerja
+  ══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-detail-uk" role="dialog" aria-modal="true" aria-labelledby="modal-detail-uk-title">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="modal-title-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </div>
+          <span id="modal-detail-uk-title">Detail Unit Kerja</span>
+        </div>
+        <button class="modal-close" id="modal-detail-uk-close" aria-label="Tutup modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="edit-nama-uk">Nama Unit Kerja <span class="req">*</span></label>
+          <input class="form-input" id="edit-nama-uk" type="text" placeholder="Isikan nama unit kerja..." autocomplete="off">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-danger" id="modal-detail-uk-hapus">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          Hapus
+        </button>
+        <button class="btn-modal-ghost" id="modal-detail-uk-batal">Batal</button>
+        <button class="btn-modal-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Simpan Perubahan
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-overlay" id="modal-tambah-jab" role="dialog" aria-modal="true" aria-labelledby="modal-tambah-jab-title">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="modal-title-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <span id="modal-tambah-jab-title">Tambah Jabatan</span>
+        </div>
+        <button class="modal-close" id="modal-tambah-jab-close" aria-label="Tutup modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="input-nama-jab">Nama Jabatan <span class="req">*</span></label>
+          <input class="form-input" id="input-nama-jab" type="text" placeholder="Isikan nama jabatan..." autocomplete="off">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-ghost" id="modal-tambah-jab-batal">Batal</button>
+        <button class="btn-modal-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Simpan Data
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODAL: Detail / Edit Jabatan
+  ══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-detail-jab" role="dialog" aria-modal="true" aria-labelledby="modal-detail-jab-title">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="modal-title-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </div>
+          <span id="modal-detail-jab-title">Detail Jabatan</span>
+        </div>
+        <button class="modal-close" id="modal-detail-jab-close" aria-label="Tutup modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="edit-nama-jab">Nama Jabatan <span class="req">*</span></label>
+          <input class="form-input" id="edit-nama-jab" type="text" placeholder="Isikan nama jabatan..." autocomplete="off">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-danger" id="modal-detail-jab-hapus">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          Hapus
+        </button>
+        <button class="btn-modal-ghost" id="modal-detail-jab-batal">Batal</button>
+        <button class="btn-modal-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Simpan Perubahan
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-overlay" id="modal-tambah-peg" role="dialog" aria-modal="true" aria-labelledby="modal-tambah-peg-title">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="modal-title-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+          </div>
+          <span id="modal-tambah-peg-title">Tambah Pegawai</span>
+        </div>
+        <button class="modal-close" id="modal-tambah-peg-close" aria-label="Tutup modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <!-- ─ Section: Detail Pegawai ─ -->
+        <div class="form-section-title">Detail Pegawai</div>
+
+        <!-- Unit Kerja -->
+        <div class="form-group">
+          <label class="form-label">Unit Kerja <span class="req">*</span></label>
+          <div class="cdd" id="cddUnitKerjaPeg" style="min-width:unset;">
+            <button class="cdd-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span class="cdd-value">Pilih unit kerja...</span>
+              <svg class="cdd-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <ul class="cdd-menu" role="listbox">
+              <li class="cdd-item selected" role="option" data-value="">Pilih unit kerja...</li>
+              <li class="cdd-item" role="option" data-value="bpp">Balai Pengujian Perkeretaapian</li>
+              <li class="cdd-item" role="option" data-value="sktu">Subbagian Keuangan dan Tata Usaha</li>
+              <li class="cdd-item" role="option" data-value="spra">Seksi Pengujian Prasarana</li>
+              <li class="cdd-item" role="option" data-value="ssa">Seksi Pengujian Sarana</li>
+              <li class="cdd-item" role="option" data-value="ssdm">Seksi Pengujian SDM</li>
+            </ul>
+          </div>
+          <button class="quick-add-link" type="button" onclick="closeModal('modal-tambah-peg');openModal('modal-tambah-uk');">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Tambahkan unit kerja baru
+          </button>
+        </div>
+
+        <!-- Sub Kantor -->
+        <div class="form-group">
+          <label class="form-label" for="peg-sub-kantor">Sub Kantor <span class="req">*</span></label>
+          <input class="form-input" id="peg-sub-kantor" type="text" placeholder="Isi sub kantor..." autocomplete="off">
+        </div>
+
+        <!-- Jabatan -->
+        <div class="form-group">
+          <label class="form-label">Jabatan <span class="req">*</span></label>
+          <div class="cdd" id="cddJabatanPeg" style="min-width:unset;">
+            <button class="cdd-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span class="cdd-value">Pilih jabatan...</span>
+              <svg class="cdd-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <ul class="cdd-menu" role="listbox">
+              <li class="cdd-item selected" role="option" data-value="">Pilih jabatan...</li>
+              <li class="cdd-item" role="option" data-value="kabpp">Kepala Balai Pengujian Perkeretaapian</li>
+              <li class="cdd-item" role="option" data-value="kasktu">Kepala Subbagian Keuangan dan Tata Usaha</li>
+              <li class="cdd-item" role="option" data-value="kaspra">Kepala Seksi Pengujian Prasarana</li>
+              <li class="cdd-item" role="option" data-value="kassa">Kepala Seksi Pengujian Sarana</li>
+              <li class="cdd-item" role="option" data-value="staff">Staff</li>
+            </ul>
+          </div>
+          <button class="quick-add-link" type="button" onclick="closeModal('modal-tambah-peg');openModal('modal-tambah-jab');">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Tambahkan jabatan baru
+          </button>
+        </div>
+
+        <!-- Jabatan Fungsional -->
+        <div class="form-group">
+          <label class="form-label" for="peg-jabfung">Jabatan Fungsional <span class="req">*</span></label>
+          <input class="form-input" id="peg-jabfung" type="text" placeholder="Isi jabatan fungsional..." autocomplete="off">
+        </div>
+
+        <!-- Status Pegawai -->
+        <div class="form-group">
+          <label class="form-label">Status Pegawai <span class="req">*</span></label>
+          <div class="cdd" id="cddStatusPegTambah" style="min-width:unset;">
+            <button class="cdd-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span class="cdd-value">Pilih status pegawai...</span>
+              <svg class="cdd-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <ul class="cdd-menu" role="listbox">
+              <li class="cdd-item selected" role="option" data-value="">Pilih status pegawai...</li>
+              <li class="cdd-item" role="option" data-value="ASN">ASN</li>
+              <li class="cdd-item" role="option" data-value="P3K">P3K</li>
+              <li class="cdd-item" role="option" data-value="PPNPN">PPNPN</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ─ Section: Data Pribadi ─ -->
+        <div class="form-section-title" style="margin-top:4px;">Data Pribadi</div>
+
+        <!-- NIK & NIP side by side -->
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="peg-nik">NIK <span class="req">*</span></label>
+            <input class="form-input" id="peg-nik" type="text" inputmode="numeric" placeholder="Isi NIK..." autocomplete="off">
+            <div class="form-hint">
+              <div class="form-hint-row">*) Hanya angka: <span class="form-hint-code">510807XXXXXXXXXX</span></div>
+              <div class="form-hint-row">*) Isi dengan: <span class="form-hint-code amber">0</span> Jika tidak ada</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="peg-nip">NIP <span class="req">*</span></label>
+            <input class="form-input" id="peg-nip" type="text" inputmode="numeric" placeholder="Isi NIP..." autocomplete="off">
+            <div class="form-hint">
+              <div class="form-hint-row">*) Hanya angka: <span class="form-hint-code">510807XXXXXXXXXX</span></div>
+              <div class="form-hint-row">*) Isi dengan: <span class="form-hint-code amber">0</span> Jika tidak ada</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nama Pegawai -->
+        <div class="form-group">
+          <label class="form-label" for="peg-nama">Nama Pegawai <span class="req">*</span></label>
+          <input class="form-input" id="peg-nama" type="text" placeholder="Isi nama pegawai..." autocomplete="off">
+        </div>
+
+        <!-- Tempat & Tanggal Lahir side by side -->
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="peg-tempat-lahir">Tempat Lahir <span class="req">*</span></label>
+            <input class="form-input" id="peg-tempat-lahir" type="text" placeholder="Isi tempat lahir..." autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="peg-tgl-lahir">Tanggal Lahir <span class="req">*</span></label>
+            <input class="form-input" id="peg-tgl-lahir" type="text" placeholder="DD/MM/YYYY" autocomplete="off">
+            <div class="form-hint">
+              <div class="form-hint-row">*) Input: <span class="form-hint-code">Tanggal/Bulan/Tahun</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alamat -->
+        <div class="form-group">
+          <label class="form-label" for="peg-alamat">Alamat <span class="req">*</span></label>
+          <textarea class="form-textarea" id="peg-alamat" placeholder="Isi alamat pegawai..."></textarea>
+          <div class="form-hint">
+            <div class="form-hint-row">*) Isi dengan: <span class="form-hint-code amber">-</span> Jika tidak ada</div>
+          </div>
+        </div>
+
+        <!-- Email & No. Telepon side by side -->
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="peg-email">Email <span class="req">*</span></label>
+            <input class="form-input" id="peg-email" type="email" placeholder="Isi email pegawai..." autocomplete="off">
+            <div class="form-hint">
+              <div class="form-hint-row">*) Contoh: <span class="form-hint-code">example@gmail.com</span></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="peg-telp">No. Telepon <span class="req">*</span></label>
+            <input class="form-input" id="peg-telp" type="text" inputmode="numeric" placeholder="Isi no. telepon..." autocomplete="off">
+            <div class="form-hint">
+              <div class="form-hint-row">*) Hanya angka: <span class="form-hint-code">628215XXXXXXXX</span></div>
+              <div class="form-hint-row">*) Isi dengan: <span class="form-hint-code amber">0</span> Jika tidak ada</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foto Pegawai -->
+        <div class="form-group">
+          <label class="form-label">Foto Pegawai</label>
+          <input type="file" id="peg-foto-input" accept=".jpg,.jpeg,.png" style="display:none;">
+          <div class="file-upload-zone" id="pegFotoZone" onclick="document.getElementById('peg-foto-input').click()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+            <span class="file-upload-text">Drag & drop file atau klik disini</span>
+            <span class="file-upload-sub" id="pegFotoName">Belum ada file dipilih</span>
+          </div>
+          <div class="form-hint" style="margin-top:2px;">
+            <div class="form-hint-row">*) Maksimal: <span class="form-hint-code amber">2MB</span> — Format: <span class="form-hint-code">*.jpg</span> <span class="form-hint-code">*.jpeg</span> <span class="form-hint-code">*.png</span></div>
+          </div>
+        </div>
+
+      </div><!-- /.modal-body -->
+
+      <div class="modal-footer">
+        <button class="btn-modal-ghost" id="modal-tambah-peg-batal">Batal</button>
+        <button class="btn-modal-primary" id="modal-tambah-peg-simpan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Simpan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MODAL: Edit Pegawai ════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-edit-peg" role="dialog" aria-modal="true" aria-labelledby="modal-edit-peg-title">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="modal-title-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </div>
+          <span id="modal-edit-peg-title">Edit Data Pegawai</span>
+        </div>
+        <button class="modal-close" id="modal-edit-peg-close" aria-label="Tutup modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <!-- ─ Section: Detail Pegawai ─ -->
+        <div class="form-section-title">Detail Pegawai</div>
+
+        <!-- Unit Kerja -->
+        <div class="form-group">
+          <label class="form-label">Unit Kerja <span class="req">*</span></label>
+          <div class="cdd" id="cddUnitKerjaEdit" style="min-width:unset;">
+            <button class="cdd-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span class="cdd-value">Pilih unit kerja...</span>
+              <svg class="cdd-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <ul class="cdd-menu" role="listbox">
+              <li class="cdd-item selected" role="option" data-value="">Pilih unit kerja...</li>
+              <li class="cdd-item" role="option" data-value="bpp">Balai Pengujian Perkeretaapian</li>
+              <li class="cdd-item" role="option" data-value="sktu">Subbagian Keuangan dan Tata Usaha</li>
+              <li class="cdd-item" role="option" data-value="spra">Seksi Pengujian Prasarana</li>
+              <li class="cdd-item" role="option" data-value="ssa">Seksi Pengujian Sarana</li>
+              <li class="cdd-item" role="option" data-value="ssdm">Seksi Pengujian SDM</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Sub Kantor -->
+        <div class="form-group">
+          <label class="form-label" for="edit-peg-sub-kantor">Sub Kantor <span class="req">*</span></label>
+          <input class="form-input" id="edit-peg-sub-kantor" type="text" placeholder="Isi sub kantor..." autocomplete="off">
+        </div>
+
+        <!-- Jabatan -->
+        <div class="form-group">
+          <label class="form-label">Jabatan <span class="req">*</span></label>
+          <div class="cdd" id="cddJabatanEdit" style="min-width:unset;">
+            <button class="cdd-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span class="cdd-value">Pilih jabatan...</span>
+              <svg class="cdd-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <ul class="cdd-menu" role="listbox">
+              <li class="cdd-item selected" role="option" data-value="">Pilih jabatan...</li>
+              <li class="cdd-item" role="option" data-value="kabpp">Kepala Balai Pengujian Perkeretaapian</li>
+              <li class="cdd-item" role="option" data-value="kasktu">Kepala Subbagian Keuangan dan Tata Usaha</li>
+              <li class="cdd-item" role="option" data-value="kaspra">Kepala Seksi Pengujian Prasarana</li>
+              <li class="cdd-item" role="option" data-value="kassa">Kepala Seksi Pengujian Sarana</li>
+              <li class="cdd-item" role="option" data-value="staff">Staff</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Jabatan Fungsional -->
+        <div class="form-group">
+          <label class="form-label" for="edit-peg-jabfung">Jabatan Fungsional <span class="req">*</span></label>
+          <input class="form-input" id="edit-peg-jabfung" type="text" placeholder="Isi jabatan fungsional..." autocomplete="off">
+        </div>
+
+        <!-- Status Pegawai -->
+        <div class="form-group">
+          <label class="form-label">Status Pegawai <span class="req">*</span></label>
+          <div class="cdd" id="cddStatusPegEdit" style="min-width:unset;">
+            <button class="cdd-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span class="cdd-value">Pilih status pegawai...</span>
+              <svg class="cdd-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <ul class="cdd-menu" role="listbox">
+              <li class="cdd-item selected" role="option" data-value="">Pilih status pegawai...</li>
+              <li class="cdd-item" role="option" data-value="ASN">ASN</li>
+              <li class="cdd-item" role="option" data-value="P3K">P3K</li>
+              <li class="cdd-item" role="option" data-value="PPNPN">PPNPN</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ─ Section: Data Pribadi ─ -->
+        <div class="form-section-title" style="margin-top:4px;">Data Pribadi</div>
+
+        <!-- NIK & NIP -->
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="edit-peg-nik">NIK <span class="req">*</span></label>
+            <input class="form-input" id="edit-peg-nik" type="text" inputmode="numeric" placeholder="Isi NIK..." autocomplete="off">
+            <div class="form-hint">
+              <div class="form-hint-row">*) Hanya angka: <span class="form-hint-code">510807XXXXXXXXXX</span></div>
+              <div class="form-hint-row">*) Isi dengan: <span class="form-hint-code amber">0</span> Jika tidak ada</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="edit-peg-nip">NIP <span class="req">*</span></label>
+            <input class="form-input" id="edit-peg-nip" type="text" inputmode="numeric" placeholder="Isi NIP..." autocomplete="off">
+            <div class="form-hint">
+              <div class="form-hint-row">*) Hanya angka: <span class="form-hint-code">510807XXXXXXXXXX</span></div>
+              <div class="form-hint-row">*) Isi dengan: <span class="form-hint-code amber">0</span> Jika tidak ada</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nama Pegawai -->
+        <div class="form-group">
+          <label class="form-label" for="edit-peg-nama">Nama Pegawai <span class="req">*</span></label>
+          <input class="form-input" id="edit-peg-nama" type="text" placeholder="Isi nama pegawai..." autocomplete="off">
+        </div>
+
+        <!-- Tempat & Tanggal Lahir -->
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="edit-peg-tempat-lahir">Tempat Lahir <span class="req">*</span></label>
+            <input class="form-input" id="edit-peg-tempat-lahir" type="text" placeholder="Isi tempat lahir..." autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="edit-peg-tgl-lahir">Tanggal Lahir <span class="req">*</span></label>
+            <input class="form-input" id="edit-peg-tgl-lahir" type="text" placeholder="DD/MM/YYYY" autocomplete="off">
+            <div class="form-hint">
+              <div class="form-hint-row">*) Input: <span class="form-hint-code">Tanggal/Bulan/Tahun</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alamat -->
+        <div class="form-group">
+          <label class="form-label" for="edit-peg-alamat">Alamat <span class="req">*</span></label>
+          <textarea class="form-textarea" id="edit-peg-alamat" placeholder="Isi alamat pegawai..."></textarea>
+          <div class="form-hint">
+            <div class="form-hint-row">*) Isi dengan: <span class="form-hint-code amber">-</span> Jika tidak ada</div>
+          </div>
+        </div>
+
+        <!-- Email & No. Telepon -->
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="edit-peg-email">Email <span class="req">*</span></label>
+            <input class="form-input" id="edit-peg-email" type="email" placeholder="Isi email pegawai..." autocomplete="off">
+            <div class="form-hint">
+              <div class="form-hint-row">*) Contoh: <span class="form-hint-code">example@gmail.com</span></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="edit-peg-telp">No. Telepon <span class="req">*</span></label>
+            <input class="form-input" id="edit-peg-telp" type="text" inputmode="numeric" placeholder="Isi no. telepon..." autocomplete="off">
+            <div class="form-hint">
+              <div class="form-hint-row">*) Hanya angka: <span class="form-hint-code">628215XXXXXXXX</span></div>
+              <div class="form-hint-row">*) Isi dengan: <span class="form-hint-code amber">0</span> Jika tidak ada</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foto Pegawai -->
+        <div class="form-group">
+          <label class="form-label">Foto Pegawai</label>
+          <input type="file" id="edit-peg-foto-input" accept=".jpg,.jpeg,.png" style="display:none;">
+          <div class="file-upload-zone" id="editPegFotoZone" onclick="document.getElementById('edit-peg-foto-input').click()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+            <span class="file-upload-text">Drag & drop file atau klik disini</span>
+            <span class="file-upload-sub" id="editPegFotoName">Belum ada file dipilih</span>
+          </div>
+          <div class="form-hint" style="margin-top:2px;">
+            <div class="form-hint-row">*) Maksimal: <span class="form-hint-code amber">2MB</span> — Format: <span class="form-hint-code">*.jpg</span> <span class="form-hint-code">*.jpeg</span> <span class="form-hint-code">*.png</span></div>
+          </div>
+        </div>
+
+      </div><!-- /.modal-body -->
+
+      <div class="modal-footer">
+        <button class="btn-modal-danger" id="modal-edit-peg-hapus">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          Hapus Pegawai
+        </button>
+        <button class="btn-modal-ghost" id="modal-edit-peg-batal">Batal</button>
+        <button class="btn-modal-primary" id="modal-edit-peg-simpan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Simpan Perubahan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    /* ── Update Date in Topbar ── */
+    function updateCurrentDate() {
+      const dateElement = document.getElementById('currentDate');
+      if (dateElement) {
+        const now = new Date();
+        const bulanIndo = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        const hari = now.getDate();
+        const bulan = bulanIndo[now.getMonth()];
+        const tahun = now.getFullYear();
+        dateElement.textContent = `${hari} ${bulan} ${tahun}`;
+      }
+    }
+    updateCurrentDate();
+
+    /* ── Sub-nav Panel Toggle ── */
+    const subnavPanel = document.getElementById('subnavPanel');
+    const subnavCollapse = document.getElementById('subnavCollapse');
+    if (subnavCollapse) {
+      subnavCollapse.addEventListener('click', function() {
+        subnavPanel.classList.toggle('open');
+      });
+    }
+
+    /* ── Update topbar module icon ── */
+    function updateTopbarIcon(navItem) {
+      const svgSrc = navItem.querySelector('.nav-icon-box svg');
+      const topbarSvg = document.getElementById('topbarModuleSvg');
+      if (svgSrc && topbarSvg) {
+        topbarSvg.innerHTML = svgSrc.innerHTML;
+        topbarSvg.setAttribute('viewBox', svgSrc.getAttribute('viewBox') || '0 0 24 24');
+      }
+    }
+
+    /* ── Mark active nav item from data-active-nav ── */
+    const activeNav = document.body.dataset.activeNav;
+    document.querySelectorAll('.nav-item').forEach(item => {
+      const label = item.querySelector('.nav-item-label')?.textContent?.trim()
+                 || item.getAttribute('aria-label') || '';
+      if (label === activeNav) {
+        item.classList.add('active');
+        item.setAttribute('aria-current', 'page');
+        updateTopbarIcon(item);
+      }
+    });
+
+    /* ── Open subnav if this page has one ── */
+    const subnavMap = {
+      'SDM':              'subnav-sdm',
+      'Masterisasi':      'subnav-masterisasi',
+      'Akses SSO':        'subnav-akses-sso',
+      'Pengelola Portal': 'subnav-pengelola-portal',
+    };
+    if (subnavMap[activeNav]) {
+      const sec = document.getElementById(subnavMap[activeNav]);
+      if (sec) { sec.classList.add('active'); subnavPanel.classList.add('open'); }
+    }
+
+    /* ── Sidebar nav clicks → navigate to module file ── */
+    const navRoutes = {
+      'Dashboard':        'index.html',
+      'SDM':              'sdm.html',
+      'Masterisasi':      'masterisasi.html',
+      'Akses SSO':        'akses-sso.html',
+      'Pengelola Portal': 'pengelola-portal.html',
+      'Manajemen Portal': 'manajemen-portal.html',
+      'API':              '#',
+      'Data SIK':         'data-sik.html',
+    };
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        const label = this.querySelector('.nav-item-label')?.textContent?.trim()
+                   || this.getAttribute('aria-label') || '';
+        const route = navRoutes[label];
+        if (route && route !== '#') window.location.href = route;
+      });
+    });
+  </script>
+
+  <script>
+    function showSDMPage(pageKey) {
+      document.querySelectorAll('#subnav-sdm .subnav-item').forEach(t => {
+        t.classList.toggle('active', t.dataset.page === pageKey);
+      });
+      document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+      const target = document.getElementById('view-' + pageKey);
+      if (target) target.classList.add('active');
+    }
+    document.querySelectorAll('#subnav-sdm .subnav-item').forEach(item => {
+      item.addEventListener('click', function() { showSDMPage(this.dataset.page); });
+    });
+  </script>
+
+  <script>
+    // ── Modal helpers ──────────────────────────────────────────
+    function openModal(id) {
+      const overlay = document.getElementById(id);
+      if (!overlay) return;
+      overlay.classList.add('open');
+      const firstInput = overlay.querySelector('.form-input');
+      if (firstInput) setTimeout(() => firstInput.focus(), 50);
+    }
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('open');
+    }
+
+    // Close on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', function(e) {
+        if (e.target === this) closeModal(this.id);
+      });
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.open').forEach(o => o.classList.remove('open'));
+      }
+    });
+
+    document.getElementById('modal-detail-uk-close').addEventListener('click', () => closeModal('modal-detail-uk'));
+    document.getElementById('modal-detail-uk-batal').addEventListener('click', () => closeModal('modal-detail-uk'));
+    document.getElementById('modal-detail-uk-hapus').addEventListener('click', () => closeModal('modal-detail-uk'));
+
+    // ── Custom Dropdown factory ────────────────────────────────
+    function initCdd(cddEl) {
+      const trigger = cddEl.querySelector('.cdd-trigger');
+      const menu    = cddEl.querySelector('.cdd-menu');
+      const valueEl = cddEl.querySelector('.cdd-value');
+      const items   = cddEl.querySelectorAll('.cdd-item');
+      let selected  = '';
+
+      function open()  { trigger.classList.add('open'); menu.classList.add('open'); trigger.setAttribute('aria-expanded','true'); }
+      function close() { trigger.classList.remove('open'); menu.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); }
+      function toggle(){ trigger.classList.contains('open') ? close() : open(); }
+
+      trigger.addEventListener('click', e => { e.stopPropagation(); toggle(); });
+
+      const placeholder = items[0] ? items[0].textContent.trim() : valueEl.textContent.trim();
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          selected = item.dataset.value;
+          items.forEach(i => i.classList.remove('selected'));
+          item.classList.add('selected');
+          valueEl.textContent = selected ? item.textContent.trim() : placeholder;
+          valueEl.classList.toggle('selected', !!selected);
+          close();
+          cddEl.dispatchEvent(new CustomEvent('cdd:change', { detail: { value: selected } }));
+        });
+      });
+
+      document.addEventListener('click', e => { if (!cddEl.contains(e.target)) close(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+      return { reset() { selected=''; items.forEach(i=>i.classList.remove('selected')); if(items[0])items[0].classList.add('selected'); valueEl.textContent=placeholder; valueEl.classList.remove('selected'); } };
+    }
+
+  </script>
+  <script>
+
+    // ── Tambah Unit Kerja ──────────────────────────────────────
+    const btnTambahUK = document.querySelector('#view-unit-kerja .btn-tambah');
+    if (btnTambahUK) {
+      btnTambahUK.addEventListener('click', function() {
+        document.getElementById('input-nama-uk').value = '';
+        openModal('modal-tambah-uk');
+      });
+    }
+    document.getElementById('modal-tambah-uk-close').addEventListener('click', () => closeModal('modal-tambah-uk'));
+    document.getElementById('modal-tambah-uk-batal').addEventListener('click', () => closeModal('modal-tambah-uk'));
+
+    // ── Detail Unit Kerja ──────────────────────────────────────
+    document.querySelectorAll('#view-unit-kerja .btn-detail').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const row = this.closest('tr');
+        const nama = row ? row.cells[1].textContent.trim() : '';
+        document.getElementById('edit-nama-uk').value = nama;
+        openModal('modal-detail-uk');
+      });
+    });
+    document.getElementById('modal-detail-uk-close').addEventListener('click', () => closeModal('modal-detail-uk'));
+    document.getElementById('modal-detail-uk-batal').addEventListener('click', () => closeModal('modal-detail-uk'));
+    document.getElementById('modal-detail-uk-hapus').addEventListener('click', () => closeModal('modal-detail-uk'));
+
+      document.getElementById('btnResetFilterPegawai').addEventListener('click', () => cddPeg.reset());
+      document.getElementById('btnApplyFilterPegawai').addEventListener('click', function() {
+        filterPopover.classList.remove('open');
+        btnFilterPeg.classList.remove('active');
+        btnFilterPeg.setAttribute('aria-expanded', 'false');
+      });
+
+    // ── Tambah Jabatan ─────────────────────────────────────────
+    const btnTambahJab = document.querySelector('#view-jabatan .btn-tambah');
+    if (btnTambahJab) {
+      btnTambahJab.addEventListener('click', function() {
+        document.getElementById('input-nama-jab').value = '';
+        openModal('modal-tambah-jab');
+      });
+    }
+    document.getElementById('modal-tambah-jab-close').addEventListener('click', () => closeModal('modal-tambah-jab'));
+    document.getElementById('modal-tambah-jab-batal').addEventListener('click', () => closeModal('modal-tambah-jab'));
+
+    // ── Detail Jabatan ─────────────────────────────────────────
+    document.querySelectorAll('#view-jabatan .btn-detail').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const row = this.closest('tr');
+        const nama = row ? row.cells[1].textContent.trim() : '';
+        document.getElementById('edit-nama-jab').value = nama;
+        openModal('modal-detail-jab');
+      });
+    });
+    document.getElementById('modal-detail-jab-close').addEventListener('click', () => closeModal('modal-detail-jab'));
+    document.getElementById('modal-detail-jab-batal').addEventListener('click', () => closeModal('modal-detail-jab'));
+    document.getElementById('modal-detail-jab-hapus').addEventListener('click', () => closeModal('modal-detail-jab'));
+
+    // ── Filter popover toggle (Data Pegawai) ──────────────────
+    const btnFilterPeg   = document.getElementById('btnFilterPegawai');
+    const filterPopover  = document.getElementById('filterPopover');
+    const cddPeg = initCdd(document.getElementById('cddStatusPegawai'));
+
+    if (btnFilterPeg && filterPopover) {
+      btnFilterPeg.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isOpen = filterPopover.classList.toggle('open');
+        this.classList.toggle('active', isOpen);
+        this.setAttribute('aria-expanded', isOpen);
+      });
+      document.addEventListener('click', function(e) {
+        const wrap = document.getElementById('filterPopoverWrap');
+        if (wrap && !wrap.contains(e.target)) {
+          filterPopover.classList.remove('open');
+          btnFilterPeg.classList.remove('active');
+          btnFilterPeg.setAttribute('aria-expanded', 'false');
+        }
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && filterPopover.classList.contains('open')) {
+          filterPopover.classList.remove('open');
+          btnFilterPeg.classList.remove('active');
+          btnFilterPeg.setAttribute('aria-expanded', 'false');
+          btnFilterPeg.focus();
+        }
+      });
+      document.getElementById('btnResetFilterPegawai').addEventListener('click', () => cddPeg.reset());
+      document.getElementById('btnApplyFilterPegawai').addEventListener('click', function() {
+        filterPopover.classList.remove('open');
+        btnFilterPeg.classList.remove('active');
+        btnFilterPeg.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    // ── Tambah Pegawai ─────────────────────────────────────────
+    const btnTambahPeg = document.querySelector('#view-data-pegawai .btn-tambah');
+    if (btnTambahPeg) {
+      btnTambahPeg.addEventListener('click', function() {
+        // Reset all fields
+        ['peg-sub-kantor','peg-jabfung','peg-nik','peg-nip','peg-nama',
+         'peg-tempat-lahir','peg-tgl-lahir','peg-alamat','peg-email','peg-telp']
+          .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+        document.getElementById('pegFotoName').textContent = 'Belum ada file dipilih';
+        openModal('modal-tambah-peg');
+      });
+    }
+    document.getElementById('modal-tambah-peg-close').addEventListener('click', () => closeModal('modal-tambah-peg'));
+    document.getElementById('modal-tambah-peg-batal').addEventListener('click', () => closeModal('modal-tambah-peg'));
+    document.getElementById('modal-tambah-peg-simpan').addEventListener('click', () => closeModal('modal-tambah-peg'));
+
+    // Init CDDs inside Tambah Pegawai modal
+    initCdd(document.getElementById('cddUnitKerjaPeg'));
+    initCdd(document.getElementById('cddJabatanPeg'));
+    initCdd(document.getElementById('cddStatusPegTambah'));
+
+    // File upload zone
+    const fotoInput = document.getElementById('peg-foto-input');
+    const fotoZone  = document.getElementById('pegFotoZone');
+    const fotoName  = document.getElementById('pegFotoName');
+    if (fotoInput && fotoZone) {
+      fotoInput.addEventListener('change', function() {
+        fotoName.textContent = this.files[0] ? this.files[0].name : 'Belum ada file dipilih';
+      });
+      fotoZone.addEventListener('dragover', e => { e.preventDefault(); fotoZone.classList.add('drag-over'); });
+      fotoZone.addEventListener('dragleave', () => fotoZone.classList.remove('drag-over'));
+      fotoZone.addEventListener('drop', e => {
+        e.preventDefault(); fotoZone.classList.remove('drag-over');
+        const file = e.dataTransfer.files[0];
+        if (file) { fotoInput.files = e.dataTransfer.files; fotoName.textContent = file.name; }
+      });
+    }
+
+    // ── Edit Pegawai ───────────────────────────────────────────
+    // Data dummy per baris — key = nomor baris (1-based)
+    const pegawaiData = {
+      1: {
+        unitKerja: 'bpp', unitKerjaLabel: 'Balai Pengujian Perkeretaapian',
+        subKantor: 'Unit Pengembangan Usaha dan Kerja Sama',
+        jabatan: 'staff', jabatanLabel: 'Staff',
+        jabfung: 'Pengelola IT',
+        status: 'P3K',
+        nik: '6201012909950001', nip: '0',
+        nama: 'Balai Dev Apps',
+        tempatLahir: 'Balikpapan', tglLahir: '29/09/1995',
+        alamat: '-',
+        email: 'balaidev@gmail.com', telp: '0'
+      },
+      2: {
+        unitKerja: 'bpp', unitKerjaLabel: 'Direktorat Jenderal Perkeretaapian',
+        subKantor: 'Unit Pengembangan Usaha dan Kerja Sama',
+        jabatan: 'staff', jabatanLabel: 'Staff',
+        jabfung: 'Pengevaluasi Program dan Kegiatan',
+        status: 'ASN',
+        nik: '3275051311840014', nip: '198411132008121003',
+        nama: 'Sigit Sukmoro, S.Kom',
+        tempatLahir: 'Jakarta', tglLahir: '13/11/1984',
+        alamat: '-',
+        email: 'sigit_sukmoro@dephub.go.id', telp: '0'
+      },
+      3: {
+        unitKerja: 'ssa', unitKerjaLabel: 'Seksi Pengujian Sarana Perkeretaapian',
+        subKantor: 'Seksi Pengujian Sarana',
+        jabatan: 'kassa', jabatanLabel: 'Kepala Seksi Pengujian Sarana',
+        jabfung: 'Penguji Sarana Perkeretaapian',
+        status: 'ASN',
+        nik: '3276020303790009', nip: '197903032006041006',
+        nama: 'Ronald Jackson Simbolon, ST, MT',
+        tempatLahir: 'Jakarta', tglLahir: '03/03/1979',
+        alamat: '-',
+        email: 'ronald_jackson@kemenhub.go.id', telp: '0'
+      }
+    };
+
+    function setCddValue(cddEl, value, label) {
+      if (!cddEl) return;
+      const trigger = cddEl.querySelector('.cdd-trigger');
+      const valueEl = cddEl.querySelector('.cdd-value');
+      const items   = cddEl.querySelectorAll('.cdd-item');
+      if (valueEl) { valueEl.textContent = label; valueEl.classList.add('selected'); }
+      if (trigger) trigger.dataset.selected = value;
+      items.forEach(item => item.classList.toggle('selected', item.dataset.value === value));
+    }
+
+    function openEditPegawai(rowIndex) {
+      const d = pegawaiData[rowIndex];
+      if (!d) return;
+
+      // Populate dropdowns
+      setCddValue(document.getElementById('cddUnitKerjaEdit'), d.unitKerja, d.unitKerjaLabel);
+      setCddValue(document.getElementById('cddJabatanEdit'),   d.jabatan,   d.jabatanLabel);
+      setCddValue(document.getElementById('cddStatusPegEdit'), d.status,    d.status);
+
+      // Populate text inputs
+      const fields = {
+        'edit-peg-sub-kantor':   d.subKantor,
+        'edit-peg-jabfung':      d.jabfung,
+        'edit-peg-nik':          d.nik,
+        'edit-peg-nip':          d.nip,
+        'edit-peg-nama':         d.nama,
+        'edit-peg-tempat-lahir': d.tempatLahir,
+        'edit-peg-tgl-lahir':    d.tglLahir,
+        'edit-peg-alamat':       d.alamat,
+        'edit-peg-email':        d.email,
+        'edit-peg-telp':         d.telp
+      };
+      Object.entries(fields).forEach(([id, val]) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val;
+      });
+
+      document.getElementById('editPegFotoName').textContent = 'Belum ada file dipilih';
+      openModal('modal-edit-peg');
+    }
+
+    // Wire tombol Edit di setiap baris tabel pegawai
+    document.querySelectorAll('#view-data-pegawai .btn-act-edit').forEach((btn, i) => {
+      btn.addEventListener('click', () => openEditPegawai(i + 1));
+    });
+
+    // Modal controls
+    document.getElementById('modal-edit-peg-close').addEventListener('click',  () => closeModal('modal-edit-peg'));
+    document.getElementById('modal-edit-peg-batal').addEventListener('click',  () => closeModal('modal-edit-peg'));
+    document.getElementById('modal-edit-peg-simpan').addEventListener('click', () => closeModal('modal-edit-peg'));
+    document.getElementById('modal-edit-peg-hapus').addEventListener('click',  () => {
+      closeModal('modal-edit-peg');
+      // TODO: buka konfirmasi hapus
+    });
+
+    // Init CDDs
+    initCdd(document.getElementById('cddUnitKerjaEdit'));
+    initCdd(document.getElementById('cddJabatanEdit'));
+    initCdd(document.getElementById('cddStatusPegEdit'));
+
+    // File upload zone
+    const editPegFotoInput = document.getElementById('edit-peg-foto-input');
+    const editPegFotoZone  = document.getElementById('editPegFotoZone');
+    const editPegFotoName  = document.getElementById('editPegFotoName');
+    if (editPegFotoInput && editPegFotoZone) {
+      editPegFotoInput.addEventListener('change', function() {
+        editPegFotoName.textContent = this.files[0] ? this.files[0].name : 'Belum ada file dipilih';
+      });
+      editPegFotoZone.addEventListener('dragover', e => { e.preventDefault(); editPegFotoZone.classList.add('drag-over'); });
+      editPegFotoZone.addEventListener('dragleave', () => editPegFotoZone.classList.remove('drag-over'));
+      editPegFotoZone.addEventListener('drop', e => {
+        e.preventDefault(); editPegFotoZone.classList.remove('drag-over');
+        const file = e.dataTransfer.files[0];
+        if (file) { editPegFotoName.textContent = file.name; }
+      });
+    }
+
+  </script>
+</body>
+</html>

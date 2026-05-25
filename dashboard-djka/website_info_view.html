@@ -1,0 +1,83 @@
+
+      <!-- ══ VIEW: Manajemen Portal › Websites Info ══ -->
+      <div class="page-view" id="view-mp-website-info">
+            </div>
+            <!-- Deskripsi -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-deskripsi">Deskripsi: <span class="req">*</span></label>
+              <textarea id="wi-deskripsi" class="form-input" rows="4" style="resize:vertical;min-height:100px;">Pengujian dilakukan pada semua sistem perkeretaapian meliputi Prasarana, Sarana dan Sumber Daya Manusia Perkeretaapian.</textarea>
+            </div>
+            <!-- Kata Kunci -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label">Kata Kunci/ Keyword: <span class="req">*</span></label>
+              <div class="wi-tag-input" id="wiTagInput">
+                <span class="wi-tag">blu <button type="button" class="wi-tag-remove" data-tag="blu" aria-label="Hapus blu">&times;</button></span>
+                <span class="wi-tag">badan layanan umum <button type="button" class="wi-tag-remove" data-tag="badan layanan umum" aria-label="Hapus badan layanan umum">&times;</button></span>
+                <span class="wi-tag">balai pengujian perkertaapian <button type="button" class="wi-tag-remove" data-tag="balai pengujian perkertaapian" aria-label="Hapus balai pengujian perkertaapian">&times;</button></span>
+                <input type="text" id="wi-keyword-input" class="wi-tag-field" placeholder="Tambah kata kunci..." aria-label="Tambah kata kunci">
+              </div>
+              <p class="form-hint-row" style="font-size:12px;color:var(--color-muted);margin-top:5px;">*) Maksimal kata kunci 10.</p>
+            </div>
+            <!-- Nama Instansi -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-nama-instansi">Nama Instansi: <span class="req">*</span></label>
+              <input type="text" id="wi-nama-instansi" class="form-input" value="PORTAL BLU" placeholder="Nama instansi">
+            </div>
+            <!-- Sub Nama Instansi -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-sub-nama-instansi">Sub Nama Instansi: <span class="req">*</span></label>
+              <input type="text" id="wi-sub-nama-instansi" class="form-input" value="BALAI PENGUJIAN PERKERETAAPIAN" placeholder="Sub nama instansi">
+            </div>
+
+            <!-- No Telp -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-telp">No. Telp/ Hp: <span class="req">*</span></label>
+              <div class="form-input-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <input type="text" id="wi-telp" class="form-input form-input-with-icon" value="087888969530" placeholder="Contoh: 087888969530">
+              </div>
+            </div>
+            <!-- Email -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-email">Email: <span class="req">*</span></label>
+              <div class="form-input-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <input type="email" id="wi-email" class="form-input form-input-with-icon" value="balaipengujian ka@gmail.com" placeholder="Contoh: email@kemenhub.go.id">
+              </div>
+            </div>
+            <!-- No Whatsapp -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-wa">No. Whatsapp: <span class="req">*</span></label>
+              <div class="form-input-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <input type="text" id="wi-wa" class="form-input form-input-with-icon" value="6287888969530" placeholder="Contoh: 6282165445854">
+              </div>
+              <p class="form-hint-row" style="font-size:12px;color:var(--color-muted);margin-top:5px;">*) Contoh input: <span style="color:var(--color-primary);">6282165445854</span></p>
+            </div>
+            <!-- Facebook -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-fb">Facebook: <span class="req">*</span></label>
+              <div class="form-input-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                <input type="url" id="wi-fb" class="form-input form-input-with-icon" value="https://www.facebook.com" placeholder="https://www.facebook.com">
+              </div>
+              <p class="form-hint-row" style="font-size:12px;color:var(--color-muted);margin-top:5px;">*) Contoh input: <span style="color:var(--color-primary);">https://www.facebook.com</span></p>
+            </div>
+            <!-- Instagram -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-ig">Instagram: <span class="req">*</span></label>
+              <div class="form-input-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                <input type="url" id="wi-ig" class="form-input form-input-with-icon" value="https://www.instagram.com/" placeholder="https://www.instagram.com/">
+              </div>
+              <p class="form-hint-row" style="font-size:12px;color:var(--color-muted);margin-top:5px;">*) Contoh input: <a href="#" style="color:var(--color-primary);font-size:12px;">https://www.instagram.com/premcraft2023/?gshid=MzNlNGNkZWQ4Mg%3D%3D</a></p>
+            </div>
+            <!-- Twitter -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-tw">Twitter: <span class="req">*</span></label>
+              <div class="form-input-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+                <input type="url" id="wi-tw" class="form-input form-input-with-icon" value="https://twitter.com" placeholder="https://twitter.com">
+              </div>
+              <p class="form-hint-row" style="font-size:12px;color:var(--color-muted);margin-top:5px;">*) Contoh input: <span style="color:var(--color-primary);">https://twitter.com</span></p>
+            </div>

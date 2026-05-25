@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perbaikan Uji — Uji Sarana BLU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="badan-usaha.css" />
+  <link rel="stylesheet" href="input-hasil-uji.css" />
+
+  <link rel="stylesheet" href="buttons.css?v=1779675105" />
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar" role="banner">
+    <div class="topbar-module-icon" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+      </svg>
+    </div>
+    <div class="topbar-brand">
+      <div class="topbar-logo-box" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>
+      <div class="topbar-brand-text">
+        <span class="topbar-brand-name">Badan Layanan Umum</span>
+        <span class="topbar-brand-sub">Pengujian Uji Sarana</span>
+      </div>
+    </div>
+    <div class="topbar-sep" aria-hidden="true"></div>
+    <div class="topbar-search" role="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="search" placeholder="Cari data permohonan..." aria-label="Cari data permohonan" />
+      <kbd class="topbar-kbd">Ctrl K</kbd>
+    </div>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-date" id="topbarDate">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span id="currentDate"></span>
+    </div>
+    <div class="topbar-sep" aria-hidden="true"></div>
+    <button class="topbar-icon-btn" aria-label="Notifikasi">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+    </button>
+    <div class="topbar-sep" aria-hidden="true"></div>
+    <button class="topbar-user" aria-label="Menu pengguna Sigit Sukmoro, S.kom">
+      <div class="topbar-avatar" aria-hidden="true">SS</div>
+    </button>
+  </header>
+
+  <div class="layout">
+    <!-- SIDEBAR RAIL -->
+    <nav class="sidebar" aria-label="Navigasi utama">
+      <ul class="sidebar-nav" role="list">
+        <li><a href="index.html" class="sidebar-item" aria-label="Dashboard"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+            <span class="sidebar-label">Dashboard</span></a></li>
+        <li><a href="profil.html" class="sidebar-item" aria-label="Profil"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <span class="sidebar-label">Profil</span></a></li>
+        <li><a href="badan-usaha.html" class="sidebar-item" aria-label="Badan Usaha"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 0 1 0 2.828l-7 7a2 2 0 0 1-2.828 0l-7-7A2 2 0 0 1 3 12V7a4 4 0 0 1 4-4z"/></svg></div>
+            <span class="sidebar-label">Badan Usaha</span></a></li>
+        <li><a href="sarana.html" class="sidebar-item" aria-label="Sarana"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div>
+            <span class="sidebar-label">Sarana</span></a></li>
+        <li><a href="penjadwalan-uji.html" class="sidebar-item" aria-label="Penjadwalan Uji"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <span class="sidebar-label">Penjadwalan Uji</span></a></li>
+        <li><a href="input-hasil-uji.html" class="sidebar-item" aria-label="Input Hasil Uji"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+            <span class="sidebar-label">Input Hasil Uji</span></a></li>
+        <li><a href="perbaikan-uji.html" class="sidebar-item active" aria-label="Perbaikan Uji" aria-current="page"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+            <span class="sidebar-label">Perbaikan Uji</span></a></li>
+        <li><a href="kirim-ulang-hasil-uji.html" class="sidebar-item" aria-label="Kirim Ulang Hasil Uji"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div>
+            <span class="sidebar-label">Kirim Ulang Hasil Uji</span></a></li>
+        <li><a href="repository.html" class="sidebar-item" aria-label="Repository"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+            <span class="sidebar-label">Repository</span></a></li>
+        <li><a href="laporan-permohonan-uji.html" class="sidebar-item" aria-label="Laporan"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+            <span class="sidebar-label">Laporan</span></a></li>
+      </ul>
+    </nav>
+
+      <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="Toggle sidebar">
+        <svg id="sidebarCollapseIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+    <!-- MAIN CONTENT -->
+    <main class="main-content" id="main-content">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="page-header-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </div>
+        <h1 class="page-title">Perbaikan Uji</h1>
+      </div>
+
+      <!-- Card -->
+      <div class="card tbl-card">
+
+        <!-- Card Header -->
+        <div class="tbl-card-header">
+          <div class="tbl-card-title-icon" aria-hidden="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+          </div>
+          <h2 class="tbl-card-title">Perbaikan Pengujian</h2>
+        </div>
+
+        <!-- Info Alert teal -->
+        <div class="ihu-alert" role="alert">
+          <div class="ihu-alert-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <div class="ihu-alert-body">
+            <p class="ihu-alert-title">Informasi:</p>
+            <ol class="ihu-alert-list">
+              <li>Data permohonan ini adalah data yang dikembalikan oleh pihak Direktorat Sarana.</li>
+              <li>Untuk melakukan perbaikan data lakukan filter data sesuai dengan form yang ada.</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Filter -->
+        <div class="ihu-filter-section">
+          <p class="ihu-filter-label">Filter Data Permohonan Berdasarkan badan usaha, jenis permohonan, jenis sarana, dan No. SPT :</p>
+          <div class="ihu-filter-row">
+            <select class="ihu-select" id="filterBadanUsaha" aria-label="Filter Badan Usaha">
+              <option value="">--- Badan Usaha ---</option>
+            </select>
+            <select class="ihu-select" id="filterJenisPerm" aria-label="Filter Jenis Permohonan">
+              <option value="">--- Jenis Permohonan ---</option>
+              <option value="Permohonan Uji Berkala">Permohonan Uji Berkala</option>
+              <option value="Permohonan Uji Pertama">Permohonan Uji Pertama</option>
+              <option value="Permohonan Uji Ulang">Permohonan Uji Ulang</option>
+            </select>
+            <select class="ihu-select" id="filterJenisSarana" aria-label="Filter Jenis Sarana">
+              <option value="">--- Jenis Sarana ---</option>
+              <option value="Gerbong">Gerbong</option>
+              <option value="Kereta">Kereta</option>
+              <option value="KRD">KRD</option>
+              <option value="KRL">KRL</option>
+              <option value="Lokomotif">Lokomotif</option>
+              <option value="Peralatan Khusus Berpenggerak Sendiri">Peralatan Khusus Berpenggerak Sendiri</option>
+              <option value="Peralatan Khusus Tanpa Penggerak">Peralatan Khusus Tanpa Penggerak</option>
+              <option value="Railbus">Railbus</option>
+            </select>
+            <input type="text" class="ihu-input-billing" id="filterNoSpt"
+                   placeholder="--- No. SPT ---" aria-label="Filter No. SPT" />
+            <button class="btn-cari" id="btnCari" aria-label="Cari data">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+              </svg>
+              Cari
+            </button>
+          </div>
+        </div>
+
+        <!-- Export + Show + Search -->
+        <div class="tbl-filters">
+          <div class="tbl-filter-group">
+            <div class="export-dropdown" id="exportDropdown">
+              <button class="btn-export-toggle" id="btnExportToggle" aria-haspopup="true" aria-expanded="false" aria-label="Ekspor data">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export
+                <svg class="export-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="export-menu" role="menu">
+                <button class="export-menu-item" id="btnPdf" role="menuitem">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  Ekspor PDF
+                </button>
+                <button class="export-menu-item" id="btnExcel" role="menuitem">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+                  Ekspor Excel
+                </button>
+              </div>
+            </div>
+            <div class="tbl-show-inline">
+              <span>Show</span>
+              <select class="tbl-show-select" id="rowsPerPage" aria-label="Jumlah baris per halaman">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+              <span>rows</span>
+            </div>
+          </div>
+          <div class="tbl-search-wrap">
+            <label for="tblSearch" class="tbl-search-label">Search:</label>
+            <div class="tbl-search">
+              <input type="search" id="tblSearch" placeholder="Cari perbaikan uji..." aria-label="Cari perbaikan uji" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrapper">
+          <table class="data-table" id="puTable">
+            <thead>
+              <tr>
+                <th scope="col" style="width:48px;">NO.</th>
+                <th scope="col" class="sortable"><span class="th-inner">ID Permohonan<span class="sort-icon" aria-hidden="true"><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 0L8 5H0z" fill="currentColor"/></svg><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 5L0 0h8z" fill="currentColor"/></svg></span></span></th>
+                <th scope="col" class="sortable"><span class="th-inner">Jenis Permohonan<span class="sort-icon" aria-hidden="true"><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 0L8 5H0z" fill="currentColor"/></svg><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 5L0 0h8z" fill="currentColor"/></svg></span></span></th>
+                <th scope="col" class="sortable"><span class="th-inner">Jenis Sarana<span class="sort-icon" aria-hidden="true"><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 0L8 5H0z" fill="currentColor"/></svg><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 5L0 0h8z" fill="currentColor"/></svg></span></span></th>
+                <th scope="col" class="sortable"><span class="th-inner">Kode Sarana<span class="sort-icon" aria-hidden="true"><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 0L8 5H0z" fill="currentColor"/></svg><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 5L0 0h8z" fill="currentColor"/></svg></span></span></th>
+                <th scope="col" class="sortable"><span class="th-inner">Depo<span class="sort-icon" aria-hidden="true"><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 0L8 5H0z" fill="currentColor"/></svg><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 5L0 0h8z" fill="currentColor"/></svg></span></span></th>
+                <th scope="col" class="sortable"><span class="th-inner">Badan Usaha<span class="sort-icon" aria-hidden="true"><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 0L8 5H0z" fill="currentColor"/></svg><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 5L0 0h8z" fill="currentColor"/></svg></span></span></th>
+                <th scope="col" class="sortable"><span class="th-inner">Tgl. Pengujian<span class="sort-icon" aria-hidden="true"><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 0L8 5H0z" fill="currentColor"/></svg><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 5L0 0h8z" fill="currentColor"/></svg></span></span></th>
+                <th scope="col" class="sortable"><span class="th-inner">Keterangan Perbaikan<span class="sort-icon" aria-hidden="true"><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 0L8 5H0z" fill="currentColor"/></svg><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 5L0 0h8z" fill="currentColor"/></svg></span></span></th>
+                <th scope="col" class="sortable"><span class="th-inner">Nama Penguji<span class="sort-icon" aria-hidden="true"><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 0L8 5H0z" fill="currentColor"/></svg><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 5L0 0h8z" fill="currentColor"/></svg></span></span></th>
+                <th scope="col" class="sortable"><span class="th-inner">No. SPT<span class="sort-icon" aria-hidden="true"><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 0L8 5H0z" fill="currentColor"/></svg><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 5L0 0h8z" fill="currentColor"/></svg></span></span></th>
+                <th scope="col" style="text-align:center; width:80px;">Option</th>
+              </tr>
+            </thead>
+            <tbody id="puTbody"></tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="tbl-pagination">
+          <span id="puInfo" class="tbl-info"></span>
+          <div class="page-btns" id="puPageBtns" role="navigation" aria-label="Navigasi halaman"></div>
+        </div>
+
+      </div><!-- /.card -->
+    </main>
+  </div><!-- /.layout -->
+
+  <script src="app.js"></script>
+  <script src="perbaikan-uji.js"></script>
+</body>
+</html>

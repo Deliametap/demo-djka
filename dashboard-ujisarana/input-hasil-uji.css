@@ -1,0 +1,305 @@
+/* ═══════════════════════════════════════════════════════════
+   input-hasil-uji.css
+   Berdasarkan Dashboard Design Guidelines v1.2
+═══════════════════════════════════════════════════════════ */
+
+/* ── Info Alert (teal — sama persis dengan penjadwalan-uji) ── */
+.ihu-alert {
+  display: flex;
+  gap: 12px;
+  margin: 0 20px 0;
+  padding: 14px 18px;
+  background: #F0FDFA;
+  border: 1px solid #99F6E4;
+  border-radius: 10px;
+  color: #0F766E;
+}
+
+.ihu-alert-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #0D9488;
+}
+
+.ihu-alert-body { flex: 1; }
+
+.ihu-alert-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F766E;
+  margin-bottom: 6px;
+}
+
+.ihu-alert-list {
+  list-style: decimal;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ihu-alert-list li {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #0D9488;
+}
+
+/* Tombol Export hijau di dalam alert */
+.ihu-alert-export-wrap {
+  margin-top: 8px;
+}
+
+/* ── Filter Permohonan Section ── */
+.ihu-filter-section {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.ihu-filter-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.ihu-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Dropdown filter */
+.ihu-select {
+  height: 38px;
+  padding: 0 32px 0 12px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--color-text);
+  background: var(--color-surface);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  transition: border-color 0.15s;
+  min-width: 160px;
+}
+
+.ihu-select:focus {
+  outline: none;
+  border-color: #0D9488;
+  box-shadow: 0 0 0 3px rgba(13,148,136,.1);
+}
+
+/* Input kode billing */
+.ihu-input-billing {
+  height: 38px;
+  padding: 0 12px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--color-text);
+  background: var(--color-surface);
+  min-width: 160px;
+  transition: border-color 0.15s;
+}
+
+.ihu-input-billing::placeholder { color: var(--color-muted); }
+
+.ihu-input-billing:focus {
+  outline: none;
+  border-color: #0D9488;
+  box-shadow: 0 0 0 3px rgba(13,148,136,.1);
+}
+
+/* Tombol Cari teal */
+
+/* ── Kolom tabel khusus ── */
+
+/* ID Permohonan — monospace */
+.td-id-perm {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+/* Kode Sarana — monospace */
+.td-kode-sarana {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* No. SPT — monospace */
+.td-spt {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* Kolom Atur Ulang Jadwal — center */
+.td-atur-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Tombol atur ulang (teal) */
+
+/* ── Print ── */
+@media print {
+  .topbar, .sidebar, .page-header,
+  .tbl-card-header, .ihu-alert, .ihu-filter-section,
+  .tbl-filters, .tbl-pagination,
+  .td-atur-group { display: none !important; }
+  .main-content { padding: 0; }
+  .card { border: none; box-shadow: none; }
+  .data-table { font-size: 11px; }
+}
+
+/* Search + Filter group */
+.tbl-search-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* Filter dropdown panel */
+.filter-dropdown {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.filter-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 300px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,.04), 0 10px 32px rgba(0,0,0,.10);
+  z-index: 150;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.filter-dropdown.open .filter-panel {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+.filter-panel-body {
+  padding: 16px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.filter-panel-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.filter-panel-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-panel-select {
+  height: 38px;
+  padding: 0 32px 0 12px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+
+.filter-panel-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+}
+
+/* Input text dalam panel */
+input.filter-panel-select {
+  background-image: none;
+  padding-right: 12px;
+}
+
+.filter-panel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 14px;
+  border-top: 1px solid var(--color-border-light);
+  gap: 8px;
+}
+
+.filter-panel-reset {
+  height: 34px;
+  padding: 0 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 6px;
+  background: transparent;
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background 0.13s, border-color 0.13s;
+}
+
+.filter-panel-reset:hover { background: #F8FAFC; border-color: #CBD5E1; }
+
+.filter-panel-apply {
+  height: 34px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background 0.15s;
+  flex: 1;
+}
+
+.filter-panel-apply:hover { background-color: var(--color-primary-hover); }

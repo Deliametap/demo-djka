@@ -1,0 +1,122 @@
+/* laporan-permohonan-uji-detail.css — Dashboard Design Guidelines v1.2 */
+
+.dpd-card { padding: 0; }
+
+/* Section header */
+.dpd-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dpd-section-header-plain {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dpd-section-icon {
+  width: 28px;
+  height: 28px;
+  background: var(--color-primary-light);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.dpd-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  flex: 1;
+}
+
+/* Tombol Kembali */
+
+/* DL rows */
+.dpd-dl {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0 8px;
+}
+
+.dpd-row {
+  display: grid;
+  grid-template-columns: 180px 16px 1fr;
+  align-items: baseline;
+  padding: 9px 20px;
+  border-bottom: 1px solid var(--color-border-light);
+  gap: 0;
+}
+
+.dpd-row-last { border-bottom: none; }
+
+.dpd-row dt {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.dpd-sep {
+  font-size: 13.5px;
+  color: var(--color-muted);
+  text-align: center;
+}
+
+.dpd-row dd {
+  font-size: 13.5px;
+  color: var(--color-text);
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+/* Nilai monospace */
+.dpd-mono {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Warna primary untuk ID & kode */
+.dpd-primary { color: var(--color-primary); }
+
+/* Nama badan usaha bold */
+.dpd-bold { font-weight: 700; text-transform: uppercase; }
+
+/* Badge status uji */
+.dpd-badge-belum {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 9999px;
+  font-size: 12px; font-weight: 600;
+  background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1;
+}
+
+.dpd-badge-lulus {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 9999px;
+  font-size: 12px; font-weight: 600;
+  background: #DCFCE7; color: #16A34A; border: 1px solid #86EFAC;
+}
+
+.dpd-badge-tidak {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 9999px;
+  font-size: 12px; font-weight: 600;
+  background: #FEE2E2; color: #DC2626; border: 1px solid #FCA5A5;
+}
+
+/* Tabel history — sesuai dashboard.md */
+.tbl-filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px;
+  flex-wrap: wrap;
+}

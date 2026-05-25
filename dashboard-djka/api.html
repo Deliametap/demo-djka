@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API · BLU Balai Pengujian Perkeretaapian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+</head>
+<body data-active-nav="API">
+  <!-- ══════════════ TOPBAR (full width) ══════════════ -->
+  <header class="topbar" role="banner">
+
+    <!-- Active module icon (flush-left, matches sidebar rail) -->
+    <div class="topbar-module-icon" id="topbarModuleIcon" aria-hidden="true">
+      <!-- Dashboard icon (default) -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" id="topbarModuleSvg">
+        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+    </div>
+
+    <div class="topbar-brand">
+      <img src="Asset/1691134668-logobackendheader (1).png" alt="Balai Pengujian Perkeretaapian" class="topbar-brand-logo">
+      <div class="topbar-brand-sep" aria-hidden="true"></div>
+    </div>
+
+    <div class="search-bar" role="search" aria-label="Cari data atau menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <span>Cari data atau menu...</span>
+      <kbd aria-label="Ctrl K untuk pencarian">Ctrl K</kbd>
+    </div>
+
+    <div class="topbar-spacer"></div>
+
+    <div class="topbar-date" id="topbarDate">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span id="currentDate"></span>
+    </div>
+
+    <button class="topbar-btn" aria-label="Notifikasi — ada notifikasi baru">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+      <span class="notif-dot" aria-hidden="true"></span>
+    </button>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <div class="topbar-user" role="button" tabindex="0" aria-label="Menu pengguna">
+      <div class="user-avatar" aria-hidden="true">KR</div>
+    </div>
+  </header>
+
+  <div class="app-shell">
+
+  <!-- ══════════════ SIDEBAR ══════════════ -->
+  <aside class="sidebar" role="navigation" aria-label="Navigasi Utama">
+
+    <div class="sidebar-logo" aria-hidden="true"></div>
+
+    <nav class="sidebar-nav" aria-label="Menu Utama">
+      <a href="#" class="nav-item active" aria-label="Dashboard" aria-current="page">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="SDM" data-menu="SDM">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">SDM</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Masterisasi" data-menu="Masterisasi">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2z"/>
+            <path d="M7 7h.01"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Masterisasi</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Manajemen Portal">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Manajemen Portal</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Akses SSO" data-menu="AksesSso">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Akses SSO</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Pengelola Portal" data-menu="PengelolaPortal">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Pengelola Portal</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="API">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">API</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Data SIK">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <ellipse cx="12" cy="5" rx="9" ry="3"/>
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Data SIK</span>
+      </a>
+    </nav>
+
+  </aside>
+
+  <!-- ══════════════ SUB-NAV PANEL ══════════════ -->
+  <aside class="subnav-panel" id="subnavPanel" role="navigation" aria-label="Submenu Kontekstual">
+    <div class="subnav-inner">
+
+      <!-- Masterisasi Section -->
+      <div class="subnav-section" id="subnav-masterisasi">
+        <p class="subnav-section-label">Masterisasi</p>
+        <button class="subnav-item active" data-page="masterisasi-aplikasi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Aplikasi
+        </button>
+        <button class="subnav-item" data-page="masterisasi-level-aplikasi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2z"/><path d="M7 7h.01"/></svg>
+          Level Aplikasi
+        </button>
+      </div>
+
+      <!-- Pengelola Portal Section -->
+      <div class="subnav-section" id="subnav-pengelola-portal">
+        <p class="subnav-section-label">Pengelola Portal</p>
+        <button class="subnav-item active" data-page="pengelola-portal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Data Pengelola Portal
+        </button>
+      </div>
+
+      <!-- Akses SSO Section -->
+      <div class="subnav-section" id="subnav-akses-sso">
+        <p class="subnav-section-label">Akses SSO</p>
+        <button class="subnav-item active" data-page="akses-sso">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Data Akses SSO
+        </button>
+      </div>
+
+      <!-- API Section -->
+      <div class="subnav-section" id="subnav-api">
+        <p class="subnav-section-label">API</p>
+        <button class="subnav-item active" data-page="api-aplikasi-eksternal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Aplikasi Eksternal
+        </button>
+        <button class="subnav-item" data-page="api-perbankan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Perbankan
+        </button>
+        <button class="subnav-item" data-page="api-dokumentasi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Dokumentasi API
+        </button>
+      </div>
+
+      <!-- SDM Section -->
+      <div class="subnav-section" id="subnav-sdm">
+        <p class="subnav-section-label">SDM</p>
+        <button class="subnav-item active" data-page="unit-kerja">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Unit Kerja
+        </button>
+        <button class="subnav-item" data-page="jabatan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          Jabatan
+        </button>
+        <button class="subnav-item" data-page="data-pegawai">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Data Pegawai
+        </button>
+      </div>
+
+    </div>
+    <button class="subnav-collapse-btn" id="subnavCollapse" title="Tutup panel">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+  </aside>
+
+  <!-- ══════════════ MAIN CONTENT ══════════════ -->
+  <div class="main-content">
+
+    <!-- Page Content -->
+    <main class="page-content" id="main-content">
+
+      <!-- ══ VIEW: API Aplikasi Eksternal ══ -->
+      <div class="page-view active" id="view-api-aplikasi-eksternal">
+
+          
+        <div class="sdm-page-header">
+          <h1 class="sdm-page-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Dokumentasi API
+          </h1>
+          <nav class="sdm-breadcrumb" aria-label="Lokasi halaman">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="color:var(--color-subtle)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="sdm-breadcrumb-sep">*</span>
+            <span>Portal</span>
+            <span class="sdm-breadcrumb-sep">•</span>
+            <span class="sdm-breadcrumb-current">API</span>
+          </nav>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <p class="info-card-text">Halaman ini berfungsi untuk mengelola dokumentasi api.</p>
+        </div>
+
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Data Dokumentasi API
+            </div>
+            <button class="btn-tambah" id="btnTambahDokApi" aria-label="Tambah Dokumentasi API">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Tambah
+            </button>
+          </div>
+
+          <div class="tbl-filters">
+            <div class="tbl-show">
+              Tampilkan
+              <select aria-label="Jumlah data per halaman"><option>10</option><option>25</option><option>50</option><option>100</option></select>
+              entri
+            </div>
+            <div style="flex:1;"></div>
+            <div class="tbl-search" style="max-width:220px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" placeholder="Pencarian..." aria-label="Cari dokumentasi API">
+            </div>
+          </div>
+
+          <table class="data-table" aria-label="Daftar Dokumentasi API">
+            <thead>
+              <tr>
+                <th class="center" style="width:52px;"><span class="th-sort">NO. <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                <th><span class="th-sort">DOMAIN <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                <th style="width:140px;">METHOD</th>
+                <th style="width:140px;">STATUS</th>
+                <th class="center" style="width:100px;">AKSI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="5" style="text-align:center;padding:32px 16px;color:var(--color-muted);font-size:13.5px;">
+                  Tidak ada Data yang dapat ditampilkan..
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="tbl-pagination">
+            <span>Menampilkan 0 sampai 0 dari 0 data</span>
+            <div class="page-btns">
+              <button class="page-btn" aria-label="Sebelumnya">&#8249;</button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn" aria-label="Selanjutnya">&#8250;</button>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer"><p>© 2026 <a href="#">Balai Pengujian Perkeretaapian</a> · Direktorat Jenderal Perkeretaapian · Kementerian Perhubungan Republik Indonesia</p></footer>
+      </div><!-- /#view-api-dokumentasi -->
+
+      <!-- ══ VIEW: API Perbankan ══ -->
+      <div class="page-view" id="view-api-perbankan">
+
+        <div class="sdm-page-header">
+          <h1 class="sdm-page-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            API Perbankan
+          </h1>
+          <nav class="sdm-breadcrumb" aria-label="Lokasi halaman">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="color:var(--color-subtle)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="sdm-breadcrumb-sep">*</span>
+            <span>API</span>
+            <span class="sdm-breadcrumb-sep">•</span>
+            <span class="sdm-breadcrumb-current">Perbankan</span>
+          </nav>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <p class="info-card-text">Halaman ini berfungsi untuk mengelola konfigurasi API perbankan.</p>
+        </div>
+
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Data API Perbankan
+            </div>
+            <button class="btn-tambah" id="btnTambahApiPerbankan" aria-label="Tambah API Perbankan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Tambah
+            </button>
+          </div>
+
+          <div class="tbl-filters">
+            <div class="tbl-show">
+              Tampilkan
+              <select aria-label="Jumlah data per halaman"><option>10</option><option>25</option><option>50</option><option>100</option></select>
+              entri
+            </div>
+            <div style="flex:1;"></div>
+            <div class="tbl-search" style="max-width:220px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" placeholder="Pencarian..." aria-label="Cari API perbankan">
+            </div>
+          </div>
+
+          <table class="data-table" aria-label="Daftar API Perbankan">
+            <thead>
+              <tr>
+                <th class="center" style="width:52px;"><span class="th-sort">NO. <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                <th><span class="th-sort">NAMA BANK <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                <th style="width:140px;">STATUS</th>
+                <th class="center" style="width:100px;">AKSI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="4" style="text-align:center;padding:32px 16px;color:var(--color-muted);font-size:13.5px;">
+                  Tidak ada Data yang dapat ditampilkan..
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="tbl-pagination">
+            <span>Menampilkan 0 sampai 0 dari 0 data</span>
+            <div class="page-btns">
+              <button class="page-btn" aria-label="Sebelumnya">&#8249;</button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn" aria-label="Selanjutnya">&#8250;</button>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer"><p>© 2026 <a href="#">Balai Pengujian Perkeretaapian</a> · Direktorat Jenderal Perkeretaapian · Kementerian Perhubungan Republik Indonesia</p></footer>
+      </div><!-- /#view-api-perbankan -->
+
+      <!-- ══ VIEW: API Dokumentasi ══ -->
+      <div class="page-view" id="view-api-dokumentasi">
+
+        <div class="sdm-page-header">
+          <h1 class="sdm-page-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Dokumentasi API
+          </h1>
+          <nav class="sdm-breadcrumb" aria-label="Lokasi halaman">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="color:var(--color-subtle)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="sdm-breadcrumb-sep">*</span>
+            <span>API</span>
+            <span class="sdm-breadcrumb-sep">•</span>
+            <span class="sdm-breadcrumb-current">Dokumentasi API</span>
+          </nav>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <p class="info-card-text">Halaman ini berfungsi untuk mengelola dokumentasi API.</p>
+        </div>
+
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Data Dokumentasi API
+            </div>
+            <button class="btn-tambah" id="btnTambahApiDokumentasi" aria-label="Tambah Dokumentasi API">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Tambah
+            </button>
+          </div>
+
+          <div class="tbl-filters">
+            <div class="tbl-show">
+              Tampilkan
+              <select aria-label="Jumlah data per halaman"><option>10</option><option>25</option><option>50</option><option>100</option></select>
+              entri
+            </div>
+            <div style="flex:1;"></div>
+            <div class="tbl-search" style="max-width:220px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" placeholder="Pencarian..." aria-label="Cari dokumentasi API">
+            </div>
+          </div>
+
+          <table class="data-table" aria-label="Daftar Dokumentasi API">
+            <thead>
+              <tr>
+                <th class="center" style="width:52px;"><span class="th-sort">NO. <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                <th><span class="th-sort">DOMAIN <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                <th style="width:140px;">METHOD</th>
+                <th style="width:140px;">STATUS</th>
+                <th class="center" style="width:100px;">AKSI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="5" style="text-align:center;padding:32px 16px;color:var(--color-muted);font-size:13.5px;">
+                  Tidak ada Data yang dapat ditampilkan..
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="tbl-pagination">
+            <span>Menampilkan 0 sampai 0 dari 0 data</span>
+            <div class="page-btns">
+              <button class="page-btn" aria-label="Sebelumnya">&#8249;</button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn" aria-label="Selanjutnya">&#8250;</button>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer"><p>© 2026 <a href="#">Balai Pengujian Perkeretaapian</a> · Direktorat Jenderal Perkeretaapian · Kementerian Perhubungan Republik Indonesia</p></footer>
+      </div><!-- /#view-api-dokumentasi -->
+
+    </main>
+  </div><!-- /.main-content -->
+  </div><!-- /.app-shell -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODAL: Tambah Dokumentasi API
+  ══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-tambah-dok-api" role="dialog" aria-modal="true" aria-labelledby="modal-tambah-dok-api-title">
+    <div class="modal" style="width:560px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="modal-title-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <span id="modal-tambah-dok-api-title">Tambah Dokumentasi API</span>
+        </div>
+        <button class="btn-modal-ghost" id="modal-tambah-dok-api-tutup" style="margin-left:auto;margin-right:0;border-radius:6px;padding:8px 14px;font-size:13px;display:inline-flex;align-items:center;gap:6px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2.5;" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Tutup
+        </button>
+      </div>
+
+      <div class="modal-body" style="gap:20px;">
+
+        <!-- Domain -->
+        <div class="form-group">
+          <label class="form-label" for="dok-api-domain">Domain <span class="req">*</span></label>
+          <input class="form-input" id="dok-api-domain" type="text" placeholder="Isikan domain..." autocomplete="off">
+          <div class="form-hint">
+            <div class="form-hint-row">*) Contoh input: <span class="form-hint-code">https://example.ac.id/api/login</span></div>
+          </div>
+        </div>
+
+        <!-- Method -->
+        <div class="form-group">
+          <label class="form-label">Method <span class="req">*</span></label>
+          <div class="cdd" id="cddDokApiMethod">
+            <button class="cdd-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span class="cdd-value">Pilih method...</span>
+              <svg class="cdd-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <ul class="cdd-menu" role="listbox" aria-label="Pilih HTTP method">
+              <li class="cdd-item selected" role="option" data-value="">Pilih method...</li>
+              <li class="cdd-item" role="option" data-value="GET">GET</li>
+              <li class="cdd-item" role="option" data-value="POST">POST</li>
+              <li class="cdd-item" role="option" data-value="PUT">PUT</li>
+              <li class="cdd-item" role="option" data-value="PATCH">PATCH</li>
+              <li class="cdd-item" role="option" data-value="DELETE">DELETE</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Row (rich text editor) -->
+        <div class="form-group">
+          <label class="form-label">Row <span class="req">*</span></label>
+          <div style="border:1.5px solid var(--color-border);border-radius:6px;overflow:hidden;background:white;">
+            <!-- Toolbar -->
+            <div style="display:flex;align-items:center;gap:2px;padding:6px 8px;background:var(--color-bg);border-bottom:1px solid var(--color-border);">
+              <button type="button" onclick="document.execCommand('bold')" title="Bold" style="width:30px;height:28px;border:none;background:transparent;border-radius:4px;cursor:pointer;font-weight:700;font-size:13px;color:var(--color-text-secondary);font-family:var(--font-ui);" aria-label="Bold">B</button>
+              <button type="button" onclick="document.execCommand('italic')" title="Italic" style="width:30px;height:28px;border:none;background:transparent;border-radius:4px;cursor:pointer;font-style:italic;font-size:13px;color:var(--color-text-secondary);font-family:var(--font-ui);" aria-label="Italic">I</button>
+              <button type="button" onclick="document.execCommand('underline')" title="Underline" style="width:30px;height:28px;border:none;background:transparent;border-radius:4px;cursor:pointer;text-decoration:underline;font-size:13px;color:var(--color-text-secondary);font-family:var(--font-ui);" aria-label="Underline">U</button>
+              <div style="width:1px;height:18px;background:var(--color-border);margin:0 4px;"></div>
+              <button type="button" onclick="const url=prompt('URL:');if(url)document.execCommand('createLink',false,url);" title="Insert Link" style="width:30px;height:28px;border:none;background:transparent;border-radius:4px;cursor:pointer;color:var(--color-text-secondary);display:flex;align-items:center;justify-content:center;" aria-label="Insert Link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              </button>
+              <button type="button" onclick="document.execCommand('formatBlock',false,'pre')" title="Code" style="width:30px;height:28px;border:none;background:transparent;border-radius:4px;cursor:pointer;font-size:12px;color:var(--color-text-secondary);font-family:var(--font-mono);" aria-label="Code">&lt;/&gt;</button>
+            </div>
+            <!-- Editable area -->
+            <div
+              id="dok-api-row"
+              contenteditable="true"
+              style="min-height:160px;padding:12px 14px;font-size:13.5px;font-family:var(--font-ui);color:var(--color-text);line-height:1.6;outline:none;resize:vertical;overflow-y:auto;"
+              aria-label="Isi row api"
+              data-placeholder="Isi row api..."
+            ></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-modal-ghost" id="modal-tambah-dok-api-batal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2;" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.65"/></svg>
+          Batal
+        </button>
+        <button class="btn-modal-primary" id="modal-tambah-dok-api-simpan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2.5;" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Simpan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODAL: Tambah Aplikasi Eksternal
+  ══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-tambah-api-ext" role="dialog" aria-modal="true" aria-labelledby="modal-tambah-api-ext-title">
+    <div class="modal" style="width:560px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="modal-title-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <span id="modal-tambah-api-ext-title">Form Tambah Aplikasi Eksternal</span>
+        </div>
+        <button class="btn-modal-ghost" id="modal-tambah-api-ext-tutup" style="margin-left:auto;margin-right:0;border-radius:6px;padding:8px 14px;font-size:13px;display:inline-flex;align-items:center;gap:6px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2.5;" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Tutup
+        </button>
+      </div>
+
+      <div class="modal-body" style="gap:20px;">
+
+        <!-- Nama Aplikasi -->
+        <div class="form-group">
+          <label class="form-label" for="api-ext-nama">Nama Aplikasi: <span class="req">*</span></label>
+          <input class="form-input" id="api-ext-nama" type="text" placeholder="Isikan nama aplikasi..." autocomplete="off">
+        </div>
+
+        <!-- Instansi -->
+        <div class="form-group">
+          <label class="form-label" for="api-ext-instansi">Instansi: <span class="req">*</span></label>
+          <input class="form-input" id="api-ext-instansi" type="text" placeholder="Isikan instansi..." autocomplete="off">
+        </div>
+
+        <!-- Username -->
+        <div class="form-group">
+          <label class="form-label" for="api-ext-username">Username: <span class="req">*</span></label>
+          <input class="form-input" id="api-ext-username" type="text" placeholder="Isikan username..." autocomplete="off">
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-modal-ghost" id="modal-tambah-api-ext-batal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2;" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.65"/></svg>
+          Batal
+        </button>
+        <button class="btn-modal-primary" id="modal-tambah-api-ext-simpan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2.5;" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Simpan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODAL: Tambah API Perbankan
+  ══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-tambah-api-perbankan" role="dialog" aria-modal="true" aria-labelledby="modal-tambah-api-perbankan-title">
+    <div class="modal" style="width:520px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="modal-title-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <span id="modal-tambah-api-perbankan-title">Tambah API Perbankan</span>
+        </div>
+        <button class="modal-close" id="modal-tambah-api-perbankan-close" aria-label="Tutup modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" style="gap:20px;">
+        <div class="form-group">
+          <label class="form-label" for="perbankan-nama-bank">Nama Bank <span class="req">*</span></label>
+          <input class="form-input" id="perbankan-nama-bank" type="text" placeholder="Isikan nama bank..." autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="perbankan-api-url">URL API <span class="req">*</span></label>
+          <input class="form-input" id="perbankan-api-url" type="text" placeholder="https://..." autocomplete="off" style="font-family:var(--font-mono);font-size:13px;">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="perbankan-api-key">API Key <span class="req">*</span></label>
+          <input class="form-input" id="perbankan-api-key" type="text" placeholder="Isikan API key..." autocomplete="off" style="font-family:var(--font-mono);font-size:13px;">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-ghost" id="modal-tambah-api-perbankan-batal">Batal</button>
+        <button class="btn-modal-primary" id="modal-tambah-api-perbankan-simpan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2.5;" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Simpan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    /* ── Update Date in Topbar ── */
+    function updateCurrentDate() {
+      const dateElement = document.getElementById('currentDate');
+      if (dateElement) {
+        const now = new Date();
+        const bulanIndo = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        const hari = now.getDate();
+        const bulan = bulanIndo[now.getMonth()];
+        const tahun = now.getFullYear();
+        dateElement.textContent = `${hari} ${bulan} ${tahun}`;
+      }
+    }
+    updateCurrentDate();
+
+    /* ── Sub-nav Panel Toggle ── */
+    const subnavPanel = document.getElementById('subnavPanel');
+    const subnavCollapse = document.getElementById('subnavCollapse');
+    if (subnavCollapse) {
+      subnavCollapse.addEventListener('click', function() {
+        subnavPanel.classList.toggle('open');
+      });
+    }
+
+    /* ── Update topbar module icon ── */
+    function updateTopbarIcon(navItem) {
+      const svgSrc = navItem.querySelector('.nav-icon-box svg');
+      const topbarSvg = document.getElementById('topbarModuleSvg');
+      if (svgSrc && topbarSvg) {
+        topbarSvg.innerHTML = svgSrc.innerHTML;
+        topbarSvg.setAttribute('viewBox', svgSrc.getAttribute('viewBox') || '0 0 24 24');
+      }
+    }
+
+    /* ── Mark active nav item from data-active-nav ── */
+    const activeNav = document.body.dataset.activeNav;
+    document.querySelectorAll('.nav-item').forEach(item => {
+      const label = item.querySelector('.nav-item-label')?.textContent?.trim()
+                 || item.getAttribute('aria-label') || '';
+      if (label === activeNav) {
+        item.classList.add('active');
+        item.setAttribute('aria-current', 'page');
+        updateTopbarIcon(item);
+      }
+    });
+
+    /* ── Open subnav if this page has one ── */
+    const subnavMap = {
+      'SDM':              'subnav-sdm',
+      'Masterisasi':      'subnav-masterisasi',
+      'Akses SSO':        'subnav-akses-sso',
+      'Pengelola Portal': 'subnav-pengelola-portal',
+      'API':              'subnav-api',
+    };
+    if (subnavMap[activeNav]) {
+      const sec = document.getElementById(subnavMap[activeNav]);
+      if (sec) { sec.classList.add('active'); subnavPanel.classList.add('open'); }
+    }
+
+    /* ── Sidebar nav clicks → navigate to module file ── */
+    const navRoutes = {
+      'Dashboard':        'index.html',
+      'SDM':              'sdm.html',
+      'Masterisasi':      'masterisasi.html',
+      'Akses SSO':        'akses-sso.html',
+      'Pengelola Portal': 'pengelola-portal.html',
+      'Manajemen Portal': 'manajemen-portal.html',
+      'API':              'api.html',
+      'Data SIK':         'data-sik.html',
+    };
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        const label = this.querySelector('.nav-item-label')?.textContent?.trim()
+                   || this.getAttribute('aria-label') || '';
+        const route = navRoutes[label];
+        if (route && route !== '#') window.location.href = route;
+      });
+    });
+
+    /* ── API Sub-nav page switching ── */
+    document.querySelectorAll('#subnav-api .subnav-item').forEach(item => {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('#subnav-api .subnav-item').forEach(t => t.classList.toggle('active', t === this));
+        document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+        const target = document.getElementById('view-' + this.dataset.page);
+        if (target) target.classList.add('active');
+      });
+    });
+
+    /* ── Toggle status buttons ── */
+    document.querySelectorAll('.toggle input[type="checkbox"]').forEach(input => {
+      input.addEventListener('change', function() {
+        const label = this.closest('label');
+        if (label) {
+          label.setAttribute('aria-label', this.checked
+            ? 'Status aktif — klik untuk nonaktifkan'
+            : 'Status nonaktif — klik untuk aktifkan');
+        }
+      });
+    });
+
+    /* ── Modal helpers ── */
+    function openModal(id) {
+      const overlay = document.getElementById(id);
+      if (!overlay) return;
+      overlay.classList.add('open');
+      const firstInput = overlay.querySelector('.form-input');
+      if (firstInput) setTimeout(() => firstInput.focus(), 50);
+    }
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('open');
+    }
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', function(e) {
+        if (e.target === this) closeModal(this.id);
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.open').forEach(o => o.classList.remove('open'));
+      }
+    });
+
+    /* ── Tambah Dokumentasi API ── */
+    const btnTambahDokApi = document.getElementById('btnTambahDokApi');
+    if (btnTambahDokApi) {
+      btnTambahDokApi.addEventListener('click', function() {
+        ['dok-api-domain'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.value = '';
+        });
+        const rowEl = document.getElementById('dok-api-row');
+        if (rowEl) rowEl.innerHTML = '';
+        openModal('modal-tambah-dok-api');
+      });
+    }
+    document.getElementById('modal-tambah-dok-api-tutup').addEventListener('click',  () => closeModal('modal-tambah-dok-api'));
+    document.getElementById('modal-tambah-dok-api-batal').addEventListener('click',  () => closeModal('modal-tambah-dok-api'));
+    document.getElementById('modal-tambah-dok-api-simpan').addEventListener('click', () => closeModal('modal-tambah-dok-api'));
+
+    /* ── Init CDDs Dokumentasi API ── */
+    function initCdd(cddEl) {
+      if (!cddEl) return { reset() {} };
+      const trigger = cddEl.querySelector('.cdd-trigger');
+      const menu    = cddEl.querySelector('.cdd-menu');
+      const valueEl = cddEl.querySelector('.cdd-value');
+      const items   = cddEl.querySelectorAll('.cdd-item');
+      let selected  = '';
+      function open()   { trigger.classList.add('open'); menu.classList.add('open'); trigger.setAttribute('aria-expanded','true'); }
+      function close()  { trigger.classList.remove('open'); menu.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); }
+      function toggle() { trigger.classList.contains('open') ? close() : open(); }
+      trigger.addEventListener('click', e => { e.stopPropagation(); toggle(); });
+      const placeholder = items[0] ? items[0].textContent.trim() : valueEl.textContent.trim();
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          selected = item.dataset.value;
+          items.forEach(i => i.classList.remove('selected'));
+          item.classList.add('selected');
+          valueEl.textContent = selected ? item.textContent.trim() : placeholder;
+          valueEl.classList.toggle('selected', !!selected);
+          close();
+        });
+      });
+      document.addEventListener('click', e => { if (!cddEl.contains(e.target)) close(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+      return { reset() { selected=''; items.forEach(i=>i.classList.remove('selected')); if(items[0])items[0].classList.add('selected'); valueEl.textContent=placeholder; valueEl.classList.remove('selected'); } };
+    }
+    initCdd(document.getElementById('cddDokApiMethod'));
+    initCdd(document.getElementById('cddDokApiStatus'));
+
+    /* ── Tambah Aplikasi Eksternal ── */
+    const btnTambahApiExt = document.querySelector('#view-api-aplikasi-eksternal .btn-tambah');
+    if (btnTambahApiExt) {
+      btnTambahApiExt.addEventListener('click', function() {
+        ['api-ext-nama', 'api-ext-instansi', 'api-ext-username'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.value = '';
+        });
+        openModal('modal-tambah-api-ext');
+      });
+    }
+    document.getElementById('modal-tambah-api-ext-tutup').addEventListener('click',  () => closeModal('modal-tambah-api-ext'));
+    document.getElementById('modal-tambah-api-ext-batal').addEventListener('click',  () => closeModal('modal-tambah-api-ext'));
+    document.getElementById('modal-tambah-api-ext-simpan').addEventListener('click', () => closeModal('modal-tambah-api-ext'));
+
+    /* ── Tambah API Perbankan ── */
+    const btnTambahApiPerbankan = document.getElementById('btnTambahApiPerbankan');
+    if (btnTambahApiPerbankan) {
+      btnTambahApiPerbankan.addEventListener('click', function() {
+        ['perbankan-nama-bank','perbankan-api-url','perbankan-api-key'].forEach(id => {
+          const el = document.getElementById(id); if (el) el.value = '';
+        });
+        openModal('modal-tambah-api-perbankan');
+      });
+    }
+    document.getElementById('modal-tambah-api-perbankan-close').addEventListener('click',  () => closeModal('modal-tambah-api-perbankan'));
+    document.getElementById('modal-tambah-api-perbankan-batal').addEventListener('click',  () => closeModal('modal-tambah-api-perbankan'));
+    document.getElementById('modal-tambah-api-perbankan-simpan').addEventListener('click', () => closeModal('modal-tambah-api-perbankan'));
+
+    /* ── Tambah Dokumentasi API (view-api-dokumentasi) ── */
+    const btnTambahApiDokumentasi = document.getElementById('btnTambahApiDokumentasi');
+    if (btnTambahApiDokumentasi) {
+      btnTambahApiDokumentasi.addEventListener('click', function() {
+        const domainEl = document.getElementById('dok-api-domain');
+        if (domainEl) domainEl.value = '';
+        const rowEl = document.getElementById('dok-api-row');
+        if (rowEl) rowEl.innerHTML = '';
+        openModal('modal-tambah-dok-api');
+      });
+    }
+  </script>
+</body>
+</html>

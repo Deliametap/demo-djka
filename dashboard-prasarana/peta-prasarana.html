@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peta Prasarana — Uji Prasarana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <!-- Leaflet MarkerCluster CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --font-ui:              'Plus Jakarta Sans', sans-serif;
+      --font-mono:            'JetBrains Mono', monospace;
+      --color-primary:        #1D4ED8;
+      --color-primary-hover:  #2563EB;
+      --color-primary-light:  #EFF6FF;
+      --color-primary-border: #BFDBFE;
+      --color-success:        #16A34A;
+      --color-success-bg:     #DCFCE7;
+      --color-warning:        #D97706;
+      --color-warning-bg:     #FEF3C7;
+      --color-danger:         #DC2626;
+      --color-danger-bg:      #FEE2E2;
+      --color-info:           #0284C7;
+      --color-purple:         #7C3AED;
+      --color-purple-light:   #F5F3FF;
+      --color-purple-border:  #DDD6FE;
+      --color-teal:           #0D9488;
+      --color-teal-light:     #F0FDFA;
+      --color-surface:        #FFFFFF;
+      --color-bg:             #F8FAFC;
+      --color-border:         #E2E8F0;
+      --color-border-light:   #F1F5F9;
+      --color-text:           #0F172A;
+      --color-text-secondary: #334155;
+      --color-muted:          #64748B;
+      --topbar-bg:            #0F172A;
+      --sidebar-bg:           #131A35;
+    }
+    html, body { height: 100%; font-family: var(--font-ui); background: var(--color-bg); color: var(--color-text); overflow: hidden; }
+    body { display: flex; flex-direction: column; }
+    *:focus-visible { outline: 2px solid var(--color-primary-hover); outline-offset: 3px; border-radius: 4px; }
+
+    /* ── TOPBAR ── */
+    .topbar { position: sticky; top: 0; z-index: 1000; height: 56px; background: var(--topbar-bg); display: flex; align-items: center; width: 100%; }
+    .topbar-module-icon { width: 72px; height: 56px; flex-shrink: 0; background: var(--color-primary); display: flex; align-items: center; justify-content: center; }
+    .topbar-module-icon svg { width: 22px; height: 22px; stroke: white; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; padding: 0 20px; color: white; font-size: 15px; font-weight: 700; white-space: nowrap; }
+    .topbar-brand-logo { width: 28px; height: 28px; background: var(--color-primary); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: white; }
+    .topbar-sep { width: 1px; height: 24px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+    .topbar-search { display: flex; align-items: center; gap: 8px; margin: 0 20px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0 14px; height: 36px; min-width: 420px; max-width: 100%; color: rgba(255,255,255,0.5); font-size: 13px; cursor: pointer; }
+    .topbar-search svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.4); stroke-width: 2; fill: none; flex-shrink: 0; }
+    .topbar-search span { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .topbar-search kbd { font-family: var(--font-mono); font-size: 11px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 2px 6px; color: rgba(255,255,255,0.5); white-space: nowrap; }
+    .topbar-spacer { flex: 1; }
+    .topbar-date { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); border-radius: 8px; padding: 6px 12px; font-size: 13px; font-weight: 500; color: #fff; white-space: nowrap; }
+    .topbar-date svg { width: 16px; height: 16px; stroke: rgba(255,255,255,0.7); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .topbar-icon-btn { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; cursor: pointer; color: rgba(255,255,255,0.6); transition: background 0.15s; }
+    .topbar-icon-btn:hover { background: rgba(255,255,255,0.08); }
+    .topbar-icon-btn svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .topbar-right { display: flex; align-items: center; gap: 8px; padding: 0 16px; }
+    .topbar-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--color-primary); border: 2px solid rgba(255,255,255,0.2); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; }
+
+    /* ── LAYOUT ── */
+    .app-body { display: flex; flex: 1; height: calc(100vh - 56px); overflow: hidden; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { width: 200px; flex-shrink: 0; background: var(--sidebar-bg); display: flex; flex-direction: column; align-items: stretch; padding: 12px 8px; gap: 2px; z-index: 10; transition: width 0.25s ease; overflow: visible; position: relative; height: 100%; }
+    .sidebar.collapsed { width: 72px; }
+    .sidebar.collapsed .nav-item { justify-content: center; padding: 12px 0; }
+    .sidebar.collapsed .nav-label { display: none; }
+    .sidebar.collapsed .nav-badge { top: 6px; right: 6px; }
+    .sidebar.collapsed .sidebar-divider { margin: 8px auto; width: 32px; }
+    .sidebar a { text-decoration: none; }
+    .nav-item { width: 100%; height: auto; min-height: 44px; border-radius: 10px; display: flex; align-items: center; gap: 10px; padding: 10px 12px; cursor: pointer; transition: background 0.15s; position: relative; }
+    .nav-item svg { width: 20px; height: 20px; stroke: rgba(255,255,255,0.4); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .nav-item:hover { background: rgba(255,255,255,0.06); }
+    .nav-item:hover svg { stroke: rgba(255,255,255,0.7); }
+    .nav-item:hover .nav-label { color: rgba(255,255,255,0.9); }
+    .nav-item.active { background: rgba(37,99,235,0.25); }
+    .nav-item.active svg { stroke: #93C5FD; }
+    .nav-item.active .nav-label { color: #93C5FD; font-weight: 600; }
+    .nav-label { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.5); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 0.15s, opacity 0.2s; flex: 1; }
+    .nav-badge { position: absolute; top: 8px; right: 10px; min-width: 16px; height: 16px; border-radius: 9999px; background: var(--color-danger); color: white; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; padding: 0 4px; }
+    .sidebar-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 8px 4px; }
+    /* Toggle button */
+    .sidebar-toggle-btn {
+      position: fixed;
+      top: 72px;
+      left: 186px;
+      width: 28px; height: 28px; border-radius: 6px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s, left 0.25s ease;
+      z-index: 100;
+    }
+    .sidebar-toggle-btn:hover { background: var(--color-bg); }
+    .sidebar-toggle-btn svg { width: 14px; height: 14px; stroke: var(--color-text-secondary); stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s ease; }
+    .sidebar.collapsed .sidebar-toggle-btn svg { transform: rotate(180deg); }
+
+    /* ── MAP WRAPPER ── */
+    .map-wrapper { flex: 1; position: relative; display: flex; height: calc(100vh - 56px); min-height: 0; }
+    #map { flex: 1; min-height: 0; min-width: 0; }
+
+    /* ── LEFT PANEL ── */
+    .left-panel {
+      width: 320px; flex-shrink: 0;
+      background: var(--color-surface);
+      border-right: 1px solid var(--color-border);
+      display: flex; flex-direction: column;
+      z-index: 10; overflow-y: auto;
+      height: 100%;
+    }
+    .panel-section { padding: 16px; border-bottom: 1px solid var(--color-border-light); }
+    .panel-section:last-child { border-bottom: none; }
+    .panel-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--color-muted); margin-bottom: 10px; }
+
+    /* Search location */
+    .location-search { display: flex; align-items: center; gap: 8px; padding: 0 12px; border: 1.5px solid var(--color-border); border-radius: 10px; height: 40px; background: white; transition: border-color 0.15s; }
+    .location-search:focus-within { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(37,99,235,.12); }
+    .location-search svg { width: 15px; height: 15px; stroke: var(--color-muted); stroke-width: 2; fill: none; flex-shrink: 0; }
+    .location-search input { border: none; outline: none; font-size: 13.5px; font-family: var(--font-ui); color: var(--color-text); flex: 1; background: transparent; }
+    .location-search input::placeholder { color: var(--color-muted); }
+
+    /* Layer toggle */
+    .layer-toggle { display: flex; gap: 8px; }
+    .layer-btn {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 8px 12px; border-radius: 8px; border: 1.5px solid var(--color-border);
+      font-family: var(--font-ui); font-size: 12.5px; font-weight: 600;
+      color: var(--color-muted); background: white; cursor: pointer; transition: all 0.15s;
+    }
+    .layer-btn svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .layer-btn:hover { border-color: var(--color-primary-border); color: var(--color-primary); background: var(--color-primary-light); }
+    .layer-btn.active { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-primary-light); }
+
+    /* Stats */
+    .stat-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .stat-chip { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+    .stat-chip .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .chip-total  { background: var(--color-primary-light); color: var(--color-primary); }
+    .chip-total  .dot { background: var(--color-primary); }
+    .chip-aktif  { background: var(--color-success-bg); color: var(--color-success); }
+    .chip-aktif  .dot { background: var(--color-success); }
+    .chip-proses { background: var(--color-warning-bg); color: var(--color-warning); }
+    .chip-proses .dot { background: var(--color-warning); }
+
+    /* Prasarana list */
+    .prasarana-list { display: flex; flex-direction: column; gap: 4px; max-height: 340px; overflow-y: auto; }
+    .prasarana-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; border-radius: 8px; cursor: pointer;
+      transition: background 0.13s; border: 1.5px solid transparent;
+    }
+    .prasarana-item:hover { background: var(--color-bg); }
+    .prasarana-item.selected { background: var(--color-primary-light); border-color: var(--color-primary-border); }
+    .prasarana-item-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .prasarana-item-icon svg { width: 14px; height: 14px; stroke: white; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .prasarana-item-body { flex: 1; min-width: 0; }
+    .prasarana-item-name { font-size: 13px; font-weight: 600; color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .prasarana-item-sub { font-size: 11.5px; color: var(--color-muted); margin-top: 1px; }
+    .prasarana-item-badge { font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+    .badge-aktif  { background: var(--color-success-bg); color: var(--color-success); }
+    .badge-proses { background: var(--color-warning-bg); color: var(--color-warning); }
+
+    /* Coordinate form */
+    .coord-form { display: flex; flex-direction: column; gap: 12px; }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label { font-size: 13px; font-weight: 600; color: var(--color-text-secondary); }
+    .form-input {
+      height: 40px; padding: 0 12px;
+      border: 1.5px solid #CBD5E1; border-radius: 6px;
+      font-size: 13.5px; font-family: var(--font-mono); color: var(--color-text);
+      background: var(--color-bg); transition: border-color 0.15s, box-shadow 0.15s;
+      width: 100%;
+    }
+    .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(37,99,235,.12); outline: none; background: white; }
+    .form-input::placeholder { color: var(--color-muted); font-family: var(--font-ui); font-size: 13.5px; }
+    .form-input-text { font-family: var(--font-ui); }
+    .btn-primary-sm {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      height: 38px; border-radius: 6px; background: var(--color-primary); color: white;
+      border: none; font-family: var(--font-ui); font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: background 0.15s; width: 100%;
+    }
+    .btn-primary-sm:hover { background: var(--color-primary-hover); }
+    .btn-primary-sm svg { width: 14px; height: 14px; stroke: white; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .btn-ghost-sm {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      height: 38px; border-radius: 6px; background: transparent; color: var(--color-muted);
+      border: 1.5px solid var(--color-border); font-family: var(--font-ui); font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all 0.15s; width: 100%;
+    }
+    .btn-ghost-sm:hover { background: var(--color-bg); color: var(--color-text); }
+    .coord-hint { font-size: 11.5px; color: var(--color-muted); line-height: 1.5; }
+    .coord-hint strong { color: var(--color-text-secondary); }
+
+    /* ── MAP CONTROLS OVERLAY ── */
+    .map-controls {
+      position: absolute; top: 16px; right: 16px;
+      display: flex; flex-direction: column; gap: 8px;
+      z-index: 500;
+    }
+    .map-ctrl-btn {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: white; border: 1px solid var(--color-border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.13s; color: var(--color-text-secondary);
+    }
+    .map-ctrl-btn:hover { background: var(--color-bg); border-color: var(--color-primary-border); color: var(--color-primary); }
+    .map-ctrl-btn svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .map-ctrl-sep { height: 1px; background: var(--color-border); margin: 2px 4px; }
+
+    /* ── LEAFLET POPUP CUSTOM ── */
+    .leaflet-popup-content-wrapper { border-radius: 12px !important; box-shadow: 0 4px 6px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.12) !important; padding: 0 !important; overflow: hidden; border: 1px solid var(--color-border); }
+    .leaflet-popup-content { margin: 0 !important; width: 260px !important; }
+    .leaflet-popup-tip-container { display: none; }
+    .popup-card { padding: 16px; }
+    .popup-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+    .popup-icon { width: 36px; height: 36px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .popup-icon svg { width: 16px; height: 16px; stroke: white; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .popup-title { font-size: 13.5px; font-weight: 700; color: var(--color-text); line-height: 1.3; }
+    .popup-sub { font-size: 12px; color: var(--color-muted); margin-top: 2px; }
+    .popup-divider { height: 1px; background: var(--color-border-light); margin: 10px 0; }
+    .popup-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .popup-row:last-of-type { margin-bottom: 0; }
+    .popup-key { font-size: 11.5px; color: var(--color-muted); font-weight: 500; }
+    .popup-val { font-size: 12px; font-weight: 600; color: var(--color-text); font-family: var(--font-mono); }
+    .popup-badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+    .popup-footer { margin-top: 12px; display: flex; gap: 8px; }
+    .popup-detail-btn {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      flex: 1; padding: 8px; border-radius: 8px;
+      background: var(--color-primary-light); color: var(--color-primary);
+      border: 1.5px solid var(--color-primary-border);
+      font-family: var(--font-ui); font-size: 12.5px; font-weight: 600;
+      cursor: pointer; text-decoration: none; transition: all 0.13s;
+    }
+    .popup-detail-btn:hover { background: #DBEAFE; border-color: #93C5FD; }
+    .popup-detail-btn svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .popup-edit-btn {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      flex: 1; padding: 8px; border-radius: 8px;
+      background: var(--color-bg); color: var(--color-text-secondary);
+      border: 1.5px solid var(--color-border);
+      font-family: var(--font-ui); font-size: 12.5px; font-weight: 600;
+      cursor: pointer; transition: all 0.13s;
+    }
+    .popup-edit-btn:hover { background: var(--color-border-light); border-color: var(--color-muted); }
+    .popup-edit-btn svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── CLUSTER CUSTOM ── */
+    .marker-cluster-small, .marker-cluster-medium, .marker-cluster-large { background-clip: padding-box; border-radius: 50%; }
+    .marker-cluster-small  { background-color: rgba(29,78,216,0.2); }
+    .marker-cluster-medium { background-color: rgba(29,78,216,0.3); }
+    .marker-cluster-large  { background-color: rgba(29,78,216,0.4); }
+    .marker-cluster-small  div, .marker-cluster-medium div, .marker-cluster-large div { width: 30px; height: 30px; margin-left: 5px; margin-top: 5px; text-align: center; border-radius: 50%; font: bold 12px var(--font-ui); color: white; background-color: var(--color-primary); display: flex; align-items: center; justify-content: center; }
+
+    /* ── COORDINATE CROSSHAIR ── */
+    .crosshair-hint {
+      position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+      background: rgba(15,23,42,0.85); color: white; border-radius: 8px;
+      padding: 8px 16px; font-size: 12.5px; font-weight: 500;
+      z-index: 500; pointer-events: none; white-space: nowrap;
+      display: none;
+    }
+    .crosshair-hint.visible { display: block; }
+
+    /* ── MODAL ── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.5); backdrop-filter: blur(2px); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal { background: var(--color-surface); border-radius: 16px; box-shadow: 0 4px 6px rgba(0,0,0,.04), 0 24px 64px rgba(0,0,0,.14); width: 480px; max-width: 100%; transform: scale(0.96) translateY(10px); opacity: 0; transition: transform 0.22s cubic-bezier(0.16,1,0.3,1), opacity 0.18s ease; }
+    .modal-overlay.open .modal { transform: scale(1) translateY(0); opacity: 1; }
+    .modal-header { display: flex; align-items: center; gap: 12px; padding: 20px 24px 16px; border-bottom: 1px solid var(--color-border); }
+    .modal-title-icon { width: 34px; height: 34px; border-radius: 9px; background: var(--color-primary-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .modal-title-icon svg { width: 17px; height: 17px; stroke: var(--color-primary); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .modal-title { font-size: 15px; font-weight: 700; flex: 1; }
+    .modal-close { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; cursor: pointer; color: var(--color-muted); transition: background 0.13s; }
+    .modal-close:hover { background: #F8FAFC; }
+    .modal-close svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+    .modal-footer { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 16px 24px; border-top: 1px solid var(--color-border); }
+    .btn-modal-ghost { display: inline-flex; align-items: center; padding: 0 16px; height: 38px; border-radius: 6px; background: transparent; color: var(--color-muted); border: 1.5px solid var(--color-border); font-family: var(--font-ui); font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+    .btn-modal-ghost:hover { background: var(--color-bg); color: var(--color-text); }
+    .btn-modal-primary { display: inline-flex; align-items: center; gap: 6px; padding: 0 20px; height: 38px; border-radius: 6px; background: var(--color-primary); color: white; border: none; font-family: var(--font-ui); font-size: 13.5px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+    .btn-modal-primary:hover { background: var(--color-primary-hover); }
+    .btn-modal-primary svg { width: 15px; height: 15px; stroke: white; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .btn-modal-danger { display: inline-flex; align-items: center; gap: 6px; padding: 0 16px; height: 38px; border-radius: 6px; background: var(--color-danger-bg); color: var(--color-danger); border: 1.5px solid #FECACA; font-family: var(--font-ui); font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+    .btn-modal-danger:hover { background: #FEE2E2; border-color: #FCA5A5; }
+    .btn-modal-danger svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+  </style>
+</head>
+
+<body>
+  <!-- TOPBAR -->
+  <header class="topbar" role="banner">
+    <div class="topbar-module-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 14 8 14s8-8.75 8-14a8 8 0 0 0-8-8z"/></svg>
+    </div>
+    <div class="topbar-brand">
+      <div class="topbar-brand-logo" aria-hidden="true">UP</div>
+      <span>Uji Prasarana</span>
+    </div>
+    <div class="topbar-sep" aria-hidden="true"></div>
+    <div class="topbar-search" role="search" tabindex="0" aria-label="Cari data permohonan">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Cari data permohonan...</span><kbd>Ctrl K</kbd>
+    </div>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-date" aria-label="Tanggal hari ini">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span id="currentDate"></span>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-sep" aria-hidden="true"></div>
+      <button class="topbar-icon-btn" aria-label="Notifikasi">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+      <div class="topbar-sep" aria-hidden="true"></div>
+      <div class="topbar-avatar" role="button" tabindex="0" aria-label="Menu pengguna">AD</div>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <!-- SIDEBAR -->
+    <nav class="sidebar" aria-label="Navigasi utama">
+      <a href="index.html" class="nav-item" aria-label="Dashboard">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="data-badan-usaha.html" class="nav-item" aria-label="Data Badan Usaha">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span class="nav-label">Data Badan Usaha</span>
+      </a>
+      <a href="data-prasarana.html" class="nav-item" aria-label="Data Prasarana">
+        <svg viewBox="0 0 24 24"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        <span class="nav-label">Data Prasarana</span>
+      </a>
+      <div class="nav-item active" aria-label="Peta Prasarana" aria-current="page">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 14 8 14s8-8.75 8-14a8 8 0 0 0-8-8z"/></svg>
+        <span class="nav-label">Peta Prasarana</span>
+      </div>
+      <a href="data-tarif-blu.html" class="nav-item" aria-label="Data Tarif BLU">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span class="nav-label">Data Tarif BLU</span>
+      </a>
+      <div class="sidebar-divider" aria-hidden="true"></div>
+      <a href="validasi-pengajuan.html" class="nav-item" aria-label="Validasi Pengajuan">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span class="nav-label">Validasi Pengajuan</span>
+        <span class="nav-badge" aria-label="0 notifikasi">0</span>
+      </a>
+      <a href="billing-blu.html" class="nav-item" aria-label="Billing BLU">
+        <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        <span class="nav-label">Billing BLU</span>
+        <span class="nav-badge" aria-label="0 notifikasi">0</span>
+      </a>
+      <a href="laporan-pemohon.html" class="nav-item" aria-label="Laporan">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <span class="nav-label">Laporan</span>
+      </a>
+
+      <button class="sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+    </nav>
+
+    <!-- MAP WRAPPER -->
+    <div class="map-wrapper">
+
+      <!-- LEFT PANEL -->
+      <aside class="left-panel" aria-label="Panel kontrol peta">
+
+        <!-- Search Location -->
+        <div class="panel-section">
+          <p class="panel-label">Cari Lokasi</p>
+          <div class="location-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="locationSearch" placeholder="Cari nama kota, stasiun..." aria-label="Cari lokasi di peta" oninput="searchLocation(this.value)" />
+          </div>
+          <div id="searchResults" style="margin-top:6px;display:none;"></div>
+        </div>
+
+        <!-- Layer Toggle -->
+        <div class="panel-section">
+          <p class="panel-label">Tampilan Peta</p>
+          <div class="layer-toggle" role="group" aria-label="Pilih tampilan peta">
+            <button class="layer-btn active" id="btnStreet" onclick="switchLayer('street')" aria-pressed="true">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              Street
+            </button>
+            <button class="layer-btn" id="btnSatellite" onclick="switchLayer('satellite')" aria-pressed="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              Satelit
+            </button>
+          </div>
+        </div>
+
+        <!-- Coordinate Form -->
+        <div class="panel-section">
+          <p class="panel-label">Tambah Koordinat</p>
+          <div class="coord-form">
+            <div class="form-group">
+              <label class="form-label" for="coordNama">Nama Prasarana</label>
+              <input class="form-input form-input-text" type="text" id="coordNama" placeholder="Contoh: Stasiun Besar XXX" />
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label" for="coordLat">Latitude</label>
+                <input class="form-input" type="number" id="coordLat" placeholder="-6.200000" step="0.000001" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="coordLng">Longitude</label>
+                <input class="form-input" type="number" id="coordLng" placeholder="106.816666" step="0.000001" />
+              </div>
+            </div>
+            <p class="coord-hint">Atau <strong>klik pada peta</strong> untuk mengisi koordinat secara otomatis.</p>
+            <div style="display:flex;gap:8px;">
+              <button class="btn-ghost-sm" onclick="resetCoordForm()" aria-label="Reset form koordinat">Reset</button>
+              <button class="btn-primary-sm" onclick="openAddModal()" aria-label="Simpan koordinat prasarana">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Tambah Marker
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prasarana List -->
+        <div class="panel-section" style="flex:1;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+            <p class="panel-label" style="margin-bottom:0;">Daftar Prasarana</p>
+            <span id="prasaranaCount" style="display:inline-flex; align-items:center; justify-content:center; min-width:20px; height:20px; padding:0 6px; border-radius:9999px; background:var(--color-primary); color:white; font-size:11px; font-weight:700; font-family:var(--font-mono);">4</span>
+          </div>
+          <div class="prasarana-list" id="prasaranaList" role="list"></div>
+        </div>
+
+      </aside>
+
+      <!-- MAP -->
+      <div id="map" aria-label="Peta lokasi prasarana"></div>
+
+      <!-- Map Controls Overlay -->
+      <div class="map-controls" role="group" aria-label="Kontrol peta">
+        <button class="map-ctrl-btn" onclick="map.zoomIn()" aria-label="Perbesar peta">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <button class="map-ctrl-btn" onclick="map.zoomOut()" aria-label="Perkecil peta">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="map-ctrl-sep"></div>
+        <button class="map-ctrl-btn" onclick="resetView()" aria-label="Reset tampilan peta ke posisi awal">
+          <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        </button>
+        <button class="map-ctrl-btn" onclick="locateMe()" aria-label="Temukan lokasi saya">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+        </button>
+      </div>
+
+      <!-- Crosshair hint -->
+      <div class="crosshair-hint" id="crosshairHint">Klik pada peta untuk mengisi koordinat</div>
+
+    </div><!-- /map-wrapper -->
+  </div><!-- /app-body -->
+
+  <!-- MODAL TAMBAH PRASARANA -->
+  <div class="modal-overlay" id="add-modal" role="dialog" aria-modal="true" aria-labelledby="add-modal-title">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 14 8 14s8-8.75 8-14a8 8 0 0 0-8-8z"/></svg>
+        </div>
+        <span class="modal-title" id="add-modal-title">Tambah Marker Prasarana</span>
+        <button class="modal-close" onclick="closeModal('add-modal')" aria-label="Tutup modal">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="m-nama">Nama Prasarana <span style="color:var(--color-danger)">*</span></label>
+          <input class="form-input form-input-text" type="text" id="m-nama" placeholder="Contoh: Stasiun Besar XXX" />
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="form-group">
+            <label class="form-label" for="m-jenis">Jenis Prasarana <span style="color:var(--color-danger)">*</span></label>
+            <select class="form-input form-input-text" id="m-jenis" style="cursor:pointer;">
+              <option value="">Pilih jenis...</option>
+              <option>Stasiun Besar</option>
+              <option>Stasiun Kecil</option>
+              <option>Jembatan Beton</option>
+              <option>Bangunan Balaiyasa</option>
+              <option>Jalur Kereta Api</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="m-status">Status <span style="color:var(--color-danger)">*</span></label>
+            <select class="form-input form-input-text" id="m-status" style="cursor:pointer;">
+              <option value="aktif">Aktif</option>
+              <option value="proses">Dalam Proses</option>
+              <option value="nonaktif">Tidak Aktif</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="form-group">
+            <label class="form-label" for="m-lat">Latitude <span style="color:var(--color-danger)">*</span></label>
+            <input class="form-input" type="number" id="m-lat" placeholder="-6.200000" step="0.000001" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="m-lng">Longitude <span style="color:var(--color-danger)">*</span></label>
+            <input class="form-input" type="number" id="m-lng" placeholder="106.816666" step="0.000001" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="m-kode">Kode Prasarana</label>
+          <input class="form-input" type="text" id="m-kode" placeholder="Contoh: ST201" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-ghost" onclick="closeModal('add-modal')">Batalkan</button>
+        <button class="btn-modal-primary" onclick="saveMarker()">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Simpan Marker
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <!-- Leaflet MarkerCluster JS -->
+
+  <!-- MODAL EDIT MARKER -->
+  <div class="modal-overlay" id="edit-modal" role="dialog" aria-modal="true" aria-labelledby="edit-modal-title">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <span class="modal-title" id="edit-modal-title">Edit Koordinat Prasarana</span>
+        <button class="modal-close" onclick="closeModal('edit-modal')" aria-label="Tutup modal">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="e-id" />
+        <div class="form-group">
+          <label class="form-label" for="e-nama">Nama Prasarana <span style="color:var(--color-danger)">*</span></label>
+          <input class="form-input form-input-text" type="text" id="e-nama" />
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="form-group">
+            <label class="form-label" for="e-jenis">Jenis Prasarana</label>
+            <select class="form-input form-input-text" id="e-jenis" style="cursor:pointer;">
+              <option>Stasiun Besar</option>
+              <option>Stasiun Kecil</option>
+              <option>Jembatan Beton</option>
+              <option>Bangunan Balaiyasa</option>
+              <option>Jalur Kereta Api</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="e-status">Status</label>
+            <select class="form-input form-input-text" id="e-status" style="cursor:pointer;">
+              <option value="aktif">Aktif</option>
+              <option value="proses">Dalam Proses</option>
+              <option value="nonaktif">Tidak Aktif</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="form-group">
+            <label class="form-label" for="e-lat">Latitude <span style="color:var(--color-danger)">*</span></label>
+            <input class="form-input" type="number" id="e-lat" step="0.000001" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="e-lng">Longitude <span style="color:var(--color-danger)">*</span></label>
+            <input class="form-input" type="number" id="e-lng" step="0.000001" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="e-kode">Kode Prasarana</label>
+          <input class="form-input" type="text" id="e-kode" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-danger" onclick="deleteMarker()">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          Hapus Marker
+        </button>
+        <button class="btn-modal-primary" onclick="saveEdit()">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Simpan Perubahan
+        </button>
+      </div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+  <script>
+    // ── Tanggal ──────────────────────────────────────────────────
+    (function() {
+      const el = document.getElementById('currentDate');
+      if (!el) return;
+      const now = new Date();
+      const b = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+      el.textContent = `${now.getDate()} ${b[now.getMonth()]} ${now.getFullYear()}`;
+    })();
+
+    // ── Data Prasarana ───────────────────────────────────────────
+    const prasaranaData = [
+      { id:1, nama:'Stasiun Besar XXX',         jenis:'Stasiun Besar',       kode:'ST201',    status:'aktif',  lat:-6.1754,  lng:106.8272, btp:'BTP JAKBAN' },
+      { id:2, nama:'BH Jembatan 4',             jenis:'Jembatan Beton',      kode:'BH04',     status:'aktif',  lat:-6.9175,  lng:107.6191, btp:'BTP JAKBAN' },
+      { id:3, nama:'Simulasi Nama Prasarana11', jenis:'Bangunan Balaiyasa',  kode:'12312c11', status:'proses', lat:-7.2575,  lng:112.7521, btp:'BTP JATENG' },
+      { id:4, nama:'Stasiun Kecil Simulasi',    jenis:'Stasiun Kecil',       kode:'ST0334',   status:'aktif',  lat:-7.7956,  lng:110.3695, btp:'BTP JATENG' },
+    ];
+
+    // ── Color map ────────────────────────────────────────────────
+    const statusColor = { aktif: '#16A34A', proses: '#D97706', nonaktif: '#64748B' };
+    const statusLabel = { aktif: 'Aktif', proses: 'Dalam Proses', nonaktif: 'Tidak Aktif' };
+    const statusBadgeCls = { aktif: 'badge-aktif', proses: 'badge-proses', nonaktif: '' };
+    const jenisColor = {
+      'Stasiun Besar': '#1D4ED8', 'Stasiun Kecil': '#7C3AED',
+      'Jembatan Beton': '#0D9488', 'Bangunan Balaiyasa': '#2563EB',
+      'Jalur Kereta Api': '#D97706', 'default': '#1D4ED8'
+    };
+
+    function getJenisColor(jenis) { return jenisColor[jenis] || jenisColor['default']; }
+
+    // ── Custom marker icon ───────────────────────────────────────
+    function createMarkerIcon(color) {
+      return L.divIcon({
+        className: '',
+        html: `<div style="width:32px;height:32px;border-radius:50% 50% 50% 0;background:${color};border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);transform:rotate(-45deg);"></div>`,
+        iconSize: [32, 32], iconAnchor: [16, 32], popupAnchor: [0, -36]
+      });
+    }
+
+    // ── Init Map ─────────────────────────────────────────────────
+    const map = L.map('map', { zoomControl: false, center: [-6.9, 107.6], zoom: 7 });
+
+    const streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19
+    });
+
+    const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: '© Esri, Maxar, Earthstar Geographics',
+      maxZoom: 19
+    });
+
+    streetLayer.addTo(map);
+    let currentLayer = 'street';
+
+    // Force Leaflet recalculate size after DOM is ready
+    setTimeout(() => map.invalidateSize(), 100);
+
+    // ── Marker Cluster ───────────────────────────────────────────
+    const clusterGroup = L.markerClusterGroup({
+      maxClusterRadius: 60,
+      iconCreateFunction: function(cluster) {
+        const count = cluster.getChildCount();
+        return L.divIcon({
+          html: `<div style="width:40px;height:40px;border-radius:50%;background:var(--color-primary);border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-size:13px;font-weight:700;color:white;">${count}</div>`,
+          className: '', iconSize: [40, 40], iconAnchor: [20, 20]
+        });
+      }
+    });
+
+    // ── Build popup HTML ─────────────────────────────────────────
+    function buildPopup(d) {
+      const color = getJenisColor(d.jenis);
+      const sColor = statusColor[d.status] || '#64748B';
+      const sLabel = statusLabel[d.status] || d.status;
+      return `
+        <div class="popup-card">
+          <div class="popup-header">
+            <div class="popup-icon" style="background:${color};">
+              <svg viewBox="0 0 24 24"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            </div>
+            <div>
+              <div class="popup-title">${d.nama}</div>
+              <div class="popup-sub">${d.jenis}</div>
+            </div>
+          </div>
+          <div class="popup-divider"></div>
+          <div class="popup-row">
+            <span class="popup-key">Kode</span>
+            <span class="popup-val">${d.kode}</span>
+          </div>
+          <div class="popup-row">
+            <span class="popup-key">BTP</span>
+            <span class="popup-val">${d.btp}</span>
+          </div>
+          <div class="popup-row">
+            <span class="popup-key">Koordinat</span>
+            <span class="popup-val">${d.lat.toFixed(4)}, ${d.lng.toFixed(4)}</span>
+          </div>
+          <div class="popup-row">
+            <span class="popup-key">Status</span>
+            <span class="popup-badge" style="background:${sColor}22;color:${sColor};">${sLabel}</span>
+          </div>
+          <div class="popup-footer">
+            <a href="detail-prasarana.html?kode=${d.kode}" class="popup-detail-btn">
+              <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Detail
+            </a>
+            <button class="popup-edit-btn" onclick="editMarker(${d.id})">
+              <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit
+            </button>
+          </div>
+        </div>`;
+    }
+
+    // ── Add markers ──────────────────────────────────────────────
+    const markers = {};
+    function addMarker(d) {
+      const color = getJenisColor(d.jenis);
+      const marker = L.marker([d.lat, d.lng], { icon: createMarkerIcon(color) });
+      marker.bindPopup(buildPopup(d), { maxWidth: 280, minWidth: 260 });
+      marker.on('click', () => selectPrasarana(d.id));
+      clusterGroup.addLayer(marker);
+      markers[d.id] = marker;
+    }
+
+    prasaranaData.forEach(addMarker);
+    map.addLayer(clusterGroup);
+
+    // ── Prasarana list in panel ──────────────────────────────────
+    function renderList() {
+      const list = document.getElementById('prasaranaList');
+      const countBadge = document.getElementById('prasaranaCount');
+      if (countBadge) countBadge.textContent = prasaranaData.length;
+      list.innerHTML = prasaranaData.map(d => {
+        const color = getJenisColor(d.jenis);
+        const sCls = statusBadgeCls[d.status] || '';
+        const sLabel = statusLabel[d.status] || d.status;
+        return `
+          <div class="prasarana-item" id="item-${d.id}" role="listitem" onclick="selectPrasarana(${d.id})" tabindex="0" aria-label="${d.nama}">
+            <div class="prasarana-item-icon" style="background:${color};">
+              <svg viewBox="0 0 24 24"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            </div>
+            <div class="prasarana-item-body">
+              <div class="prasarana-item-name">${d.nama}</div>
+              <div class="prasarana-item-sub">${d.jenis} · ${d.kode}</div>
+            </div>
+            <span class="prasarana-item-badge ${sCls}">${sLabel}</span>
+          </div>`;
+      }).join('');
+
+      // Keyboard nav
+      list.querySelectorAll('.prasarana-item').forEach(el => {
+        el.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') { e.preventDefault(); el.click(); } });
+      });
+    }
+    renderList();
+
+    // ── Select prasarana ─────────────────────────────────────────
+    function selectPrasarana(id) {
+      document.querySelectorAll('.prasarana-item').forEach(el => el.classList.remove('selected'));
+      const item = document.getElementById(`item-${id}`);
+      if (item) { item.classList.add('selected'); item.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
+      const d = prasaranaData.find(p => p.id === id);
+      if (!d) return;
+      map.setView([d.lat, d.lng], 13, { animate: true });
+      const m = markers[id];
+      if (m) { clusterGroup.zoomToShowLayer(m, () => m.openPopup()); }
+      // Fill coord form
+      document.getElementById('coordNama').value = d.nama;
+      document.getElementById('coordLat').value  = d.lat;
+      document.getElementById('coordLng').value  = d.lng;
+    }
+
+    // ── Layer switch ─────────────────────────────────────────────
+    function switchLayer(type) {
+      if (type === currentLayer) return;
+      if (type === 'satellite') {
+        map.removeLayer(streetLayer); satelliteLayer.addTo(map);
+        document.getElementById('btnSatellite').classList.add('active');
+        document.getElementById('btnSatellite').setAttribute('aria-pressed','true');
+        document.getElementById('btnStreet').classList.remove('active');
+        document.getElementById('btnStreet').setAttribute('aria-pressed','false');
+      } else {
+        map.removeLayer(satelliteLayer); streetLayer.addTo(map);
+        document.getElementById('btnStreet').classList.add('active');
+        document.getElementById('btnStreet').setAttribute('aria-pressed','true');
+        document.getElementById('btnSatellite').classList.remove('active');
+        document.getElementById('btnSatellite').setAttribute('aria-pressed','false');
+      }
+      currentLayer = type;
+    }
+
+    // ── Reset view ───────────────────────────────────────────────
+    function resetView() { map.setView([-6.9, 107.6], 7, { animate: true }); }
+
+    // ── Locate me ────────────────────────────────────────────────
+    function locateMe() {
+      if (!navigator.geolocation) return;
+      navigator.geolocation.getCurrentPosition(pos => {
+        map.setView([pos.coords.latitude, pos.coords.longitude], 13, { animate: true });
+      }, () => alert('Tidak dapat mengakses lokasi Anda.'));
+    }
+
+    // ── Click map → fill coord form ──────────────────────────────
+    let pickingCoord = false;
+    const hint = document.getElementById('crosshairHint');
+
+    document.getElementById('coordLat').addEventListener('focus', () => { pickingCoord = true; hint.classList.add('visible'); });
+    document.getElementById('coordLng').addEventListener('focus', () => { pickingCoord = true; hint.classList.add('visible'); });
+    document.getElementById('coordLat').addEventListener('blur', () => { setTimeout(() => { pickingCoord = false; hint.classList.remove('visible'); }, 200); });
+    document.getElementById('coordLng').addEventListener('blur', () => { setTimeout(() => { pickingCoord = false; hint.classList.remove('visible'); }, 200); });
+
+    map.on('click', function(e) {
+      const lat = e.latlng.lat.toFixed(6);
+      const lng = e.latlng.lng.toFixed(6);
+      document.getElementById('coordLat').value = lat;
+      document.getElementById('coordLng').value = lng;
+      document.getElementById('m-lat').value = lat;
+      document.getElementById('m-lng').value = lng;
+      hint.classList.remove('visible');
+    });
+
+    // ── Search location (Nominatim) ──────────────────────────────
+    let searchTimeout;
+    function searchLocation(q) {
+      clearTimeout(searchTimeout);
+      const box = document.getElementById('searchResults');
+      if (!q || q.length < 3) { box.style.display = 'none'; return; }
+      searchTimeout = setTimeout(async () => {
+        try {
+          const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=5&countrycodes=id`);
+          const data = await res.json();
+          if (!data.length) { box.innerHTML = '<p style="font-size:12.5px;color:var(--color-muted);padding:8px 4px;">Lokasi tidak ditemukan.</p>'; box.style.display='block'; return; }
+          box.innerHTML = data.map(r => `
+            <div onclick="goToLocation(${r.lat},${r.lon},'${r.display_name.replace(/'/g,"&#39;")}')"
+              style="padding:8px 10px;border-radius:8px;cursor:pointer;font-size:12.5px;color:var(--color-text-secondary);transition:background 0.12s;"
+              onmouseover="this.style.background='var(--color-bg)'" onmouseout="this.style.background=''"
+              role="option" tabindex="0">
+              <strong style="color:var(--color-text);font-size:13px;">${r.display_name.split(',')[0]}</strong><br>
+              <span style="font-size:11.5px;color:var(--color-muted);">${r.display_name.split(',').slice(1,3).join(',')}</span>
+            </div>`).join('');
+          box.style.display = 'block';
+        } catch(e) { box.style.display = 'none'; }
+      }, 400);
+    }
+
+    function goToLocation(lat, lng, name) {
+      map.setView([lat, lng], 13, { animate: true });
+      document.getElementById('locationSearch').value = name.split(',')[0];
+      document.getElementById('searchResults').style.display = 'none';
+    }
+
+    // Close search on outside click
+    document.addEventListener('click', e => {
+      if (!e.target.closest('#locationSearch') && !e.target.closest('#searchResults'))
+        document.getElementById('searchResults').style.display = 'none';
+    });
+
+    // ── Edit marker — buka modal edit langsung ──────────────────
+    function editMarker(id) {
+      const d = prasaranaData.find(p => p.id === id);
+      if (!d) return;
+      map.closePopup();
+      // Isi modal edit
+      document.getElementById('e-id').value    = d.id;
+      document.getElementById('e-nama').value  = d.nama;
+      document.getElementById('e-jenis').value = d.jenis;
+      document.getElementById('e-status').value= d.status;
+      document.getElementById('e-lat').value   = d.lat;
+      document.getElementById('e-lng').value   = d.lng;
+      document.getElementById('e-kode').value  = d.kode;
+      document.getElementById('edit-modal-title').textContent = `Edit — ${d.nama}`;
+      openModal('edit-modal');
+    }
+
+    // ── Delete marker ────────────────────────────────────────────
+    function deleteMarker() {
+      const id   = parseInt(document.getElementById('e-id').value);
+      const nama = document.getElementById('e-nama').value;
+      if (!confirm(`Hapus marker "${nama}" secara permanen?`)) return;
+
+      // Hapus dari cluster
+      const m = markers[id];
+      if (m) { clusterGroup.removeLayer(m); delete markers[id]; }
+
+      // Hapus dari data
+      const idx = prasaranaData.findIndex(p => p.id === id);
+      if (idx !== -1) prasaranaData.splice(idx, 1);
+
+      renderList();
+      closeModal('edit-modal');
+    }
+
+    // ── Save edit ────────────────────────────────────────────────
+    function saveEdit() {
+      const id   = parseInt(document.getElementById('e-id').value);
+      const nama = document.getElementById('e-nama').value.trim();
+      const lat  = parseFloat(document.getElementById('e-lat').value);
+      const lng  = parseFloat(document.getElementById('e-lng').value);
+      if (!nama || isNaN(lat) || isNaN(lng)) { alert('Nama, latitude, dan longitude wajib diisi.'); return; }
+
+      const idx = prasaranaData.findIndex(p => p.id === id);
+      if (idx === -1) return;
+
+      // Update data
+      prasaranaData[idx].nama   = nama;
+      prasaranaData[idx].jenis  = document.getElementById('e-jenis').value;
+      prasaranaData[idx].status = document.getElementById('e-status').value;
+      prasaranaData[idx].lat    = lat;
+      prasaranaData[idx].lng    = lng;
+      prasaranaData[idx].kode   = document.getElementById('e-kode').value.trim() || prasaranaData[idx].kode;
+
+      // Update marker posisi
+      const m = markers[id];
+      if (m) {
+        m.setLatLng([lat, lng]);
+        m.setPopupContent(buildPopup(prasaranaData[idx]));
+        const color = getJenisColor(prasaranaData[idx].jenis);
+        m.setIcon(createMarkerIcon(color));
+      }
+
+      renderList();
+      closeModal('edit-modal');
+      selectPrasarana(id);
+    }
+
+    // ── Coord form ───────────────────────────────────────────────
+    function resetCoordForm() {
+      document.getElementById('coordNama').value = '';
+      document.getElementById('coordLat').value  = '';
+      document.getElementById('coordLng').value  = '';
+      document.querySelectorAll('.prasarana-item').forEach(el => el.classList.remove('selected'));
+    }
+
+    function openAddModal() {
+      document.getElementById('m-nama').value = document.getElementById('coordNama').value;
+      document.getElementById('m-lat').value  = document.getElementById('coordLat').value;
+      document.getElementById('m-lng').value  = document.getElementById('coordLng').value;
+      document.getElementById('m-kode').value = '';
+      openModal('add-modal');
+    }
+
+    // ── Save new marker ──────────────────────────────────────────
+    function saveMarker() {
+      const nama  = document.getElementById('m-nama').value.trim();
+      const jenis = document.getElementById('m-jenis').value;
+      const status= document.getElementById('m-status').value;
+      const lat   = parseFloat(document.getElementById('m-lat').value);
+      const lng   = parseFloat(document.getElementById('m-lng').value);
+      const kode  = document.getElementById('m-kode').value.trim() || `NEW-${Date.now()}`;
+
+      if (!nama || !jenis || isNaN(lat) || isNaN(lng)) {
+        alert('Nama, jenis, latitude, dan longitude wajib diisi.'); return;
+      }
+
+      const newId = prasaranaData.length + 1;
+      const newData = { id: newId, nama, jenis, kode, status, lat, lng, btp: 'BTP BARU' };
+      prasaranaData.push(newData);
+      addMarker(newData);
+      renderList();
+      closeModal('add-modal');
+      resetCoordForm();
+      selectPrasarana(newId);
+    }
+
+    // ── Modal helpers ────────────────────────────────────────────
+    function openModal(id) {
+      const o = document.getElementById(id); o.classList.add('open');
+      setTimeout(() => { const f = o.querySelector('input, select'); if(f) f.focus(); }, 50);
+    }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+    document.querySelectorAll('.modal-overlay').forEach(o => {
+      o.addEventListener('click', e => { if(e.target===o) closeModal(o.id); });
+    });
+    document.addEventListener('keydown', e => {
+      if(e.key==='Escape') document.querySelectorAll('.modal-overlay.open').forEach(o => closeModal(o.id));
+    });
+
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const btn = document.querySelector('.sidebar-toggle-btn');
+      sidebar.classList.toggle('collapsed');
+      const isCollapsed = sidebar.classList.contains('collapsed');
+      btn.style.left = isCollapsed ? '58px' : '186px';
+    }
+  </script>
+</body>
+</html>

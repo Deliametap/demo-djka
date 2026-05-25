@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Badan Usaha — Uji Prasarana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --font-ui:              'Plus Jakarta Sans', sans-serif;
+      --font-mono:            'JetBrains Mono', monospace;
+      --color-primary:        #1D4ED8;
+      --color-primary-hover:  #2563EB;
+      --color-primary-light:  #EFF6FF;
+      --color-primary-border: #BFDBFE;
+      --color-success:        #16A34A;
+      --color-success-bg:     #DCFCE7;
+      --color-warning:        #D97706;
+      --color-warning-bg:     #FEF3C7;
+      --color-danger:         #DC2626;
+      --color-danger-bg:      #FEE2E2;
+      --color-info:           #0284C7;
+      --color-purple:         #7C3AED;
+      --color-purple-light:   #F5F3FF;
+      --color-purple-border:  #DDD6FE;
+      --color-teal:           #0D9488;
+      --color-teal-light:     #F0FDFA;
+      --color-surface:        #FFFFFF;
+      --color-bg:             #F8FAFC;
+      --color-border:         #E2E8F0;
+      --color-border-light:   #F1F5F9;
+      --color-text:           #0F172A;
+      --color-text-secondary: #334155;
+      --color-muted:          #64748B;
+      --topbar-bg:            #0F172A;
+      --sidebar-bg:           #131A35;
+    }
+
+    body {
+      font-family: var(--font-ui);
+      background: var(--color-bg);
+      color: var(--color-text);
+      display: flex; flex-direction: column;
+      min-height: 100vh;
+    }
+
+    *:focus-visible {
+      outline: 2px solid var(--color-primary-hover);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ── TOPBAR ──────────────────────────────────────────────── */
+    .topbar {
+      position: sticky; top: 0; z-index: 90;
+      height: 56px; background: var(--topbar-bg);
+      display: flex; align-items: center; width: 100%;
+    }
+    .topbar-module-icon {
+      width: 72px; height: 56px; flex-shrink: 0;
+      background: var(--color-primary);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .topbar-module-icon svg { width: 22px; height: 22px; stroke: white; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .topbar-brand {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0 20px; color: white;
+      font-size: 15px; font-weight: 700; white-space: nowrap;
+    }
+    .topbar-brand-logo {
+      width: 28px; height: 28px; background: var(--color-primary);
+      border-radius: 6px; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; color: white;
+    }
+    .topbar-sep { width: 1px; height: 24px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+    .topbar-search {
+      display: flex; align-items: center; gap: 8px;
+      margin: 0 20px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 0 14px; height: 36px;
+      min-width: 420px; max-width: 100%;
+      color: rgba(255,255,255,0.5); font-size: 13px; cursor: pointer;
+    }
+    .topbar-search svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.4); stroke-width: 2; fill: none; flex-shrink: 0; }
+    .topbar-search span { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .topbar-search kbd {
+      font-family: var(--font-mono); font-size: 11px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px; padding: 2px 6px; color: rgba(255,255,255,0.5); white-space: nowrap;
+    }
+    .topbar-spacer { flex: 1; }
+    .topbar-date {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.08); border-radius: 8px;
+      padding: 6px 12px; font-size: 13px; font-weight: 500; color: #fff; white-space: nowrap;
+    }
+    .topbar-date svg { width: 16px; height: 16px; stroke: rgba(255,255,255,0.7); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .topbar-icon-btn {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.6); transition: background 0.15s;
+    }
+    .topbar-icon-btn:hover { background: rgba(255,255,255,0.08); }
+    .topbar-icon-btn svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .topbar-right { display: flex; align-items: center; gap: 8px; padding: 0 16px; }
+    .topbar-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--color-primary); border: 2px solid rgba(255,255,255,0.2);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: white;
+    }
+
+    /* ── LAYOUT ──────────────────────────────────────────────── */
+    .app-body { display: flex; flex: 1; min-height: calc(100vh - 56px); }
+
+    /* ── SIDEBAR RAIL ────────────────────────────────────────── */
+    .sidebar {
+      width: 200px; flex-shrink: 0;
+      background: var(--sidebar-bg);
+      display: flex; flex-direction: column; align-items: stretch;
+      padding: 12px 8px; gap: 2px;
+      transition: width 0.25s ease;
+      overflow: visible;
+      position: relative;
+    }
+    .sidebar.collapsed { width: 72px; }
+    .sidebar.collapsed .nav-item { justify-content: center; padding: 12px 0; }
+    .sidebar.collapsed .nav-label { display: none; }
+    .sidebar.collapsed .nav-badge { top: 6px; right: 6px; }
+    .sidebar.collapsed .sidebar-divider { margin: 8px auto; width: 32px; }
+    .nav-item {
+      width: 100%; height: auto; min-height: 44px; border-radius: 10px;
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px;
+      cursor: pointer; transition: background 0.15s; position: relative;
+    }
+    .nav-item svg { width: 20px; height: 20px; stroke: rgba(255,255,255,0.4); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .nav-item:hover { background: rgba(255,255,255,0.06); }
+    .nav-item:hover svg { stroke: rgba(255,255,255,0.7); }
+    .nav-item:hover .nav-label { color: rgba(255,255,255,0.9); }
+    .nav-item.active { background: rgba(37,99,235,0.25); }
+    .nav-item.active svg { stroke: #93C5FD; }
+    .nav-item.active .nav-label { color: #93C5FD; font-weight: 600; }
+    .nav-label {
+      font-size: 13px; font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      transition: color 0.15s, opacity 0.2s;
+      flex: 1;
+    }
+    .nav-badge {
+      position: absolute; top: 8px; right: 10px;
+      min-width: 16px; height: 16px; border-radius: 9999px;
+      background: var(--color-danger); color: white;
+      font-size: 9px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; padding: 0 4px;
+    }
+    .sidebar-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 8px 4px; }
+    .sidebar a { text-decoration: none; }
+    /* Toggle button */
+    .sidebar-toggle-btn {
+      position: fixed;
+      top: 72px;
+      left: 186px;
+      width: 28px; height: 28px; border-radius: 6px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s, left 0.25s ease;
+      z-index: 100;
+    }
+    .sidebar-toggle-btn:hover { background: var(--color-bg); }
+    .sidebar-toggle-btn svg { width: 14px; height: 14px; stroke: var(--color-text-secondary); stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s ease; }
+    .sidebar.collapsed .sidebar-toggle-btn svg { transform: rotate(180deg); }
+
+    /* ── MAIN CONTENT ────────────────────────────────────────── */
+    .main-content { flex: 1; padding: 24px; overflow-y: auto; overflow-x: visible; }
+
+    /* ── PAGE HEADER ─────────────────────────────────────────── */
+    .page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .page-header-left { display: flex; align-items: center; gap: 12px; }
+    .page-header-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--color-primary-light);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .page-header-icon svg { width: 20px; height: 20px; stroke: var(--color-primary); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .page-header-title { font-size: 22px; font-weight: 700; color: var(--color-text); }
+
+    /* ── BUTTONS ─────────────────────────────────────────────── */
+    .btn-tambah {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 0 16px; height: 38px; border-radius: 6px;
+      background: var(--color-primary); color: white;
+      font-family: var(--font-ui); font-size: 13.5px; font-weight: 600;
+      border: none; cursor: pointer;
+      transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+    }
+    .btn-tambah:hover { background: var(--color-primary-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,.35); }
+    .btn-tambah:active { background: var(--color-primary); transform: translateY(0); box-shadow: none; }
+    .btn-tambah svg { width: 15px; height: 15px; stroke: #334155; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    .btn-secondary-outline {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 0 16px; height: 38px; border-radius: 6px;
+      background: transparent; color: var(--color-primary);
+      border: 1.5px solid var(--color-primary-border);
+      font-family: var(--font-ui); font-size: 13.5px; font-weight: 600;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .btn-secondary-outline:hover { background: var(--color-primary-light); border-color: var(--color-primary); }
+    .btn-secondary-outline svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── CARD ────────────────────────────────────────────────── */
+    .card { background: var(--color-surface); border-radius: 12px; border: 1px solid var(--color-border); overflow: hidden; }
+
+    /* ── TABLE FILTERS ───────────────────────────────────────── */
+    .tbl-filters {
+      display: flex; align-items: center; gap: 10px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--color-border-light);
+      flex-wrap: wrap;
+    }
+    .tbl-filter-group { display: flex; align-items: center; gap: 10px; }
+    .tbl-filter-select {
+      padding: 9px 32px 9px 14px;
+      border: 1.5px solid var(--color-border);
+      border-radius: 10px; font-size: 13.5px;
+      font-family: var(--font-ui); background: white;
+      color: var(--color-text); cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      transition: border-color 0.15s;
+    }
+    .tbl-filter-select:focus { border-color: var(--color-primary); outline: none; box-shadow: 0 0 0 3px rgba(37,99,235,.12); }
+    .tbl-search {
+      display: flex; align-items: center; gap: 8px;
+      padding: 0 14px; border: 1.5px solid var(--color-border);
+      border-radius: 10px; height: 42px; background: white;
+      transition: border-color 0.15s;
+    }
+    .tbl-search:focus-within { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(37,99,235,.12); }
+    .tbl-search svg { width: 15px; height: 15px; stroke: var(--color-muted); stroke-width: 2; fill: none; flex-shrink: 0; }
+    .tbl-search input { border: none; outline: none; font-size: 13.5px; font-family: var(--font-ui); color: var(--color-text); width: 200px; background: transparent; }
+    .tbl-search input::placeholder { color: var(--color-muted); }
+    .tbl-show {
+      margin-left: auto; display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--color-muted);
+    }
+    .tbl-show select {
+      padding: 6px 28px 6px 10px; border: 1.5px solid var(--color-border);
+      border-radius: 8px; font-size: 13px; font-family: var(--font-ui);
+      background: white; color: var(--color-text); cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 8px center;
+    }
+    .tbl-show select:focus { border-color: var(--color-primary); outline: none; }
+
+    /* ── DATA TABLE ──────────────────────────────────────────── */
+    .table-wrapper { overflow-x: auto; }
+    .data-table { width: 100%; border-collapse: collapse; }
+    .data-table thead tr { background: transparent; }
+    .data-table thead th {
+      padding: 12px 16px;
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.6px;
+      color: var(--color-muted);
+      border-bottom: 1.5px solid var(--color-border);
+      white-space: nowrap; text-align: left;
+    }
+    .data-table thead th.th-center { text-align: center; }
+    .data-table tbody tr { transition: background 0.12s; }
+    .data-table tbody tr:nth-child(even) { background: var(--color-bg); }
+    .data-table tbody tr:hover { background: var(--color-border-light); }
+    .data-table tbody td {
+      padding: 14px 16px;
+      font-size: 13.5px; color: var(--color-text-secondary);
+      border-bottom: 1px solid var(--color-border-light);
+      vertical-align: middle;
+    }
+    .data-table tbody td.td-center { text-align: center; }
+    .data-table tbody tr:last-child td { border-bottom: none; }
+
+    /* Mono cell */
+    .mono { font-family: var(--font-mono); font-size: 12.5px; color: var(--color-primary); }
+
+    /* Logo cell */
+    .logo-cell { display: flex; justify-content: center; }
+    .logo-img {
+      width: 52px; height: 40px; object-fit: contain;
+      border-radius: 6px; border: 1px solid var(--color-border-light);
+      background: var(--color-bg); padding: 4px;
+    }
+    .logo-placeholder {
+      width: 52px; height: 40px; border-radius: 6px;
+      border: 1.5px dashed var(--color-border);
+      background: var(--color-bg);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-placeholder svg { width: 16px; height: 16px; stroke: var(--color-border); stroke-width: 2; fill: none; }
+
+    /* Active badge */
+    .sdot-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 20px;
+      font-size: 12.5px; font-weight: 600;
+    }
+    .sdot-badge .sdot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .sdot-badge.s-green { background: var(--color-success-bg); color: #16A34A; }
+    .sdot-badge.s-green .sdot { background: #16A34A; }
+    .sdot-badge.s-red   { background: var(--color-danger-bg); color: #DC2626; }
+    .sdot-badge.s-red   .sdot { background: #DC2626; }
+    .sdot-badge.s-gray  { background: var(--color-border-light); color: #64748B; }
+    .sdot-badge.s-gray  .sdot { background: #64748B; }
+
+    /* Action cell — strip */
+    .action-cell { display: flex; align-items: center; justify-content: center; }
+    .action-strip {
+      font-size: 15px; font-weight: 500; color: var(--color-muted);
+      letter-spacing: 1px; user-select: none;
+    }
+
+    /* ── PAGINATION ───────────────────────────────────────────── */
+    .tbl-pagination {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px;
+      border-top: 1px solid var(--color-border-light);
+      font-size: 13px; color: var(--color-muted);
+    }
+    .page-btns { display: flex; gap: 6px; }
+    .page-btn {
+      min-width: 34px; height: 34px;
+      border: 1.5px solid var(--color-border); border-radius: 8px;
+      font-size: 13px; font-weight: 500; color: var(--color-text);
+      background: white; cursor: pointer; transition: all 0.13s;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-ui);
+    }
+    .page-btn:hover { background: var(--color-bg); border-color: var(--color-primary-border); }
+    .page-btn.active { background: var(--color-primary); border-color: var(--color-primary); color: white; }
+    .page-btn:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+
+    /* ── MODAL ───────────────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(15,23,42,0.5);
+      backdrop-filter: blur(2px);
+      z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--color-surface);
+      border-radius: 16px;
+      box-shadow: 0 4px 6px rgba(0,0,0,.04), 0 24px 64px rgba(0,0,0,.14);
+      width: 520px; max-width: 100%;
+      transform: scale(0.96) translateY(10px); opacity: 0;
+      transition: transform 0.22s cubic-bezier(0.16,1,0.3,1), opacity 0.18s ease;
+    }
+    .modal-overlay.open .modal { transform: scale(1) translateY(0); opacity: 1; }
+    .modal-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .modal-title-icon {
+      width: 34px; height: 34px; border-radius: 9px;
+      background: var(--color-primary-light);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .modal-title-icon svg { width: 17px; height: 17px; stroke: var(--color-primary); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .modal-title { font-size: 15px; font-weight: 700; flex: 1; }
+    .modal-close {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: none; cursor: pointer;
+      color: var(--color-muted); transition: background 0.13s;
+    }
+    .modal-close:hover { background: #F8FAFC; color: var(--color-text); }
+    .modal-close svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-label { font-size: 13px; font-weight: 600; color: var(--color-text-secondary); }
+    .form-label .req { color: var(--color-danger); margin-left: 2px; }
+    .form-input {
+      height: 40px; padding: 0 12px;
+      border: 1.5px solid var(--color-border); border-radius: 6px;
+      font-size: 13.5px; font-family: var(--font-ui); color: var(--color-text);
+      background: var(--color-bg); transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(37,99,235,.12); outline: none; background: white; }
+    .form-input::placeholder { color: var(--color-muted); }
+    .form-hint { font-size: 12px; color: var(--color-muted); }
+    .modal-footer {
+      display: flex; align-items: center; justify-content: flex-end; gap: 8px;
+      padding: 16px 24px;
+      border-top: 1px solid var(--color-border);
+    }
+    .btn-modal-ghost {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 0 16px; height: 38px; border-radius: 6px;
+      background: transparent; color: var(--color-muted);
+      border: 1.5px solid var(--color-border);
+      font-family: var(--font-ui); font-size: 13.5px; font-weight: 600;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .btn-modal-ghost:hover { background: var(--color-bg); color: var(--color-text); }
+    .btn-modal-primary {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 0 20px; height: 38px; border-radius: 6px;
+      background: var(--color-primary); color: white;
+      border: none; font-family: var(--font-ui); font-size: 13.5px; font-weight: 600;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .btn-modal-primary:hover { background: var(--color-primary-hover); }
+    .btn-modal-primary svg { width: 15px; height: 15px; stroke: white; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .btn-modal-danger {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 0 16px; height: 38px; border-radius: 6px;
+      background: #FEF2F2; color: var(--color-danger);
+      border: 1.5px solid #FECACA;
+      font-family: var(--font-ui); font-size: 13.5px; font-weight: 600;
+      cursor: pointer; transition: all 0.15s; margin-right: auto;
+    }
+    .btn-modal-danger:hover { background: #FEE2E2; border-color: #FCA5A5; }
+    .btn-modal-danger svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    .app-footer {
+      text-align: center; padding: 20px;
+      font-size: 12px; color: var(--color-muted);
+      border-top: 1px solid var(--color-border);
+      background: var(--color-surface);
+    }
+    .app-footer strong { color: var(--color-text-secondary); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── TOPBAR ──────────────────────────────────────────────── -->
+  <header class="topbar" role="banner">
+    <div class="topbar-module-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </div>
+    <div class="topbar-brand">
+      <div class="topbar-brand-logo" aria-hidden="true">UP</div>
+      <span>Uji Prasarana</span>
+    </div>
+    <div class="topbar-sep" aria-hidden="true"></div>
+    <div class="topbar-search" role="search" tabindex="0" aria-label="Cari data permohonan">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Cari data permohonan...</span>
+      <kbd>Ctrl K</kbd>
+    </div>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-date" id="topbarDate" aria-label="Tanggal hari ini">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span id="currentDate"></span>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-sep" aria-hidden="true"></div>
+      <button class="topbar-icon-btn" aria-label="Notifikasi">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+      <div class="topbar-sep" aria-hidden="true"></div>
+      <div class="topbar-avatar" role="button" tabindex="0" aria-label="Menu pengguna">AD</div>
+    </div>
+  </header>
+
+  <!-- ── APP BODY ─────────────────────────────────────────────── -->
+  <div class="app-body">
+
+    <!-- ── SIDEBAR RAIL ──────────────────────────────────────── -->
+    <nav class="sidebar" aria-label="Navigasi utama">
+      <a href="index.html" class="nav-item" aria-label="Dashboard">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <div class="nav-item active" aria-label="Data Badan Usaha" aria-current="page">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span class="nav-label">Data Badan Usaha</span>
+      </div>
+      <a href="data-prasarana.html" class="nav-item" aria-label="Data Prasarana">
+        <svg viewBox="0 0 24 24"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        <span class="nav-label">Data Prasarana</span>
+      </a>
+      <a href="peta-prasarana.html" class="nav-item" aria-label="Peta Prasarana">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 14 8 14s8-8.75 8-14a8 8 0 0 0-8-8z"/></svg>
+        <span class="nav-label">Peta Prasarana</span>
+      </a>
+      <a href="data-tarif-blu.html" class="nav-item" aria-label="Data Tarif BLU">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span class="nav-label">Data Tarif BLU</span>
+      </a>
+      <div class="sidebar-divider" aria-hidden="true"></div>
+      <a href="validasi-pengajuan.html" class="nav-item" aria-label="Validasi Pengajuan">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span class="nav-label">Validasi Pengajuan</span>
+        <span class="nav-badge" aria-label="0 notifikasi">0</span>
+      </a>
+      <a href="billing-blu.html" class="nav-item" aria-label="Billing BLU">
+        <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        <span class="nav-label">Billing BLU</span>
+        <span class="nav-badge" aria-label="0 notifikasi">0</span>
+      </a>
+      <a href="laporan-pemohon.html" class="nav-item" aria-label="Laporan">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <span class="nav-label">Laporan</span>
+      </a>
+
+      <button class="sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+    </nav>
+
+    <!-- ── MAIN CONTENT ──────────────────────────────────────── -->
+    <main class="main-content" id="main-content">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="page-header-left">
+          <div class="page-header-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h1 class="page-header-title">Data Badan Usaha</h1>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn-secondary-outline" onclick="openModal('export-modal')" aria-label="Ekspor data badan usaha">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Ekspor Data
+          </button>
+        </div>
+      </div>
+
+      <!-- Table Card -->
+      <div class="card">
+
+        <!-- Filter Row -->
+        <div class="tbl-filters">
+          <div class="tbl-filter-group">
+            <div class="tbl-search">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="searchInput" placeholder="Cari nama badan usaha, NIB, NPWP..." aria-label="Cari data badan usaha" oninput="filterTable()" />
+            </div>
+          </div>
+          <div class="tbl-show">
+            <span>Tampilkan</span>
+            <select id="perPageSelect" onchange="changePerPage()" aria-label="Jumlah data per halaman">
+              <option value="10" selected>10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+            <span>entri</span>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrapper">
+          <table class="data-table" id="badanUsahaTable" aria-label="Tabel data badan usaha">
+            <thead>
+              <tr>
+                <th style="width:52px;">No.</th>
+                <th>Badan Usaha</th>
+                <th>Kode Pemilik</th>
+                <th>NIB</th>
+                <th>NPWP</th>
+                <th>Pimpinan</th>
+                <th>Email</th>
+                <th class="th-center">Jumlah Prasarana</th>
+                <th class="th-center">Logo</th>
+                <th style="width:90px;" class="th-center">Status</th>
+                <th style="width:120px;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Row 1 -->
+              <tr>
+                <td class="mono">1</td>
+                <td style="font-weight:600;color:var(--color-text);">Balai Perawatan Perkeretaapian</td>
+                <td class="mono">3107750004</td>
+                <td class="mono">3271043107750004</td>
+                <td class="mono">3271043107750004</td>
+                <td>Mochamad Andi Hary Murty</td>
+                <td style="color:var(--color-info);">balaipwka@gmail.com</td>
+                <td class="td-center" style="font-family:var(--font-mono);font-weight:700;">3</td>
+                <td class="td-center">
+                  <div class="logo-cell">
+                    <div class="logo-placeholder" aria-label="Logo belum tersedia">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    </div>
+                  </div>
+                </td>
+                <td class="td-center">
+                  <span class="sdot-badge s-green"><span class="sdot"></span>Aktif</span>
+                </td>
+                <td>
+                  <div class="action-cell">
+                    <span class="action-strip" aria-label="Tidak ada aksi tersedia">—</span>
+                  </div>
+                </td>
+              </tr>
+              <!-- Row 2 -->
+              <tr>
+                <td class="mono">2</td>
+                <td style="font-weight:600;color:var(--color-text);">PT Demo KA (Persero)</td>
+                <td class="mono">4103350001</td>
+                <td class="mono">4458214103350001</td>
+                <td class="mono">4458212410335001</td>
+                <td>Test Data</td>
+                <td style="color:var(--color-info);">sugisman23@gmail.com</td>
+                <td class="td-center" style="font-family:var(--font-mono);font-weight:700;">1</td>
+                <td class="td-center">
+                  <div class="logo-cell">
+                    <div class="logo-placeholder" aria-label="Logo belum tersedia">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    </div>
+                  </div>
+                </td>
+                <td class="td-center">
+                  <span class="sdot-badge s-green"><span class="sdot"></span>Aktif</span>
+                </td>
+                <td>
+                  <div class="action-cell">
+                    <span class="action-strip" aria-label="Tidak ada aksi tersedia">—</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="tbl-pagination" id="paginationBar">
+          <span id="paginationInfo">Menampilkan 1 sampai 2 dari 2 data</span>
+          <div class="page-btns" role="navigation" aria-label="Navigasi halaman">
+            <button class="page-btn" id="prevBtn" onclick="changePage(-1)" aria-label="Halaman sebelumnya" disabled>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="page-btn active" aria-current="page">1</button>
+            <button class="page-btn" id="nextBtn" onclick="changePage(1)" aria-label="Halaman selanjutnya" disabled>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /card -->
+    </main>
+  </div><!-- /app-body -->
+
+  <!-- ── FOOTER ───────────────────────────────────────────────── -->
+  <footer class="app-footer">
+    2023 <strong>Uji Prasarana</strong> Copyright
+  </footer>
+
+  <!-- ── MODAL TAMBAH BADAN USAHA ─────────────────────────────── -->
+  <div class="modal-overlay" id="tambah-modal" role="dialog" aria-modal="true" aria-labelledby="tambah-modal-title">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <span class="modal-title" id="tambah-modal-title">Tambah Badan Usaha</span>
+        <button class="modal-close" onclick="closeModal('tambah-modal')" aria-label="Tutup modal">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="nama-badan-usaha">Nama Badan Usaha <span class="req" aria-hidden="true">*</span></label>
+          <input class="form-input" type="text" id="nama-badan-usaha" placeholder="Contoh: PT Kereta Api Indonesia (Persero)" required aria-required="true" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="kode-pemilik">Kode Pemilik <span class="req" aria-hidden="true">*</span></label>
+            <input class="form-input mono" type="text" id="kode-pemilik" placeholder="Contoh: 3107750004" required aria-required="true" style="font-family:var(--font-mono);" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="nib">NIB <span class="req" aria-hidden="true">*</span></label>
+            <input class="form-input" type="text" id="nib" placeholder="Contoh: 3271043107750004" required aria-required="true" style="font-family:var(--font-mono);" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="npwp">NPWP <span class="req" aria-hidden="true">*</span></label>
+            <input class="form-input" type="text" id="npwp" placeholder="Contoh: 3271043107750004" required aria-required="true" style="font-family:var(--font-mono);" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="pimpinan">Nama Pimpinan <span class="req" aria-hidden="true">*</span></label>
+            <input class="form-input" type="text" id="pimpinan" placeholder="Contoh: Mochamad Andi Hary Murty" required aria-required="true" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email <span class="req" aria-hidden="true">*</span></label>
+          <input class="form-input" type="email" id="email" placeholder="Contoh: kontak@badanusaha.co.id" required aria-required="true" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="logo-upload">Logo Badan Usaha</label>
+          <input class="form-input" type="file" id="logo-upload" accept="image/*" style="height:auto;padding:8px 12px;" aria-describedby="logo-hint" />
+          <span class="form-hint" id="logo-hint">Format: JPG, PNG, SVG. Ukuran maksimum 2 MB.</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-ghost" onclick="closeModal('tambah-modal')">Batalkan</button>
+        <button class="btn-modal-primary" onclick="closeModal('tambah-modal')">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Simpan Data
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL EDIT BADAN USAHA ───────────────────────────────── -->
+  <div class="modal-overlay" id="edit-modal" role="dialog" aria-modal="true" aria-labelledby="edit-modal-title">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <span class="modal-title" id="edit-modal-title">Edit Badan Usaha</span>
+        <button class="modal-close" onclick="closeModal('edit-modal')" aria-label="Tutup modal">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="edit-nama">Nama Badan Usaha <span class="req" aria-hidden="true">*</span></label>
+          <input class="form-input" type="text" id="edit-nama" required aria-required="true" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="edit-kode">Kode Pemilik <span class="req" aria-hidden="true">*</span></label>
+            <input class="form-input" type="text" id="edit-kode" required aria-required="true" style="font-family:var(--font-mono);" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="edit-nib">NIB <span class="req" aria-hidden="true">*</span></label>
+            <input class="form-input" type="text" id="edit-nib" required aria-required="true" style="font-family:var(--font-mono);" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="edit-npwp">NPWP <span class="req" aria-hidden="true">*</span></label>
+            <input class="form-input" type="text" id="edit-npwp" required aria-required="true" style="font-family:var(--font-mono);" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="edit-pimpinan">Nama Pimpinan <span class="req" aria-hidden="true">*</span></label>
+            <input class="form-input" type="text" id="edit-pimpinan" required aria-required="true" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit-email">Email <span class="req" aria-hidden="true">*</span></label>
+          <input class="form-input" type="email" id="edit-email" required aria-required="true" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-danger" onclick="closeModal('edit-modal')">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          Hapus
+        </button>
+        <button class="btn-modal-ghost" onclick="closeModal('edit-modal')">Batalkan</button>
+        <button class="btn-modal-primary" onclick="closeModal('edit-modal')">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Simpan Perubahan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL EKSPOR ─────────────────────────────────────────── -->
+  <div class="modal-overlay" id="export-modal" role="dialog" aria-modal="true" aria-labelledby="export-modal-title">
+    <div class="modal" style="width:400px;">
+      <div class="modal-header">
+        <div class="modal-title-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <span class="modal-title" id="export-modal-title">Ekspor Data Badan Usaha</span>
+        <button class="modal-close" onclick="closeModal('export-modal')" aria-label="Tutup modal">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="export-format">Format Ekspor <span class="req" aria-hidden="true">*</span></label>
+          <select class="form-input" id="export-format" style="height:40px;cursor:pointer;">
+            <option value="xlsx">Microsoft Excel (.xlsx)</option>
+            <option value="csv">CSV (.csv)</option>
+            <option value="pdf">PDF (.pdf)</option>
+          </select>
+        </div>
+        <p style="font-size:13px;color:var(--color-muted);">Seluruh 2 data badan usaha akan diekspor sesuai format yang dipilih.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-ghost" onclick="closeModal('export-modal')">Batalkan</button>
+        <button class="btn-modal-primary" onclick="closeModal('export-modal')">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Ekspor Laporan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── Tanggal topbar ──────────────────────────────────────────
+    (function updateCurrentDate() {
+      const el = document.getElementById('currentDate');
+      if (!el) return;
+      const now = new Date();
+      const bulan = ['Januari','Februari','Maret','April','Mei','Juni',
+                     'Juli','Agustus','September','Oktober','November','Desember'];
+      el.textContent = `${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
+    })();
+
+    // ── Data dummy ──────────────────────────────────────────────
+    const dataBadanUsaha = [
+      { nama: 'Balai Perawatan Perkeretaapian', kode: '3107750004', nib: '3271043107750004', npwp: '3271043107750004', pimpinan: 'Mochamad Andi Hary Murty', email: 'balaipwka@gmail.com' },
+      { nama: 'PT Demo KA (Persero)',           kode: '4103350001', nib: '4458214103350001', npwp: '4458212410335001', pimpinan: 'Test Data',                  email: 'sugisman23@gmail.com' },
+    ];
+
+    // ── Modal helpers ───────────────────────────────────────────
+    function openModal(id) {
+      const overlay = document.getElementById(id);
+      overlay.classList.add('open');
+      // Fokus ke input pertama
+      const firstInput = overlay.querySelector('input, select');
+      if (firstInput) setTimeout(() => firstInput.focus(), 50);
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    // Tutup modal saat klik overlay
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', e => {
+        if (e.target === overlay) closeModal(overlay.id);
+      });
+    });
+
+    // Tutup modal dengan Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.open').forEach(o => closeModal(o.id));
+      }
+    });
+
+    // ── Edit modal: isi data ────────────────────────────────────
+    function openEditModal(index) {
+      const d = dataBadanUsaha[index];
+      document.getElementById('edit-nama').value     = d.nama;
+      document.getElementById('edit-kode').value     = d.kode;
+      document.getElementById('edit-nib').value      = d.nib;
+      document.getElementById('edit-npwp').value     = d.npwp;
+      document.getElementById('edit-pimpinan').value = d.pimpinan;
+      document.getElementById('edit-email').value    = d.email;
+      openModal('edit-modal');
+    }
+
+    // ── Search filter ───────────────────────────────────────────
+    function filterTable() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      const rows = document.querySelectorAll('#tableBody tr');
+      let visible = 0;
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        const show = text.includes(q);
+        row.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      document.getElementById('paginationInfo').textContent =
+        `Menampilkan 1 sampai ${visible} dari ${visible} data`;
+    }
+
+    // ── Per page (UI only) ──────────────────────────────────────
+    function changePerPage() {
+      const val = document.getElementById('perPageSelect').value;
+      // Dengan data statis, hanya update info teks
+      const total = document.querySelectorAll('#tableBody tr').length;
+      const shown = Math.min(parseInt(val), total);
+      document.getElementById('paginationInfo').textContent =
+        `Menampilkan 1 sampai ${shown} dari ${total} data`;
+    }
+
+    // ── Keyboard nav sidebar ────────────────────────────────────
+    document.querySelectorAll('.nav-item').forEach(el => {
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+      });
+    });
+
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const btn = document.querySelector('.sidebar-toggle-btn');
+      sidebar.classList.toggle('collapsed');
+      const isCollapsed = sidebar.classList.contains('collapsed');
+      btn.style.left = isCollapsed ? '58px' : '186px';
+    }
+  </script>
+
+</body>
+</html>

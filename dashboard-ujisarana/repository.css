@@ -1,0 +1,145 @@
+/* repository.css — Berdasarkan Dashboard Design Guidelines v1.2 */
+
+.repo-card { padding: 0; }
+
+/* Card header dengan tombol Baru */
+.repo-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Tombol + Baru — primary */
+
+/* ── Ikon PDF di kolom File ── */
+.td-file { text-align: center; }
+
+/* ── Kolom Options — 2 tombol ── */
+.td-options {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.repo-options {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Tombol edit (amber) */
+
+/* Tombol hapus (merah) */
+
+/* ── Modal form ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.5);
+  backdrop-filter: blur(2px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: var(--color-surface);
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0,0,0,.04), 0 24px 64px rgba(0,0,0,.14);
+  width: 480px;
+  max-width: 100%;
+  transform: scale(0.96) translateY(10px);
+  opacity: 0;
+  transition: transform 0.22s cubic-bezier(0.16,1,0.3,1), opacity 0.18s ease;
+}
+
+.modal-overlay.open .modal { transform: scale(1) translateY(0); opacity: 1; }
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-title-icon {
+  width: 34px; height: 34px;
+  background: var(--color-primary-light);
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-primary); flex-shrink: 0;
+}
+
+.modal-title { font-size: 15px; font-weight: 700; color: var(--color-text); flex: 1; }
+
+.modal-close {
+  width: 32px; height: 32px;
+  border: none; background: transparent; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-muted); cursor: pointer;
+  transition: background 0.13s, color 0.13s;
+}
+
+.modal-close:hover { background: #F8FAFC; color: var(--color-text); }
+
+/* Modal body form */
+.modal-body-form {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+
+.form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.req { color: var(--color-danger); margin-left: 2px; }
+
+.form-input {
+  height: 40px;
+  padding: 0 12px;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 6px;
+  font-family: var(--font-ui);
+  font-size: 13.5px;
+  color: var(--color-text);
+  background: var(--color-bg);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.form-input[type="file"] { height: auto; padding: 8px 12px; }
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+}
+
+.form-hint { font-size: 12px; color: var(--color-muted); }
+
+/* Modal footer */
+.modal-footer-form {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--color-border);
+}
+
+/* Tombol danger modal — hapus */
+

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detail Data Permohonan — Stasiun Kereta Api — Uji Prasarana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --font-ui: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --color-primary: #1D4ED8; --color-primary-hover: #2563EB;
+      --color-primary-light: #EFF6FF; --color-primary-border: #BFDBFE;
+      --color-success: #16A34A; --color-success-bg: #DCFCE7;
+      --color-warning: #D97706; --color-warning-bg: #FEF3C7;
+      --color-danger: #DC2626; --color-danger-bg: #FEE2E2;
+      --color-info: #0284C7; --color-purple: #7C3AED;
+      --color-surface: #FFFFFF; --color-bg: #F8FAFC;
+      --color-border: #E2E8F0; --color-border-light: #F1F5F9;
+      --color-text: #0F172A; --color-text-secondary: #334155; --color-muted: #64748B;
+      --topbar-bg: #0F172A; --sidebar-bg: #131A35;
+    }
+    body { font-family: var(--font-ui); background: var(--color-bg); color: var(--color-text); display: flex; flex-direction: column; min-height: 100vh; }
+    *:focus-visible { outline: 2px solid var(--color-primary-hover); outline-offset: 3px; border-radius: 4px; }
+
+    /* TOPBAR */
+    .topbar { position: sticky; top: 0; z-index: 90; height: 56px; background: var(--topbar-bg); display: flex; align-items: center; width: 100%; }
+    .topbar-module-icon { width: 72px; height: 56px; flex-shrink: 0; background: var(--color-primary); display: flex; align-items: center; justify-content: center; }
+    .topbar-module-icon svg { width: 22px; height: 22px; stroke: white; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; padding: 0 20px; color: white; font-size: 15px; font-weight: 700; white-space: nowrap; }
+    .topbar-brand-logo { width: 28px; height: 28px; background: var(--color-primary); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: white; }
+    .topbar-sep { width: 1px; height: 24px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+    .topbar-search { display: flex; align-items: center; gap: 8px; margin: 0 20px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0 14px; height: 36px; min-width: 420px; max-width: 100%; color: rgba(255,255,255,0.5); font-size: 13px; cursor: pointer; }
+    .topbar-search svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.4); stroke-width: 2; fill: none; flex-shrink: 0; }
+    .topbar-search span { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .topbar-search kbd { font-family: var(--font-mono); font-size: 11px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 2px 6px; color: rgba(255,255,255,0.5); white-space: nowrap; }
+    .topbar-spacer { flex: 1; }
+    .topbar-date { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); border-radius: 8px; padding: 6px 12px; font-size: 13px; font-weight: 500; color: #fff; white-space: nowrap; }
+    .topbar-date svg { width: 16px; height: 16px; stroke: rgba(255,255,255,0.7); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .topbar-icon-btn { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; cursor: pointer; color: rgba(255,255,255,0.6); transition: background 0.15s; }
+    .topbar-icon-btn:hover { background: rgba(255,255,255,0.08); }
+    .topbar-icon-btn svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .topbar-right { display: flex; align-items: center; gap: 8px; padding: 0 16px; }
+    .topbar-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--color-primary); border: 2px solid rgba(255,255,255,0.2); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; }
+
+    /* LAYOUT */
+    .app-body { display: flex; flex: 1; min-height: calc(100vh - 56px); }
+
+    /* SIDEBAR */
+    .sidebar { width: 200px; flex-shrink: 0; background: var(--sidebar-bg); display: flex; flex-direction: column; align-items: stretch; padding: 12px 8px; gap: 2px; transition: width 0.25s ease; overflow: visible; position: relative; }
+    .sidebar.collapsed { width: 72px; }
+    .sidebar.collapsed .nav-item { justify-content: center; padding: 12px 0; }
+    .sidebar.collapsed .nav-label { display: none; }
+    .sidebar.collapsed .nav-badge { top: 6px; right: 6px; }
+    .sidebar.collapsed .sidebar-divider { margin: 8px auto; width: 32px; }
+    .sidebar a { text-decoration: none; }
+    .nav-item { width: 100%; height: auto; min-height: 44px; border-radius: 10px; display: flex; align-items: center; gap: 10px; padding: 10px 12px; cursor: pointer; transition: background 0.15s; position: relative; }
+    .nav-item svg { width: 20px; height: 20px; stroke: rgba(255,255,255,0.4); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .nav-item:hover { background: rgba(255,255,255,0.06); }
+    .nav-item:hover svg { stroke: rgba(255,255,255,0.7); }
+    .nav-item:hover .nav-label { color: rgba(255,255,255,0.9); }
+    .nav-item.active { background: rgba(37,99,235,0.25); }
+    .nav-item.active svg { stroke: #93C5FD; }
+    .nav-item.active .nav-label { color: #93C5FD; font-weight: 600; }
+    .nav-label { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.5); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 0.15s; flex: 1; }
+    .nav-badge { position: absolute; top: 8px; right: 10px; min-width: 16px; height: 16px; border-radius: 9999px; background: var(--color-danger); color: white; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; padding: 0 4px; }
+    .sidebar-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 8px 4px; }
+    .sidebar-toggle-btn { position: fixed; top: 72px; left: 186px; width: 28px; height: 28px; border-radius: 6px; background: var(--color-surface); border: 1px solid var(--color-border); box-shadow: 0 1px 4px rgba(0,0,0,0.10); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.15s, left 0.25s ease; z-index: 100; }
+    .sidebar-toggle-btn:hover { background: var(--color-bg); }
+    .sidebar-toggle-btn svg { width: 14px; height: 14px; stroke: var(--color-text-secondary); stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s ease; }
+    .sidebar.collapsed .sidebar-toggle-btn svg { transform: rotate(180deg); }
+
+    /* MAIN */
+    .main-content { flex: 1; padding: 24px; overflow-y: auto; }
+
+    /* PAGE HEADER */
+    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .page-header-left { display: flex; align-items: center; gap: 12px; }
+    .page-header-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--color-primary-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .page-header-icon svg { width: 20px; height: 20px; stroke: var(--color-primary); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .page-header-title { font-size: 22px; font-weight: 700; line-height: 1.3; color: var(--color-text); }
+    /* btn-kembali = Ghost button sesuai dashboard.md (navigasi mundur) */
+    .btn-kembali { display: inline-flex; align-items: center; gap: 6px; padding: 0 16px; height: 38px; border-radius: 6px; background: transparent; color: var(--color-muted); border: 1.5px solid var(--color-border); font-family: var(--font-ui); font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all 0.15s; text-decoration: none; }
+    .btn-kembali:hover { background: var(--color-bg); color: var(--color-text); }
+    .btn-kembali svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* TIMELINE SECTIONS */
+    .timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+    .timeline-item { display: flex; gap: 20px; padding-bottom: 32px; position: relative; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 40px; }
+    .timeline-icon { width: 40px; height: 40px; border-radius: 8px; background: var(--color-primary-light); border: 2px solid var(--color-primary-border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; z-index: 1; }
+    .timeline-icon svg { width: 18px; height: 18px; stroke: var(--color-primary); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .timeline-line { width: 2px; flex: 1; background: var(--color-border); margin-top: 4px; min-height: 24px; }
+    .timeline-item:last-child .timeline-line { display: none; }
+    .timeline-body { flex: 1; min-width: 0; }
+    .timeline-section-title { font-size: 15px; font-weight: 600; line-height: 1.4; color: var(--color-text); margin-bottom: 16px; padding-top: 8px; }
+
+    /* INFO GRID */
+    .info-grid { display: flex; flex-direction: column; gap: 0; margin-bottom: 8px; }
+    .info-row { display: grid; grid-template-columns: 200px 1fr; padding: 12px 0; border-bottom: 1px solid var(--color-border-light); align-items: flex-start; }
+    .info-row:last-child { border-bottom: none; }
+    .info-label { font-size: 13px; color: var(--color-muted); font-weight: 400; }
+    .info-value { font-size: 13px; font-weight: 500; color: var(--color-text); }
+    .info-value.mono { font-family: var(--font-mono); font-size: 13px; color: var(--color-primary); }
+
+    /* ACCORDION */
+    .accordion { display: flex; flex-direction: column; gap: 16px; }
+    .accordion-item { border: 1px solid var(--color-border); border-radius: 10px; overflow: hidden; }
+    .accordion-header { display: flex; align-items: center; gap: 8px; padding: 12px 16px; cursor: pointer; background: var(--color-surface); user-select: none; transition: background 0.13s; }
+    .accordion-header:hover { background: var(--color-bg); }
+    .accordion-chevron { width: 16px; height: 16px; stroke: var(--color-primary); stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; flex-shrink: 0; }
+    .accordion-item.collapsed .accordion-chevron { transform: rotate(-90deg); }
+    .accordion-title { font-size: 15px; font-weight: 600; line-height: 1.4; color: var(--color-text); flex: 1; }
+    /* count badge = primary blue, bukan purple */
+    .accordion-count { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 9999px; background: var(--color-primary); color: white; font-size: 11px; font-weight: 700; font-family: var(--font-mono); }
+    .accordion-body { border-top: 1px solid var(--color-border-light); overflow: hidden; }
+    .accordion-item.collapsed .accordion-body { display: none; }
+
+    /* DATA TABLE */
+    .table-wrapper { overflow-x: auto; }
+    .data-table { width: 100%; border-collapse: collapse; }
+    .data-table thead th { padding: 12px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--color-muted); border-bottom: 1.5px solid var(--color-border); white-space: nowrap; text-align: left; background: transparent; }
+    .data-table tbody tr { transition: background 0.12s; }
+    .data-table tbody tr:nth-child(even) { background: var(--color-bg); }
+    .data-table tbody tr:hover { background: var(--color-bg); }
+    .data-table tbody td { padding: 12px 16px; font-size: 13px; color: var(--color-text-secondary); border-bottom: 1px solid var(--color-border-light); vertical-align: middle; }
+    .data-table tbody tr:last-child td { border-bottom: none; }
+    .mono { font-family: var(--font-mono); font-size: 13px; color: var(--color-primary); }
+
+    /* FILE BUTTONS — download/view = neutral, delete = danger */
+    .file-btns { display: flex; gap: 8px; }
+    .btn-file { width: 40px; height: 40px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.13s; border: 1.5px solid; }
+    .btn-file svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .btn-file-view   { background: var(--color-primary-light); color: var(--color-primary); border-color: var(--color-primary-border); }
+    .btn-file-view:hover { background: #DBEAFE; border-color: #93C5FD; }
+    .btn-file-download { background: var(--color-bg); color: var(--color-muted); border-color: var(--color-border); }
+    .btn-file-download:hover { background: var(--color-border-light); color: var(--color-text-secondary); }
+    .btn-file-delete { background: var(--color-danger-bg); color: var(--color-danger); border-color: #FECACA; }
+    .btn-file-delete:hover { background: #FEE2E2; border-color: #FCA5A5; }
+
+    /* PDF ICON */
+    .pdf-icon { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; width: fit-content; }
+    .pdf-icon-box { width: 44px; height: 44px; border-radius: 8px; background: var(--color-danger-bg); border: 1.5px solid #FECACA; display: flex; align-items: center; justify-content: center; }
+    .pdf-icon-box svg { width: 20px; height: 20px; stroke: var(--color-danger); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .pdf-label { font-size: 12px; font-weight: 700; color: var(--color-danger); letter-spacing: 0.5px; }
+
+    /* SDOT BADGE */
+    .sdot-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 9999px; font-size: 12.5px; font-weight: 600; }
+    .sdot-badge .sdot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .sdot-badge.s-green  { background: var(--color-success-bg); color: var(--color-success); } .sdot-badge.s-green  .sdot { background: var(--color-success); }
+    .sdot-badge.s-red    { background: var(--color-danger-bg);  color: var(--color-danger);  } .sdot-badge.s-red    .sdot { background: var(--color-danger); }
+    .sdot-badge.s-amber  { background: var(--color-warning-bg); color: var(--color-warning); } .sdot-badge.s-amber  .sdot { background: var(--color-warning); }
+    .sdot-badge.s-blue   { background: var(--color-primary-light); color: var(--color-primary); } .sdot-badge.s-blue .sdot { background: var(--color-primary); }
+
+    /* HASIL UJI BADGE — sdot-badge style sesuai spec */
+    .badge-lulus       { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 9999px; font-size: 12.5px; font-weight: 600; background: var(--color-success-bg); color: var(--color-success); }
+    .badge-lulus::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--color-success); flex-shrink: 0; }
+    .badge-tidak-lulus { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 9999px; font-size: 12.5px; font-weight: 600; background: var(--color-danger-bg);  color: var(--color-danger); }
+    .badge-tidak-lulus::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--color-danger); flex-shrink: 0; }
+
+    /* FOOTER */
+    .app-footer { text-align: center; padding: 20px; font-size: 12px; color: var(--color-muted); border-top: 1px solid var(--color-border); background: var(--color-surface); }
+    .app-footer strong { color: var(--color-text-secondary); }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+  </style>
+</head>
+
+<body>
+  <header class="topbar" role="banner">
+    <div class="topbar-module-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+    <div class="topbar-brand"><div class="topbar-brand-logo" aria-hidden="true">UP</div><span>Uji Prasarana</span></div>
+    <div class="topbar-sep" aria-hidden="true"></div>
+    <div class="topbar-search" role="search" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Cari data permohonan...</span><kbd>Ctrl K</kbd></div>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-date"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span id="currentDate"></span></div>
+    <div class="topbar-right">
+      <div class="topbar-sep" aria-hidden="true"></div>
+      <button class="topbar-icon-btn" aria-label="Notifikasi"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
+      <div class="topbar-sep" aria-hidden="true"></div>
+      <div class="topbar-avatar" role="button" tabindex="0">AD</div>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <nav class="sidebar" aria-label="Navigasi utama">
+      <a href="index.html" class="nav-item" aria-label="Dashboard"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="nav-label">Dashboard</span></a>
+      <a href="data-badan-usaha.html" class="nav-item" aria-label="Data Badan Usaha"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="nav-label">Data Badan Usaha</span></a>
+      <a href="data-prasarana.html" class="nav-item" aria-label="Data Prasarana"><svg viewBox="0 0 24 24"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><span class="nav-label">Data Prasarana</span></a>
+      <a href="peta-prasarana.html" class="nav-item" aria-label="Peta Prasarana"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 14 8 14s8-8.75 8-14a8 8 0 0 0-8-8z"/></svg><span class="nav-label">Peta Prasarana</span></a>
+      <a href="data-tarif-blu.html" class="nav-item" aria-label="Data Tarif BLU"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span class="nav-label">Data Tarif BLU</span></a>
+      <div class="sidebar-divider" aria-hidden="true"></div>
+      <a href="validasi-pengajuan.html" class="nav-item" aria-label="Validasi Pengajuan"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span class="nav-label">Validasi Pengajuan</span><span class="nav-badge">0</span></a>
+      <a href="billing-blu.html" class="nav-item" aria-label="Billing BLU"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg><span class="nav-label">Billing BLU</span><span class="nav-badge">0</span></a>
+      <a href="laporan-pemohon.html" class="nav-item active" aria-label="Laporan" aria-current="page"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg><span class="nav-label">Laporan</span></a>
+      <button class="sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle sidebar"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+    </nav>
+
+    <main class="main-content">
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="page-header-left">
+          <div class="page-header-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <h1 class="page-header-title">Detail Data Permohonan</h1>
+        </div>
+        <a href="laporan-pemohon.html" class="btn-kembali">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>
+          Kembali
+        </a>
+      </div>
+
+      <!-- Timeline -->
+      <div class="timeline">
+
+        <!-- 1. Permohonan -->
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-body">
+            <p class="timeline-section-title">Permohonan :</p>
+            <div class="info-grid">
+              <div class="info-row"><span class="info-label">Permohonan ID</span><span class="info-value mono">: 240618000001</span></div>
+              <div class="info-row"><span class="info-label">Badan Usaha</span><span class="info-value">: PT Demo KA (Persero)</span></div>
+              <div class="info-row"><span class="info-label">No. Surat Permohonan</span><span class="info-value mono">: SURAT-PERM-013-2024</span></div>
+              <div class="info-row"><span class="info-label">Perihal</span><span class="info-value">: Pembahasan Lorem ipsum is a placeholder text</span></div>
+              <div class="info-row"><span class="info-label">Tgl. Permohonan</span><span class="info-value mono">: 18/06/2024</span></div>
+              <div class="info-row"><span class="info-label">Jenis Prasarana</span><span class="info-value" style="font-weight:600;">: Stasiun Kereta Api</span></div>
+              <div class="info-row"><span class="info-label">Jenis Sertifikat</span><span class="info-value" style="font-weight:600;">: Sertifikasi Uji Pertama</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Permohonan Prasarana -->
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-body">
+            <p class="timeline-section-title">Permohonan Prasarana :</p>
+            <div class="accordion">
+
+              <!-- Stasiun Besar -->
+              <div class="accordion-item" id="acc-stasiun">
+                <div class="accordion-header" onclick="toggleAccordion('acc-stasiun')">
+                  <svg class="accordion-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                  <span class="accordion-title">Stasiun Besar</span>
+                  <span class="accordion-count">2</span>
+                </div>
+                <div class="accordion-body">
+                  <div class="table-wrapper">
+                    <table class="data-table">
+                      <thead><tr><th>No. Pras</th><th>Nama Pras</th><th>Jns. Konstruksi</th><th>Petak</th><th>KM</th><th>Panjang</th><th>Tahun Pem.</th><th>File</th></tr></thead>
+                      <tbody>
+                        <tr>
+                          <td class="mono">XX1</td>
+                          <td style="font-weight:600;">St. Simulasi</td>
+                          <td>Beton</td><td>Petak I</td>
+                          <td class="mono">12</td><td class="mono">100</td><td class="mono">2024</td>
+                          <td><div class="file-btns">
+                            <button class="btn-file btn-file-download" aria-label="Unduh file 1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></button>
+                            <button class="btn-file btn-file-download" aria-label="Unduh file 2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></button>
+                            <button class="btn-file btn-file-download" aria-label="Unduh file 3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></button>
+                            <button class="btn-file btn-file-download" aria-label="Unduh file 4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></button>
+                            <button class="btn-file btn-file-download" aria-label="Unduh file 5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></button>
+                            <button class="btn-file btn-file-download" aria-label="Unduh file 6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></button>
+                            <button class="btn-file btn-file-download" aria-label="Unduh file 7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></button>
+                          </div></td>
+                        </tr>
+                        <tr>
+                          <td class="mono">XX3</td>
+                          <td style="font-weight:600;">St. Besar Q</td>
+                          <td>Baja</td><td>Petak I</td>
+                          <td class="mono">522</td><td class="mono">100</td><td class="mono">2024</td>
+                          <td><div class="file-btns">
+                            <button class="btn-file btn-file-download" aria-label="Unduh file 1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></button>
+                            <button class="btn-file btn-file-download" aria-label="Unduh file 2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></button>
+                          </div></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+                <div class="accordion-body">
+                  <div class="table-wrapper">
+                    <table class="data-table">
+                      <thead><tr><th>No. Pras</th><th>Nama Pras</th><th>Jns. Konstruksi</th><th>Petak</th><th>KM</th><th>Panjang</th><th>Tahun Pem.</th><th>File</th></tr></thead>
+                      <tbody>
+                        <tr><td class="mono">CT000X1</td><td style="font-weight:600;">Catu Daya LAA</td><td>Baja</td><td>Petak I</td><td class="mono">53+22 M</td><td class="mono">1200</td><td class="mono">2002</td><td><div class="file-btns"><button class="btn-file btn-file-download" aria-label="Unduh file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></button><button class="btn-file btn-file-view" aria-label="Lihat file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="btn-file btn-file-delete" aria-label="Hapus file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button></div></td></tr>
+                        <tr><td class="mono">CT000X2</td><td style="font-weight:600;">Catu Daya LAA</td><td>Baja</td><td>Petak I</td><td class="mono">53+22 M</td><td class="mono">1400</td><td class="mono">2002</td><td><div class="file-btns"><button class="btn-file btn-file-download" aria-label="Unduh file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></button><button class="btn-file btn-file-view" aria-label="Lihat file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+
+        <!-- 3. Progress Permohonan -->
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-body">
+            <p class="timeline-section-title">Progress Permohonan :</p>
+            <div class="info-grid">
+              <div class="info-row"><span class="info-label">Status Permohonan</span><span class="info-value" style="padding-top:2px;"><span class="sdot-badge s-green"><span class="sdot"></span>Diterima</span></span></div>
+              <div class="info-row"><span class="info-label">Jadwal Pengujian</span><span class="info-value">: Simulasi Jadwal Pengujian Prasarana</span></div>
+              <div class="info-row"><span class="info-label">Tanggal Pengujian</span><span class="info-value mono">: 19/06/2024</span></div>
+              <div class="info-row"><span class="info-label">Keterangan</span><span class="info-value" style="color:var(--color-text-secondary);">: In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.</span></div>
+              <div class="info-row">
+                <span class="info-label">File Jadwal</span>
+                <span class="info-value" style="padding-top:4px;">
+                  <div class="pdf-icon" onclick="alert('Membuka file PDF...')">
+                    <div class="pdf-icon-box"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+                    <span class="pdf-label">PDF</span>
+                  </div>
+                </span>
+              </div>
+              <div class="info-row"><span class="info-label">Status Pengujian</span><span class="info-value" style="padding-top:2px;"><span class="sdot-badge s-green"><span class="sdot"></span>Selesai</span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Hasil Pengujian -->
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-body">
+            <p class="timeline-section-title">Hasil Pengujian :</p>
+            <div class="accordion">
+
+              <!-- Stasiun Besar Hasil -->
+              <div class="accordion-item" id="acc-hasil-stasiun">
+                <div class="accordion-header" onclick="toggleAccordion('acc-hasil-stasiun')">
+                  <svg class="accordion-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                  <span class="accordion-title">Stasiun Besar</span>
+                  <span class="accordion-count">2</span>
+                </div>
+                <div class="accordion-body">
+                  <div class="table-wrapper">
+                    <table class="data-table">
+                      <thead><tr><th>No. Pras</th><th>Nama Pras</th><th>Jns. Konstruksi</th><th>Petak</th><th>KM</th><th>Hasil Uji</th><th>Catatan</th></tr></thead>
+                      <tbody>
+                        <tr>
+                          <td class="mono">XX1</td>
+                          <td style="font-weight:600;">St. Simulasi</td>
+                          <td>Beton</td><td>Petak I</td><td class="mono">12</td>
+                          <td><span class="badge-tidak-lulus">Tidak Lulus</span></td>
+                          <td style="color:var(--color-text-secondary);font-size:12.5px;">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.</td>
+                        </tr>
+                        <tr>
+                          <td class="mono">XX3</td>
+                          <td style="font-weight:600;">St. Besar Q</td>
+                          <td>Baja</td><td>Petak I</td><td class="mono">522</td>
+                          <td><span class="badge-lulus">Lulus</span></td>
+                          <td style="color:var(--color-text-secondary);font-size:12.5px;">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /timeline -->
+    </main>
+  </div>
+
+  <footer class="app-footer">2023 <strong>Uji Prasarana</strong> Copyright</footer>
+
+  <script>
+    (function(){ const el=document.getElementById('currentDate'); if(!el)return; const now=new Date(); const b=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember']; el.textContent=`${now.getDate()} ${b[now.getMonth()]} ${now.getFullYear()}`; })();
+
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const btn = document.querySelector('.sidebar-toggle-btn');
+      sidebar.classList.toggle('collapsed');
+      btn.style.left = sidebar.classList.contains('collapsed') ? '58px' : '186px';
+    }
+
+    function toggleAccordion(id) {
+      document.getElementById(id).classList.toggle('collapsed');
+    }
+  </script>
+</body>
+</html>

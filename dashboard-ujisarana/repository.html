@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repository — Uji Sarana BLU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="badan-usaha.css" />
+  <link rel="stylesheet" href="input-hasil-uji.css" />
+  <link rel="stylesheet" href="repository.css" />
+
+  <link rel="stylesheet" href="buttons.css?v=1779675105" />
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar" role="banner">
+    <div class="topbar-module-icon" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="12" cy="5" rx="9" ry="3"/>
+        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+      </svg>
+    </div>
+    <div class="topbar-brand">
+      <div class="topbar-logo-box" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>
+      <div class="topbar-brand-text">
+        <span class="topbar-brand-name">Badan Layanan Umum</span>
+        <span class="topbar-brand-sub">Pengujian Uji Sarana</span>
+      </div>
+    </div>
+    <div class="topbar-sep" aria-hidden="true"></div>
+    <div class="topbar-search" role="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="search" placeholder="Cari data permohonan..." aria-label="Cari data permohonan" />
+      <kbd class="topbar-kbd">Ctrl K</kbd>
+    </div>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-date" id="topbarDate">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span id="currentDate"></span>
+    </div>
+    <div class="topbar-sep" aria-hidden="true"></div>
+    <button class="topbar-icon-btn" aria-label="Notifikasi">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+    </button>
+    <div class="topbar-sep" aria-hidden="true"></div>
+    <button class="topbar-user" aria-label="Menu pengguna Sigit Sukmoro, S.kom">
+      <div class="topbar-avatar" aria-hidden="true">SS</div>
+    </button>
+  </header>
+
+  <div class="layout">
+    <!-- SIDEBAR RAIL -->
+    <nav class="sidebar" aria-label="Navigasi utama">
+      <ul class="sidebar-nav" role="list">
+        <li><a href="index.html" class="sidebar-item" aria-label="Dashboard"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+            <span class="sidebar-label">Dashboard</span></a></li>
+        <li><a href="profil.html" class="sidebar-item" aria-label="Profil"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <span class="sidebar-label">Profil</span></a></li>
+        <li><a href="badan-usaha.html" class="sidebar-item" aria-label="Badan Usaha"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 0 1 0 2.828l-7 7a2 2 0 0 1-2.828 0l-7-7A2 2 0 0 1 3 12V7a4 4 0 0 1 4-4z"/></svg></div>
+            <span class="sidebar-label">Badan Usaha</span></a></li>
+        <li><a href="sarana.html" class="sidebar-item" aria-label="Sarana"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div>
+            <span class="sidebar-label">Sarana</span></a></li>
+        <li><a href="penjadwalan-uji.html" class="sidebar-item" aria-label="Penjadwalan Uji"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <span class="sidebar-label">Penjadwalan Uji</span></a></li>
+        <li><a href="input-hasil-uji.html" class="sidebar-item" aria-label="Input Hasil Uji"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+            <span class="sidebar-label">Input Hasil Uji</span></a></li>
+        <li><a href="perbaikan-uji.html" class="sidebar-item" aria-label="Perbaikan Uji"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+            <span class="sidebar-label">Perbaikan Uji</span></a></li>
+        <li><a href="kirim-ulang-hasil-uji.html" class="sidebar-item" aria-label="Kirim Ulang Hasil Uji"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div>
+            <span class="sidebar-label">Kirim Ulang Hasil Uji</span></a></li>
+        <li><a href="repository.html" class="sidebar-item active" aria-label="Repository" aria-current="page"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+            <span class="sidebar-label">Repository</span></a></li>
+        <li><a href="laporan-permohonan-uji.html" class="sidebar-item" aria-label="Laporan"><div class="sidebar-icon-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+            <span class="sidebar-label">Laporan</span></a></li>
+      </ul>
+    </nav>
+
+      <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="Toggle sidebar">
+        <svg id="sidebarCollapseIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+    <!-- MAIN CONTENT -->
+    <main class="main-content" id="main-content">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="page-header-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="5" rx="9" ry="3"/>
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+          </svg>
+        </div>
+        <h1 class="page-title">Repository</h1>
+      </div>
+
+      <!-- Card -->
+      <div class="card repo-card">
+
+        <!-- Card Header -->
+        <div class="repo-card-header">
+          <div class="tbl-card-title-wrap" style="display:flex;align-items:center;gap:10px;">
+            <div class="tbl-card-title-icon" aria-hidden="true">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+              </svg>
+            </div>
+            <h2 class="tbl-card-title">Repository</h2>
+          </div>
+          <button class="btn-tambah-repo" id="btnBaru" aria-label="Tambah dokumen baru">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Baru
+          </button>
+        </div>
+
+        <!-- Info Alert teal -->
+        <div class="ihu-alert" role="alert">
+          <div class="ihu-alert-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <div class="ihu-alert-body">
+            <p class="ihu-alert-title">INFORMASI</p>
+            <ol class="ihu-alert-list">
+              <li>Respository digunakan untuk menampung dokumen / file yang akan digunakan pada proses pengajauan atau validasi teradap permohonan.</li>
+              <li>Saat ini dokumen yang diizinkan hanya format .PDF</li>
+              <li>Dokumen pada repository yang sudah berumur 2 tahun akan dilakukan penghapusan.</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Filter Jenis Dokumen -->
+        <div class="ihu-filter-section">
+          <div class="ku-filter-label-row" style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+            </svg>
+            <span style="font-size:13px;font-weight:500;color:var(--color-text-secondary);">Filter Berdasarkan Jenis Dokumen :</span>
+          </div>
+          <div class="ihu-filter-row">
+            <select class="ihu-select" id="filterJenisDok" aria-label="Filter jenis dokumen" style="min-width:200px;">
+              <option value="">--- Jenis File ---</option>
+              <option value="CHECK SHEET">Check Sheet</option>
+              <option value="SURAT PENYAMPAIAN">Surat Penyampaian</option>
+              <option value="BERITA ACARA">Berita Acara</option>
+              <option value="SERTIFIKAT">Sertifikat</option>
+              <option value="LAPORAN">Laporan</option>
+            </select>
+            <button class="btn-cari" id="btnFilter" aria-label="Terapkan filter">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+              </svg>
+              Filter
+            </button>
+          </div>
+        </div>
+
+        <!-- Show + Search -->
+        <div class="tbl-filters">
+          <div class="tbl-filter-group">
+            <div class="tbl-show-inline">
+              <span>Show</span>
+              <select class="tbl-show-select" id="rowsPerPage" aria-label="Jumlah baris per halaman">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+              <span>entries</span>
+            </div>
+          </div>
+          <div class="tbl-search-wrap">
+            <label for="tblSearch" class="tbl-search-label">Search:</label>
+            <div class="tbl-search">
+              <input type="search" id="tblSearch" placeholder="Cari dokumen..." aria-label="Cari dokumen" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrapper">
+          <table class="data-table" id="repoTable">
+            <thead>
+              <tr>
+                <th scope="col" style="width:52px;">NO.</th>
+                <th scope="col" class="sortable"><span class="th-inner">Jenis Dokumen<span class="sort-icon" aria-hidden="true"><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 0L8 5H0z" fill="currentColor"/></svg><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 5L0 0h8z" fill="currentColor"/></svg></span></span></th>
+                <th scope="col" class="sortable"><span class="th-inner">Nama Dokumen<span class="sort-icon" aria-hidden="true"><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 0L8 5H0z" fill="currentColor"/></svg><svg width="8" height="5" viewBox="0 0 8 5"><path d="M4 5L0 0h8z" fill="currentColor"/></svg></span></span></th>
+                <th scope="col" style="width:60px; text-align:center;">File</th>
+                <th scope="col" style="width:96px; text-align:center;">Options</th>
+              </tr>
+            </thead>
+            <tbody id="repoTbody"></tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="tbl-pagination">
+          <span id="repoInfo" class="tbl-info"></span>
+          <div class="page-btns" id="repoPageBtns" role="navigation" aria-label="Navigasi halaman"></div>
+        </div>
+
+      </div><!-- /.card -->
+    </main>
+  </div><!-- /.layout -->
+
+  <!-- Modal Tambah/Edit Dokumen -->
+  <div class="modal-overlay" id="repoModalOverlay" role="dialog" aria-modal="true" aria-labelledby="repoModalTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title-icon" aria-hidden="true">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="5" rx="9" ry="3"/>
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+          </svg>
+        </div>
+        <h3 class="modal-title" id="repoModalTitle">Tambah Dokumen</h3>
+        <button class="modal-close" id="repoModalClose" aria-label="Tutup modal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body-form">
+        <div class="form-group">
+          <label class="form-label" for="inputJenisDok">Jenis Dokumen <span class="req">*</span></label>
+          <select class="form-input" id="inputJenisDok" aria-required="true">
+            <option value="">Pilih jenis dokumen</option>
+            <option value="CHECK SHEET">Check Sheet</option>
+            <option value="SURAT PENYAMPAIAN">Surat Penyampaian</option>
+            <option value="BERITA ACARA">Berita Acara</option>
+            <option value="SERTIFIKAT">Sertifikat</option>
+            <option value="LAPORAN">Laporan</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="inputNamaDok">Nama Dokumen <span class="req">*</span></label>
+          <input type="text" class="form-input" id="inputNamaDok"
+                 placeholder="Contoh: 162 CHECKSHEET LOKOMOTIF SURABAYA" aria-required="true" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="inputFile">File PDF <span class="req">*</span></label>
+          <input type="file" class="form-input" id="inputFile" accept=".pdf" aria-required="true" />
+          <p class="form-hint">Hanya format .PDF yang diizinkan. Maksimum 10MB.</p>
+        </div>
+      </div>
+      <div class="modal-footer-form">
+        <button class="btn-modal-ghost" id="repoModalBatal">Batalkan</button>
+        <button class="btn-modal-primary" id="repoModalSimpan">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+            <polyline points="17 21 17 13 7 13 7 21"/>
+            <polyline points="7 3 7 8 15 8"/>
+          </svg>
+          Simpan Data
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Konfirmasi Hapus -->
+  <div class="modal-overlay" id="repoDeleteOverlay" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+    <div class="modal" style="width:420px;">
+      <div class="modal-header">
+        <div class="modal-title-icon" style="background:#FEE2E2;" aria-hidden="true">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#DC2626"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+            <path d="M10 11v6"/><path d="M14 11v6"/>
+            <path d="M9 6V4h6v2"/>
+          </svg>
+        </div>
+        <h3 class="modal-title" id="deleteModalTitle">Hapus Dokumen</h3>
+        <button class="modal-close" id="deleteModalClose" aria-label="Tutup modal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body-form" style="gap:12px;">
+        <p style="font-size:14px;color:var(--color-text);line-height:1.6;">
+          Hapus dokumen ini secara permanen?
+        </p>
+        <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:12px 16px;">
+          <p style="font-size:12px;font-weight:600;color:var(--color-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Dokumen yang akan dihapus</p>
+          <p id="deleteDocName" style="font-size:13.5px;font-weight:600;color:#DC2626;"></p>
+          <p id="deleteDocJenis" style="font-size:12px;color:var(--color-muted);margin-top:2px;"></p>
+        </div>
+        <p style="font-size:12.5px;color:var(--color-muted);">Tindakan ini tidak dapat dibatalkan.</p>
+      </div>
+      <div class="modal-footer-form">
+        <button class="btn-modal-ghost" id="deleteModalBatal">Batalkan</button>
+        <button class="btn-modal-danger" id="deleteModalConfirm">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+            <path d="M10 11v6"/><path d="M14 11v6"/>
+            <path d="M9 6V4h6v2"/>
+          </svg>
+          Ya, Hapus
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="repository.js"></script>
+</body>
+</html>

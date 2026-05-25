@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data SIK · BLU Balai Pengujian Perkeretaapian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+</head>
+<body data-active-nav="Data SIK">
+  <!-- ══════════════ TOPBAR (full width) ══════════════ -->
+  <header class="topbar" role="banner">
+
+    <!-- Active module icon (flush-left, matches sidebar rail) -->
+    <div class="topbar-module-icon" id="topbarModuleIcon" aria-hidden="true">
+      <!-- Dashboard icon (default) -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" id="topbarModuleSvg">
+        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+    </div>
+
+    <div class="topbar-brand">
+      <img src="Asset/1691134668-logobackendheader (1).png" alt="Balai Pengujian Perkeretaapian" class="topbar-brand-logo">
+      <div class="topbar-brand-sep" aria-hidden="true"></div>
+    </div>
+
+    <div class="search-bar" role="search" aria-label="Cari data atau menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <span>Cari data atau menu...</span>
+      <kbd aria-label="Ctrl K untuk pencarian">Ctrl K</kbd>
+    </div>
+
+    <div class="topbar-spacer"></div>
+
+    <div class="topbar-date" id="topbarDate">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span id="currentDate"></span>
+    </div>
+
+    <button class="topbar-btn" aria-label="Notifikasi — ada notifikasi baru">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+      <span class="notif-dot" aria-hidden="true"></span>
+    </button>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <div class="topbar-user" role="button" tabindex="0" aria-label="Menu pengguna">
+      <div class="user-avatar" aria-hidden="true">KR</div>
+    </div>
+  </header>
+
+  <div class="app-shell">
+
+  <!-- ══════════════ SIDEBAR ══════════════ -->
+  <aside class="sidebar" role="navigation" aria-label="Navigasi Utama">
+
+    <div class="sidebar-logo" aria-hidden="true"></div>
+
+    <nav class="sidebar-nav" aria-label="Menu Utama">
+      <a href="#" class="nav-item active" aria-label="Dashboard" aria-current="page">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="SDM" data-menu="SDM">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">SDM</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Masterisasi" data-menu="Masterisasi">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2z"/>
+            <path d="M7 7h.01"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Masterisasi</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Manajemen Portal">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Manajemen Portal</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Akses SSO" data-menu="AksesSso">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Akses SSO</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Pengelola Portal" data-menu="PengelolaPortal">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Pengelola Portal</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="API">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">API</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Data SIK">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <ellipse cx="12" cy="5" rx="9" ry="3"/>
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Data SIK</span>
+      </a>
+    </nav>
+
+  </aside>
+
+  <!-- ══════════════ SUB-NAV PANEL ══════════════ -->
+  <aside class="subnav-panel" id="subnavPanel" role="navigation" aria-label="Submenu Kontekstual">
+    <div class="subnav-inner">
+
+      <!-- Masterisasi Section -->
+      <div class="subnav-section" id="subnav-masterisasi">
+        <p class="subnav-section-label">Masterisasi</p>
+        <button class="subnav-item active" data-page="masterisasi-aplikasi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Aplikasi
+        </button>
+        <button class="subnav-item" data-page="masterisasi-level-aplikasi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2z"/><path d="M7 7h.01"/></svg>
+          Level Aplikasi
+        </button>
+      </div>
+
+      <!-- Pengelola Portal Section -->
+      <div class="subnav-section" id="subnav-pengelola-portal">
+        <p class="subnav-section-label">Pengelola Portal</p>
+        <button class="subnav-item active" data-page="pengelola-portal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Data Pengelola Portal
+        </button>
+      </div>
+
+      <!-- Akses SSO Section -->
+      <div class="subnav-section" id="subnav-akses-sso">
+        <p class="subnav-section-label">Akses SSO</p>
+        <button class="subnav-item active" data-page="akses-sso">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Data Akses SSO
+        </button>
+      </div>
+
+      <!-- Data SIK Section -->
+      <div class="subnav-section" id="subnav-data-sik">
+        <p class="subnav-section-label">Data SIK</p>
+        <button class="subnav-item active" data-page="sik-data-kantor">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Data Kantor
+        </button>
+        <button class="subnav-item" data-page="sik-pegawai-perkantor">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Pegawai Perkantor
+        </button>
+        <button class="subnav-item" data-page="sik-pegawai-honorer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+          Pegawai Honorer
+        </button>
+        <button class="subnav-item" data-page="sik-pegawai-asn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Pegawai ASN
+        </button>
+      </div>
+
+      <!-- SDM Section -->
+      <div class="subnav-section" id="subnav-sdm">
+        <p class="subnav-section-label">SDM</p>
+        <button class="subnav-item active" data-page="unit-kerja">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Unit Kerja
+        </button>
+        <button class="subnav-item" data-page="jabatan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          Jabatan
+        </button>
+        <button class="subnav-item" data-page="data-pegawai">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Data Pegawai
+        </button>
+      </div>
+
+    </div>
+    <button class="subnav-collapse-btn" id="subnavCollapse" title="Tutup panel">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+  </aside>
+
+  <!-- ══════════════ MAIN CONTENT ══════════════ -->
+  <div class="main-content">
+
+    <!-- Page Content -->
+    <main class="page-content" id="main-content">
+
+      <!-- ══ VIEW: SIK Data Kantor ══ -->
+      <div class="page-view active" id="view-sik-data-kantor">
+
+          
+        <div class="sdm-page-header">
+          <h1 class="sdm-page-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Data Kantor SIK
+          </h1>
+          <nav class="sdm-breadcrumb" aria-label="Lokasi halaman">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="color:var(--color-subtle)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="sdm-breadcrumb-sep">*</span>
+            <span>Data SIK</span>
+            <span class="sdm-breadcrumb-sep">•</span>
+            <span class="sdm-breadcrumb-current">Data Kantor</span>
+          </nav>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <p class="info-card-text">Halaman ini menampilkan data pegawai Balai Pengujian Perkeretaapian.</p>
+        </div>
+
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Data Pegawai
+            </div>
+            <button class="btn-secondary-outline" aria-label="Sinkronisasi data pegawai perkantor">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Sinkronisasi
+            </button>
+          </div>
+
+          <div class="tbl-filters">
+            <div class="tbl-show">
+              Tampilkan
+              <select aria-label="Jumlah data per halaman"><option>10</option><option>25</option><option>50</option><option>100</option></select>
+              entri
+            </div>
+            <div style="flex:1;"></div>
+            <div class="tbl-search" style="max-width:220px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" placeholder="Pencarian..." aria-label="Cari pegawai perkantor">
+            </div>
+          </div>
+
+          <div style="overflow-x:auto;">
+            <table class="data-table" aria-label="Daftar SIK Pegawai Perkantor" style="min-width:1000px;">
+              <thead>
+                <tr>
+                  <th class="center" style="width:52px;"><span class="th-sort">NO. <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                  <th><span class="th-sort">NAMA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                  <th><span class="th-sort">NIP <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                  <th><span class="th-sort">NIK <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                  <th style="width:110px;">TANGGAL LAHIR</th>
+                  <th class="center" style="width:80px;">JENIS KELAMIN</th>
+                  <th>UNIT</th>
+                  <th>KANTOR</th>
+                  <th>PANGKAT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="no">1</td>
+                  <td><div class="employee-name" style="font-size:13px;">RONALD JACKSON SIMBOLON, ST, MT</div></td>
+                  <td><span style="font-family:var(--font-mono);font-size:12px;">197903032005021002</span></td>
+                  <td><span style="font-family:var(--font-mono);font-size:12px;">3276020303790009</span></td>
+                  <td style="font-size:13px;">03-03-1979</td>
+                  <td class="center" style="font-size:13px;font-weight:600;">L</td>
+                  <td style="font-size:13px;">Direktorat Jenderal Perkeretaapian</td>
+                  <td style="font-size:13px;">Balai Pengujian Perkeretaapian</td>
+                  <td style="font-size:13px;">Pembina Tingkat I</td>
+                </tr>
+                <tr>
+                  <td class="no">2</td>
+                  <td><div class="employee-name" style="font-size:13px;">ANDREAS KOESOEMO NOEGROHO, S.Kom, M.M</div></td>
+                  <td><span style="font-family:var(--font-mono);font-size:12px;">197304012006041013</span></td>
+                  <td><span style="font-family:var(--font-mono);font-size:12px;">3209200104730005</span></td>
+                  <td style="font-size:13px;">01-04-1973</td>
+                  <td class="center" style="font-size:13px;font-weight:600;">L</td>
+                  <td style="font-size:13px;">Direktorat Jenderal Perkeretaapian</td>
+                  <td style="font-size:13px;">Balai Pengujian Perkeretaapian</td>
+                  <td style="font-size:13px;">Pembina</td>
+                </tr>
+                <tr>
+                  <td class="no">3</td>
+                  <td><div class="employee-name" style="font-size:13px;">AMANDA PRITASARI, ST, M.T</div></td>
+                  <td><span style="font-family:var(--font-mono);font-size:12px;">198403192007122001</span></td>
+                  <td><span style="font-family:var(--font-mono);font-size:12px;">3273125903840013</span></td>
+                  <td style="font-size:13px;">19-03-1984</td>
+                  <td class="center" style="font-size:13px;font-weight:600;">P</td>
+                  <td style="font-size:13px;">Direktorat Jenderal Perkeretaapian</td>
+                  <td style="font-size:13px;">Balai Pengujian Perkeretaapian</td>
+                  <td style="font-size:13px;">Pembina</td>
+                </tr>
+                <tr>
+                  <td class="no">4</td>
+                  <td><div class="employee-name" style="font-size:13px;">Ir. YOHARY BARUNA PUTRA, ST, M.M.Tr.</div></td>
+                  <td><span style="font-family:var(--font-mono);font-size:12px;">198212272009121002</span></td>
+                  <td><span style="font-family:var(--font-mono);font-size:12px;">3674052712820006</span></td>
+                  <td style="font-size:13px;">27-12-1982</td>
+                  <td class="center" style="font-size:13px;font-weight:600;">L</td>
+                  <td style="font-size:13px;">Direktorat Jenderal Perkeretaapian</td>
+                  <td style="font-size:13px;">Balai Pengujian Perkeretaapian</td>
+                  <td style="font-size:13px;">Pembina</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tbl-pagination">
+            <span>Menampilkan 1 sampai 4 dari 4 data</span>
+            <div class="page-btns">
+              <button class="page-btn" aria-label="Sebelumnya">&#8249;</button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn" aria-label="Selanjutnya">&#8250;</button>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer"><p>© 2026 <a href="#">Balai Pengujian Perkeretaapian</a> · Direktorat Jenderal Perkeretaapian · Kementerian Perhubungan Republik Indonesia</p></footer>
+      </div><!-- /#view-sik-pegawai-perkantor -->
+
+      <!-- ══ VIEW: SIK Pegawai Perkantor ══ -->
+      <div class="page-view" id="view-sik-pegawai-perkantor">
+
+        <div class="sdm-page-header">
+          <h1 class="sdm-page-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Data Pegawai Perkantor
+          </h1>
+          <nav class="sdm-breadcrumb" aria-label="Lokasi halaman">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="color:var(--color-subtle)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="sdm-breadcrumb-sep">*</span>
+            <span>Data SIK</span>
+            <span class="sdm-breadcrumb-sep">•</span>
+            <span class="sdm-breadcrumb-current">Pegawai Perkantor</span>
+          </nav>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <p class="info-card-text">Halaman ini menampilkan data pegawai perkantor Balai Pengujian Perkeretaapian.</p>
+        </div>
+
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Data Pegawai Perkantor
+            </div>
+            <button class="btn-secondary-outline" aria-label="Sinkronisasi data pegawai perkantor">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Sinkronisasi
+            </button>
+          </div>
+
+          <div class="tbl-filters">
+            <div class="tbl-show">
+              Tampilkan
+              <select aria-label="Jumlah data per halaman"><option>10</option><option>25</option><option>50</option><option>100</option></select>
+              entri
+            </div>
+            <div style="flex:1;"></div>
+            <div class="tbl-search" style="max-width:220px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" placeholder="Pencarian..." aria-label="Cari pegawai perkantor">
+            </div>
+          </div>
+
+          <div style="overflow-x:auto;">
+            <table class="data-table" aria-label="Daftar SIK Pegawai Perkantor" style="min-width:1000px;">
+              <thead>
+                <tr>
+                  <th class="center" style="width:52px;"><span class="th-sort">NO. <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                  <th><span class="th-sort">NAMA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                  <th><span class="th-sort">NIP <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                  <th><span class="th-sort">NIK <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span></th>
+                  <th style="width:110px;">TANGGAL LAHIR</th>
+                  <th class="center" style="width:80px;">JENIS KELAMIN</th>
+                  <th>UNIT</th>
+                  <th>KANTOR</th>
+                  <th>PANGKAT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="no">1</td>
+                  <td><div class="employee-name" style="font-size:13px;">RONALD JACKSON SIMBOLON, ST, MT</div></td>
+                  <td><span style="font-family:var(--font-mono);font-size:12px;">197903032005021002</span></td>
+                  <td><span style="font-family:var(--font-mono);font-size:12px;">3276020303790009</span></td>
+                  <td style="font-size:13px;">03-03-1979</td>
+                  <td class="center" style="font-size:13px;font-weight:600;">L</td>
+                  <td style="font-size:13px;">Direktorat Jenderal Perkeretaapian</td>
+                  <td style="font-size:13px;">Balai Pengujian Perkeretaapian</td>
+                  <td style="font-size:13px;">Pembina Tingkat I</td>
+                </tr>
+                <tr>
+                  <td class="no">2</td>
+                  <td><div class="employee-name" style="font-size:13px;">ANDREAS KOESOEMO NOEGROHO, S.Kom, M.M</div></td>
+                  <td><span style="font-family:var(--font-mono);font-size:12px;">197304012006041013</span></td>
+                  <td><span style="font-family:var(--font-mono);font-size:12px;">3209200104730005</span></td>
+                  <td style="font-size:13px;">01-04-1973</td>
+                  <td class="center" style="font-size:13px;font-weight:600;">L</td>
+                  <td style="font-size:13px;">Direktorat Jenderal Perkeretaapian</td>
+                  <td style="font-size:13px;">Balai Pengujian Perkeretaapian</td>
+                  <td style="font-size:13px;">Pembina</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tbl-pagination">
+            <span>Menampilkan 1 sampai 2 dari 2 data</span>
+            <div class="page-btns">
+              <button class="page-btn" aria-label="Sebelumnya">&#8249;</button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn" aria-label="Selanjutnya">&#8250;</button>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer"><p>© 2026 <a href="#">Balai Pengujian Perkeretaapian</a> · Direktorat Jenderal Perkeretaapian · Kementerian Perhubungan Republik Indonesia</p></footer>
+      </div><!-- /#view-sik-pegawai-perkantor -->
+
+      <!-- ══ VIEW: SIK Pegawai Honorer ══ -->
+      <div class="page-view" id="view-sik-pegawai-honorer">
+
+          
+        <div class="sdm-page-header">
+          <h1 class="sdm-page-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            Data Pegawai Honorer
+          </h1>
+          <nav class="sdm-breadcrumb" aria-label="Lokasi halaman">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="color:var(--color-subtle)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="sdm-breadcrumb-sep">*</span>
+            <span>Data SIK</span>
+            <span class="sdm-breadcrumb-sep">•</span>
+            <span class="sdm-breadcrumb-current">Pegawai Honorer</span>
+          </nav>
+        </div>
+
+        <!-- Info banner ungu sesuai screenshot -->
+        <div style="display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);background:#F5F3FF;border:1px solid #DDD6FE;border-radius:8px;font-size:13px;font-weight:500;color:var(--color-purple);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;stroke-width:2;flex-shrink:0;" aria-hidden="true"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+          <span>Gunakan <strong style="color:#D97706;">NIP &amp; NIK</strong> sebagai acuan untuk mencari data pegawai ASN.</span>
+        </div>
+
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Data Pegawai ASN
+            </div>
+          </div>
+
+          <!-- Form pencarian -->
+          <div style="padding:var(--sp-5) var(--sp-5) var(--sp-6);">
+            <div style="display:flex;align-items:center;gap:var(--sp-4);flex-wrap:wrap;">
+              <label style="font-size:13px;font-weight:600;color:var(--color-text-secondary);white-space:nowrap;flex-shrink:0;">Cari Pegawai:</label>
+              <input
+                type="text"
+                placeholder="Masukkan nip..."
+                class="form-input"
+                style="flex:1;min-width:180px;max-width:320px;"
+                aria-label="Masukkan NIP pegawai ASN"
+              >
+              <input
+                type="text"
+                placeholder="Masukkan nik..."
+                class="form-input"
+                style="flex:1;min-width:180px;max-width:320px;"
+                aria-label="Masukkan NIK pegawai ASN"
+              >
+              <button class="btn-tambah" style="white-space:nowrap;" aria-label="Cari data pegawai ASN">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                Cari Pegawai
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer"><p>© 2026 <a href="#">Balai Pengujian Perkeretaapian</a> · Direktorat Jenderal Perkeretaapian · Kementerian Perhubungan Republik Indonesia</p></footer>
+      </div><!-- /#view-sik-pegawai-asn -->
+
+      <!-- ══ VIEW: SIK Pegawai ASN ══ -->
+      <div class="page-view" id="view-sik-pegawai-asn">
+
+        <div class="sdm-page-header">
+          <h1 class="sdm-page-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            Data Pegawai ASN
+          </h1>
+          <nav class="sdm-breadcrumb" aria-label="Lokasi halaman">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="color:var(--color-subtle)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="sdm-breadcrumb-sep">*</span>
+            <span>Data SIK</span>
+            <span class="sdm-breadcrumb-sep">•</span>
+            <span class="sdm-breadcrumb-current">Pegawai ASN</span>
+          </nav>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);background:#F5F3FF;border:1px solid #DDD6FE;border-radius:8px;font-size:13px;font-weight:500;color:var(--color-purple);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;stroke-width:2;flex-shrink:0;" aria-hidden="true"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+          <span>Gunakan <strong style="color:#D97706;">NIP &amp; NIK</strong> sebagai acuan untuk mencari data pegawai ASN.</span>
+        </div>
+
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Cari Data Pegawai ASN
+            </div>
+          </div>
+
+          <div style="padding:var(--sp-5) var(--sp-5) var(--sp-6);">
+            <div style="display:flex;align-items:center;gap:var(--sp-4);flex-wrap:wrap;">
+              <label style="font-size:13px;font-weight:600;color:var(--color-text-secondary);white-space:nowrap;flex-shrink:0;">Cari Pegawai:</label>
+              <input type="text" placeholder="Masukkan nip..." class="form-input" style="flex:1;min-width:180px;max-width:320px;" aria-label="Masukkan NIP pegawai ASN">
+              <input type="text" placeholder="Masukkan nik..." class="form-input" style="flex:1;min-width:180px;max-width:320px;" aria-label="Masukkan NIK pegawai ASN">
+              <button class="btn-tambah" style="white-space:nowrap;" aria-label="Cari data pegawai ASN">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                Cari Pegawai
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer"><p>© 2026 <a href="#">Balai Pengujian Perkeretaapian</a> · Direktorat Jenderal Perkeretaapian · Kementerian Perhubungan Republik Indonesia</p></footer>
+      </div><!-- /#view-sik-pegawai-asn -->
+
+    </main>
+  </div><!-- /.main-content -->
+  </div><!-- /.app-shell -->
+
+  <script>
+
+    /* ── Update Date in Topbar ── */
+    function updateCurrentDate() {
+      const dateElement = document.getElementById('currentDate');
+      if (dateElement) {
+        const now = new Date();
+        const bulanIndo = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        const hari = now.getDate();
+        const bulan = bulanIndo[now.getMonth()];
+        const tahun = now.getFullYear();
+        dateElement.textContent = `${hari} ${bulan} ${tahun}`;
+      }
+    }
+    updateCurrentDate();
+
+    /* ── Sub-nav Panel Toggle ── */
+    const subnavPanel = document.getElementById('subnavPanel');
+    const subnavCollapse = document.getElementById('subnavCollapse');
+    if (subnavCollapse) {
+      subnavCollapse.addEventListener('click', function() {
+        subnavPanel.classList.toggle('open');
+      });
+    }
+
+    /* ── Update topbar module icon ── */
+    function updateTopbarIcon(navItem) {
+      const svgSrc = navItem.querySelector('.nav-icon-box svg');
+      const topbarSvg = document.getElementById('topbarModuleSvg');
+      if (svgSrc && topbarSvg) {
+        topbarSvg.innerHTML = svgSrc.innerHTML;
+        topbarSvg.setAttribute('viewBox', svgSrc.getAttribute('viewBox') || '0 0 24 24');
+      }
+    }
+
+    /* ── Mark active nav item from data-active-nav ── */
+    const activeNav = document.body.dataset.activeNav;
+    document.querySelectorAll('.nav-item').forEach(item => {
+      const label = item.querySelector('.nav-item-label')?.textContent?.trim()
+                 || item.getAttribute('aria-label') || '';
+      if (label === activeNav) {
+        item.classList.add('active');
+        item.setAttribute('aria-current', 'page');
+        updateTopbarIcon(item);
+      }
+    });
+
+    /* ── Open subnav if this page has one ── */
+    const subnavMap = {
+      'SDM':              'subnav-sdm',
+      'Masterisasi':      'subnav-masterisasi',
+      'Akses SSO':        'subnav-akses-sso',
+      'Pengelola Portal': 'subnav-pengelola-portal',
+      'Data SIK':         'subnav-data-sik',
+    };
+    if (subnavMap[activeNav]) {
+      const sec = document.getElementById(subnavMap[activeNav]);
+      if (sec) { sec.classList.add('active'); subnavPanel.classList.add('open'); }
+    }
+
+    /* ── Sidebar nav clicks → navigate to module file ── */
+    const navRoutes = {
+      'Dashboard':        'index.html',
+      'SDM':              'sdm.html',
+      'Masterisasi':      'masterisasi.html',
+      'Akses SSO':        'akses-sso.html',
+      'Pengelola Portal': 'pengelola-portal.html',
+      'Manajemen Portal': 'manajemen-portal.html',
+      'API':              'api.html',
+      'Data SIK':         'data-sik.html',
+    };
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        const label = this.querySelector('.nav-item-label')?.textContent?.trim()
+                   || this.getAttribute('aria-label') || '';
+        const route = navRoutes[label];
+        if (route && route !== '#') window.location.href = route;
+      });
+    });
+
+    /* ── Data SIK Sub-nav page switching ── */
+    document.querySelectorAll('#subnav-data-sik .subnav-item').forEach(item => {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('#subnav-data-sik .subnav-item').forEach(t => {
+          t.classList.toggle('active', t === this);
+        });
+        document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+        const target = document.getElementById('view-' + this.dataset.page);
+        if (target) target.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

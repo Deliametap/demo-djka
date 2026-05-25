@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Pegawai — Badan Layanan Umum DJKA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════
+       TOPBAR
+  ═══════════════════════════════════════════════════ -->
+  <header class="topbar" role="banner">
+
+    <div class="topbar-module-icon" id="topbarModuleIcon" aria-hidden="true">
+      <!-- ikon berubah sesuai halaman aktif via JS -->
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </div>
+
+    <div class="topbar-brand">
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect width="32" height="32" rx="6" fill="#1D4ED8"/>
+        <path d="M8 22V14l8-6 8 6v8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="13" y="16" width="6" height="6" rx="1" fill="white"/>
+      </svg>
+      <div class="topbar-brand-text">
+        <span class="topbar-brand-name">Badan Layanan Umum</span>
+        <span class="topbar-brand-sub">Balai Pengujian Perkeretaapian</span>
+      </div>
+    </div>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <div class="topbar-search" role="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="search" placeholder="Cari data pegawai, aplikasi, atau menu..." aria-label="Cari" />
+      <kbd class="topbar-kbd" aria-label="Shortcut Ctrl K">Ctrl K</kbd>
+    </div>
+
+    <div class="topbar-spacer"></div>
+
+    <div class="topbar-date" aria-label="Tanggal hari ini">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span id="currentDate"></span>
+    </div>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <button class="topbar-icon-btn" aria-label="Notifikasi (3 notifikasi baru)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+      <span class="topbar-badge" aria-hidden="true">3</span>
+    </button>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <!-- User dropdown -->
+    <div class="topbar-user-wrap" id="userMenuWrap">
+      <button class="topbar-user" id="userMenuBtn" aria-haspopup="true" aria-expanded="false" aria-controls="userMenuPanel">
+        <div class="topbar-user-info">
+          <span class="topbar-user-name">Sigit Sukmoro, S.Kom</span>
+          <span class="topbar-user-email">sigit_sukmoro@dephub.go.id</span>
+        </div>
+        <div class="topbar-avatar" aria-hidden="true">
+          <img src="https://ui-avatars.com/api/?name=Sigit+Sukmoro&background=1D4ED8&color=fff&size=64" alt="" />
+          <span class="topbar-avatar-dot"></span>
+        </div>
+        <svg class="topbar-user-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+
+      <div class="user-panel" id="userMenuPanel" role="dialog" aria-label="Profil pengguna" hidden>
+        <div class="user-panel-header">
+          <div class="user-panel-avatar-wrap">
+            <img src="https://ui-avatars.com/api/?name=Sigit+Sukmoro&background=1D4ED8&color=fff&size=128" alt="Foto profil Sigit Sukmoro" class="user-panel-avatar" />
+            <span class="user-panel-avatar-dot" aria-hidden="true"></span>
+          </div>
+          <div class="user-panel-identity">
+            <span class="user-panel-name">Sigit Sukmoro, S.Kom</span>
+            <span class="user-panel-email">sigit_sukmoro@dephub.go.id</span>
+            <span class="sdot-badge s-green user-panel-status"><span class="sdot" aria-hidden="true"></span>Aktif</span>
+          </div>
+        </div>
+        <div class="user-panel-body">
+          <div class="alert alert-warning alert-sm" role="note">
+            <div class="alert-icon" aria-hidden="true">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <span class="alert-text">Perubahan profil hanya dapat dilakukan oleh administrator.</span>
+          </div>
+          <div class="profile-details">
+            <div class="profile-row">
+              <span class="profile-label">NIP</span>
+              <span class="profile-value mono">19841113200812 1003</span>
+            </div>
+            <div class="profile-row">
+              <span class="profile-label">Jabatan</span>
+              <span class="profile-value">Pranata Komputer Ahli Muda</span>
+            </div>
+            <div class="profile-row">
+              <span class="profile-label">Unit Kerja</span>
+              <span class="profile-value">Balai Pengujian Perkeretaapian</span>
+            </div>
+            <div class="profile-row">
+              <span class="profile-label">Golongan</span>
+              <span class="profile-value">III/c</span>
+            </div>
+          </div>
+        </div>
+        <div class="user-panel-footer">
+          <button class="user-panel-logout">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16 17 21 12 16 7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            Keluar
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════
+       LAYOUT
+  ═══════════════════════════════════════════════════ -->
+  <div class="layout">
+
+    <!-- SIDEBAR RAIL -->
+    <nav class="sidebar" aria-label="Navigasi utama">
+      <ul class="sidebar-nav" role="list">
+
+        <li>
+          <button class="sidebar-item active" data-page="dashboard" aria-label="Dashboard" aria-current="page">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </div>
+          </button>
+        </li>
+
+        <li>
+          <button class="sidebar-item" data-page="log" aria-label="Log Aktivitas">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+          </button>
+        </li>
+
+      </ul>
+
+      <div class="sidebar-bottom">
+        <button class="sidebar-item" data-page="settings" aria-label="Pengaturan">
+          <div class="sidebar-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </div>
+        </button>
+      </div>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="content" id="mainContent" aria-live="polite">
+
+      <!-- ══════════════════════════════════════
+           PAGE: DASHBOARD
+      ══════════════════════════════════════ -->
+      <div id="page-dashboard" class="page active">
+
+        <div class="alert alert-info" role="alert">
+          <div class="alert-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <div class="alert-body">
+            <span class="alert-title">Informasi Akses Aplikasi</span>
+            <span class="alert-text">Pengaturan akses aplikasi hanya dapat ditentukan oleh administrator. Hubungi Administrator Sistem BLU untuk mengubah level akses atau menambah aplikasi.</span>
+          </div>
+        </div>
+
+        <section class="section" aria-labelledby="section-apps-title">
+          <div class="section-header">
+            <div class="section-title-group">
+              <div class="section-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                  <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                </svg>
+              </div>
+              <h2 class="section-title" id="section-apps-title">Aplikasi yang Dapat Diakses</h2>
+            </div>
+            <span class="section-badge">4 Aplikasi</span>
+          </div>
+
+          <div class="app-grid">
+
+            <button class="app-card app-card--blue" aria-label="Buka Pelayanan Uji Sarana Perkeretaapian sebagai Staff Penguji">
+              <div class="app-card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                  <line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+              </div>
+              <div class="app-card-body">
+                <span class="app-card-name">Pelayanan Uji Sarana Perkeretaapian</span>
+                <span class="app-card-role">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Staff Penguji
+                </span>
+              </div>
+              <div class="app-card-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+            </button>
+
+            <button class="app-card app-card--teal" aria-label="Buka Pelayanan Uji Prasarana Perkeretaapian sebagai Staff Verifikasi">
+              <div class="app-card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
+              </div>
+              <div class="app-card-body">
+                <span class="app-card-name">Pelayanan Uji Prasarana Perkeretaapian</span>
+                <span class="app-card-role">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Staff Verifikasi
+                </span>
+              </div>
+              <div class="app-card-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+            </button>
+
+            <button class="app-card app-card--purple" aria-label="Buka CEO Dashboard Balai Uji sebagai Administrator">
+              <div class="app-card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+              </div>
+              <div class="app-card-body">
+                <span class="app-card-name">CEO Dashboard Balai Uji</span>
+                <span class="app-card-role">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Administrator
+                </span>
+              </div>
+              <div class="app-card-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+            </button>
+
+            <button class="app-card app-card--amber" aria-label="Buka Pelayanan Uji SDM Perkeretaapian sebagai Staff Verifikasi">
+              <div class="app-card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+              <div class="app-card-body">
+                <span class="app-card-name">Pelayanan Uji SDM Perkeretaapian</span>
+                <span class="app-card-role">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Staff Verifikasi
+                </span>
+              </div>
+              <div class="app-card-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+            </button>
+
+          </div>
+        </section>
+
+      </div><!-- /page-dashboard -->
+
+      <!-- ══════════════════════════════════════
+           PAGE: LOG AKTIVITAS
+      ══════════════════════════════════════ -->
+      <div id="page-log" class="page" hidden>
+
+        <!-- Filter bar -->
+        <div class="section">
+          <div class="tbl-filters">
+            <select class="tbl-filter-select" aria-label="Filter status">
+              <option value="">Semua Status</option>
+              <option value="berhasil">Berhasil</option>
+              <option value="gagal">Gagal</option>
+            </select>
+            <select class="tbl-filter-select" aria-label="Filter aplikasi">
+              <option value="">Semua Aplikasi</option>
+              <option>Pelayanan Uji Sarana</option>
+              <option>Pelayanan Uji Prasarana</option>
+              <option>Hub Payment BLU</option>
+              <option>CEO Dashboard Balai Uji</option>
+            </select>
+            <div class="tbl-search">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input type="search" placeholder="Cari nama aplikasi..." aria-label="Cari log aktivitas" />
+            </div>
+            <div class="tbl-show">
+              Tampilkan
+              <select aria-label="Jumlah entri per halaman"><option>10</option><option>25</option><option>50</option></select>
+              entri
+            </div>
+          </div>
+
+          <div class="table-wrapper" role="region" aria-label="Tabel log aktivitas">
+            <table class="data-table" aria-label="Log aktivitas login">
+              <thead>
+                <tr>
+                  <th scope="col">No</th>
+                  <th scope="col">Aplikasi</th>
+                  <th scope="col">Waktu Login</th>
+                  <th scope="col">IP Address</th>
+                  <th scope="col">Perangkat</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mono text-muted">001</td>
+                  <td><div class="app-name-cell"><span class="app-dot app-dot--blue" aria-hidden="true"></span>Pelayanan Uji Sarana Perkeretaapian</div></td>
+                  <td><span class="mono">Sel, 5 Mei 2026 · 10:31</span></td>
+                  <td><span class="mono text-muted">192.168.1.42</span></td>
+                  <td><span class="type-pill t-blue">Chrome / Windows</span></td>
+                  <td><span class="sdot-badge s-green"><span class="sdot" aria-hidden="true"></span>Berhasil</span></td>
+                </tr>
+                <tr>
+                  <td class="mono text-muted">002</td>
+                  <td><div class="app-name-cell"><span class="app-dot app-dot--amber" aria-hidden="true"></span>Hub Payment BLU</div></td>
+                  <td><span class="mono">Sel, 5 Mei 2026 · 09:50</span></td>
+                  <td><span class="mono text-muted">192.168.1.42</span></td>
+                  <td><span class="type-pill t-blue">Chrome / Windows</span></td>
+                  <td><span class="sdot-badge s-green"><span class="sdot" aria-hidden="true"></span>Berhasil</span></td>
+                </tr>
+                <tr>
+                  <td class="mono text-muted">003</td>
+                  <td><div class="app-name-cell"><span class="app-dot app-dot--blue" aria-hidden="true"></span>Pelayanan Uji Sarana Perkeretaapian</div></td>
+                  <td><span class="mono">Sel, 5 Mei 2026 · 07:35</span></td>
+                  <td><span class="mono text-muted">192.168.1.42</span></td>
+                  <td><span class="type-pill t-blue">Chrome / Windows</span></td>
+                  <td><span class="sdot-badge s-green"><span class="sdot" aria-hidden="true"></span>Berhasil</span></td>
+                </tr>
+                <tr>
+                  <td class="mono text-muted">004</td>
+                  <td><div class="app-name-cell"><span class="app-dot app-dot--teal" aria-hidden="true"></span>Pelayanan Uji Prasarana Perkeretaapian</div></td>
+                  <td><span class="mono">Sen, 4 Mei 2026 · 16:22</span></td>
+                  <td><span class="mono text-muted">192.168.1.42</span></td>
+                  <td><span class="type-pill t-teal">Firefox / macOS</span></td>
+                  <td><span class="sdot-badge s-green"><span class="sdot" aria-hidden="true"></span>Berhasil</span></td>
+                </tr>
+                <tr>
+                  <td class="mono text-muted">005</td>
+                  <td><div class="app-name-cell"><span class="app-dot app-dot--purple" aria-hidden="true"></span>CEO Dashboard Balai Uji</div></td>
+                  <td><span class="mono">Sen, 4 Mei 2026 · 14:05</span></td>
+                  <td><span class="mono text-muted">10.0.0.15</span></td>
+                  <td><span class="type-pill t-purple">Chrome / Android</span></td>
+                  <td><span class="sdot-badge s-red"><span class="sdot" aria-hidden="true"></span>Gagal</span></td>
+                </tr>
+                <tr>
+                  <td class="mono text-muted">006</td>
+                  <td><div class="app-name-cell"><span class="app-dot app-dot--blue" aria-hidden="true"></span>Pelayanan Uji Sarana Perkeretaapian</div></td>
+                  <td><span class="mono">Sen, 4 Mei 2026 · 08:10</span></td>
+                  <td><span class="mono text-muted">192.168.1.42</span></td>
+                  <td><span class="type-pill t-blue">Chrome / Windows</span></td>
+                  <td><span class="sdot-badge s-green"><span class="sdot" aria-hidden="true"></span>Berhasil</span></td>
+                </tr>
+                <tr>
+                  <td class="mono text-muted">007</td>
+                  <td><div class="app-name-cell"><span class="app-dot app-dot--blue" aria-hidden="true"></span>Pelayanan Uji Sarana Perkeretaapian</div></td>
+                  <td><span class="mono">Jum, 2 Mei 2026 · 15:44</span></td>
+                  <td><span class="mono text-muted">192.168.1.42</span></td>
+                  <td><span class="type-pill t-blue">Chrome / Windows</span></td>
+                  <td><span class="sdot-badge s-green"><span class="sdot" aria-hidden="true"></span>Berhasil</span></td>
+                </tr>
+                <tr>
+                  <td class="mono text-muted">008</td>
+                  <td><div class="app-name-cell"><span class="app-dot app-dot--amber" aria-hidden="true"></span>Hub Payment BLU</div></td>
+                  <td><span class="mono">Jum, 2 Mei 2026 · 09:12</span></td>
+                  <td><span class="mono text-muted">192.168.1.42</span></td>
+                  <td><span class="type-pill t-blue">Chrome / Windows</span></td>
+                  <td><span class="sdot-badge s-green"><span class="sdot" aria-hidden="true"></span>Berhasil</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tbl-pagination">
+            <span>Menampilkan 1 sampai 8 dari 8 data</span>
+            <div class="page-btns" role="navigation" aria-label="Navigasi halaman">
+              <button class="page-btn" aria-label="Halaman sebelumnya">‹</button>
+              <button class="page-btn active" aria-current="page" aria-label="Halaman 1">1</button>
+              <button class="page-btn" aria-label="Halaman berikutnya">›</button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /page-log -->
+
+    </main>
+  </div><!-- /layout -->
+
+  <script>
+    // ── Tanggal otomatis ──────────────────────────────────
+    (function() {
+      const el = document.getElementById('currentDate');
+      if (!el) return;
+      const now = new Date();
+      const bulan = ['Januari','Februari','Maret','April','Mei','Juni',
+                     'Juli','Agustus','September','Oktober','November','Desember'];
+      el.textContent = `${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
+    })();
+
+    // ── Ikon topbar per halaman ───────────────────────────
+    const pageIcons = {
+      dashboard: `<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>`,
+      log:       `<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>`,
+      settings:  `<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>`,
+    };
+
+    function setTopbarIcon(page) {
+      const wrap = document.getElementById('topbarModuleIcon');
+      const paths = pageIcons[page] || pageIcons['dashboard'];
+      wrap.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+    }
+
+    // ── Navigasi halaman ──────────────────────────────────
+    function navigateTo(page) {
+      // Sembunyikan semua page
+      document.querySelectorAll('.page').forEach(p => {
+        p.hidden = true;
+        p.classList.remove('active');
+      });
+
+      // Tampilkan page yang dipilih (fallback ke dashboard)
+      const target = document.getElementById('page-' + page) || document.getElementById('page-dashboard');
+      target.hidden = false;
+      target.classList.add('active');
+
+      // Update sidebar active state
+      document.querySelectorAll('.sidebar-item[data-page]').forEach(btn => {
+        const isActive = btn.dataset.page === page;
+        btn.classList.toggle('active', isActive);
+        if (isActive) {
+          btn.setAttribute('aria-current', 'page');
+        } else {
+          btn.removeAttribute('aria-current');
+        }
+      });
+
+      // Update ikon topbar
+      setTopbarIcon(page);
+
+      // Update judul halaman
+      document.title = page === 'log'
+        ? 'Log Aktivitas — BLU DJKA'
+        : 'Dashboard Pegawai — BLU DJKA';
+    }
+
+    // Pasang event ke semua sidebar item
+    document.querySelectorAll('.sidebar-item[data-page]').forEach(btn => {
+      btn.addEventListener('click', () => navigateTo(btn.dataset.page));
+    });
+
+    // ── User Profile Dropdown ─────────────────────────────
+    const userBtn   = document.getElementById('userMenuBtn');
+    const userPanel = document.getElementById('userMenuPanel');
+    const userWrap  = document.getElementById('userMenuWrap');
+
+    function openUserPanel() {
+      userPanel.hidden = false;
+      userBtn.setAttribute('aria-expanded', 'true');
+      userWrap.classList.add('open');
+    }
+    function closeUserPanel() {
+      userPanel.hidden = true;
+      userBtn.setAttribute('aria-expanded', 'false');
+      userWrap.classList.remove('open');
+    }
+
+    userBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      userPanel.hidden ? openUserPanel() : closeUserPanel();
+    });
+    document.addEventListener('click', e => {
+      if (!userWrap.contains(e.target)) closeUserPanel();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeUserPanel();
+    });
+  </script>
+</body>
+</html>

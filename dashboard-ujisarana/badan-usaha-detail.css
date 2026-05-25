@@ -1,0 +1,119 @@
+/* ═══════════════════════════════════════════════════════════
+   badan-usaha-detail.css
+   Berdasarkan Dashboard Design Guidelines v1.2
+═══════════════════════════════════════════════════════════ */
+
+/* ── Info Card ── */
+.detail-info-card { padding: 0; }
+
+.detail-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.detail-card-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Tombol Kembali — ghost outlined sesuai spec btn-ghost */
+
+/* Info DL */
+.detail-info-dl {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0 8px;
+}
+
+.detail-info-row {
+  display: grid;
+  grid-template-columns: 160px 16px 1fr;
+  align-items: baseline;
+  padding: 9px 20px;
+  border-bottom: 1px solid var(--color-border-light);
+  gap: 0;
+}
+
+.detail-info-row:last-child { border-bottom: none; }
+
+.detail-info-row dt {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.detail-sep {
+  font-size: 13.5px;
+  color: var(--color-muted);
+  text-align: center;
+}
+
+.detail-info-row dd {
+  font-size: 13.5px;
+  color: var(--color-text);
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.detail-val-bold { font-weight: 700; text-transform: uppercase; }
+
+.detail-val-mono {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
+.detail-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+.detail-link:hover { text-decoration: underline; }
+
+/* ── Badge Status ── */
+.sdot-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sdot-badge .sdot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sdot-badge.s-green  { background: #DCFCE7; color: #16A34A; }
+.sdot-badge.s-green  .sdot { background: #16A34A; }
+.sdot-badge.s-blue   { background: #EFF6FF; color: #1D4ED8; }
+.sdot-badge.s-blue   .sdot { background: #1D4ED8; }
+.sdot-badge.s-amber  { background: #FEF3C7; color: #D97706; }
+.sdot-badge.s-amber  .sdot { background: #D97706; }
+.sdot-badge.s-red    { background: #FEE2E2; color: #DC2626; }
+.sdot-badge.s-red    .sdot { background: #DC2626; }
+.sdot-badge.s-gray   { background: #F1F5F9; color: #64748B; }
+.sdot-badge.s-gray   .sdot { background: #64748B; }
+.sdot-badge.s-teal   { background: #F0FDFA; color: #0D9488; }
+.sdot-badge.s-teal   .sdot { background: #0D9488; }
+
+/* Kolom status center */
+.td-status { text-align: center; white-space: nowrap; }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .detail-info-row {
+    grid-template-columns: 120px 14px 1fr;
+  }
+}

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log In - HUBNET SSO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url('assets/bg_kemenhub.jpg');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 25, 70, 0.68);
+      z-index: 0;
+    }
+
+    /* =============================================
+       WRAPPER CARD UTAMA
+    ============================================= */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      width: 950px;
+      height: 495px;
+      max-width: 95%;
+      display: flex;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgb(0 0 0 / .4);
+    }
+
+    /* =============================================
+       PANEL KIRI
+    ============================================= */
+    .panel-left {
+      flex: 1;
+      background: rgb(0 0 0 / .2);
+      border: 1px solid rgb(255 255 255 / .1);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      padding: 0 40px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-left .logo-main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      padding: 40px 0 32px;
+    }
+
+    .panel-left .logo-main img {
+      width: 350px;
+      height: 350px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .panel-left .logos-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding-bottom: 32px;
+    }
+
+    .panel-left .logos-bottom img {
+      height: 42px;
+      object-fit: contain;
+    }
+
+    /* =============================================
+       PANEL KANAN (card putih)
+    ============================================= */
+    .panel-right {
+      width: 420px;
+      flex-shrink: 0;
+      background: #fff;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-right > div.form-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* =============================================
+       HEADER
+    ============================================= */
+    .login-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #000000;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: left;
+      margin: 0 0 24px;
+    }
+
+    /* =============================================
+       FORM GROUP (label + input)
+    ============================================= */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    /* INPUT FIELDS */
+    .input-field {
+      width: 100%;
+      background: #fff;
+      border: 1.5px solid #d0d5dd;
+      border-radius: 10px;
+      padding: 13px 16px;
+      font-size: 14px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #333;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      display: block;
+    }
+
+    .input-field::placeholder {
+      color: #aab0bc;
+    }
+
+    .input-field:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+    }
+
+    /* Password wrapper (untuk toggle show/hide) */
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper .input-field {
+      padding-right: 44px;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #aab0bc;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+
+    .toggle-password:hover {
+      color: #4a5568;
+    }
+
+    /* =============================================
+       CAPTCHA ROW
+    ============================================= */
+    .captcha-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    /* Canvas captcha */
+    .captcha-canvas {
+      width: 100%;
+      height: 46px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background: #fff;
+      display: block;
+    }
+
+    /* Tombol refresh captcha */
+    .btn-refresh {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #2d3748;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, transform 0.3s;
+    }
+
+    .btn-refresh:hover {
+      background: #1a202c;
+    }
+
+    .btn-refresh:active {
+      transform: rotate(180deg);
+    }
+
+    /* Input captcha */
+    .captcha-input {
+      width: 100%;
+      height: 46px;
+      background: #f0f4f8;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0 14px;
+      font-size: 13px;
+      font-family: "Roboto", sans-serif;
+      color: #333;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .captcha-input::placeholder {
+      color: #a0aec0;
+    }
+
+    .captcha-input:focus {
+      border-color: #4299e1;
+      box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+      background: #fff;
+    }
+
+    /* =============================================
+       RADIO BUTTONS
+    ============================================= */
+    .radio-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .radio-row label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .radio-row input[type="radio"] {
+      accent-color: #2563eb;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    /* =============================================
+       TOMBOL LOGIN
+    ============================================= */
+    .btn-login {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 48px;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: Arial, Helvetica, sans-serif;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-bottom: 16px;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-login:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-login:active {
+      background: #1e40af;
+    }
+
+    /* =============================================
+       LINK BAWAH (Login Pengelola & SSO)
+    ============================================= */
+    .login-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .login-links a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #718096;
+      text-decoration: none;
+      transition: color 0.2s;
+      font-weight: 400;
+    }
+
+    .login-links a:hover {
+      color: #3b9eff;
+    }
+
+    .login-links a svg {
+      opacity: 0.6;
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .login-footer {
+      text-align: center;
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    .login-footer p {
+      font-size: 11px;
+      color: #b3b3b3;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .login-footer .version {
+      font-size: 10px;
+      color: #ccc;
+      margin-top: 2px;
+    }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 700px) {
+      .wrapper {
+        flex-direction: column;
+        width: 95vw;
+      }
+
+      .panel-left {
+        padding: 32px 24px 24px;
+        min-height: 200px;
+      }
+
+      .panel-right {
+        width: 100%;
+        padding: 28px 24px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+
+    <!-- ===== PANEL KIRI ===== -->
+    <div class="panel-left">
+      <div class="logo-main">
+        <img
+          src="assets/negative logo.png"
+          alt="Hubnet"
+        />
+      </div>
+
+    </div>
+
+    <!-- ===== PANEL KANAN ===== -->
+    <div class="panel-right">
+      <div class="form-content">
+        <h2 class="login-title">Log In Pegawai</h2>
+
+        <form id="loginForm" onsubmit="return handleLogin(event);">
+
+          <!-- Username -->
+          <div class="form-group">
+            <label for="username">USERNAME</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="input-field"
+              placeholder="Masukan Username"
+              autocomplete="username"
+            />
+          </div>
+
+          <!-- Password + toggle -->
+          <div class="form-group">
+            <label for="password">PASSWORD</label>
+            <div class="input-wrapper">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="input-field"
+                placeholder="Masukan Password"
+                autocomplete="current-password"
+              />
+              <button type="button" class="toggle-password" onclick="togglePassword()" aria-label="Tampilkan password">
+                <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <svg id="eye-off-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  style="display:none;">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+                  <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+
+
+          <!-- Tombol Login -->
+          <button type="submit" class="btn-login">Log In</button>
+
+          <!-- Link bawah -->
+          <div class="login-links">
+            <a href="#">
+              <!-- Settings icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06
+                  a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09
+                  A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83
+                  l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09
+                  A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83
+                  l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09
+                  a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83
+                  l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09
+                  a1.65 1.65 0 0 0-1.51 1z"/>
+              </svg>
+              Login Pengelola
+            </a>
+            <a href="#">
+              <!-- User icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              Login SSO KEMENHUB
+            </a>
+          </div>
+
+        </form>
+      </div><!-- end form-content -->
+
+      <div class="login-footer">
+        <p>Pusat Data dan Teknologi Informasi<br>Kementerian Perhubungan</p>
+        <p class="version">v1.1.02</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // =============================================
+    // CAPTCHA GENERATOR
+    // =============================================
+    let currentCaptcha = '';
+
+    function generateCaptcha() {
+      const canvas = document.getElementById('captchaCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+
+      // Clear
+      ctx.clearRect(0, 0, w, h);
+
+      // Background putih
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, w, h);
+
+      // Generate 4 karakter acak (angka)
+      const chars = '0123456789';
+      currentCaptcha = '';
+      for (let i = 0; i < 4; i++) {
+        currentCaptcha += chars[Math.floor(Math.random() * chars.length)];
+      }
+
+      // Warna-warna acak seperti di gambar
+      const colors = ['#e53e3e', '#dd6b20', '#d69e2e', '#38a169', '#3182ce', '#805ad5', '#d53f8c'];
+
+      // Gambar noise lines
+      for (let i = 0; i < 5; i++) {
+        ctx.beginPath();
+        ctx.moveTo(Math.random() * w, Math.random() * h);
+        ctx.lineTo(Math.random() * w, Math.random() * h);
+        ctx.strokeStyle = colors[Math.floor(Math.random() * colors.length)];
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      // Gambar tiap karakter
+      for (let i = 0; i < 4; i++) {
+        ctx.save();
+        ctx.font = `bold ${22 + Math.random() * 6}px Arial`;
+        ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+
+        // Sedikit rotasi acak
+        const x = 28 + i * 40;
+        const y = 30 + (Math.random() * 6 - 3);
+        ctx.translate(x, y);
+        ctx.rotate((Math.random() - 0.5) * 0.4);
+        ctx.fillText(currentCaptcha[i], 0, 0);
+        ctx.restore();
+      }
+
+      // Noise dots
+      for (let i = 0; i < 30; i++) {
+        ctx.beginPath();
+        ctx.arc(Math.random() * w, Math.random() * h, 1, 0, Math.PI * 2);
+        ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+        ctx.fill();
+      }
+
+      // Reset input
+      document.getElementById('captchaInput').value = '';
+    }
+
+    // =============================================
+    // TOGGLE PASSWORD
+    // =============================================
+    function togglePassword() {
+      const input = document.getElementById('password');
+      const eyeIcon = document.getElementById('eye-icon');
+      const eyeOffIcon = document.getElementById('eye-off-icon');
+
+      if (input.type === 'password') {
+        input.type = 'text';
+        eyeIcon.style.display = 'none';
+        eyeOffIcon.style.display = 'block';
+      } else {
+        input.type = 'password';
+        eyeIcon.style.display = 'block';
+        eyeOffIcon.style.display = 'none';
+      }
+    }
+
+    // =============================================
+    // HANDLE LOGIN (validasi captcha)
+    // =============================================
+    function handleLogin(e) {
+      e.preventDefault();
+      const inputVal = document.getElementById('captchaInput').value.trim();
+      if (inputVal !== currentCaptcha) {
+        alert('Kode captcha salah. Silakan coba lagi.');
+        generateCaptcha();
+        return false;
+      }
+      alert('Login berhasil!');
+      return false;
+    }
+
+    // Init captcha saat halaman load
+    generateCaptcha();
+  </script>
+
+</body>
+</html>

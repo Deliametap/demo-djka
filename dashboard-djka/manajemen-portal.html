@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manajemen Portal · BLU Balai Pengujian Perkeretaapian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+</head>
+<body data-active-nav="Manajemen Portal">
+  <!-- ══════════════ TOPBAR (full width) ══════════════ -->
+  <header class="topbar" role="banner">
+
+    <!-- Active module icon (flush-left, matches sidebar rail) -->
+    <div class="topbar-module-icon" id="topbarModuleIcon" aria-hidden="true">
+      <!-- Dashboard icon (default) -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" id="topbarModuleSvg">
+        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+    </div>
+
+    <div class="topbar-brand">
+      <img src="Asset/1691134668-logobackendheader (1).png" alt="Balai Pengujian Perkeretaapian" class="topbar-brand-logo">
+      <div class="topbar-brand-sep" aria-hidden="true"></div>
+    </div>
+
+    <div class="search-bar" role="search" aria-label="Cari data atau menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <span>Cari data atau menu...</span>
+      <kbd aria-label="Ctrl K untuk pencarian">Ctrl K</kbd>
+    </div>
+
+    <div class="topbar-spacer"></div>
+
+    <div class="topbar-date" id="topbarDate">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span id="currentDate"></span>
+    </div>
+
+    <button class="topbar-btn" aria-label="Notifikasi — ada notifikasi baru">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+      <span class="notif-dot" aria-hidden="true"></span>
+    </button>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <div class="topbar-user" role="button" tabindex="0" aria-label="Menu pengguna">
+      <div class="user-avatar" aria-hidden="true">KR</div>
+    </div>
+  </header>
+
+  <div class="app-shell">
+
+  <!-- ══════════════ SIDEBAR ══════════════ -->
+  <aside class="sidebar" role="navigation" aria-label="Navigasi Utama">
+
+    <div class="sidebar-logo" aria-hidden="true"></div>
+
+    <nav class="sidebar-nav" aria-label="Menu Utama">
+      <a href="#" class="nav-item active" aria-label="Dashboard" aria-current="page">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="SDM" data-menu="SDM">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">SDM</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Masterisasi" data-menu="Masterisasi">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2z"/>
+            <path d="M7 7h.01"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Masterisasi</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Manajemen Portal">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Manajemen Portal</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Akses SSO" data-menu="AksesSso">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Akses SSO</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Pengelola Portal" data-menu="PengelolaPortal">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Pengelola Portal</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="API">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">API</span>
+      </a>
+      <a href="#" class="nav-item" aria-label="Data SIK">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <ellipse cx="12" cy="5" rx="9" ry="3"/>
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Data SIK</span>
+      </a>
+    </nav>
+
+  </aside>
+
+  <!-- ══════════════ SUB-NAV PANEL ══════════════ -->
+  <aside class="subnav-panel" id="subnavPanel" role="navigation" aria-label="Submenu Kontekstual">
+    <div class="subnav-inner">
+
+      <!-- Masterisasi Section -->
+      <div class="subnav-section" id="subnav-masterisasi">
+        <p class="subnav-section-label">Masterisasi</p>
+        <button class="subnav-item active" data-page="masterisasi-aplikasi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Aplikasi
+        </button>
+        <button class="subnav-item" data-page="masterisasi-level-aplikasi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2z"/><path d="M7 7h.01"/></svg>
+          Level Aplikasi
+        </button>
+      </div>
+
+      <!-- Pengelola Portal Section -->
+      <div class="subnav-section" id="subnav-pengelola-portal">
+        <p class="subnav-section-label">Pengelola Portal</p>
+        <button class="subnav-item active" data-page="pengelola-portal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Data Pengelola Portal
+        </button>
+      </div>
+
+      <!-- Akses SSO Section -->
+      <div class="subnav-section" id="subnav-akses-sso">
+        <p class="subnav-section-label">Akses SSO</p>
+        <button class="subnav-item active" data-page="akses-sso">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Data Akses SSO
+        </button>
+      </div>
+
+      <!-- Manajemen Portal Section -->
+      <div class="subnav-section" id="subnav-manajemen-portal">
+        <p class="subnav-section-label">Manajemen Portal</p>
+        <button class="subnav-item active" data-page="mp-banner">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
+          Banner
+        </button>
+        <button class="subnav-item" data-page="mp-auth-sik">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Authorization SIK
+        </button>
+        <button class="subnav-item" data-page="mp-auth-sso">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+          Authorization SSO
+        </button>
+        <button class="subnav-item" data-page="mp-website-info">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          Websites Info
+        </button>
+      </div>
+
+      <!-- SDM Section -->
+      <div class="subnav-section" id="subnav-sdm">
+        <p class="subnav-section-label">SDM</p>
+        <button class="subnav-item active" data-page="unit-kerja">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Unit Kerja
+        </button>
+        <button class="subnav-item" data-page="jabatan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          Jabatan
+        </button>
+        <button class="subnav-item" data-page="data-pegawai">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Data Pegawai
+        </button>
+      </div>
+
+    </div>
+    <button class="subnav-collapse-btn" id="subnavCollapse" title="Tutup panel">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+  </aside>
+
+  <!-- ══════════════ MAIN CONTENT ══════════════ -->
+  <div class="main-content">
+
+    <!-- Page Content -->
+    <main class="page-content" id="main-content">
+
+      <!-- ══ VIEW: Manajemen Portal › Banner ══ -->
+      <div class="page-view active" id="view-mp-banner">
+
+                      
+        <div class="sdm-page-header">
+          <h1 class="sdm-page-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Kelola Banner
+          </h1>
+          <nav class="sdm-breadcrumb" aria-label="Lokasi halaman">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="color:var(--color-subtle)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="sdm-breadcrumb-sep">*</span>
+            <span>Manajemen Portal</span>
+            <span class="sdm-breadcrumb-sep">•</span>
+            <span class="sdm-breadcrumb-current">Banner</span>
+          </nav>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <p class="info-card-text">Halaman ini berfungsi untuk mengelola banner yang ditampilkan di portal.</p>
+        </div>
+
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Data Banner
+            </div>
+            <button class="btn-tambah" id="btnTambahBanner" aria-label="Tambah Banner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Tambah
+            </button>
+          </div>
+
+          <table class="data-table" aria-label="Daftar Banner">
+            <thead>
+              <tr>
+                <th class="center" style="width:52px;">NO</th>
+                <th>GAMBAR BANNER</th>
+                <th class="center" style="width:100px;">STATUS</th>
+                <th class="center" style="width:120px;">AKSI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="no">1</td>
+                <td>
+                  <div style="width:100%;max-width:520px;height:160px;border-radius:8px;overflow:hidden;border:1px solid var(--color-border);background:linear-gradient(135deg,#1D4ED8,#7C3AED);display:flex;align-items:center;justify-content:center;">
+                    <div style="text-align:center;color:white;padding:16px;">
+                      <div style="font-size:18px;font-weight:800;letter-spacing:1px;">Balai Pengujian Perkeretaapian</div>
+                      <div style="font-size:11px;opacity:0.8;margin-top:6px;">Kementerian Perhubungan Republik Indonesia</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="center">
+                  <div class="toggle-wrap">
+                    <label class="toggle" aria-label="Status banner 1 — Aktif">
+                      <input type="checkbox" checked class="banner-toggle-input">
+                      <span class="toggle-track"></span>
+                      <span class="toggle-thumb"></span>
+                    </label>
+                  </div>
+                </td>
+                <td class="center">
+                  <div class="action-cell">
+                    <button class="btn-act btn-act-edit banner-edit-btn" aria-label="Edit banner 1">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                      Edit
+                    </button>
+                    <button class="btn-act" style="background:var(--color-danger-bg);color:var(--color-danger);border:1.5px solid #FECACA;" aria-label="Hapus banner 1">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="no">2</td>
+                <td>
+                  <div style="width:100%;max-width:520px;height:160px;border-radius:8px;overflow:hidden;border:1px solid var(--color-border);background:linear-gradient(135deg,#1D4ED8,#0D9488);display:flex;align-items:center;justify-content:center;">
+                    <div style="text-align:center;color:white;padding:16px;">
+                      <div style="font-size:18px;font-weight:800;letter-spacing:1px;">Balai Pengujian Perkeretaapian</div>
+                      <div style="font-size:11px;opacity:0.8;margin-top:6px;">Direktorat Jenderal Perkeretaapian</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="center">
+                  <div class="toggle-wrap">
+                    <label class="toggle" aria-label="Status banner 2 — Aktif">
+                      <input type="checkbox" checked class="banner-toggle-input">
+                      <span class="toggle-track"></span>
+                      <span class="toggle-thumb"></span>
+                    </label>
+                  </div>
+                </td>
+                <td class="center">
+                  <div class="action-cell">
+                    <button class="btn-act btn-act-edit banner-edit-btn" aria-label="Edit banner 2">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                      Edit
+                    </button>
+                    <button class="btn-act" style="background:var(--color-danger-bg);color:var(--color-danger);border:1.5px solid #FECACA;" aria-label="Hapus banner 2">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="tbl-pagination">
+            <span>Menampilkan 1 sampai 2 dari 2 data</span>
+            <div class="page-btns">
+              <button class="page-btn" aria-label="Sebelumnya">&#8249;</button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn" aria-label="Selanjutnya">&#8250;</button>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer"><p>© 2026 <a href="#">Balai Pengujian Perkeretaapian</a> · Direktorat Jenderal Perkeretaapian · Kementerian Perhubungan Republik Indonesia</p></footer>
+      </div><!-- /#view-mp-banner -->
+
+      <!-- ══ VIEW: Manajemen Portal › Authorization SIK ══ -->
+      <div class="page-view" id="view-mp-auth-sik">
+
+        <div class="sdm-page-header">
+          <h1 class="sdm-page-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Authorization SIK
+          </h1>
+          <nav class="sdm-breadcrumb" aria-label="Lokasi halaman">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="color:var(--color-subtle)" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="sdm-breadcrumb-sep">*</span>
+            <span>Manajemen Portal</span>
+            <span class="sdm-breadcrumb-sep">•</span>
+            <span class="sdm-breadcrumb-current">Authorization SIK</span>
+          </nav>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <p class="info-card-text">Halaman ini berfungsi untuk melakukan pengaturan Authorization SIK Balai Pengujian Perkeretaapian.</p>
+        </div>
+
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Form Edit Authorization SIK
+            </div>
+          </div>
+
+          <div style="padding:28px 28px 24px;">
+
+            <!-- URL WSDL -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="sik-url-wsdl">URL WSDL:</label>
+              <input
+                type="text"
+                id="sik-url-wsdl"
+                class="form-input"
+                value="https://sik.dephub.go.id/api/index.php/soap_services/sik_api?wsdl"
+                placeholder="Masukkan URL WSDL"
+                style="font-family:var(--font-mono);font-size:13px;"
+              >
+            </div>
+
+            <!-- Username -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="sik-user">Username:</label>
+              <input
+                type="text"
+                id="sik-user"
+                class="form-input"
+                value="ditjenka"
+                placeholder="Masukkan Username"
+              >
+            </div>
+
+            <!-- Key -->
+            <div class="form-group" style="margin-bottom:28px;">
+              <label class="form-label" for="sik-key">Key:</label>
+              <input
+                type="text"
+                id="sik-key"
+                class="form-input"
+                value="ditjenka006"
+                placeholder="Masukkan Key"
+                style="font-family:var(--font-mono);font-size:13px;"
+              >
+            </div>
+
+            <!-- Footer actions -->
+            <div style="display:flex;justify-content:flex-end;gap:10px;padding-top:20px;border-top:1px solid var(--color-border-light);">
+              <button class="btn-modal-ghost" id="btn-sik-reset" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2;" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.65"/></svg>
+                Reset
+              </button>
+              <button class="btn-modal-primary" id="btn-sik-simpan" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2.5;" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Simpan
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <footer class="page-footer"><p>© 2026 <a href="#">Balai Pengujian Perkeretaapian</a> · Direktorat Jenderal Perkeretaapian · Kementerian Perhubungan Republik Indonesia</p></footer>
+      </div><!-- /#view-mp-auth-sik -->
+
+      <!-- ══ VIEW: Manajemen Portal › Authorization SSO ══ -->
+      <div class="page-view" id="view-mp-auth-sso">
+
+        <div class="sdm-page-header">
+          <h1 class="sdm-page-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+            Authorization SSO
+          </h1>
+          <nav class="sdm-breadcrumb" aria-label="Lokasi halaman">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="color:var(--color-subtle)" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="sdm-breadcrumb-sep">*</span>
+            <span>Manajemen Portal</span>
+            <span class="sdm-breadcrumb-sep">•</span>
+            <span class="sdm-breadcrumb-current">Authorization SSO</span>
+          </nav>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+          </div>
+          <p class="info-card-text">Halaman ini berfungsi untuk melakukan pengaturan Authorization SSO Balai Pengujian Perkeretaapian.</p>
+        </div>
+
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Form Edit Authorization API
+            </div>
+          </div>
+
+          <div style="padding:28px 28px 24px;">
+
+            <!-- Client Id -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="sso-client-id">Client Id:</label>
+              <input
+                type="text"
+                id="sso-client-id"
+                class="form-input"
+                value="9a30d665-5a54-4a51-96d6-a3e6dd27b74f"
+                placeholder="Masukkan Client Id"
+                style="font-family:var(--font-mono);font-size:13px;"
+              >
+            </div>
+
+            <!-- Client Secret -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="sso-client-secret">Client Secret:</label>
+              <input
+                type="text"
+                id="sso-client-secret"
+                class="form-input"
+                value="KuwYdEsUQuJjwkTeMKQSE8yg4ZQiPrrABFZ6THvX"
+                placeholder="Masukkan Client Secret"
+                style="font-family:var(--font-mono);font-size:13px;"
+              >
+            </div>
+
+            <!-- Client Redirect -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="sso-client-redirect">Client Redirect:</label>
+              <input
+                type="text"
+                id="sso-client-redirect"
+                class="form-input"
+                value="https://ujidjka.kemenhub.go.id/login"
+                placeholder="https://ujidjka.kemenhub.go.id/login"
+              >
+            </div>
+
+            <!-- Client Login API -->
+            <div class="form-group" style="margin-bottom:28px;">
+              <label class="form-label" for="sso-client-login-api">Client Login API:</label>
+              <input
+                type="text"
+                id="sso-client-login-api"
+                class="form-input"
+                value="https://ujidjka.kemenhub.go.id/login-sso"
+                placeholder="https://ujidjka.kemenhub.go.id/login-sso"
+              >
+            </div>
+
+            <!-- Footer actions -->
+            <div style="display:flex;justify-content:flex-end;gap:10px;padding-top:20px;border-top:1px solid var(--color-border-light);">
+              <button class="btn-modal-ghost" id="btn-sso-reset" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2;" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.65"/></svg>
+                Reset
+              </button>
+              <button class="btn-modal-primary" id="btn-sso-simpan" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2.5;" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Simpan
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <footer class="page-footer"><p>© 2026 <a href="#">Balai Pengujian Perkeretaapian</a> · Direktorat Jenderal Perkeretaapian · Kementerian Perhubungan Republik Indonesia</p></footer>
+      </div><!-- /#view-mp-auth-sso -->
+
+      <!-- ══ VIEW: Manajemen Portal › Websites Info ══ -->
+      <div class="page-view" id="view-mp-website-info">
+
+        <div class="sdm-page-header">
+          <h1 class="sdm-page-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Websites Info
+          </h1>
+          <nav class="sdm-breadcrumb" aria-label="Lokasi halaman">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" style="color:var(--color-subtle)" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="sdm-breadcrumb-sep">*</span>
+            <span>Manajemen Portal</span>
+            <span class="sdm-breadcrumb-sep">•</span>
+            <span class="sdm-breadcrumb-current">Websites Info</span>
+          </nav>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <p class="info-card-text">Halaman ini berfungsi untuk mengelola informasi website portal Balai Pengujian Perkeretaapian.</p>
+        </div>
+
+        <div class="data-card">
+          <div class="data-card-header">
+            <div class="data-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Form Edit Websites Info
+            </div>
+          </div>
+
+          <div style="padding:28px 28px 24px;">
+
+            <!-- Deskripsi -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-deskripsi">Deskripsi: <span class="req">*</span></label>
+              <textarea id="wi-deskripsi" class="form-input" rows="4" style="resize:vertical;min-height:100px;">Pengujian dilakukan pada semua sistem perkeretaapian meliputi Prasarana, Sarana dan Sumber Daya Manusia Perkeretaapian.</textarea>
+            </div>
+            <!-- Kata Kunci -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label">Kata Kunci/ Keyword: <span class="req">*</span></label>
+              <div class="wi-tag-input" id="wiTagInput">
+                <span class="wi-tag">blu <button type="button" class="wi-tag-remove" data-tag="blu" aria-label="Hapus blu">&times;</button></span>
+                <span class="wi-tag">badan layanan umum <button type="button" class="wi-tag-remove" data-tag="badan layanan umum" aria-label="Hapus badan layanan umum">&times;</button></span>
+                <span class="wi-tag">balai pengujian perkertaapian <button type="button" class="wi-tag-remove" data-tag="balai pengujian perkertaapian" aria-label="Hapus balai pengujian perkertaapian">&times;</button></span>
+                <input type="text" id="wi-keyword-input" class="wi-tag-field" placeholder="Tambah kata kunci..." aria-label="Tambah kata kunci">
+              </div>
+              <p class="form-hint-row" style="font-size:12px;color:var(--color-muted);margin-top:5px;">*) Maksimal kata kunci 10.</p>
+            </div>
+            <!-- Nama Instansi -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-nama-instansi">Nama Instansi: <span class="req">*</span></label>
+              <input type="text" id="wi-nama-instansi" class="form-input" value="PORTAL BLU" placeholder="Nama instansi">
+            </div>
+            <!-- Sub Nama Instansi -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-sub-nama-instansi">Sub Nama Instansi: <span class="req">*</span></label>
+              <input type="text" id="wi-sub-nama-instansi" class="form-input" value="BALAI PENGUJIAN PERKERETAAPIAN" placeholder="Sub nama instansi">
+            </div>
+            <!-- No Telp -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-telp">No. Telp/ Hp: <span class="req">*</span></label>
+              <div class="form-input-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <input type="text" id="wi-telp" class="form-input form-input-with-icon" value="087888969530" placeholder="Contoh: 087888969530">
+              </div>
+            </div>
+            <!-- Email -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-email">Email: <span class="req">*</span></label>
+              <div class="form-input-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <input type="email" id="wi-email" class="form-input form-input-with-icon" value="balaipengujian@kemenhub.go.id" placeholder="Contoh: email@kemenhub.go.id">
+              </div>
+            </div>
+            <!-- No Whatsapp -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-wa">No. Whatsapp: <span class="req">*</span></label>
+              <div class="form-input-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <input type="text" id="wi-wa" class="form-input form-input-with-icon" value="6287888969530" placeholder="Contoh: 6282165445854">
+              </div>
+              <p class="form-hint-row" style="font-size:12px;color:var(--color-muted);margin-top:5px;">*) Contoh input: <span style="color:var(--color-primary);">6282165445854</span></p>
+            </div>
+            <!-- Facebook -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-fb">Facebook: <span class="req">*</span></label>
+              <div class="form-input-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                <input type="url" id="wi-fb" class="form-input form-input-with-icon" value="https://www.facebook.com" placeholder="https://www.facebook.com">
+              </div>
+            </div>
+            <!-- Instagram -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" for="wi-ig">Instagram: <span class="req">*</span></label>
+              <div class="form-input-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                <input type="url" id="wi-ig" class="form-input form-input-with-icon" value="https://www.instagram.com/" placeholder="https://www.instagram.com/">
+              </div>
+            </div>
+            <!-- Twitter -->
+            <div class="form-group" style="margin-bottom:28px;">
+              <label class="form-label" for="wi-tw">Twitter: <span class="req">*</span></label>
+              <div class="form-input-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+                <input type="url" id="wi-tw" class="form-input form-input-with-icon" value="https://twitter.com" placeholder="https://twitter.com">
+              </div>
+            </div>
+
+            <!-- Footer actions -->
+            <div style="display:flex;justify-content:flex-end;gap:10px;padding-top:20px;border-top:1px solid var(--color-border-light);">
+              <button class="btn-modal-ghost" id="btn-wi-reset" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2;" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.65"/></svg>
+                Reset
+              </button>
+              <button class="btn-modal-primary" id="btn-wi-simpan" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2.5;" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Simpan
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <footer class="page-footer"><p>© 2026 <a href="#">Balai Pengujian Perkeretaapian</a> · Direktorat Jenderal Perkeretaapian · Kementerian Perhubungan Republik Indonesia</p></footer>
+      </div><!-- /#view-mp-website-info -->
+    </main>
+  </div><!-- /.main-content -->
+  </div><!-- /.app-shell -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODAL: Tambah Banner
+  ══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-tambah-banner" role="dialog" aria-modal="true" aria-labelledby="modal-tambah-banner-title">
+    <div class="modal" style="width:520px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="modal-title-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <span id="modal-tambah-banner-title">Tambah Banner</span>
+        </div>
+        <button class="modal-close" id="modal-tambah-banner-close" aria-label="Tutup modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" style="gap:16px;">
+        <div class="form-group">
+          <label class="form-label">Gambar Banner <span class="req">*</span></label>
+          <input type="file" id="banner-foto-input" accept=".jpg,.jpeg,.png,.webp" style="display:none;">
+          <div class="file-upload-zone" id="bannerFotoZone" onclick="document.getElementById('banner-foto-input').click()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+            <span class="file-upload-text">Drag & drop file atau klik disini</span>
+            <span class="file-upload-sub" id="bannerFotoName">Belum ada file dipilih</span>
+          </div>
+          <div class="form-hint" style="margin-top:2px;">
+            <div class="form-hint-row">*) Format: <span class="form-hint-code">*.jpg</span> <span class="form-hint-code">*.jpeg</span> <span class="form-hint-code">*.png</span> <span class="form-hint-code">*.webp</span> — Maksimal: <span class="form-hint-code amber">2MB</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-ghost" id="modal-tambah-banner-batal">Batal</button>
+        <button class="btn-modal-primary" id="modal-tambah-banner-simpan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2.5;" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Simpan Data
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODAL: Edit Banner
+  ══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-edit-banner" role="dialog" aria-modal="true" aria-labelledby="modal-edit-banner-title">
+    <div class="modal" style="width:520px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="modal-title-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </div>
+          <span id="modal-edit-banner-title">Edit Banner</span>
+        </div>
+        <button class="modal-close" id="modal-edit-banner-close" aria-label="Tutup modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" style="gap:16px;">
+        <div class="form-group">
+          <label class="form-label">Gambar Banner <span class="req">*</span></label>
+          <input type="file" id="edit-banner-foto-input" accept=".jpg,.jpeg,.png,.webp" style="display:none;">
+          <div class="file-upload-zone" id="editBannerFotoZone" onclick="document.getElementById('edit-banner-foto-input').click()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+            <span class="file-upload-text">Drag & drop file atau klik disini</span>
+            <span class="file-upload-sub" id="editBannerFotoName">Belum ada file dipilih</span>
+          </div>
+          <div class="form-hint" style="margin-top:2px;">
+            <div class="form-hint-row">*) Format: <span class="form-hint-code">*.jpg</span> <span class="form-hint-code">*.jpeg</span> <span class="form-hint-code">*.png</span> <span class="form-hint-code">*.webp</span> — Maksimal: <span class="form-hint-code amber">2MB</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-ghost" id="modal-edit-banner-batal">Batal</button>
+        <button class="btn-modal-primary" id="modal-edit-banner-simpan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2.5;" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Simpan Perubahan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODAL: Konfirmasi Hapus Banner
+  ══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-hapus-banner" role="dialog" aria-modal="true" aria-labelledby="modal-hapus-banner-title">
+    <div class="modal" style="width:420px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="modal-title-icon" style="background:var(--color-danger-bg);color:var(--color-danger);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          </div>
+          <span id="modal-hapus-banner-title">Konfirmasi Hapus</span>
+        </div>
+        <button class="modal-close" id="modal-hapus-banner-close" aria-label="Tutup modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" style="gap:12px;">
+        <p style="font-size:14px;color:var(--color-text-secondary);line-height:1.6;">
+          Apakah Anda yakin ingin menghapus banner ini? Tindakan ini <strong style="color:var(--color-danger);">tidak dapat dibatalkan</strong>.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-ghost" id="modal-hapus-banner-batal">Batal</button>
+        <button class="btn-modal-primary" id="modal-hapus-banner-konfirmasi" style="background:var(--color-danger);border-color:var(--color-danger);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:2.5;" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+          Ya, Hapus
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    /* ── Update Date in Topbar ── */
+    function updateCurrentDate() {
+      const dateElement = document.getElementById('currentDate');
+      if (dateElement) {
+        const now = new Date();
+        const bulanIndo = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        const hari = now.getDate();
+        const bulan = bulanIndo[now.getMonth()];
+        const tahun = now.getFullYear();
+        dateElement.textContent = `${hari} ${bulan} ${tahun}`;
+      }
+    }
+    updateCurrentDate();
+
+    /* ── Sub-nav Panel Toggle ── */
+    const subnavPanel = document.getElementById('subnavPanel');
+    const subnavCollapse = document.getElementById('subnavCollapse');
+    if (subnavCollapse) {
+      subnavCollapse.addEventListener('click', function() {
+        subnavPanel.classList.toggle('open');
+      });
+    }
+
+    /* ── Update topbar module icon ── */
+    function updateTopbarIcon(navItem) {
+      const svgSrc = navItem.querySelector('.nav-icon-box svg');
+      const topbarSvg = document.getElementById('topbarModuleSvg');
+      if (svgSrc && topbarSvg) {
+        topbarSvg.innerHTML = svgSrc.innerHTML;
+        topbarSvg.setAttribute('viewBox', svgSrc.getAttribute('viewBox') || '0 0 24 24');
+      }
+    }
+
+    /* ── Mark active nav item from data-active-nav ── */
+    const activeNav = document.body.dataset.activeNav;
+    document.querySelectorAll('.nav-item').forEach(item => {
+      const label = item.querySelector('.nav-item-label')?.textContent?.trim()
+                 || item.getAttribute('aria-label') || '';
+      if (label === activeNav) {
+        item.classList.add('active');
+        item.setAttribute('aria-current', 'page');
+        updateTopbarIcon(item);
+      }
+    });
+
+    /* ── Open subnav if this page has one ── */
+    const subnavMap = {
+      'SDM':                'subnav-sdm',
+      'Masterisasi':        'subnav-masterisasi',
+      'Akses SSO':          'subnav-akses-sso',
+      'Pengelola Portal':   'subnav-pengelola-portal',
+      'Manajemen Portal':   'subnav-manajemen-portal',
+    };
+    if (subnavMap[activeNav]) {
+      const sec = document.getElementById(subnavMap[activeNav]);
+      if (sec) { sec.classList.add('active'); subnavPanel.classList.add('open'); }
+    }
+
+    /* ── Sidebar nav clicks → navigate to module file ── */
+    const navRoutes = {
+      'Dashboard':        'index.html',
+      'SDM':              'sdm.html',
+      'Masterisasi':      'masterisasi.html',
+      'Akses SSO':        'akses-sso.html',
+      'Pengelola Portal': 'pengelola-portal.html',
+      'Manajemen Portal': 'manajemen-portal.html',
+      'API':              'api.html',
+      'Data SIK':         'data-sik.html',
+    };
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        const label = this.querySelector('.nav-item-label')?.textContent?.trim()
+                   || this.getAttribute('aria-label') || '';
+        const route = navRoutes[label];
+        if (route && route !== '#') window.location.href = route;
+      });
+    });
+
+    /* ── Manajemen Portal Sub-nav switching ── */
+    document.querySelectorAll('#subnav-manajemen-portal .subnav-item').forEach(item => {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('#subnav-manajemen-portal .subnav-item').forEach(t => t.classList.toggle('active', t === this));
+        document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+        const target = document.getElementById('view-' + this.dataset.page);
+        if (target) target.classList.add('active');
+      });
+    });
+
+    /* ── Modal helpers ── */
+    function openModal(id) {
+      const overlay = document.getElementById(id);
+      if (!overlay) return;
+      overlay.classList.add('open');
+      const firstInput = overlay.querySelector('.form-input');
+      if (firstInput) setTimeout(() => firstInput.focus(), 50);
+    }
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('open');
+    }
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', function(e) {
+        if (e.target === this) closeModal(this.id);
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.open').forEach(o => o.classList.remove('open'));
+      }
+    });
+
+    /* ── CDD factory ── */
+    function initCdd(cddEl) {
+      if (!cddEl) return { reset() {} };
+      const trigger = cddEl.querySelector('.cdd-trigger');
+      const menu    = cddEl.querySelector('.cdd-menu');
+      const valueEl = cddEl.querySelector('.cdd-value');
+      const items   = cddEl.querySelectorAll('.cdd-item');
+      let selected  = '';
+      function open()   { trigger.classList.add('open'); menu.classList.add('open'); trigger.setAttribute('aria-expanded','true'); }
+      function close()  { trigger.classList.remove('open'); menu.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); }
+      function toggle() { trigger.classList.contains('open') ? close() : open(); }
+      trigger.addEventListener('click', e => { e.stopPropagation(); toggle(); });
+      const placeholder = items[0] ? items[0].textContent.trim() : valueEl.textContent.trim();
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          selected = item.dataset.value;
+          items.forEach(i => i.classList.remove('selected'));
+          item.classList.add('selected');
+          valueEl.textContent = selected ? item.textContent.trim() : placeholder;
+          valueEl.classList.toggle('selected', !!selected);
+          close();
+        });
+      });
+      document.addEventListener('click', e => { if (!cddEl.contains(e.target)) close(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+      return { reset() { selected=''; items.forEach(i=>i.classList.remove('selected')); if(items[0])items[0].classList.add('selected'); valueEl.textContent=placeholder; valueEl.classList.remove('selected'); } };
+    }
+
+    /* ── Tambah Banner ── */
+    const btnTambahBanner = document.getElementById('btnTambahBanner');
+    if (btnTambahBanner) {
+      btnTambahBanner.addEventListener('click', function() {
+        const judulEl = document.getElementById('banner-judul');
+        if (judulEl) judulEl.value = '';
+        document.getElementById('bannerFotoName').textContent = 'Belum ada file dipilih';
+        openModal('modal-tambah-banner');
+      });
+    }
+    document.getElementById('modal-tambah-banner-close').addEventListener('click',  () => closeModal('modal-tambah-banner'));
+    document.getElementById('modal-tambah-banner-batal').addEventListener('click',  () => closeModal('modal-tambah-banner'));
+    document.getElementById('modal-tambah-banner-simpan').addEventListener('click', () => closeModal('modal-tambah-banner'));
+    const cddBannerStatusEl = document.getElementById('cddBannerStatus');
+    if (cddBannerStatusEl) initCdd(cddBannerStatusEl);
+
+    /* File upload zone */
+    const bannerFotoInput = document.getElementById('banner-foto-input');
+    const bannerFotoZone  = document.getElementById('bannerFotoZone');
+    const bannerFotoName  = document.getElementById('bannerFotoName');
+    if (bannerFotoInput && bannerFotoZone) {
+      bannerFotoInput.addEventListener('change', function() {
+        bannerFotoName.textContent = this.files[0] ? this.files[0].name : 'Belum ada file dipilih';
+      });
+      bannerFotoZone.addEventListener('dragover', e => { e.preventDefault(); bannerFotoZone.classList.add('drag-over'); });
+      bannerFotoZone.addEventListener('dragleave', () => bannerFotoZone.classList.remove('drag-over'));
+      bannerFotoZone.addEventListener('drop', e => {
+        e.preventDefault(); bannerFotoZone.classList.remove('drag-over');
+        const file = e.dataTransfer.files[0];
+        if (file) { bannerFotoName.textContent = file.name; }
+      });
+    }
+
+    /* ── Toggle status banner ── */
+    document.querySelectorAll('.banner-toggle-input').forEach(input => {
+      input.addEventListener('change', function() {
+        const label = this.closest('label');
+        if (label) {
+          label.setAttribute('aria-label',
+            this.checked ? 'Status aktif — klik untuk nonaktifkan' : 'Status nonaktif — klik untuk aktifkan'
+          );
+        }
+      });
+    });
+
+    /* ── Edit Banner ── */
+    document.querySelectorAll('.banner-edit-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.getElementById('editBannerFotoName').textContent = 'Belum ada file dipilih';
+        openModal('modal-edit-banner');
+      });
+    });
+    document.getElementById('modal-edit-banner-close').addEventListener('click',  () => closeModal('modal-edit-banner'));
+    document.getElementById('modal-edit-banner-batal').addEventListener('click',  () => closeModal('modal-edit-banner'));
+    document.getElementById('modal-edit-banner-simpan').addEventListener('click', () => closeModal('modal-edit-banner'));
+
+    /* File upload zone — edit */
+    const editBannerFotoInput = document.getElementById('edit-banner-foto-input');
+    const editBannerFotoZone  = document.getElementById('editBannerFotoZone');
+    const editBannerFotoName  = document.getElementById('editBannerFotoName');
+    if (editBannerFotoInput && editBannerFotoZone) {
+      editBannerFotoInput.addEventListener('change', function() {
+        editBannerFotoName.textContent = this.files[0] ? this.files[0].name : 'Belum ada file dipilih';
+      });
+      editBannerFotoZone.addEventListener('dragover', e => { e.preventDefault(); editBannerFotoZone.classList.add('drag-over'); });
+      editBannerFotoZone.addEventListener('dragleave', () => editBannerFotoZone.classList.remove('drag-over'));
+      editBannerFotoZone.addEventListener('drop', e => {
+        e.preventDefault(); editBannerFotoZone.classList.remove('drag-over');
+        const file = e.dataTransfer.files[0];
+        if (file) { editBannerFotoName.textContent = file.name; }
+      });
+    }
+
+    /* ── Hapus Banner ── */
+    document.querySelectorAll('#view-mp-banner .btn-act:not(.banner-edit-btn)').forEach(btn => {
+      btn.addEventListener('click', function() {
+        openModal('modal-hapus-banner');
+      });
+    });
+    document.getElementById('modal-hapus-banner-close').addEventListener('click',      () => closeModal('modal-hapus-banner'));
+    document.getElementById('modal-hapus-banner-batal').addEventListener('click',      () => closeModal('modal-hapus-banner'));
+    document.getElementById('modal-hapus-banner-konfirmasi').addEventListener('click', () => closeModal('modal-hapus-banner'));
+
+    /* ── Authorization SIK ── */
+    const SIK_DEFAULTS = { url: 'https://sik.dephub.go.id/api/index.php/soap_services/sik_api?wsdl', user: 'ditjenka', key: 'ditjenka006' };
+    document.getElementById('btn-sik-reset').addEventListener('click', function() {
+      document.getElementById('sik-url-wsdl').value = SIK_DEFAULTS.url;
+      document.getElementById('sik-user').value     = SIK_DEFAULTS.user;
+      document.getElementById('sik-key').value      = SIK_DEFAULTS.key;
+    });
+    document.getElementById('btn-sik-simpan').addEventListener('click', function() {
+      const url  = document.getElementById('sik-url-wsdl').value.trim();
+      const user = document.getElementById('sik-user').value.trim();
+      const key  = document.getElementById('sik-key').value.trim();
+      if (!url || !user || !key) { alert('Semua field wajib diisi.'); return; }
+      console.log('Simpan SIK:', { url, user, key });
+    });
+
+    /* ── Authorization SSO ── */
+    const SSO_DEFAULTS = {
+      clientId:       '9a30d665-5a54-4a51-96d6-a3e6dd27b74f',
+      clientSecret:   'KuwYdEsUQuJjwkTeMKQSE8yg4ZQiPrrABFZ6THvX',
+      clientRedirect: 'https://ujidjka.kemenhub.go.id/login',
+      clientLoginApi: 'https://ujidjka.kemenhub.go.id/login-sso'
+    };
+    document.getElementById('btn-sso-reset').addEventListener('click', function() {
+      document.getElementById('sso-client-id').value        = SSO_DEFAULTS.clientId;
+      document.getElementById('sso-client-secret').value    = SSO_DEFAULTS.clientSecret;
+      document.getElementById('sso-client-redirect').value  = SSO_DEFAULTS.clientRedirect;
+      document.getElementById('sso-client-login-api').value = SSO_DEFAULTS.clientLoginApi;
+    });
+    document.getElementById('btn-sso-simpan').addEventListener('click', function() {
+      const clientId       = document.getElementById('sso-client-id').value.trim();
+      const clientSecret   = document.getElementById('sso-client-secret').value.trim();
+      const clientRedirect = document.getElementById('sso-client-redirect').value.trim();
+      const clientLoginApi = document.getElementById('sso-client-login-api').value.trim();
+      if (!clientId || !clientSecret || !clientRedirect || !clientLoginApi) { alert('Semua field wajib diisi.'); return; }
+      console.log('Simpan SSO:', { clientId, clientSecret, clientRedirect, clientLoginApi });
+    });  </script>
+</body>
+</html>

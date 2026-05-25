@@ -1,0 +1,223 @@
+/* ═══════════════════════════════════════════════════════════
+   penjadwalan-uji-detail.css
+   Berdasarkan Dashboard Design Guidelines v1.2
+═══════════════════════════════════════════════════════════ */
+
+/* ── Info Card ── */
+.pjd-info-card { padding: 0; }
+
+.pjd-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.pjd-card-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Tombol Kembali — ghost sesuai spec */
+
+/* ── Info DL ── */
+.pjd-info-dl {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0 8px;
+}
+
+.pjd-info-row {
+  display: grid;
+  grid-template-columns: 172px 16px 1fr;
+  align-items: baseline;
+  padding: 9px 20px;
+  border-bottom: 1px solid var(--color-border-light);
+  gap: 0;
+}
+
+.pjd-info-row:last-child { border-bottom: none; }
+
+.pjd-info-row dt {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.pjd-sep {
+  font-size: 13.5px;
+  color: var(--color-muted);
+  text-align: center;
+}
+
+.pjd-info-row dd {
+  font-size: 13.5px;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+/* Nilai monospace (invoice, surat, billing, kode) */
+.pjd-val-mono {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-primary);
+  letter-spacing: 0.2px;
+}
+
+/* Nama wajib bayar — bold uppercase */
+.pjd-val-bold {
+  font-weight: 700;
+  color: var(--color-text);
+  text-transform: uppercase;
+}
+
+/* Nominal — bold */
+.pjd-val-nominal {
+  font-weight: 700;
+  color: var(--color-text);
+  font-size: 14px;
+}
+
+/* Tgl. Bayar — badge hijau */
+.badge-tgl-bayar {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  background: #DCFCE7;
+  color: #16A34A;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  letter-spacing: 0.3px;
+}
+
+/* File PDF link */
+.pjd-file-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.pjd-file-link:hover { opacity: 0.75; }
+
+/* ── Tabel Data Permohonan ── */
+.pjd-tbl-card { padding: 0; }
+
+/* Header card — sesuai tbl-card-header di badan-usaha.css */
+.pjd-tbl-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.pjd-tbl-title-icon {
+  width: 28px;
+  height: 28px;
+  background: var(--color-primary-light);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.pjd-tbl-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Tabel — sesuai spec dashboard.md */
+.pjd-table thead tr { background: transparent; }
+
+.pjd-table thead th {
+  padding: 12px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  border-bottom: 1.5px solid var(--color-border);
+  white-space: nowrap;
+  text-align: left;
+  user-select: none;
+}
+
+.pjd-table thead th.sortable { cursor: pointer; }
+.pjd-table thead th.sortable:hover { color: var(--color-text); }
+
+.pjd-table thead th .sort-icon { opacity: 0.4; }
+.pjd-table thead th.sort-asc  .sort-icon,
+.pjd-table thead th.sort-desc .sort-icon { opacity: 1; color: var(--color-primary); }
+
+/* Checkbox */
+.pjd-table thead th input[type="checkbox"],
+.pjd-table tbody td input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  accent-color: var(--color-primary);
+}
+
+/* Body rows — zebra striping sesuai spec */
+.pjd-table tbody tr:nth-child(even) { background: #F8FAFC; }
+.pjd-table tbody tr:nth-child(odd)  { background: #ffffff; }
+.pjd-table tbody tr:hover           { background: #EFF6FF; }
+
+.pjd-table tbody td {
+  padding: 11px 14px;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border-light);
+  vertical-align: middle;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ID Permohonan — mono biru */
+.td-id-perm {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+/* No. Permohonan — mono */
+.td-no-perm {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* Kode Sarana — mono biru */
+.td-kode-sarana {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+/* Checkbox cell */
+.td-check {
+  padding-left: 16px;
+  vertical-align: middle;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .pjd-info-row {
+    grid-template-columns: 130px 14px 1fr;
+  }
+}

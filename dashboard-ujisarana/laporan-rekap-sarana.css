@@ -1,0 +1,45 @@
+/* laporan-rekap-sarana.css — Dashboard Design Guidelines v1.2 */
+
+/* ── Kolom lebar ── */
+.rs-col-no  { width: 52px; }
+.rs-col-bu  { min-width: 260px; }
+.rs-col-js  { min-width: 220px; }
+.rs-col-jml { width: 110px; text-align: right; }
+
+/* Kolom JUMLAH header — right-align */
+.data-table thead th.rs-col-jml .th-inner {
+  justify-content: flex-end;
+}
+
+/* Kolom BADAN USAHA — uppercase, bold */
+.td-rs-bu {
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-text);
+  font-size: 13px;
+}
+
+/* Kolom JENIS SARANA */
+.td-rs-js {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+/* Kolom JUMLAH — JetBrains Mono, right-align, primary color */
+.td-rs-jml {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Print */
+@media print {
+  .topbar, .sidebar, .page-header,
+  .tbl-card-header, .tbl-filters, .tbl-pagination { display: none !important; }
+  .main-content { padding: 0; }
+  .card { border: none; box-shadow: none; }
+  .data-table { font-size: 11px; }
+}

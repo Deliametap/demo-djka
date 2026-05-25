@@ -1,0 +1,76 @@
+/* laporan-payment-blu.css — Dashboard Design Guidelines v1.2 */
+
+/* Badge total penerimaan — teal pill di kanan header */
+.blu-total-badge {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: #0D9488;
+  color: #ffffff;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.blu-total-badge span {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+/* Tombol Export to Excel — dark */
+
+/* Kolom nominal — right-align */
+.blu-col-nominal { text-align: right; }
+.blu-col-nominal .th-inner { justify-content: flex-end; }
+
+/* Nilai billing — mono, right-align, bold */
+.td-blu-nominal {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* No. Invoice & Kode Billing — mono biru */
+.td-blu-mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+/* Tgl. Bayar — mono abu */
+.td-blu-tgl {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* Jml. Sarana — center bold */
+.td-blu-jml {
+  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+/* Ikon kwitansi PDF */
+.td-kwitansi { text-align: center; }
+
+/* Print */
+@media print {
+  .topbar, .sidebar, .subnav-panel, .page-header,
+  .tbl-card-header, .tbl-filters, .tbl-pagination { display: none !important; }
+  .main-content { padding: 0; }
+  .card { border: none; box-shadow: none; }
+  .data-table { font-size: 11px; }
+}

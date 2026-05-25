@@ -1,0 +1,236 @@
+/* ═══════════════════════════════════════════════════════════
+   penjadwalan-uji.css
+   Berdasarkan Dashboard Design Guidelines v1.2
+═══════════════════════════════════════════════════════════ */
+
+/* ── Info Alert Warning (teal muda sesuai gambar) ── */
+.pj-alert {
+  display: flex;
+  gap: 12px;
+  margin: 0 20px 0;
+  padding: 14px 18px;
+  background: #F0FDFA;
+  border: 1px solid #99F6E4;
+  border-radius: 10px;
+  color: #0F766E;
+}
+
+.pj-alert-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: #0D9488;
+}
+
+.pj-alert-body { flex: 1; }
+
+.pj-alert-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F766E;
+  margin-bottom: 6px;
+}
+
+.pj-alert-list {
+  list-style: disc;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pj-alert-list li {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #0D9488;
+}
+
+.pj-alert-list strong {
+  font-weight: 700;
+  color: #0F766E;
+}
+
+/* ── Kolom tabel ── */
+
+/* No. Surat Penugasan & Invoice & Billing — monospace */
+.td-surat {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.td-invoice {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+.td-billing {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* Jml. Sarana — center, bold */
+.td-jml {
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+/* Kolom aksi — 2 tombol berdampingan */
+.td-aksi-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Tombol detail (biru) — sesuai spec .btn-act-detail di buttons.css */
+
+/* Tombol view/eye (amber) — sesuai spec .btn-act-view di buttons.css */
+
+/* ── Print ── */
+@media print {
+  .topbar, .sidebar, .page-header,
+  .tbl-card-header, .pj-alert, .tbl-filters, .tbl-pagination,
+  .td-aksi-group { display: none !important; }
+  .main-content { padding: 0; }
+  .card { border: none; box-shadow: none; }
+  .data-table { font-size: 11px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MODAL DAFTAR SARANA — sesuai spec dashboard.md
+═══════════════════════════════════════════════════════════ */
+
+/* Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.5);
+  backdrop-filter: blur(2px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Modal box */
+.modal {
+  background: var(--color-surface);
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0,0,0,.04), 0 24px 64px rgba(0,0,0,.14);
+  width: 480px;
+  max-width: 100%;
+  transform: scale(0.96) translateY(10px);
+  opacity: 0;
+  transition: transform 0.22s cubic-bezier(0.16,1,0.3,1), opacity 0.18s ease;
+}
+
+/* Modal lebih lebar untuk tabel */
+.modal-lg {
+  width: 640px;
+}
+
+.modal-overlay.open .modal {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* Header */
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-title-icon {
+  width: 34px;
+  height: 34px;
+  background: var(--color-primary-light);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.modal-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+  flex: 1;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: background 0.13s, color 0.13s;
+  flex-shrink: 0;
+}
+
+.modal-close:hover { background: #F8FAFC; color: var(--color-text); }
+
+/* Filter row dalam modal */
+.modal-sarana-filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--color-border-light);
+  flex-wrap: wrap;
+}
+
+/* Body — tidak perlu scroll, tinggi natural */
+.modal-sarana-body {
+  padding: 0;
+}
+
+/* Pagination dalam modal */
+.modal-sarana-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  border-top: 1px solid var(--color-border-light);
+  font-size: 13px;
+  color: var(--color-muted);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Footer */
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 14px 24px;
+  border-top: 1px solid var(--color-border);
+}
+

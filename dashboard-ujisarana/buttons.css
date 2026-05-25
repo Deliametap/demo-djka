@@ -1,0 +1,727 @@
+/* ═══════════════════════════════════════════════════════════
+   buttons.css — Sistem Tombol Global
+   Berdasarkan Dashboard Design Guidelines v1.2
+   
+   Ukuran default (Medium): height 38px
+   Semua tombol: font Plus Jakarta Sans, font-weight 600
+   Ikon: stroke-width 2.5, ukuran 14px, gap 6px
+═══════════════════════════════════════════════════════════ */
+
+/* ── Base shared ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 18px;
+  border-radius: 6px;
+  font-family: var(--font-ui);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+  transition: background 0.18s, transform 0.18s, box-shadow 0.18s, border-color 0.15s;
+  text-decoration: none;
+}
+
+.btn svg { flex-shrink: 0; }
+
+.btn:disabled {
+  background: #E2E8F0;
+  color: #94A3B8;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── Primary — tindakan utama ── */
+.btn-primary {
+  background: var(--color-primary);
+  color: #ffffff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37,99,235,.35);
+}
+
+.btn-primary:active {
+  background: var(--color-primary);
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* ── Ghost — aksi rendah prioritas (Kembali, Batal) ── */
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: 1.5px solid var(--color-border);
+}
+
+.btn-ghost:hover {
+  background: #F8FAFC;
+  border-color: #CBD5E1;
+  color: var(--color-text);
+}
+
+/* ── Danger — tindakan destruktif ── */
+.btn-danger {
+  background: var(--color-danger);
+  color: #ffffff;
+  border: none;
+}
+
+.btn-danger:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.btn-danger:active { transform: translateY(0); }
+
+/* ── Success — konfirmasi positif ── */
+.btn-success {
+  background: var(--color-success);
+  color: #ffffff;
+  border: none;
+}
+
+.btn-success:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.btn-success:active { transform: translateY(0); }
+
+/* ── Dark — aksi sistem/ekspor/download ── */
+.btn-dark {
+  background: #1E293B;
+  color: #ffffff;
+  border: none;
+}
+
+.btn-dark:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.btn-dark:active { transform: translateY(0); }
+
+/* ── Secondary Outline — aksi sekunder berdampingan primary ── */
+.btn-secondary-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 16px;
+  background: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary-border);
+  border-radius: 6px;
+  font-family: var(--font-ui);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn-secondary-outline:hover {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+}
+
+/* ── Teal — aksi sinkronisasi/filter ── */
+.btn-teal {
+  background: #0D9488;
+  color: #ffffff;
+  border: none;
+}
+
+.btn-teal:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.btn-teal:active { transform: translateY(0); }
+
+/* ════════════════════════════════════════════════
+   ALIAS — class lama dipetakan ke spec baru
+   Memastikan semua file yang sudah ada tetap bekerja
+════════════════════════════════════════════════ */
+
+/* Export PDF / Excel / BLU → btn-dark */
+.btn-export {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 6px;
+  background: #1E293B;
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.btn-export:hover  { opacity: 0.88; transform: translateY(-1px); }
+.btn-export:active { transform: translateY(0); }
+
+/* Export to Excel BLU */
+.btn-export-blu {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 6px;
+  background: #1E293B;
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.btn-export-blu:hover  { opacity: 0.88; transform: translateY(-1px); }
+.btn-export-blu:active { transform: translateY(0); }
+
+/* Export hijau (alert) → btn-success */
+.btn-export-green {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-success);
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.btn-export-green:hover  { opacity: 0.88; transform: translateY(-1px); }
+.btn-export-green:active { transform: translateY(0); }
+
+/* Cari / Filter → PRIMARY biru sesuai spec */
+.btn-cari,
+.btn-cari-ku,
+.btn-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+}
+
+.btn-cari:hover,
+.btn-cari-ku:hover,
+.btn-filter:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37,99,235,.35);
+}
+
+.btn-cari:active,
+.btn-cari-ku:active,
+.btn-filter:active {
+  background: var(--color-primary);
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Kembali → btn-ghost */
+.btn-kembali,
+.btn-kembali-dpd {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 16px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-surface);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.13s, border-color 0.13s, color 0.13s;
+}
+
+.btn-kembali:hover,
+.btn-kembali-dpd:hover {
+  background: #F8FAFC;
+  border-color: #CBD5E1;
+  color: var(--color-text);
+}
+
+/* Sinkronisasi → SECONDARY OUTLINE sesuai spec (aksi sekunder berdampingan primary) */
+.btn-sinkronisasi {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 16px;
+  border: 1.5px solid var(--color-primary-border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-primary);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn-sinkronisasi:hover {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+}
+
+.btn-sinkronisasi:disabled {
+  background: #E2E8F0;
+  color: #94A3B8;
+  border-color: #E2E8F0;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Tambah Repo → btn-primary */
+.btn-tambah-repo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+}
+
+.btn-tambah-repo:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37,99,235,.35);
+}
+
+.btn-tambah-repo:active {
+  background: var(--color-primary);
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Modal buttons */
+.btn-modal-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.18s;
+}
+
+.btn-modal-primary:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-modal-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 20px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 6px;
+  background: transparent;
+  font-family: var(--font-ui);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background 0.13s, border-color 0.13s;
+}
+
+.btn-modal-ghost:hover {
+  background: #F8FAFC;
+  border-color: #CBD5E1;
+}
+
+.btn-modal-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-danger);
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.btn-modal-danger:hover  { opacity: 0.88; transform: translateY(-1px); }
+.btn-modal-danger:active { transform: translateY(0); }
+
+/* Tombol detail tabel → outlined biru sesuai spec .btn-detail */
+.btn-detail,
+.btn-detail-lpu {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 16px;
+  border: 1.5px solid var(--color-primary-border);
+  border-radius: 10px;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background 0.13s, border-color 0.13s;
+}
+
+.btn-detail:hover,
+.btn-detail-lpu:hover {
+  background-color: #DBEAFE;
+  border-color: var(--color-primary);
+}
+
+.btn-detail svg,
+.btn-detail-lpu svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+
+/* Tombol aksi ganda tabel */
+.btn-act {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.13s;
+}
+
+.btn-act svg { width: 13px; height: 13px; stroke-width: 2.2; }
+
+.btn-act-detail,
+.btn-act-edit {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary-border);
+}
+
+.btn-act-detail:hover,
+.btn-act-edit:hover { background: #DBEAFE; border-color: #93C5FD; }
+
+.btn-act-view,
+.btn-act-sync {
+  background: #FFFBEB;
+  color: #B45309;
+  border: 1.5px solid #FDE68A;
+}
+
+.btn-act-view:hover,
+.btn-act-sync:hover { background: #FEF3C7; border-color: #FCD34D; }
+
+.btn-act-view svg,
+.btn-act-detail svg { width: 15px; height: 15px; stroke-width: 2; }
+
+/* Tombol atur ulang jadwal (teal) */
+.btn-act-atur {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #99F6E4;
+  border-radius: 8px;
+  background: #F0FDFA;
+  color: #0D9488;
+  cursor: pointer;
+  transition: background 0.13s, border-color 0.13s;
+}
+
+.btn-act-atur:hover { background: #CCFBF1; border-color: #5EEAD4; }
+.btn-act-atur svg   { width: 15px; height: 15px; stroke-width: 2; }
+
+/* Tombol PDF ikon (merah) */
+.btn-pdf-icon,
+.btn-kwitansi {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #FEE2E2;
+  border: 1.5px solid #FCA5A5;
+  border-radius: 6px;
+  color: #DC2626;
+  cursor: pointer;
+  transition: background 0.13s;
+}
+
+.btn-pdf-icon:hover,
+.btn-kwitansi:hover { background: #FECACA; }
+
+.btn-pdf-icon svg,
+.btn-kwitansi svg { width: 15px; height: 15px; stroke-width: 2; }
+
+/* Tombol repo edit (amber) */
+.btn-repo-edit {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  background: #D97706;
+  color: #ffffff;
+  cursor: pointer;
+  transition: opacity 0.13s;
+}
+
+.btn-repo-edit:hover { opacity: 0.85; }
+.btn-repo-edit svg   { width: 13px; height: 13px; stroke-width: 2.5; }
+
+/* Tombol repo hapus (merah) */
+.btn-repo-del {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-danger);
+  color: #ffffff;
+  cursor: pointer;
+  transition: opacity 0.13s;
+}
+
+.btn-repo-del:hover { opacity: 0.85; }
+.btn-repo-del svg   { width: 13px; height: 13px; stroke-width: 2.5; }
+
+/* Tombol kirim ulang (success) */
+.btn-kirim-ulang {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-success);
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.btn-kirim-ulang:hover  { opacity: 0.88; transform: translateY(-1px); }
+.btn-kirim-ulang:active { transform: translateY(0); }
+.btn-kirim-ulang:disabled {
+  background: #64748B;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Pagination buttons */
+.page-btn {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 8px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: background 0.13s, border-color 0.13s, color 0.13s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.page-btn:hover:not(:disabled) {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary-border);
+  color: var(--color-primary);
+}
+
+.page-btn.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.page-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ════════════════════════════════════════════════
+   EXPORT DROPDOWN — tombol Export dengan dropdown PDF/Excel
+   Sesuai spec .btn-dark + dropdown overlay
+════════════════════════════════════════════════ */
+.export-dropdown {
+  position: relative;
+  display: inline-flex;
+}
+
+.btn-export-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 14px;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 6px;
+  background-color: #1E293B;
+  color: #ffffff;
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+  user-select: none;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+.btn-export-toggle:hover { opacity: 0.88; }
+
+.btn-export-toggle svg { flex-shrink: 0; }
+
+/* Chevron ikon di kanan */
+.btn-export-toggle .export-chevron {
+  margin-left: 2px;
+  transition: transform 0.2s ease;
+}
+
+.export-dropdown.open .export-chevron {
+  transform: rotate(180deg);
+}
+
+/* Dropdown menu */
+.export-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 160px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,.04), 0 10px 32px rgba(0,0,0,.10);
+  z-index: 150;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.export-dropdown.open .export-menu {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+.export-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  transition: background 0.13s;
+}
+
+.export-menu-item:hover { background: var(--color-bg); }
+
+.export-menu-item svg { flex-shrink: 0; color: var(--color-muted); }
+
+.export-menu-item + .export-menu-item {
+  border-top: 1px solid var(--color-border-light);
+}
