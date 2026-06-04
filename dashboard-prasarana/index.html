@@ -7,6 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="lib/leaflet.css" />
+  <link rel="stylesheet" href="lib/MarkerCluster.css" />
+  <link rel="stylesheet" href="lib/MarkerCluster.Default.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -209,10 +212,10 @@
       border: 1px solid var(--color-border);
       overflow: hidden;
     }
-    .card-body { padding: 20px; }
+    .card-body { padding: 12px 14px; }
     .card-title {
-      font-size: 15px; font-weight: 700; color: var(--color-text);
-      margin-bottom: 16px;
+      font-size: 14px; font-weight: 700; color: var(--color-text);
+      margin-bottom: 10px;
     }
 
     /* ── STAT CARDS ─────────────────────────────────────────── */
@@ -264,57 +267,59 @@
       grid-template-columns: 1fr 1fr;
       gap: 24px;
     }
+    .dashboard-grid .card { display: flex; flex-direction: column; }
+    .dashboard-grid .card .card-body { flex: 1; display: flex; flex-direction: column; }
 
     /* ── MAIN DATA LIST ─────────────────────────────────────── */
-    .main-data-list { display: flex; flex-direction: column; gap: 4px; }
+    .main-data-list { display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
     .main-data-item {
-      display: flex; align-items: center; gap: 12px;
-      padding: 10px 12px; border-radius: 8px;
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 8px; border-radius: 6px;
       transition: background 0.13s; cursor: pointer;
     }
     .main-data-item:hover { background: var(--color-bg); }
     .main-data-icon {
-      width: 36px; height: 36px; border-radius: 9px;
+      width: 26px; height: 26px; border-radius: 7px;
       background: var(--color-primary-light);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
-    .main-data-icon svg { width: 16px; height: 16px; stroke: var(--color-primary); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-    .main-data-name { flex: 1; font-size: 14px; font-weight: 500; color: var(--color-text-secondary); }
+    .main-data-icon svg { width: 12px; height: 12px; stroke: var(--color-primary); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .main-data-name { flex: 1; font-size: 13px; font-weight: 500; color: var(--color-text-secondary); }
     .main-data-count {
-      font-size: 15px; font-weight: 700; color: var(--color-text);
+      font-size: 13px; font-weight: 700; color: var(--color-text);
       font-family: var(--font-mono);
-      min-width: 28px; text-align: right;
+      min-width: 24px; text-align: right;
     }
-    .main-data-divider { height: 1px; background: var(--color-border-light); margin: 4px 0; }
+    .main-data-divider { height: 1px; background: var(--color-border-light); margin: 0; }
 
     /* ── STATISTIK SECTION ──────────────────────────────────── */
     .stat-section-header {
       display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 8px;
     }
     .stat-section-title { font-size: 15px; font-weight: 700; color: var(--color-text); }
     .date-range-badge {
       display: flex; align-items: center; gap: 6px;
       background: var(--color-bg); border: 1px solid var(--color-border);
-      border-radius: 8px; padding: 6px 12px;
-      font-size: 12.5px; font-weight: 500; color: var(--color-muted);
+      border-radius: 8px; padding: 4px 10px;
+      font-size: 12px; font-weight: 500; color: var(--color-muted);
       cursor: pointer; transition: border-color 0.15s;
     }
     .date-range-badge:hover { border-color: var(--color-primary-border); color: var(--color-primary); }
     .date-range-badge svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
     .stat-big-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-      margin-bottom: 20px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+      margin-bottom: 8px;
     }
     .stat-big-item {
-      background: var(--color-bg); border-radius: 10px;
-      padding: 16px; border: 1px solid var(--color-border-light);
+      background: var(--color-bg); border-radius: 8px;
+      padding: 10px 12px; border: 1px solid var(--color-border-light);
     }
-    .stat-big-value { font-size: 36px; font-weight: 800; line-height: 1.1; color: var(--color-text); }
-    .stat-big-value.rp::before { content: 'Rp '; font-size: 20px; font-weight: 600; color: var(--color-muted); }
-    .stat-big-label { font-size: 13px; color: var(--color-muted); margin-top: 4px; }
+    .stat-big-value { font-size: 22px; font-weight: 800; line-height: 1.1; color: var(--color-text); }
+    .stat-big-value.rp::before { content: 'Rp '; font-size: 13px; font-weight: 600; color: var(--color-muted); }
+    .stat-big-label { font-size: 11.5px; color: var(--color-muted); margin-top: 2px; }
 
     .stat-chart-placeholder {
       background: var(--color-bg); border-radius: 10px;
@@ -351,6 +356,69 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition: none !important; animation: none !important; }
     }
+
+    /* ── GIS WIDGET ─────────────────────────────────────────────── */
+    .gis-widget { margin-top: 24px; }
+    .gis-widget-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+    .gis-widget-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: var(--color-primary-light);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .gis-widget-icon svg { width: 16px; height: 16px; stroke: var(--color-primary); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .gis-widget-title { font-size: 15px; font-weight: 700; color: var(--color-text); flex: 1; }
+    .gis-widget-count {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 22px; height: 22px; padding: 0 6px;
+      border-radius: 9999px; background: var(--color-primary);
+      color: white; font-size: 11px; font-weight: 700;
+      font-family: var(--font-mono);
+    }
+    .gis-widget-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px; border-radius: 8px;
+      background: var(--color-primary-light); color: var(--color-primary);
+      border: 1.5px solid var(--color-primary-border);
+      font-size: 13px; font-weight: 600;
+      text-decoration: none; transition: all 0.13s;
+      white-space: nowrap;
+    }
+    .gis-widget-link:hover { background: #DBEAFE; border-color: #93C5FD; }
+    .gis-widget-link svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    #dashboardMap {
+      height: 280px; width: 100%;
+      border-top: none; border-bottom: 1px solid var(--color-border-light);
+    }
+    .gis-widget-footer {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      padding: 12px 20px;
+    }
+    .gis-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    }
+    .gis-chip .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .gis-chip-total  { background: var(--color-primary-light); color: var(--color-primary); }
+    .gis-chip-total  .dot { background: var(--color-primary); }
+    .gis-chip-aktif  { background: var(--color-success-bg); color: var(--color-success); }
+    .gis-chip-aktif  .dot { background: var(--color-success); }
+    .gis-chip-proses { background: var(--color-warning-bg); color: var(--color-warning); }
+    .gis-chip-proses .dot { background: var(--color-warning); }
+
+    /* Custom Leaflet popup on dashboard */
+    .leaflet-popup-content-wrapper { border-radius: 12px !important; box-shadow: 0 4px 6px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.12) !important; padding: 0 !important; overflow: hidden; border: 1px solid var(--color-border); font-family: var(--font-ui) !important; }
+    .leaflet-popup-content { margin: 0 !important; }
+    .leaflet-popup-tip-container { display: none; }
+    .dash-popup-content { padding: 14px; min-width: 190px; }
+    .dash-popup-name { font-size: 13px; font-weight: 700; color: var(--color-text); margin-bottom: 2px; }
+    .dash-popup-sub  { font-size: 11.5px; color: var(--color-muted); }
+    .dash-popup-row  { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: 12px; }
+    .dash-popup-key  { color: var(--color-muted); }
+    .dash-popup-val  { font-weight: 600; color: var(--color-text); font-family: var(--font-mono); }
   </style>
 </head>
 
@@ -622,7 +690,7 @@
 
             <!-- Line Chart -->
             <div style="position:relative; margin: 16px 0 8px;">
-              <canvas id="statusChart" height="140" aria-label="Diagram line status permohonan"></canvas>
+              <canvas id="statusChart" height="90" aria-label="Diagram line status permohonan"></canvas>
             </div>
 
             <!-- Status inline badges -->
@@ -653,6 +721,28 @@
         </div>
 
       </div><!-- /dashboard-grid -->
+
+      <!-- GIS Widget -->
+      <div class="card gis-widget" role="region" aria-label="Peta persebaran prasarana">
+        <div class="gis-widget-header">
+          <div class="gis-widget-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 14 8 14s8-8.75 8-14a8 8 0 0 0-8-8z"/></svg>
+          </div>
+          <span class="gis-widget-title">Peta Persebaran Prasarana</span>
+          <span class="gis-widget-count" id="gisWidgetCount" aria-label="4 prasarana">4</span>
+          <a href="peta-prasarana.html" class="gis-widget-link" aria-label="Buka peta lengkap">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Lihat Peta Lengkap
+          </a>
+        </div>
+        <div id="dashboardMap" aria-label="Mini peta lokasi prasarana"></div>
+        <div class="gis-widget-footer">
+          <span class="gis-chip gis-chip-total"><span class="dot"></span>Total: <strong id="gisTotal">4</strong></span>
+          <span class="gis-chip gis-chip-aktif"><span class="dot"></span>Aktif: <strong id="gisAktif">3</strong></span>
+          <span class="gis-chip gis-chip-proses"><span class="dot"></span>Dalam Proses: <strong id="gisProses">1</strong></span>
+        </div>
+      </div><!-- /gis-widget -->
+
     </main><!-- /main-content -->
 
   </div><!-- /app-body -->
@@ -663,6 +753,8 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="lib/leaflet.js"></script>
+  <script src="lib/leaflet.markercluster.js"></script>
   <script>
     // Update tanggal di topbar
     function updateCurrentDate() {
@@ -776,7 +868,93 @@
       sidebar.classList.toggle('collapsed');
       const isCollapsed = sidebar.classList.contains('collapsed');
       btn.style.left = isCollapsed ? '58px' : '186px';
+      if (dashMap) setTimeout(() => dashMap.invalidateSize(), 260);
     }
+
+    // ── GIS Widget ────────────────────────────────────────────────
+    const prasaranaData = [
+      { id:1, nama:'Stasiun Besar XXX',         jenis:'Stasiun Besar',      kode:'ST201',    status:'aktif',  lat:-6.1754,  lng:106.8272, btp:'BTP JAKBAN' },
+      { id:2, nama:'BH Jembatan 4',             jenis:'Jembatan Beton',     kode:'BH04',     status:'aktif',  lat:-6.9175,  lng:107.6191, btp:'BTP JAKBAN' },
+      { id:3, nama:'Simulasi Nama Prasarana11', jenis:'Bangunan Balaiyasa', kode:'12312c11', status:'proses', lat:-7.2575,  lng:112.7521, btp:'BTP JATENG' },
+      { id:4, nama:'Stasiun Kecil Simulasi',    jenis:'Stasiun Kecil',      kode:'ST0334',   status:'aktif',  lat:-7.7956,  lng:110.3695, btp:'BTP JATENG' },
+    ];
+
+    const statusColor = { aktif: '#16A34A', proses: '#D97706', nonaktif: '#64748B' };
+    const statusLabel = { aktif: 'Aktif', proses: 'Dalam Proses', nonaktif: 'Tidak Aktif' };
+    const jenisColor  = {
+      'Stasiun Besar': '#1D4ED8', 'Stasiun Kecil': '#7C3AED',
+      'Jembatan Beton': '#0D9488', 'Bangunan Balaiyasa': '#2563EB',
+      'Jalur Kereta Api': '#D97706'
+    };
+    function getJenisColor(j) { return jenisColor[j] || '#1D4ED8'; }
+
+    function createDashMarker(color) {
+      return L.divIcon({
+        className: '',
+        html: `<div style="width:28px;height:28px;border-radius:50% 50% 50% 0;background:${color};border:2.5px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.28);transform:rotate(-45deg);"></div>`,
+        iconSize: [28,28], iconAnchor: [14,28], popupAnchor: [0,-32]
+      });
+    }
+
+    const dashMap = L.map('dashboardMap', {
+      zoomControl: false,
+      attributionControl: false,
+      scrollWheelZoom: false,
+      center: [-6.9, 107.6],
+      zoom: 7
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(dashMap);
+
+    const dashCluster = L.markerClusterGroup({
+      maxClusterRadius: 50,
+      iconCreateFunction: function(cluster) {
+        const c = cluster.getChildCount();
+        return L.divIcon({
+          html: `<div style="width:36px;height:36px;border-radius:50%;background:#1D4ED8;border:2.5px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.22);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;">${c}</div>`,
+          className: '', iconSize: [36,36], iconAnchor: [18,18]
+        });
+      }
+    });
+
+    prasaranaData.forEach(d => {
+      const color = getJenisColor(d.jenis);
+      const sColor = statusColor[d.status] || '#64748B';
+      const sLabel = statusLabel[d.status] || d.status;
+      const popup = `
+        <div class="dash-popup-content">
+          <div class="dash-popup-name">${d.nama}</div>
+          <div class="dash-popup-sub">${d.jenis}</div>
+          <div class="dash-popup-row">
+            <span class="dash-popup-key">Kode</span>
+            <span class="dash-popup-val">${d.kode}</span>
+          </div>
+          <div class="dash-popup-row">
+            <span class="dash-popup-key">Status</span>
+            <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:${sColor}22;color:${sColor};">${sLabel}</span>
+          </div>
+          <div style="margin-top:10px;">
+            <a href="peta-prasarana.html" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:7px;border-radius:8px;background:#EFF6FF;color:#1D4ED8;border:1.5px solid #BFDBFE;font-size:12px;font-weight:600;text-decoration:none;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 14 8 14s8-8.75 8-14a8 8 0 0 0-8-8z"/></svg>
+              Lihat di Peta
+            </a>
+          </div>
+        </div>`;
+      const marker = L.marker([d.lat, d.lng], { icon: createDashMarker(color) });
+      marker.bindPopup(popup, { maxWidth: 220, minWidth: 200 });
+      dashCluster.addLayer(marker);
+    });
+
+    dashMap.addLayer(dashCluster);
+    setTimeout(() => dashMap.invalidateSize(), 100);
+
+    // Update stat chips
+    const aktifCount  = prasaranaData.filter(d => d.status === 'aktif').length;
+    const prosesCount = prasaranaData.filter(d => d.status === 'proses').length;
+    document.getElementById('gisTotal').textContent  = prasaranaData.length;
+    document.getElementById('gisAktif').textContent  = aktifCount;
+    document.getElementById('gisProses').textContent = prosesCount;
+    document.getElementById('gisWidgetCount').textContent = prasaranaData.length;
   </script>
 
 </body>
