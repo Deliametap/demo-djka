@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Badan Usaha — Pelayanan SDM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── § 3 CSS TOKEN WARNA ── */
+    :root {
+      --color-primary:        #1D4ED8;
+      --color-primary-hover:  #2563EB;
+      --color-primary-light:  #EFF6FF;
+      --color-primary-border: #BFDBFE;
+      --color-success:        #16A34A;
+      --color-warning:        #D97706;
+      --color-danger:         #DC2626;
+      --color-info:           #0284C7;
+      --color-surface:        #FFFFFF;
+      --color-bg:             #F8FAFC;
+      --color-border:         #E2E8F0;
+      --color-border-light:   #F1F5F9;
+      --color-text:           #0F172A;
+      --color-text-secondary: #334155;
+      --color-muted:          #64748B;
+      --topbar-bg:            #0F172A;
+      --topbar-date-bg:       rgba(255,255,255,0.08);
+      --topbar-date-text:     #ffffff;
+      --font-ui:              'Plus Jakarta Sans', sans-serif;
+      --font-mono:            'JetBrains Mono', monospace;
+    }
+
+    body {
+      font-family: var(--font-ui);
+      background: var(--color-bg);
+      color: var(--color-text);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── § 5 TOPBAR — full-width, sticky, 56px, #0F172A ── */
+    .topbar {
+      height: 56px;
+      background: var(--topbar-bg);
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      padding-left: 0;
+    }
+    .topbar-module-icon {
+      width: 72px; min-width: 72px; height: 56px;
+      background: var(--color-primary);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .topbar-module-icon svg { width: 22px; height: 22px; stroke-width: 2; color: white; }
+    .topbar-brand { padding: 0 16px; font-size: 13px; font-weight: 800; color: #ffffff; letter-spacing: 0.6px; white-space: nowrap; }
+    .topbar-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+    .topbar-search {
+      display: flex; align-items: center; gap: 8px;
+      min-width: 420px; max-width: 100%; height: 36px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 0 12px; margin-left: 16px;
+      color: rgba(255,255,255,0.5);
+    }
+    .topbar-search svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .topbar-search input {
+      flex: 1; background: transparent; border: none; outline: none;
+      font-family: var(--font-ui); font-size: 13px; color: rgba(255,255,255,0.6);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .topbar-search input::placeholder { color: rgba(255,255,255,0.35); }
+    .topbar-kbd {
+      font-family: var(--font-mono); font-size: 10.5px;
+      color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14); border-radius: 4px; padding: 2px 6px; white-space: nowrap;
+    }
+    .topbar-spacer { flex: 1; }
+    /* § 9 Topbar Date */
+    .topbar-date {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--topbar-date-bg); border-radius: 8px;
+      padding: 6px 12px; font-size: 13px; font-weight: 500;
+      color: var(--topbar-date-text); white-space: nowrap;
+    }
+    .topbar-date svg { width: 16px; height: 16px; color: rgba(255,255,255,0.7); flex-shrink: 0; }
+    .topbar-icon-btn {
+      width: 36px; height: 36px; border-radius: 8px;
+      border: none; background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.6); transition: background 0.15s; flex-shrink: 0;
+    }
+    .topbar-icon-btn:hover { background: rgba(255,255,255,0.09); }
+    .topbar-icon-btn svg { width: 18px; height: 18px; stroke-width: 2; }
+    .topbar-avatar {
+      width: 36px; height: 36px; border-radius: 8px; background: var(--color-danger);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 12.5px; font-weight: 700;
+      cursor: pointer; flex-shrink: 0; margin-right: 16px; margin-left: 8px;
+    }
+
+    /* ── APP BODY ── */
+    .app-body { display: flex; flex: 1; overflow: hidden; }
+
+    /* ── § 5 SIDEBAR RAIL — 72px, ikon saja ── */
+    .sidebar-rail {
+      width: 72px; min-width: 72px; background: #131A35;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 8px 0 16px; gap: 2px; height: 100%; overflow-y: auto; flex-shrink: 0;
+    }
+    .rail-item {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: rgba(255,255,255,0.4);
+      transition: background 0.15s, color 0.15s; flex-shrink: 0; text-decoration: none;
+    }
+    .rail-item:hover { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.75); }
+    .rail-item.active { background: rgba(37,99,235,0.25); color: #93C5FD; }
+    .rail-item svg { width: 20px; height: 20px; stroke-width: 2; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── § 5 PANEL SUB-NAVIGASI — 260px, collapsible ── */
+    .panel-subnav {
+      width: 260px; min-width: 260px;
+      background: var(--color-surface); border-right: 1px solid var(--color-border);
+      height: 100%; overflow-y: auto; overflow-x: hidden;
+      position: relative; transition: width 0.25s ease, min-width 0.25s ease; flex-shrink: 0;
+    }
+    .panel-subnav.collapsed { width: 0; min-width: 0; border-right: none; }
+    .panel-collapse-btn {
+      position: absolute; right: -13px; top: 50%; transform: translateY(-50%);
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 1.5px solid var(--color-border); background: var(--color-surface);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: var(--color-muted); z-index: 10; transition: background 0.15s; flex-shrink: 0;
+    }
+    .panel-collapse-btn:hover { background: var(--color-bg); }
+    .panel-collapse-btn svg { width: 12px; height: 12px; stroke-width: 2.5; }
+    .panel-section-label {
+      padding: 20px 20px 8px; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.8px; text-transform: uppercase; color: var(--color-muted); white-space: nowrap;
+    }
+    .panel-nav-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 12px; margin: 2px 8px; border-radius: 8px;
+      cursor: pointer; transition: background 0.13s, color 0.13s;
+      color: #334155; font-size: 13px; font-weight: 500;
+      text-decoration: none; white-space: nowrap;
+    }
+    .panel-nav-item:hover { background: #F8FAFC; }
+    .panel-nav-item.active { background: #EFF6FF; color: #1D4ED8; font-weight: 600; }
+    .panel-nav-item svg { width: 16px; height: 16px; stroke-width: 2; flex-shrink: 0; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .panel-nav-badge {
+      margin-left: auto; background: #22C55E; color: white;
+      font-size: 10px; font-weight: 700; padding: 2px 6px;
+      border-radius: 9999px; min-width: 18px; text-align: center; flex-shrink: 0;
+    }
+
+    /* ── AREA KONTEN ── */
+    .content-area {
+      flex: 1; overflow-y: auto; overflow-x: hidden;
+      background: var(--color-bg); padding: 24px;
+      display: flex; flex-direction: column; gap: 0; min-width: 0;
+    }
+
+    /* ── § 11 ORGANISME: TABLE CARD (dari dashboard-ceo) ── */
+    .table-card {
+      background: var(--color-surface);
+      border-radius: 12px;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    .table-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; border-bottom: 1px solid var(--color-border);
+      gap: 12px; flex-wrap: wrap;
+    }
+    .table-card-title {
+      font-size: 15px; font-weight: 700; color: var(--color-text);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .table-card-title svg { width: 18px; height: 18px; color: var(--color-primary); stroke-width: 2; }
+
+    /* § 9 Tombol Export (.btn-export dari dashboard-ceo) */
+    .btn-export {
+      height: 34px; padding: 0 14px;
+      border: 1.5px solid var(--color-border); border-radius: 8px;
+      background: white; cursor: pointer;
+      display: flex; align-items: center; gap: 7px;
+      font-size: 13px; font-weight: 500; color: var(--color-text);
+      font-family: var(--font-ui); transition: background 0.13s, border-color 0.13s;
+    }
+    .btn-export:hover { background: var(--color-bg); border-color: #CBD5E1; }
+    .btn-export svg { width: 14px; height: 14px; color: var(--color-muted); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* § 11 Filter Row (.tbl-filters dari dashboard-ceo) */
+    .tbl-filters {
+      display: flex; align-items: center; gap: 10px;
+      padding: 16px 20px; border-bottom: 1px solid var(--color-border); flex-wrap: wrap;
+    }
+    .tbl-show {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--color-muted); white-space: nowrap;
+    }
+    .tbl-show select {
+      height: 36px; padding: 0 28px 0 10px;
+      border: 1.5px solid var(--color-border); border-radius: 8px;
+      font-size: 13px; font-family: var(--font-ui);
+      background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 8px center;
+      appearance: none; cursor: pointer; outline: none;
+    }
+    .tbl-search-right {
+      display: flex; align-items: center; gap: 8px; margin-left: auto;
+    }
+    .tbl-search-right label { font-size: 13px; color: var(--color-muted); white-space: nowrap; }
+    .tbl-search-right input {
+      height: 36px; padding: 0 12px;
+      border: 1.5px solid var(--color-border); border-radius: 8px;
+      font-size: 13px; font-family: var(--font-ui); color: var(--color-text);
+      background: white; outline: none; min-width: 200px;
+    }
+    .tbl-search-right input:focus { border-color: var(--color-primary); }
+    .tbl-search-right input::placeholder { color: var(--color-muted); }
+
+    /* § 11 Data Table (dari dashboard-ceo) */
+    .table-wrapper { overflow-x: auto; width: 100%; -webkit-overflow-scrolling: touch; }
+    .data-table { width: 100%; min-width: 900px; border-collapse: collapse; }
+    .data-table thead th {
+      padding: 12px 16px; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.6px; text-transform: uppercase;
+      color: var(--color-muted); border-bottom: 1.5px solid var(--color-border);
+      white-space: nowrap; text-align: left; background: transparent;
+    }
+    .data-table thead th.sortable { cursor: pointer; user-select: none; }
+    .data-table thead th.sortable:hover { color: var(--color-text); }
+    .data-table thead th .sort-icon { margin-left: 4px; opacity: 0.5; }
+    .data-table tbody tr { border-bottom: 1px solid #F1F5F9; }
+    .data-table tbody tr:nth-child(even) { background: #F8FAFC; }
+    .data-table tbody tr:hover { background: #F1F5F9; }
+    .data-table tbody td {
+      padding: 12px 16px; font-size: 13px;
+      color: var(--color-text); vertical-align: middle; line-height: 1.5;
+    }
+    .td-mono { font-family: var(--font-mono); font-size: 12.5px; color: var(--color-primary); }
+    .td-center { text-align: center; }
+    .td-muted { color: var(--color-muted); font-size: 12.5px; }
+
+    /* § 11 Pagination (dari dashboard-ceo) */
+    .tbl-pagination {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px; border-top: 1px solid var(--color-border);
+      font-size: 13px; color: var(--color-muted); flex-wrap: wrap; gap: 8px;
+    }
+    .page-btns { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .page-btn {
+      min-width: 34px; height: 34px;
+      border: 1.5px solid var(--color-border); border-radius: 8px;
+      font-size: 13px; font-weight: 500; color: var(--color-text);
+      background: white; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.13s, border-color 0.13s; font-family: var(--font-ui);
+    }
+    .page-btn:hover { background: var(--color-primary-light); border-color: var(--color-primary-border); }
+    .page-btn.active { background: var(--color-primary); border-color: var(--color-primary); color: white; }
+    .page-btn:disabled { color: var(--color-muted); cursor: default; pointer-events: none; }
+    .page-ellipsis { display: flex; align-items: center; padding: 0 4px; color: var(--color-muted); }
+
+    /* § 13 Focus ring */
+.panel-nav-sub { display: flex; align-items: center; gap: 8px; padding: 8px 12px 8px 28px; margin: 1px 8px; border-radius: 8px; cursor: pointer; transition: background 0.13s, color 0.13s; color: #334155; font-size: 12.5px; font-weight: 500; text-decoration: none; white-space: nowrap; }
+    .panel-nav-sub:hover { background: #F8FAFC; }
+    .panel-nav-sub.active { background: #EFF6FF; color: #1D4ED8; font-weight: 600; }
+    .panel-nav-sub svg { width: 14px; height: 14px; stroke-width: 2; flex-shrink: 0; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    *:focus-visible { outline: 2px solid #2563EB; outline-offset: 3px; border-radius: 4px; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  </style>
+</head>
+<body>
+
+<!-- ══ TOPBAR ══ -->
+<header class="topbar" role="banner">
+  <div class="topbar-module-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+  </div>
+  <span class="topbar-brand">PELAYANAN SDM</span>
+  <div class="topbar-sep" aria-hidden="true"></div>
+  <div class="topbar-search" role="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="search" placeholder="Cari data badan usaha, sertifikasi..." aria-label="Pencarian global">
+    <span class="topbar-kbd" aria-label="Shortcut Ctrl K">Ctrl K</span>
+  </div>
+  <div class="topbar-spacer"></div>
+  <div class="topbar-date" id="topbarDate">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+      <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+    </svg>
+    <span id="currentDate"></span>
+  </div>
+  <div class="topbar-sep" aria-hidden="true"></div>
+  <button class="topbar-icon-btn" aria-label="Notifikasi">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+    </svg>
+  </button>
+  <div class="topbar-sep" aria-hidden="true"></div>
+  <div class="topbar-avatar" role="button" tabindex="0" aria-label="Profil pengguna">SS</div>
+</header>
+
+<!-- ══ APP BODY ══ -->
+<div class="app-body">
+
+  <!-- ── SIDEBAR RAIL ── -->
+  <aside class="sidebar-rail" role="navigation" aria-label="Navigasi Modul">
+    <a href="dashboard.html" class="rail-item">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    </a>
+    <a href="data-badan-usaha.html" class="rail-item active" aria-current="page">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </a>
+    <a href="data-sertifikasi.html" class="rail-item">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    </a>
+    <a href="data-tarif-blu.html" class="rail-item">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    </a>
+    <a href="data-permohonan.html" class="rail-item">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    </a>
+    <a href="validasi-pengajuan.html" class="rail-item">
+      <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    </a>
+    <a href="billing-blu.html" class="rail-item">
+      <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+    </a>
+    <a href="laporan-billing-blu.html" class="rail-item">
+      <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+    </a>
+  </aside>
+
+  <!-- ── PANEL SUB-NAVIGASI ── -->
+  <div class="panel-subnav collapsed" id="panelSubnav" role="navigation" aria-label="Sub-Navigasi Modul">
+    <button class="panel-collapse-btn" id="collapseBtn" aria-label="Sembunyikan panel navigasi" aria-expanded="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="panel-section-label">Navigasi</div>
+    <a href="dashboard.html" class="panel-nav-item">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+    <a href="data-badan-usaha.html" class="panel-nav-item active" aria-current="page">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Data Badan Usaha
+    </a>
+    <a href="data-sertifikasi.html" class="panel-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Data Sertifikasi
+    </a>
+    <a href="data-tarif-blu.html" class="panel-nav-item">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Data Tarif BLU Pengujian
+    </a>
+    <a href="data-permohonan.html" class="panel-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Data Permohonan
+    </a>
+    <a href="validasi-pengajuan.html" class="panel-nav-item">
+      <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Validasi Pengajuan
+      <span class="panel-nav-badge">0</span>
+    </a>
+    <a href="billing-blu.html" class="panel-nav-item">
+      <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      Billing BLU Pengujian
+      <span class="panel-nav-badge">0</span>
+    </a>
+    <a href="laporan-billing-blu.html" class="panel-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Laporan</a>
+  </div>
+
+  <!-- ── AREA KONTEN ── -->
+  <main class="content-area">
+
+    <!-- § 11 ORGANISME: Tabel Data Badan Usaha -->
+    <div class="table-card">
+
+      <!-- Header kartu: judul + tombol Export -->
+      <div class="table-card-header">
+        <span class="table-card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+          Data Badan Usaha
+        </span>
+        <button class="btn-export" aria-label="Ekspor data badan usaha">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+          Export
+        </button>
+      </div>
+
+      <!-- Filter Row: tbl-show kiri + search kanan -->
+      <div class="tbl-filters">
+        <div class="tbl-show">
+          Tampilkan
+          <select id="perPage" onchange="renderTable()" aria-label="Jumlah entri per halaman">
+            <option value="10" selected>10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
+          entri
+        </div>
+        <div class="tbl-search-right">
+          <label for="tableSearch">Search:</label>
+          <input type="text" id="tableSearch" placeholder="" oninput="filterTable()" aria-label="Cari data badan usaha">
+        </div>
+      </div>
+
+      <!-- Tabel -->
+      <div class="table-wrapper">
+        <table class="data-table" aria-label="Data Badan Usaha">
+          <thead>
+            <tr>
+              <th class="sortable">NO. <span class="sort-icon" aria-hidden="true">↑</span></th>
+              <th>BADAN USAHA</th>
+              <th>NIB</th>
+              <th>TELEPON</th>
+              <th>PIMPINAN</th>
+              <th>EMAIL</th>
+              <th class="td-center">JUMLAH SERTIFIKASI</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="tbl-pagination">
+        <span id="paginationInfo">Menampilkan 1 s/d 10 dari 49</span>
+        <div class="page-btns" id="pageButtons"></div>
+      </div>
+
+    </div>
+  </main>
+
+</div><!-- /app-body -->
+
+<script>
+  /* ── § 9 Topbar Date ── */
+  (function updateCurrentDate() {
+    const el = document.getElementById('currentDate');
+    if (!el) return;
+    const bulan = ['Januari','Februari','Maret','April','Mei','Juni',
+                   'Juli','Agustus','September','Oktober','November','Desember'];
+    const now = new Date();
+    el.textContent = `${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
+  })();
+
+  /* ── Panel collapse ── */
+  const panel = document.getElementById('panelSubnav');
+  const collapseBtn = document.getElementById('collapseBtn');
+  let panelOpen = true;
+  collapseBtn.addEventListener('click', () => {
+    panelOpen = !panelOpen;
+    panel.classList.toggle('collapsed', !panelOpen);
+    collapseBtn.setAttribute('aria-expanded', String(panelOpen));
+    collapseBtn.querySelector('polyline').setAttribute('points', panelOpen ? '15 18 9 12 15 6' : '9 18 15 12 9 6');
+    collapseBtn.setAttribute('aria-label', panelOpen ? 'Sembunyikan panel navigasi' : 'Tampilkan panel navigasi');
+  });
+
+  /* ── Data ── */
+  const DATA = [
+    { nama: 'BALAI PENGELOLA KERETA API SULAWESI SELATAN', nib: '0', telepon: '04114832272', pimpinan: 'AMANNA GAPPA', email: 'bpka_sulsel@dephub.go.id', jml: 7 },
+    { nama: 'BALAI PERAWATAN PERKERETAAPIAN', nib: '0', telepon: '089653801209', pimpinan: 'MOCHAMAD ANDI HARY MURTY', email: 'baperka2014@gmail.com', jml: 0 },
+    { nama: 'BALAI PERAWATAN PERKERETAAPIAN', nib: '0', telepon: '02924290137', pimpinan: 'MOCHAMAD ANDI HARY MURTY', email: 'balaipwka@gmail.com', jml: 49 },
+    { nama: 'BALAI TEKNIK PERKERETAAPIAN WILAYAH SUMBAGBAR', nib: '0', telepon: '085158280099', pimpinan: 'SUPANDI', email: 'balaikasumbar@gmail.com', jml: 58 },
+    { nama: 'CELEBES RAILWAY INDONESIA', nib: '0', telepon: '082299028282', pimpinan: 'JATMIKO MURDIONO', email: 'portal@pt-cri.com', jml: 31 },
+    { nama: 'DINAS PERHUBUNGAN', nib: '0', telepon: '08980849536', pimpinan: 'DRS. JOKO PURWANTO, MM', email: 'bidangpjpk@gmail.com', jml: 34 },
+    { nama: 'DINAS PERHUBUNGAN', nib: '0', telepon: '085279755005', pimpinan: 'HI. BASIRUN ALI, SH, MH', email: 'dishub.lu@gmail.com', jml: 23 },
+    { nama: 'DINAS PERHUBUNGAN DIY', nib: '0', telepon: '0274485775', pimpinan: 'NI MADE DWIPANTI INDRAYANTI, ST., MT.', email: 'dishub@jogjaprov.go.id', jml: 3 },
+    { nama: 'DINAS PERHUBUNGAN KAB. BATANG', nib: '0', telepon: '0895358473152', pimpinan: 'DWI RIYANTO, AP, M.M.', email: 'dishubbtg05@gmail.com', jml: 0 },
+    { nama: 'DINAS PERHUBUNGAN KABUPATEN BANDUNG', nib: '0', telepon: '081575780827', pimpinan: 'H. IMAN IRIANTO, S.SOS., M.AP.', email: 'ahsinachfas@gmail.com', jml: 14 },
+    { nama: 'DINAS PERHUBUNGAN KABUPATEN BOGOR', nib: '0', telepon: '085156556009', pimpinan: 'AGUS RIDHO', email: 'dishubkabbogor@gmail.com', jml: 9 },
+    { nama: 'DINAS PERHUBUNGAN KABUPATEN BOYOLALI', nib: '0', telepon: '082134567890', pimpinan: 'SLAMET WIBOWO', email: 'dishub.boyolali@gmail.com', jml: 5 },
+    { nama: 'DINAS PERHUBUNGAN KABUPATEN CIANJUR', nib: '0', telepon: '0263271234', pimpinan: 'ASEP SUPRIATNA', email: 'dishub.cianjur@gmail.com', jml: 12 },
+    { nama: 'DINAS PERHUBUNGAN KABUPATEN CIREBON', nib: '0', telepon: '0231234567', pimpinan: 'HENDRA GUNAWAN', email: 'dishub.cirebon@gmail.com', jml: 18 },
+    { nama: 'DINAS PERHUBUNGAN KABUPATEN DEMAK', nib: '0', telepon: '0291681234', pimpinan: 'Ahmad FAUZI', email: 'dishub.demak@gmail.com', jml: 6 },
+    { nama: 'DINAS PERHUBUNGAN KOTA BANDUNG', nib: '0', telepon: '022420312', pimpinan: 'DEDI SUPARDI', email: 'dishub.kotabandung@gmail.com', jml: 41 },
+    { nama: 'DINAS PERHUBUNGAN KOTA JAKARTA PUSAT', nib: '0', telepon: '02134567890', pimpinan: 'BUDI SANTOSO', email: 'dishub.jktpusat@jakarta.go.id', jml: 67 },
+    { nama: 'DINAS PERHUBUNGAN KOTA SEMARANG', nib: '0', telepon: '024356789', pimpinan: 'SUHARNO', email: 'dishub.semarang@gmail.com', jml: 28 },
+    { nama: 'DINAS PERHUBUNGAN KOTA SURABAYA', nib: '0', telepon: '031234567', pimpinan: 'WAHYU SETIAWAN', email: 'dishub.surabaya@gmail.com', jml: 53 },
+    { nama: 'DINAS PERHUBUNGAN KOTA YOGYAKARTA', nib: '0', telepon: '027456789', pimpinan: 'RINI KUSUMAWATI', email: 'dishub.jogja@gmail.com', jml: 19 },
+    { nama: 'DINAS PERHUBUNGAN PROVINSI JAWA BARAT', nib: '0', telepon: '022567890', pimpinan: 'DENNY WAHYUDI', email: 'dishub.jabar@gmail.com', jml: 72 },
+    { nama: 'DINAS PERHUBUNGAN PROVINSI JAWA TENGAH', nib: '0', telepon: '024345678', pimpinan: 'AGUNG PRASETYO', email: 'dishub.jateng@gmail.com', jml: 88 },
+    { nama: 'DINAS PERHUBUNGAN PROVINSI JAWA TIMUR', nib: '0', telepon: '031678901', pimpinan: 'HERU BASUKI', email: 'dishub.jatim@gmail.com', jml: 94 },
+    { nama: 'KERETA API INDONESIA (PERSERO)', nib: '0', telepon: '0217944000', pimpinan: 'DIDIEK HARTANTYO', email: 'info@kai.id', jml: 312 },
+    { nama: 'KAI COMMUTER', nib: '0', telepon: '02180088088', pimpinan: 'SURYAWAN PUTRA HARTO', email: 'info@krl.co.id', jml: 178 },
+    { nama: 'KERETA CEPAT INDONESIA CHINA', nib: '0', telepon: '02189999888', pimpinan: 'DWIYANA SLAMET', email: 'info@kcic.co.id', jml: 45 },
+    { nama: 'LRT JABODEBEK', nib: '0', telepon: '02134561234', pimpinan: 'MOCHAMAD PURNOMOSIDI', email: 'info@lrtjabodebek.co.id', jml: 32 },
+    { nama: 'MRT JAKARTA', nib: '0', telepon: '02129088888', pimpinan: 'WILLIAM SABANDAR', email: 'info@jakartamrt.co.id', jml: 56 },
+    { nama: 'PT ADHI KARYA (PERSERO) TBK', nib: '0', telepon: '02170902222', pimpinan: 'ENTUS ASNAWI MUKHSON', email: 'corporate@adhi.co.id', jml: 8 },
+    { nama: 'PT INKA (PERSERO)', nib: '0', telepon: '035149000', pimpinan: 'EKO PURWANTO', email: 'info@inka.web.id', jml: 127 },
+    { nama: 'PT JASA MARGA (PERSERO) TBK', nib: '0', telepon: '02178886666', pimpinan: 'SUBAKTI SYUKUR', email: 'info@jasamarga.com', jml: 15 },
+    { nama: 'PT KERETA API LOGISTIK', nib: '0', telepon: '02170902324', pimpinan: 'DJOKO SLAMET WAHYUDI', email: 'info@kalog.co.id', jml: 42 },
+    { nama: 'PT KERETA API PARIWISATA', nib: '0', telepon: '02170903456', pimpinan: 'HERU KUSWANTO', email: 'info@kapariwisata.co.id', jml: 21 },
+    { nama: 'PT KERETA API PROPERTI MANAJEMEN', nib: '0', telepon: '02170904567', pimpinan: 'RIDWAN BUDI PRAMONO', email: 'info@kapm.co.id', jml: 11 },
+    { nama: 'PT LEN INDUSTRI (PERSERO)', nib: '0', telepon: '02270345678', pimpinan: 'BOBBY RASYIDIN', email: 'corporate@len.co.id', jml: 37 },
+    { nama: 'PT RAILINK', nib: '0', telepon: '02162321234', pimpinan: 'HERU KUSWANTO', email: 'info@railink.co.id', jml: 28 },
+    { nama: 'PT RESKA MULTI USAHA', nib: '0', telepon: '02170905678', pimpinan: 'MUKTI JAUHARI', email: 'info@reska.co.id', jml: 16 },
+    { nama: 'PT WASKITA KARYA (PERSERO) TBK', nib: '0', telepon: '02189999777', pimpinan: 'DESTIAWAN SOEWARDJONO', email: 'corporate@waskita.co.id', jml: 7 },
+    { nama: 'PT WIJAYA KARYA (PERSERO) TBK', nib: '0', telepon: '02189999666', pimpinan: 'AGUNG BUDI WASKITO', email: 'corporate@wika.co.id', jml: 9 },
+    { nama: 'SATUAN KERJA PERKERETAAPIAN JAWA BARAT', nib: '0', telepon: '022456789', pimpinan: 'DADANG RUKMANA', email: 'satker.jabar@dephub.go.id', jml: 14 },
+    { nama: 'SATUAN KERJA PERKERETAAPIAN JAWA TENGAH', nib: '0', telepon: '024567890', pimpinan: 'BAMBANG SUPRIYADI', email: 'satker.jateng@dephub.go.id', jml: 11 },
+    { nama: 'SATUAN KERJA PERKERETAAPIAN JAWA TIMUR', nib: '0', telepon: '031789012', pimpinan: 'TOMMY WIBOWO', email: 'satker.jatim@dephub.go.id', jml: 8 },
+    { nama: 'SATUAN KERJA PERKERETAAPIAN SUMATERA', nib: '0', telepon: '061234567', pimpinan: 'ZULKARNAEN', email: 'satker.sumatra@dephub.go.id', jml: 6 },
+    { nama: 'TAMAN WISATA CANDI', nib: '0', telepon: '027456123', pimpinan: 'EMAWAN BADRI', email: 'info@borobudurpark.co.id', jml: 3 },
+    { nama: 'TRANS SEMARANG', nib: '0', telepon: '024345123', pimpinan: 'RUDATIN', email: 'brt.semarang@gmail.com', jml: 7 },
+    { nama: 'TRANSJAKARTA', nib: '0', telepon: '02178888888', pimpinan: 'WELFIZON YUZA', email: 'info@transjakarta.co.id', jml: 19 },
+    { nama: 'UNIVERSITAS GADJAH MADA', nib: '0', telepon: '027456789', pimpinan: 'PANUT MULYONO', email: 'info@ugm.ac.id', jml: 4 },
+    { nama: 'UNIVERSITAS INDONESIA', nib: '0', telepon: '02178890000', pimpinan: 'ARI KUNCORO', email: 'info@ui.ac.id', jml: 2 },
+    { nama: 'UNIVERSITAS TEKNOLOGI SURABAYA', nib: '0', telepon: '031234890', pimpinan: 'SETYA HADI', email: 'info@uts.ac.id', jml: 1 },
+  ];
+
+  let filteredData = [...DATA];
+  let currentPage = 1;
+
+  function filterTable() {
+    const q = document.getElementById('tableSearch').value.toLowerCase();
+    filteredData = DATA.filter(r =>
+      r.nama.toLowerCase().includes(q) ||
+      r.pimpinan.toLowerCase().includes(q) ||
+      r.email.toLowerCase().includes(q) ||
+      r.telepon.includes(q)
+    );
+    currentPage = 1;
+    renderTable();
+  }
+
+  function renderTable() {
+    const perPage = parseInt(document.getElementById('perPage').value);
+    const start = (currentPage - 1) * perPage;
+    const end = start + perPage;
+    const pageData = filteredData.slice(start, end);
+    const totalPages = Math.ceil(filteredData.length / perPage);
+
+    /* Tbody */
+    const tbody = document.getElementById('tableBody');
+    if (pageData.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:40px 16px;color:var(--color-muted);font-size:13px;">Tidak Ada Data</td></tr>`;
+    } else {
+      tbody.innerHTML = pageData.map((r, i) => `
+        <tr>
+          <td class="td-center">${start + i + 1}</td>
+          <td>${r.nama}</td>
+          <td class="td-mono">${r.nib}</td>
+          <td class="td-mono">${r.telepon}</td>
+          <td>${r.pimpinan}</td>
+          <td class="td-muted">${r.email}</td>
+          <td class="td-center">${r.jml}</td>
+        </tr>
+      `).join('');
+    }
+
+    /* Pagination info */
+    const infoEl = document.getElementById('paginationInfo');
+    if (filteredData.length === 0) {
+      infoEl.textContent = 'Tidak ada data yang sesuai';
+    } else {
+      infoEl.textContent = `Menampilkan ${start + 1} s/d ${Math.min(end, filteredData.length)} dari ${filteredData.length}`;
+    }
+
+    /* Page buttons */
+    const btnsEl = document.getElementById('pageButtons');
+    let html = `<button class="page-btn" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>Sebelumnya</button>`;
+
+    const maxVisible = 5;
+    let startP = Math.max(1, currentPage - 2);
+    let endP = Math.min(totalPages, startP + maxVisible - 1);
+    if (endP - startP < maxVisible - 1) startP = Math.max(1, endP - maxVisible + 1);
+
+    for (let p = startP; p <= endP; p++) {
+      html += `<button class="page-btn ${p === currentPage ? 'active' : ''}" onclick="goPage(${p})">${p}</button>`;
+    }
+    html += `<button class="page-btn" onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Selanjutnya</button>`;
+    btnsEl.innerHTML = html;
+  }
+
+  function goPage(p) {
+    const perPage = parseInt(document.getElementById('perPage').value);
+    const totalPages = Math.ceil(filteredData.length / perPage);
+    if (p < 1 || p > totalPages) return;
+    currentPage = p;
+    renderTable();
+  }
+
+  renderTable();
+</script>
+</body>
+</html>

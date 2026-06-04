@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Sertifikasi — Pelayanan SDM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── § 3 CSS TOKEN WARNA ── */
+    :root {
+      --color-primary:        #1D4ED8;
+      --color-primary-hover:  #2563EB;
+      --color-primary-light:  #EFF6FF;
+      --color-primary-border: #BFDBFE;
+      --color-success:        #16A34A;
+      --color-warning:        #D97706;
+      --color-danger:         #DC2626;
+      --color-info:           #0284C7;
+      --color-surface:        #FFFFFF;
+      --color-bg:             #F8FAFC;
+      --color-border:         #E2E8F0;
+      --color-border-light:   #F1F5F9;
+      --color-text:           #0F172A;
+      --color-text-secondary: #334155;
+      --color-muted:          #64748B;
+      --topbar-bg:            #0F172A;
+      --topbar-date-bg:       rgba(255,255,255,0.08);
+      --topbar-date-text:     #ffffff;
+      --font-ui:              'Plus Jakarta Sans', sans-serif;
+      --font-mono:            'JetBrains Mono', monospace;
+    }
+
+    body {
+      font-family: var(--font-ui);
+      background: var(--color-bg);
+      color: var(--color-text);
+      display: flex; flex-direction: column;
+      height: 100vh; overflow: hidden;
+    }
+
+    /* ── § 5 TOPBAR ── */
+    .topbar {
+      height: 56px; background: var(--topbar-bg);
+      position: sticky; top: 0; z-index: 90;
+      display: flex; align-items: center; flex-shrink: 0; padding-left: 0;
+    }
+    .topbar-module-icon {
+      width: 72px; min-width: 72px; height: 56px; background: var(--color-primary);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .topbar-module-icon svg { width: 22px; height: 22px; stroke-width: 2; color: white; }
+    .topbar-brand { padding: 0 16px; font-size: 13px; font-weight: 800; color: #fff; letter-spacing: 0.6px; white-space: nowrap; }
+    .topbar-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+    .topbar-search {
+      display: flex; align-items: center; gap: 8px;
+      min-width: 420px; max-width: 100%; height: 36px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 0 12px; margin-left: 16px; color: rgba(255,255,255,0.5);
+    }
+    .topbar-search svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .topbar-search input {
+      flex: 1; background: transparent; border: none; outline: none;
+      font-family: var(--font-ui); font-size: 13px; color: rgba(255,255,255,0.6);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .topbar-search input::placeholder { color: rgba(255,255,255,0.35); }
+    .topbar-kbd {
+      font-family: var(--font-mono); font-size: 10.5px; color: rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 4px; padding: 2px 6px; white-space: nowrap;
+    }
+    .topbar-spacer { flex: 1; }
+    .topbar-date {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--topbar-date-bg); border-radius: 8px; padding: 6px 12px;
+      font-size: 13px; font-weight: 500; color: var(--topbar-date-text); white-space: nowrap;
+    }
+    .topbar-date svg { width: 16px; height: 16px; color: rgba(255,255,255,0.7); flex-shrink: 0; }
+    .topbar-icon-btn {
+      width: 36px; height: 36px; border-radius: 8px; border: none; background: transparent;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.6); transition: background 0.15s; flex-shrink: 0;
+    }
+    .topbar-icon-btn:hover { background: rgba(255,255,255,0.09); }
+    .topbar-icon-btn svg { width: 18px; height: 18px; stroke-width: 2; }
+    .topbar-avatar {
+      width: 36px; height: 36px; border-radius: 8px; background: var(--color-danger);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 12.5px; font-weight: 700;
+      cursor: pointer; flex-shrink: 0; margin-right: 16px; margin-left: 8px;
+    }
+
+    /* ── APP BODY ── */
+    .app-body { display: flex; flex: 1; overflow: hidden; }
+
+    /* ── § 5 SIDEBAR RAIL ── */
+    .sidebar-rail {
+      width: 72px; min-width: 72px; background: #131A35;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 8px 0 16px; gap: 2px; height: 100%; overflow-y: auto; flex-shrink: 0;
+    }
+    .rail-item {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: rgba(255,255,255,0.4);
+      transition: background 0.15s, color 0.15s; flex-shrink: 0; text-decoration: none;
+    }
+    .rail-item:hover { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.75); }
+    .rail-item.active { background: rgba(37,99,235,0.25); color: #93C5FD; }
+    .rail-item svg { width: 20px; height: 20px; stroke-width: 2; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── § 5 PANEL SUB-NAVIGASI ── */
+    .panel-subnav {
+      width: 260px; min-width: 260px; background: var(--color-surface);
+      border-right: 1px solid var(--color-border); height: 100%;
+      overflow-y: auto; overflow-x: hidden; position: relative;
+      transition: width 0.25s ease, min-width 0.25s ease; flex-shrink: 0;
+    }
+    .panel-subnav.collapsed { width: 0; min-width: 0; border-right: none; }
+    .panel-collapse-btn {
+      position: absolute; right: -13px; top: 50%; transform: translateY(-50%);
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 1.5px solid var(--color-border); background: var(--color-surface);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: var(--color-muted); z-index: 10; transition: background 0.15s; flex-shrink: 0;
+    }
+    .panel-collapse-btn:hover { background: var(--color-bg); }
+    .panel-collapse-btn svg { width: 12px; height: 12px; stroke-width: 2.5; }
+    .panel-section-label {
+      padding: 20px 20px 8px; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.8px; text-transform: uppercase; color: var(--color-muted); white-space: nowrap;
+    }
+    .panel-nav-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 12px; margin: 2px 8px; border-radius: 8px;
+      cursor: pointer; transition: background 0.13s, color 0.13s;
+      color: #334155; font-size: 13px; font-weight: 500; text-decoration: none; white-space: nowrap;
+    }
+    .panel-nav-item:hover { background: #F8FAFC; }
+    .panel-nav-item.active { background: #EFF6FF; color: #1D4ED8; font-weight: 600; }
+    .panel-nav-item svg { width: 16px; height: 16px; stroke-width: 2; flex-shrink: 0; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .panel-nav-badge {
+      margin-left: auto; background: #22C55E; color: white;
+      font-size: 10px; font-weight: 700; padding: 2px 6px;
+      border-radius: 9999px; min-width: 18px; text-align: center; flex-shrink: 0;
+    }
+
+    /* ── AREA KONTEN ── */
+    .content-area {
+      flex: 1; overflow-y: auto; overflow-x: hidden;
+      background: var(--color-bg); padding: 24px;
+      display: flex; flex-direction: column; min-width: 0;
+    }
+
+    /* ── § 11 ORGANISME: TABLE CARD ── */
+    .table-card {
+      background: var(--color-surface); border-radius: 12px;
+      border: 1px solid var(--color-border); box-shadow: 0 1px 4px rgba(0,0,0,0.05); overflow: hidden;
+    }
+    .table-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; border-bottom: 1px solid var(--color-border); gap: 12px; flex-wrap: wrap;
+    }
+    .table-card-title { font-size: 15px; font-weight: 700; color: var(--color-text); display: flex; align-items: center; gap: 8px; }
+    .table-card-title svg { width: 18px; height: 18px; color: var(--color-primary); stroke-width: 2; }
+
+    /* Tombol Export */
+    .btn-export {
+      height: 34px; padding: 0 14px; border: 1.5px solid var(--color-border); border-radius: 8px;
+      background: white; cursor: pointer; display: flex; align-items: center; gap: 7px;
+      font-size: 13px; font-weight: 500; color: var(--color-text);
+      font-family: var(--font-ui); transition: background 0.13s, border-color 0.13s;
+    }
+    .btn-export:hover { background: var(--color-bg); border-color: #CBD5E1; }
+    .btn-export svg { width: 14px; height: 14px; color: var(--color-muted); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* § 11 Filter Row */
+    .tbl-filters {
+      display: flex; align-items: center; gap: 10px;
+      padding: 16px 20px; border-bottom: 1px solid var(--color-border); flex-wrap: wrap;
+    }
+    .tbl-show { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--color-muted); white-space: nowrap; }
+    .tbl-show select {
+      height: 36px; padding: 0 28px 0 10px; border: 1.5px solid var(--color-border); border-radius: 8px;
+      font-size: 13px; font-family: var(--font-ui);
+      background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 8px center;
+      appearance: none; cursor: pointer; outline: none;
+    }
+
+    /* Filter dropdown jenis */
+    .tbl-filter-select {
+      height: 36px; padding: 0 28px 0 12px; border: 1.5px solid var(--color-border); border-radius: 8px;
+      font-size: 13px; font-family: var(--font-ui); color: var(--color-text);
+      background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 8px center;
+      appearance: none; cursor: pointer; outline: none; white-space: nowrap;
+    }
+    .tbl-filter-select:focus { border-color: var(--color-primary); }
+
+    .tbl-search-right { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+    .tbl-search-right label { font-size: 13px; color: var(--color-muted); white-space: nowrap; }
+    .tbl-search-right input {
+      height: 36px; padding: 0 12px; border: 1.5px solid var(--color-border); border-radius: 8px;
+      font-size: 13px; font-family: var(--font-ui); color: var(--color-text);
+      background: white; outline: none; min-width: 200px;
+    }
+    .tbl-search-right input:focus { border-color: var(--color-primary); }
+    .tbl-search-right input::placeholder { color: var(--color-muted); }
+
+    /* § 11 Data Table */
+    .table-wrapper { overflow-x: auto; width: 100%; -webkit-overflow-scrolling: touch; }
+    .data-table { width: 100%; min-width: 1000px; border-collapse: collapse; }
+    .data-table thead th {
+      padding: 12px 16px; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.6px; text-transform: uppercase;
+      color: var(--color-muted); border-bottom: 1.5px solid var(--color-border);
+      white-space: nowrap; text-align: left; background: transparent;
+    }
+    .data-table tbody tr { border-bottom: 1px solid #F1F5F9; }
+    .data-table tbody tr:nth-child(even) { background: #F8FAFC; }
+    .data-table tbody tr:hover { background: #F1F5F9; }
+    .data-table tbody td { padding: 12px 16px; font-size: 13px; color: var(--color-text); vertical-align: middle; line-height: 1.5; }
+    .td-mono { font-family: var(--font-mono); font-size: 12.5px; color: var(--color-primary); }
+    .td-center { text-align: center; }
+    .td-muted { color: var(--color-muted); font-size: 12.5px; }
+
+    /* § 11 Badge Status Dot — .sdot-badge */
+    .sdot-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 20px; font-size: 12.5px; font-weight: 600;
+    }
+    .sdot-badge .sdot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .sdot-badge.s-green  { background: #DCFCE7; color: #16A34A; } .sdot-badge.s-green  .sdot { background: #16A34A; }
+    .sdot-badge.s-blue   { background: #EFF6FF; color: #1D4ED8; } .sdot-badge.s-blue   .sdot { background: #1D4ED8; }
+    .sdot-badge.s-amber  { background: #FEF3C7; color: #D97706; } .sdot-badge.s-amber  .sdot { background: #D97706; }
+    .sdot-badge.s-red    { background: #FEE2E2; color: #DC2626; } .sdot-badge.s-red    .sdot { background: #DC2626; }
+    .sdot-badge.s-purple { background: #F5F3FF; color: #7C3AED; } .sdot-badge.s-purple .sdot { background: #7C3AED; }
+    .sdot-badge.s-gray   { background: #F1F5F9; color: #64748B; } .sdot-badge.s-gray   .sdot { background: #64748B; }
+
+    /* § 11 Type Pill — .type-pill */
+    .type-pill {
+      display: inline-flex; padding: 4px 12px; border-radius: 20px;
+      font-size: 12px; font-weight: 600; white-space: nowrap;
+    }
+    .type-pill.t-blue   { background: #EFF6FF; color: #1D4ED8; }
+    .type-pill.t-teal   { background: #F0FDFA; color: #0D9488; }
+    .type-pill.t-purple { background: #F5F3FF; color: #7C3AED; }
+    .type-pill.t-amber  { background: #FEF3C7; color: #D97706; }
+
+    /* § 11 Pagination */
+    .tbl-pagination {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px; border-top: 1px solid var(--color-border);
+      font-size: 13px; color: var(--color-muted); flex-wrap: wrap; gap: 8px;
+    }
+    .page-btns { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .page-btn {
+      min-width: 34px; height: 34px; border: 1.5px solid var(--color-border); border-radius: 8px;
+      font-size: 13px; font-weight: 500; color: var(--color-text); background: white; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.13s, border-color 0.13s; font-family: var(--font-ui);
+    }
+    .page-btn:hover { background: var(--color-primary-light); border-color: var(--color-primary-border); }
+    .page-btn.active { background: var(--color-primary); border-color: var(--color-primary); color: white; }
+    .page-btn:disabled { color: var(--color-muted); cursor: default; pointer-events: none; }
+
+    /* § 13 Focus ring */
+.panel-nav-sub { display: flex; align-items: center; gap: 8px; padding: 8px 12px 8px 28px; margin: 1px 8px; border-radius: 8px; cursor: pointer; transition: background 0.13s, color 0.13s; color: #334155; font-size: 12.5px; font-weight: 500; text-decoration: none; white-space: nowrap; }
+    .panel-nav-sub:hover { background: #F8FAFC; }
+    .panel-nav-sub.active { background: #EFF6FF; color: #1D4ED8; font-weight: 600; }
+    .panel-nav-sub svg { width: 14px; height: 14px; stroke-width: 2; flex-shrink: 0; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    *:focus-visible { outline: 2px solid #2563EB; outline-offset: 3px; border-radius: 4px; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  </style>
+</head>
+<body>
+
+<!-- ══ TOPBAR ══ -->
+<header class="topbar" role="banner">
+  <div class="topbar-module-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    </svg>
+  </div>
+  <span class="topbar-brand">PELAYANAN SDM</span>
+  <div class="topbar-sep" aria-hidden="true"></div>
+  <div class="topbar-search" role="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="search" placeholder="Cari data sertifikasi, nama pegawai, no. sertifikat..." aria-label="Pencarian global">
+    <span class="topbar-kbd" aria-label="Shortcut Ctrl K">Ctrl K</span>
+  </div>
+  <div class="topbar-spacer"></div>
+  <div class="topbar-date" id="topbarDate">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+      <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+    </svg>
+    <span id="currentDate"></span>
+  </div>
+  <div class="topbar-sep" aria-hidden="true"></div>
+  <button class="topbar-icon-btn" aria-label="Notifikasi">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+    </svg>
+  </button>
+  <div class="topbar-sep" aria-hidden="true"></div>
+  <div class="topbar-avatar" role="button" tabindex="0" aria-label="Profil pengguna">SS</div>
+</header>
+
+<!-- ══ APP BODY ══ -->
+<div class="app-body">
+
+  <!-- ── SIDEBAR RAIL ── -->
+  <aside class="sidebar-rail" role="navigation" aria-label="Navigasi Modul">
+    <a href="dashboard.html" class="rail-item">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    </a>
+    <a href="data-badan-usaha.html" class="rail-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </a>
+    <a href="data-sertifikasi.html" class="rail-item active" aria-current="page">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    </a>
+    <a href="data-tarif-blu.html" class="rail-item">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    </a>
+    <a href="data-permohonan.html" class="rail-item">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    </a>
+    <a href="validasi-pengajuan.html" class="rail-item">
+      <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    </a>
+    <a href="billing-blu.html" class="rail-item">
+      <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+    </a>
+    <a href="laporan-billing-blu.html" class="rail-item">
+      <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+    </a>
+  </aside>
+
+  <!-- ── PANEL SUB-NAVIGASI ── -->
+  <div class="panel-subnav collapsed" id="panelSubnav" role="navigation" aria-label="Sub-Navigasi Modul">
+    <button class="panel-collapse-btn" id="collapseBtn" aria-label="Sembunyikan panel navigasi" aria-expanded="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="panel-section-label">Navigasi</div>
+    <a href="dashboard.html" class="panel-nav-item">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+    <a href="data-badan-usaha.html" class="panel-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Data Badan Usaha
+    </a>
+    <a href="data-sertifikasi.html" class="panel-nav-item active" aria-current="page">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Data Sertifikasi
+    </a>
+    <a href="data-tarif-blu.html" class="panel-nav-item">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Data Tarif BLU Pengujian
+    </a>
+    <a href="data-permohonan.html" class="panel-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Data Permohonan
+    </a>
+    <a href="validasi-pengajuan.html" class="panel-nav-item">
+      <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Validasi Pengajuan
+      <span class="panel-nav-badge">0</span>
+    </a>
+    <a href="billing-blu.html" class="panel-nav-item">
+      <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      Billing BLU Pengujian
+      <span class="panel-nav-badge">0</span>
+    </a>
+    <a href="laporan-billing-blu.html" class="panel-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Laporan</a>
+  </div>
+
+  <!-- ── AREA KONTEN ── -->
+  <main class="content-area">
+    <div class="table-card">
+
+      <!-- Header: judul + Export -->
+      <div class="table-card-header">
+        <span class="table-card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          Data Sertifikasi
+        </span>
+        <button class="btn-export" aria-label="Ekspor data sertifikasi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+          Export
+        </button>
+      </div>
+
+      <!-- Filter Row -->
+      <div class="tbl-filters">
+        <div class="tbl-show">
+          Tampilkan
+          <select id="perPage" onchange="renderTable()" aria-label="Jumlah entri per halaman">
+            <option value="10" selected>10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
+          entri
+        </div>
+        <!-- Filter Jenis Sertifikasi — .tbl-filter-select dari § 11 -->
+        <select class="tbl-filter-select" id="filterJenis" onchange="filterTable()" aria-label="Filter jenis sertifikasi">
+          <option value="">Semua Jenis</option>
+          <option value="Awak Sarana">Awak Sarana</option>
+          <option value="Teknis">Teknis</option>
+          <option value="Manajerial">Manajerial</option>
+          <option value="Keselamatan">Keselamatan</option>
+        </select>
+        <!-- Filter Status -->
+        <select class="tbl-filter-select" id="filterStatus" onchange="filterTable()" aria-label="Filter status sertifikasi">
+          <option value="">Semua Status</option>
+          <option value="Selesai">Selesai</option>
+          <option value="Ditindaklanjuti">Ditindaklanjuti</option>
+          <option value="Perlu Perbaikan">Perlu Perbaikan</option>
+          <option value="Ditolak">Ditolak</option>
+        </select>
+        <div class="tbl-search-right">
+          <label for="tableSearch">Search:</label>
+          <input type="text" id="tableSearch" placeholder="" oninput="filterTable()" aria-label="Cari data sertifikasi">
+        </div>
+      </div>
+
+      <!-- Tabel -->
+      <div class="table-wrapper">
+        <table class="data-table" aria-label="Data Sertifikasi">
+          <thead>
+            <tr>
+              <th>NO.</th>
+              <th>NAMA PEGAWAI</th>
+              <th>NIP</th>
+              <th>BADAN USAHA</th>
+              <th>JENIS SERTIFIKASI</th>
+              <th>NO. SERTIFIKAT</th>
+              <th>TGL TERBIT</th>
+              <th>TGL BERAKHIR</th>
+              <th class="td-center">STATUS</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="tbl-pagination">
+        <span id="paginationInfo"></span>
+        <div class="page-btns" id="pageButtons"></div>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+<script>
+  /* ── § 9 Topbar Date ── */
+  (function() {
+    const el = document.getElementById('currentDate');
+    if (!el) return;
+    const bulan = ['Januari','Februari','Maret','April','Mei','Juni',
+                   'Juli','Agustus','September','Oktober','November','Desember'];
+    const now = new Date();
+    el.textContent = `${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
+  })();
+
+  /* ── Panel collapse ── */
+  const panel = document.getElementById('panelSubnav');
+  const collapseBtn = document.getElementById('collapseBtn');
+  let panelOpen = true;
+  collapseBtn.addEventListener('click', () => {
+    panelOpen = !panelOpen;
+    panel.classList.toggle('collapsed', !panelOpen);
+    collapseBtn.setAttribute('aria-expanded', String(panelOpen));
+    collapseBtn.querySelector('polyline').setAttribute('points', panelOpen ? '15 18 9 12 15 6' : '9 18 15 12 9 6');
+    collapseBtn.setAttribute('aria-label', panelOpen ? 'Sembunyikan panel navigasi' : 'Tampilkan panel navigasi');
+  });
+
+  /* ── Helper: type-pill class per jenis ── */
+  function pillClass(jenis) {
+    if (jenis.includes('Awak Sarana')) return 't-blue';
+    if (jenis.includes('Teknis'))     return 't-teal';
+    if (jenis.includes('Manajerial')) return 't-purple';
+    if (jenis.includes('Keselamatan')) return 't-amber';
+    return 't-blue';
+  }
+
+  /* ── Helper: sdot-badge class per status (§ 4 UX Writing + § 11 Badge) ── */
+  function badgeClass(status) {
+    const map = {
+      'Selesai':             's-green',
+      'Ditindaklanjuti':     's-blue',
+      'Perlu Perbaikan':     's-amber',
+      'Ditolak':             's-red',
+      'Menunggu Persetujuan':'s-purple',
+    };
+    return map[status] || 's-gray';
+  }
+
+  /* ── Data ── */
+  const DATA = [
+    { nama:'SIGIT SUKMORO, S.Kom',          nip:'198411132008121003', badan:'Balai Pengujian Perkeretaapian', jenis:'Awak Sarana',  noSert:'SERT/SDM/2024/001', tglTerbit:'12 Jan 2024', tglAkhir:'12 Jan 2027', status:'Selesai' },
+    { nama:'DIAN PURNAMASARI, S.T',          nip:'198704152010122002', badan:'Balai Pengujian Perkeretaapian', jenis:'Teknis',       noSert:'SERT/SDM/2024/002', tglTerbit:'15 Jan 2024', tglAkhir:'15 Jan 2027', status:'Selesai' },
+    { nama:'MOCHAMAD ANDI HARY MURTY',       nip:'197506122003121003', badan:'Balai Perawatan Perkeretaapian', jenis:'Manajerial',  noSert:'SERT/SDM/2024/003', tglTerbit:'20 Jan 2024', tglAkhir:'20 Jan 2027', status:'Selesai' },
+    { nama:'SUPANDI',                         nip:'198001012005011002', badan:'Balai Teknik Perkeretaapian',   jenis:'Teknis',       noSert:'SERT/SDM/2024/004', tglTerbit:'25 Jan 2024', tglAkhir:'25 Jan 2027', status:'Selesai' },
+    { nama:'JATMIKO MURDIONO',               nip:'197809152006041001', badan:'Celebes Railway Indonesia',      jenis:'Awak Sarana',  noSert:'SERT/SDM/2024/005', tglTerbit:'01 Feb 2024', tglAkhir:'01 Feb 2027', status:'Selesai' },
+    { nama:'DRS. JOKO PURWANTO, MM',         nip:'196503201990031002', badan:'Dinas Perhubungan',              jenis:'Manajerial',   noSert:'SERT/SDM/2024/006', tglTerbit:'05 Feb 2024', tglAkhir:'05 Feb 2027', status:'Ditindaklanjuti' },
+    { nama:'HI. BASIRUN ALI, SH, MH',        nip:'196712041993031003', badan:'Dinas Perhubungan',              jenis:'Manajerial',   noSert:'SERT/SDM/2024/007', tglTerbit:'10 Feb 2024', tglAkhir:'10 Feb 2027', status:'Selesai' },
+    { nama:'NI MADE DWIPANTI INDRAYANTI, ST., MT.', nip:'197607142002122001', badan:'Dinas Perhubungan DIY', jenis:'Teknis',       noSert:'SERT/SDM/2024/008', tglTerbit:'14 Feb 2024', tglAkhir:'14 Feb 2027', status:'Selesai' },
+    { nama:'DWI RIYANTO, AP, M.M.',          nip:'197804122000031001', badan:'Dinas Perhubungan Kab. Batang', jenis:'Manajerial',   noSert:'SERT/SDM/2024/009', tglTerbit:'20 Feb 2024', tglAkhir:'20 Feb 2027', status:'Perlu Perbaikan' },
+    { nama:'H. IMAN IRIANTO, S.SOS., M.AP.', nip:'196912061993031002', badan:'Dinas Perhubungan Kab. Bandung', jenis:'Manajerial',  noSert:'SERT/SDM/2024/010', tglTerbit:'25 Feb 2024', tglAkhir:'25 Feb 2027', status:'Selesai' },
+    { nama:'AGUS RIDHO',                     nip:'197908122004121001', badan:'Dinas Perhubungan Kab. Bogor',   jenis:'Teknis',       noSert:'SERT/SDM/2024/011', tglTerbit:'01 Mar 2024', tglAkhir:'01 Mar 2027', status:'Selesai' },
+    { nama:'SLAMET WIBOWO',                  nip:'198203152006031002', badan:'Dinas Perhubungan Kab. Boyolali', jenis:'Awak Sarana', noSert:'SERT/SDM/2024/012', tglTerbit:'05 Mar 2024', tglAkhir:'05 Mar 2027', status:'Selesai' },
+    { nama:'ASEP SUPRIATNA',                 nip:'197501182000031001', badan:'Dinas Perhubungan Kab. Cianjur', jenis:'Keselamatan', noSert:'SERT/SDM/2024/013', tglTerbit:'10 Mar 2024', tglAkhir:'10 Mar 2027', status:'Selesai' },
+    { nama:'HENDRA GUNAWAN',                 nip:'198506292010011001', badan:'Dinas Perhubungan Kab. Cirebon', jenis:'Teknis',       noSert:'SERT/SDM/2024/014', tglTerbit:'15 Mar 2024', tglAkhir:'15 Mar 2027', status:'Ditindaklanjuti' },
+    { nama:'AHMAD FAUZI',                    nip:'197912202005011002', badan:'Dinas Perhubungan Kab. Demak',   jenis:'Awak Sarana',  noSert:'SERT/SDM/2024/015', tglTerbit:'20 Mar 2024', tglAkhir:'20 Mar 2027', status:'Selesai' },
+    { nama:'DEDI SUPARDI',                   nip:'197403262003121001', badan:'Dinas Perhubungan Kota Bandung', jenis:'Manajerial',   noSert:'SERT/SDM/2024/016', tglTerbit:'25 Mar 2024', tglAkhir:'25 Mar 2027', status:'Selesai' },
+    { nama:'BUDI SANTOSO',                   nip:'198107142006041001', badan:'Dinas Perhubungan Jakarta Pusat', jenis:'Teknis',      noSert:'SERT/SDM/2024/017', tglTerbit:'01 Apr 2024', tglAkhir:'01 Apr 2027', status:'Perlu Perbaikan' },
+    { nama:'SUHARNO',                        nip:'197604122000121001', badan:'Dinas Perhubungan Kota Semarang', jenis:'Awak Sarana', noSert:'SERT/SDM/2024/018', tglTerbit:'05 Apr 2024', tglAkhir:'05 Apr 2027', status:'Selesai' },
+    { nama:'WAHYU SETIAWAN',                 nip:'198309252008011001', badan:'Dinas Perhubungan Kota Surabaya', jenis:'Teknis',      noSert:'SERT/SDM/2024/019', tglTerbit:'10 Apr 2024', tglAkhir:'10 Apr 2027', status:'Selesai' },
+    { nama:'RINI KUSUMAWATI',                nip:'197705172003122001', badan:'Dinas Perhubungan Kota Yogyakarta', jenis:'Keselamatan', noSert:'SERT/SDM/2024/020', tglTerbit:'15 Apr 2024', tglAkhir:'15 Apr 2027', status:'Selesai' },
+    { nama:'DENNY WAHYUDI',                  nip:'196908292001121001', badan:'Dishub Provinsi Jawa Barat',     jenis:'Manajerial',   noSert:'SERT/SDM/2024/021', tglTerbit:'20 Apr 2024', tglAkhir:'20 Apr 2027', status:'Ditindaklanjuti' },
+    { nama:'AGUNG PRASETYO',                 nip:'197204182000031002', badan:'Dishub Provinsi Jawa Tengah',    jenis:'Teknis',       noSert:'SERT/SDM/2024/022', tglTerbit:'25 Apr 2024', tglAkhir:'25 Apr 2027', status:'Selesai' },
+    { nama:'HERU BASUKI',                    nip:'197811212003121001', badan:'Dishub Provinsi Jawa Timur',     jenis:'Awak Sarana',  noSert:'SERT/SDM/2024/023', tglTerbit:'01 Mei 2024', tglAkhir:'01 Mei 2027', status:'Selesai' },
+    { nama:'DIDIEK HARTANTYO',               nip:'196602042000031001', badan:'Kereta Api Indonesia (Persero)', jenis:'Manajerial',   noSert:'SERT/SDM/2024/024', tglTerbit:'05 Mei 2024', tglAkhir:'05 Mei 2027', status:'Selesai' },
+    { nama:'SURYAWAN PUTRA HARTO',           nip:'197301152001121001', badan:'KAI Commuter',                   jenis:'Awak Sarana',  noSert:'SERT/SDM/2024/025', tglTerbit:'10 Mei 2024', tglAkhir:'10 Mei 2027', status:'Selesai' },
+    { nama:'DWIYANA SLAMET',                 nip:'197502282002121001', badan:'Kereta Cepat Indonesia China',   jenis:'Teknis',       noSert:'SERT/SDM/2024/026', tglTerbit:'15 Mei 2024', tglAkhir:'15 Mei 2027', status:'Perlu Perbaikan' },
+    { nama:'MOCHAMAD PURNOMOSIDI',           nip:'197806062004121001', badan:'LRT Jabodebek',                  jenis:'Awak Sarana',  noSert:'SERT/SDM/2024/027', tglTerbit:'20 Mei 2024', tglAkhir:'20 Mei 2027', status:'Selesai' },
+    { nama:'WILLIAM SABANDAR',               nip:'197404162003121001', badan:'MRT Jakarta',                    jenis:'Keselamatan',  noSert:'SERT/SDM/2024/028', tglTerbit:'25 Mei 2024', tglAkhir:'25 Mei 2027', status:'Selesai' },
+    { nama:'EKO PURWANTO',                   nip:'196911212000031001', badan:'PT INKA (Persero)',               jenis:'Teknis',       noSert:'SERT/SDM/2024/029', tglTerbit:'01 Jun 2024', tglAkhir:'01 Jun 2027', status:'Selesai' },
+    { nama:'DJOKO SLAMET WAHYUDI',           nip:'197002142001121001', badan:'PT Kereta Api Logistik',         jenis:'Awak Sarana',  noSert:'SERT/SDM/2024/030', tglTerbit:'05 Jun 2024', tglAkhir:'05 Jun 2027', status:'Ditindaklanjuti' },
+    { nama:'HERU KUSWANTO',                  nip:'197605232003121002', badan:'PT Kereta Api Pariwisata',       jenis:'Manajerial',   noSert:'SERT/SDM/2024/031', tglTerbit:'10 Jun 2024', tglAkhir:'10 Jun 2027', status:'Selesai' },
+    { nama:'RIDWAN BUDI PRAMONO',            nip:'197808192005011001', badan:'PT Kereta Api Properti',         jenis:'Manajerial',   noSert:'SERT/SDM/2024/032', tglTerbit:'15 Jun 2024', tglAkhir:'15 Jun 2027', status:'Selesai' },
+    { nama:'BOBBY RASYIDIN',                 nip:'196908122000031001', badan:'PT Len Industri (Persero)',      jenis:'Teknis',       noSert:'SERT/SDM/2024/033', tglTerbit:'20 Jun 2024', tglAkhir:'20 Jun 2027', status:'Perlu Perbaikan' },
+    { nama:'MUKTI JAUHARI',                  nip:'197606272004121001', badan:'PT Reska Multi Usaha',           jenis:'Awak Sarana',  noSert:'SERT/SDM/2024/034', tglTerbit:'25 Jun 2024', tglAkhir:'25 Jun 2027', status:'Selesai' },
+    { nama:'DESTIAWAN SOEWARDJONO',          nip:'196904182003121001', badan:'PT Waskita Karya (Persero)',     jenis:'Keselamatan',  noSert:'SERT/SDM/2024/035', tglTerbit:'01 Jul 2024', tglAkhir:'01 Jul 2027', status:'Selesai' },
+    { nama:'DADANG RUKMANA',                 nip:'197103122000031001', badan:'Satker Perkeretaapian Jabar',    jenis:'Teknis',       noSert:'SERT/SDM/2024/036', tglTerbit:'05 Jul 2024', tglAkhir:'05 Jul 2027', status:'Ditindaklanjuti' },
+    { nama:'BAMBANG SUPRIYADI',              nip:'197209282001121001', badan:'Satker Perkeretaapian Jateng',   jenis:'Awak Sarana',  noSert:'SERT/SDM/2024/037', tglTerbit:'10 Jul 2024', tglAkhir:'10 Jul 2027', status:'Selesai' },
+    { nama:'TOMMY WIBOWO',                   nip:'198001082004121001', badan:'Satker Perkeretaapian Jatim',    jenis:'Teknis',       noSert:'SERT/SDM/2024/038', tglTerbit:'15 Jul 2024', tglAkhir:'15 Jul 2027', status:'Selesai' },
+    { nama:'ZULKARNAEN',                     nip:'197404222001121001', badan:'Satker Perkeretaapian Sumatera', jenis:'Keselamatan',  noSert:'SERT/SDM/2024/039', tglTerbit:'20 Jul 2024', tglAkhir:'20 Jul 2027', status:'Selesai' },
+    { nama:'WELFIZON YUZA',                  nip:'197708142005011001', badan:'Transjakarta',                   jenis:'Manajerial',   noSert:'SERT/SDM/2024/040', tglTerbit:'25 Jul 2024', tglAkhir:'25 Jul 2027', status:'Selesai' },
+  ];
+
+  let filteredData = [...DATA];
+  let currentPage = 1;
+
+  function filterTable() {
+    const q      = document.getElementById('tableSearch').value.toLowerCase();
+    const jenis  = document.getElementById('filterJenis').value;
+    const status = document.getElementById('filterStatus').value;
+    filteredData = DATA.filter(r => {
+      const matchQ      = !q || r.nama.toLowerCase().includes(q) || r.nip.includes(q) || r.badan.toLowerCase().includes(q) || r.noSert.toLowerCase().includes(q);
+      const matchJenis  = !jenis  || r.jenis.includes(jenis);
+      const matchStatus = !status || r.status === status;
+      return matchQ && matchJenis && matchStatus;
+    });
+    currentPage = 1;
+    renderTable();
+  }
+
+  function renderTable() {
+    const perPage   = parseInt(document.getElementById('perPage').value);
+    const start     = (currentPage - 1) * perPage;
+    const end       = start + perPage;
+    const pageData  = filteredData.slice(start, end);
+    const totalPages = Math.ceil(filteredData.length / perPage);
+
+    /* Tbody */
+    const tbody = document.getElementById('tableBody');
+    if (pageData.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:40px 16px;color:var(--color-muted);font-size:13px;">Tidak Ada Data</td></tr>`;
+    } else {
+      tbody.innerHTML = pageData.map((r, i) => `
+        <tr>
+          <td class="td-center">${start + i + 1}</td>
+          <td style="font-weight:500;">${r.nama}</td>
+          <td class="td-mono">${r.nip}</td>
+          <td class="td-muted">${r.badan}</td>
+          <td><span class="type-pill ${pillClass(r.jenis)}">${r.jenis}</span></td>
+          <td class="td-mono">${r.noSert}</td>
+          <td class="td-muted">${r.tglTerbit}</td>
+          <td class="td-muted">${r.tglAkhir}</td>
+          <td class="td-center">
+            <span class="sdot-badge ${badgeClass(r.status)}">
+              <span class="sdot" aria-hidden="true"></span>
+              ${r.status}
+            </span>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    /* Pagination info */
+    document.getElementById('paginationInfo').textContent = filteredData.length === 0
+      ? 'Tidak ada data yang sesuai'
+      : `Menampilkan ${start + 1} s/d ${Math.min(end, filteredData.length)} dari ${filteredData.length}`;
+
+    /* Page buttons */
+    const btnsEl = document.getElementById('pageButtons');
+    let html = `<button class="page-btn" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>Sebelumnya</button>`;
+    const maxVis = 5;
+    let startP = Math.max(1, currentPage - 2);
+    let endP   = Math.min(totalPages, startP + maxVis - 1);
+    if (endP - startP < maxVis - 1) startP = Math.max(1, endP - maxVis + 1);
+    for (let p = startP; p <= endP; p++) {
+      html += `<button class="page-btn ${p === currentPage ? 'active' : ''}" onclick="goPage(${p})">${p}</button>`;
+    }
+    html += `<button class="page-btn" onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Selanjutnya</button>`;
+    btnsEl.innerHTML = html;
+  }
+
+  function goPage(p) {
+    const perPage    = parseInt(document.getElementById('perPage').value);
+    const totalPages = Math.ceil(filteredData.length / perPage);
+    if (p < 1 || p > totalPages) return;
+    currentPage = p;
+    renderTable();
+  }
+
+  renderTable();
+</script>
+</body>
+</html>

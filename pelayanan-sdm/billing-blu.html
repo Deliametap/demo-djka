@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Billing BLU Pengujian — Pelayanan SDM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── § 3 CSS TOKEN WARNA ── */
+    :root {
+      --color-primary:        #1D4ED8;
+      --color-primary-hover:  #2563EB;
+      --color-primary-light:  #EFF6FF;
+      --color-primary-border: #BFDBFE;
+      --color-success:        #16A34A;
+      --color-warning:        #D97706;
+      --color-danger:         #DC2626;
+      --color-info:           #0284C7;
+      --color-surface:        #FFFFFF;
+      --color-bg:             #F8FAFC;
+      --color-border:         #E2E8F0;
+      --color-border-light:   #F1F5F9;
+      --color-text:           #0F172A;
+      --color-text-secondary: #334155;
+      --color-muted:          #64748B;
+      --topbar-bg:            #0F172A;
+      --topbar-date-bg:       rgba(255,255,255,0.08);
+      --topbar-date-text:     #ffffff;
+      --font-ui:              'Plus Jakarta Sans', sans-serif;
+      --font-mono:            'JetBrains Mono', monospace;
+    }
+
+    body { font-family: var(--font-ui); background: var(--color-bg); color: var(--color-text); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+    /* ── § 5 TOPBAR ── */
+    .topbar { height: 56px; background: var(--topbar-bg); position: sticky; top: 0; z-index: 90; display: flex; align-items: center; flex-shrink: 0; padding-left: 0; }
+    .topbar-module-icon { width: 72px; min-width: 72px; height: 56px; background: var(--color-primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .topbar-module-icon svg { width: 22px; height: 22px; stroke-width: 2; color: white; }
+    .topbar-brand { padding: 0 16px; font-size: 13px; font-weight: 800; color: #fff; letter-spacing: 0.6px; white-space: nowrap; }
+    .topbar-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+    .topbar-search { display: flex; align-items: center; gap: 8px; min-width: 420px; max-width: 100%; height: 36px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0 12px; margin-left: 16px; color: rgba(255,255,255,0.5); }
+    .topbar-search svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .topbar-search input { flex: 1; background: transparent; border: none; outline: none; font-family: var(--font-ui); font-size: 13px; color: rgba(255,255,255,0.6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .topbar-search input::placeholder { color: rgba(255,255,255,0.35); }
+    .topbar-kbd { font-family: var(--font-mono); font-size: 10.5px; color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 4px; padding: 2px 6px; white-space: nowrap; }
+    .topbar-spacer { flex: 1; }
+    .topbar-date { display: flex; align-items: center; gap: 8px; background: var(--topbar-date-bg); border-radius: 8px; padding: 6px 12px; font-size: 13px; font-weight: 500; color: var(--topbar-date-text); white-space: nowrap; }
+    .topbar-date svg { width: 16px; height: 16px; color: rgba(255,255,255,0.7); flex-shrink: 0; }
+    .topbar-icon-btn { width: 36px; height: 36px; border-radius: 8px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.6); transition: background 0.15s; flex-shrink: 0; }
+    .topbar-icon-btn:hover { background: rgba(255,255,255,0.09); }
+    .topbar-icon-btn svg { width: 18px; height: 18px; stroke-width: 2; }
+    .topbar-avatar { width: 36px; height: 36px; border-radius: 8px; background: var(--color-danger); display: flex; align-items: center; justify-content: center; color: white; font-size: 12.5px; font-weight: 700; cursor: pointer; flex-shrink: 0; margin-right: 16px; margin-left: 8px; }
+
+    .app-body { display: flex; flex: 1; overflow: hidden; }
+
+    /* ── § 5 SIDEBAR RAIL ── */
+    .sidebar-rail { width: 72px; min-width: 72px; background: #131A35; display: flex; flex-direction: column; align-items: center; padding: 8px 0 16px; gap: 2px; height: 100%; overflow-y: auto; flex-shrink: 0; }
+    .rail-item { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: rgba(255,255,255,0.4); transition: background 0.15s, color 0.15s; flex-shrink: 0; text-decoration: none; }
+    .rail-item:hover { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.75); }
+    .rail-item.active { background: rgba(37,99,235,0.25); color: #93C5FD; }
+    .rail-item svg { width: 20px; height: 20px; stroke-width: 2; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── § 5 PANEL SUB-NAVIGASI ── */
+    .panel-subnav { width: 260px; min-width: 260px; background: var(--color-surface); border-right: 1px solid var(--color-border); height: 100%; overflow-y: auto; overflow-x: hidden; position: relative; transition: width 0.25s ease, min-width 0.25s ease; flex-shrink: 0; }
+    .panel-subnav.collapsed { width: 0; min-width: 0; border-right: none; }
+    .panel-collapse-btn { position: absolute; right: -13px; top: 50%; transform: translateY(-50%); width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--color-border); background: var(--color-surface); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--color-muted); z-index: 10; transition: background 0.15s; }
+    .panel-collapse-btn:hover { background: var(--color-bg); }
+    .panel-collapse-btn svg { width: 12px; height: 12px; stroke-width: 2.5; }
+    .panel-section-label { padding: 20px 20px 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--color-muted); white-space: nowrap; }
+    .panel-nav-item { display: flex; align-items: center; gap: 8px; padding: 9px 12px; margin: 2px 8px; border-radius: 8px; cursor: pointer; transition: background 0.13s, color 0.13s; color: #334155; font-size: 13px; font-weight: 500; text-decoration: none; white-space: nowrap; }
+    .panel-nav-item:hover { background: #F8FAFC; }
+    .panel-nav-item.active { background: #EFF6FF; color: #1D4ED8; font-weight: 600; }
+    .panel-nav-item svg { width: 16px; height: 16px; stroke-width: 2; flex-shrink: 0; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .panel-nav-badge { margin-left: auto; background: #22C55E; color: white; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 9999px; min-width: 18px; text-align: center; flex-shrink: 0; }
+
+    /* ── AREA KONTEN ── */
+    .content-area { flex: 1; overflow-y: auto; overflow-x: hidden; background: var(--color-bg); padding: 24px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+
+    /* ── § 11 ORGANISME: ALERT WARNING ── */
+    .alert { display: flex; align-items: center; gap: 16px; padding: 16px 20px; border-radius: 12px; border: 1px solid; }
+    .alert-warning { background: #FEF3C7; border-color: #FDE68A; color: #92400E; }
+    .alert-icon-box { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .alert-warning .alert-icon-box { background: rgba(217,119,6,0.15); }
+    .alert-warning .alert-icon-box svg { width: 20px; height: 20px; stroke: #D97706; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .alert-text { font-size: 13.5px; font-weight: 500; line-height: 1.5; }
+
+    /* ── § 11 TABLE CARD ── */
+    .table-card { background: var(--color-surface); border-radius: 12px; border: 1px solid var(--color-border); box-shadow: 0 1px 4px rgba(0,0,0,0.05); overflow: hidden; }
+    .table-card-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--color-border); gap: 12px; flex-wrap: wrap; }
+    .table-card-title { font-size: 15px; font-weight: 700; color: var(--color-text); display: flex; align-items: center; gap: 8px; }
+    .table-card-title svg { width: 18px; height: 18px; color: var(--color-primary); stroke-width: 2; }
+
+    /* § 9 BTN SECONDARY OUTLINE — "Cek Status Billing" sesuai dashboard.md */
+    .btn-secondary-outline {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 16px;
+      background: transparent; color: var(--color-primary);
+      border: 1.5px solid var(--color-primary-border); border-radius: 6px;
+      font-size: 13.5px; font-weight: 600; font-family: var(--font-ui);
+      cursor: pointer; transition: all 0.15s; white-space: nowrap;
+    }
+    .btn-secondary-outline:hover { background: var(--color-primary-light); border-color: var(--color-primary); }
+    .btn-secondary-outline svg { width: 15px; height: 15px; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+    /* § 9 BTN DARK — Cetak Invoice */
+    .btn-dark {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px; background: #1E293B; color: white;
+      border: none; border-radius: 8px;
+      font-size: 12.5px; font-weight: 600; font-family: var(--font-ui);
+      cursor: pointer; transition: background 0.15s; white-space: nowrap;
+    }
+    .btn-dark:hover { background: #334155; }
+    .btn-dark svg { width: 13px; height: 13px; stroke-width: 2; flex-shrink: 0; }
+
+    /* § 11 Filter Row */
+    .tbl-filters { display: flex; align-items: center; gap: 10px; padding: 16px 20px; border-bottom: 1px solid var(--color-border); flex-wrap: wrap; }
+    .tbl-show { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--color-muted); white-space: nowrap; }
+    .tbl-show select { height: 36px; padding: 0 28px 0 10px; border: 1.5px solid var(--color-border); border-radius: 8px; font-size: 13px; font-family: var(--font-ui); background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 8px center; appearance: none; cursor: pointer; outline: none; }
+    .tbl-search-right { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+    .tbl-search-right label { font-size: 13px; color: var(--color-muted); white-space: nowrap; }
+    .tbl-search-right input { height: 36px; padding: 0 12px; border: 1.5px solid var(--color-border); border-radius: 8px; font-size: 13px; font-family: var(--font-ui); color: var(--color-text); background: white; outline: none; min-width: 200px; }
+    .tbl-search-right input:focus { border-color: var(--color-primary); }
+    .tbl-search-right input::placeholder { color: var(--color-muted); }
+
+    /* § 11 Data Table */
+    .table-wrapper { overflow-x: auto; width: 100%; -webkit-overflow-scrolling: touch; }
+    .data-table { width: 100%; min-width: 1050px; border-collapse: collapse; }
+    .data-table thead th { padding: 12px 16px; font-size: 11px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--color-muted); border-bottom: 1.5px solid var(--color-border); white-space: nowrap; text-align: left; background: transparent; }
+    .data-table tbody tr { border-bottom: 1px solid #F1F5F9; }
+    .data-table tbody tr:nth-child(even) { background: #F8FAFC; }
+    .data-table tbody tr:hover { background: #F1F5F9; }
+    .data-table tbody td { padding: 12px 16px; font-size: 13px; color: var(--color-text); vertical-align: middle; line-height: 1.5; }
+    .td-mono   { font-family: var(--font-mono); font-size: 12.5px; color: var(--color-primary); }
+    .td-center { text-align: center; }
+    .td-right  { text-align: right; }
+    .td-muted  { color: var(--color-muted); font-size: 12.5px; }
+
+    /* § 11 Badge sdot */
+    .sdot-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 20px; font-size: 12.5px; font-weight: 600; }
+    .sdot-badge .sdot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .sdot-badge.s-green  { background: #DCFCE7; color: #16A34A; } .sdot-badge.s-green  .sdot { background: #16A34A; }
+    .sdot-badge.s-blue   { background: #EFF6FF; color: #1D4ED8; } .sdot-badge.s-blue   .sdot { background: #1D4ED8; }
+    .sdot-badge.s-amber  { background: #FEF3C7; color: #D97706; } .sdot-badge.s-amber  .sdot { background: #D97706; }
+    .sdot-badge.s-red    { background: #FEE2E2; color: #DC2626; } .sdot-badge.s-red    .sdot { background: #DC2626; }
+    .sdot-badge.s-gray   { background: #F1F5F9; color: #64748B; } .sdot-badge.s-gray   .sdot { background: #64748B; }
+
+    /* § 12 EMPTY STATE */
+    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 48px 24px; color: var(--color-muted); }
+    .empty-state svg { width: 40px; height: 40px; stroke-width: 1.5; opacity: 0.35; }
+    .empty-state p { font-size: 13px; }
+
+    /* § 11 Pagination */
+    .tbl-pagination { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-top: 1px solid var(--color-border); font-size: 13px; color: var(--color-muted); flex-wrap: wrap; gap: 8px; }
+    .page-btns { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .page-btn { min-width: 34px; height: 34px; border: 1.5px solid var(--color-border); border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--color-text); background: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.13s, border-color 0.13s; font-family: var(--font-ui); }
+    .page-btn:hover:not(:disabled) { background: var(--color-primary-light); border-color: var(--color-primary-border); }
+    .page-btn.active { background: var(--color-primary); border-color: var(--color-primary); color: white; }
+    .page-btn:disabled { color: var(--color-muted); cursor: default; opacity: 0.5; }
+
+    /* Footer */
+    .page-footer { text-align: center; padding: 14px 24px; font-size: 12.5px; color: var(--color-muted); border-top: 1px solid var(--color-border); background: var(--color-surface); flex-shrink: 0; }
+    .page-footer strong { color: var(--color-text); font-weight: 600; }
+
+    /* § 13 */
+.panel-nav-sub { display: flex; align-items: center; gap: 8px; padding: 8px 12px 8px 28px; margin: 1px 8px; border-radius: 8px; cursor: pointer; transition: background 0.13s, color 0.13s; color: #334155; font-size: 12.5px; font-weight: 500; text-decoration: none; white-space: nowrap; }
+    .panel-nav-sub:hover { background: #F8FAFC; }
+    .panel-nav-sub.active { background: #EFF6FF; color: #1D4ED8; font-weight: 600; }
+    .panel-nav-sub svg { width: 14px; height: 14px; stroke-width: 2; flex-shrink: 0; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    *:focus-visible { outline: 2px solid #2563EB; outline-offset: 3px; border-radius: 4px; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  </style>
+</head>
+<body>
+
+<!-- ══ TOPBAR ══ -->
+<header class="topbar" role="banner">
+  <div class="topbar-module-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+    </svg>
+  </div>
+  <span class="topbar-brand">PELAYANAN SDM</span>
+  <div class="topbar-sep" aria-hidden="true"></div>
+  <div class="topbar-search" role="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="search" placeholder="Cari data billing BLU pengujian..." aria-label="Pencarian global">
+    <span class="topbar-kbd" aria-label="Shortcut Ctrl K">Ctrl K</span>
+  </div>
+  <div class="topbar-spacer"></div>
+  <div class="topbar-date" id="topbarDate">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+      <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+    </svg>
+    <span id="currentDate"></span>
+  </div>
+  <div class="topbar-sep" aria-hidden="true"></div>
+  <button class="topbar-icon-btn" aria-label="Notifikasi">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+  </button>
+  <div class="topbar-sep" aria-hidden="true"></div>
+  <div class="topbar-avatar" role="button" tabindex="0" aria-label="Profil pengguna">SS</div>
+</header>
+
+<div class="app-body">
+
+  <!-- ── SIDEBAR RAIL ── -->
+  <aside class="sidebar-rail" role="navigation" aria-label="Navigasi Modul">
+    <a href="dashboard.html"           class="rail-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></a>
+    <a href="data-badan-usaha.html"    class="rail-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+    <a href="data-sertifikasi.html"    class="rail-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></a>
+    <a href="data-tarif-blu.html"      class="rail-item"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></a>
+    <a href="data-permohonan.html"     class="rail-item"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></a>
+    <a href="validasi-pengajuan.html"  class="rail-item"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></a>
+    <a href="billing-blu.html"         class="rail-item active" aria-current="page"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></a>
+    <a href="laporan-billing-blu.html" class="rail-item"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></a>
+  </aside>
+
+  <!-- ── PANEL SUB-NAVIGASI ── -->
+  <div class="panel-subnav collapsed" id="panelSubnav" role="navigation" aria-label="Sub-Navigasi Modul">
+    <button class="panel-collapse-btn" id="collapseBtn" aria-label="Sembunyikan panel navigasi" aria-expanded="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="panel-section-label">Navigasi</div>
+    <a href="dashboard.html"          class="panel-nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
+    <a href="data-badan-usaha.html"   class="panel-nav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Data Badan Usaha</a>
+    <a href="data-sertifikasi.html"   class="panel-nav-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Data Sertifikasi</a>
+    <a href="data-tarif-blu.html"     class="panel-nav-item"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Data Tarif BLU Pengujian</a>
+    <a href="data-permohonan.html"    class="panel-nav-item"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Data Permohonan</a>
+    <a href="validasi-pengajuan.html" class="panel-nav-item"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Validasi Pengajuan<span class="panel-nav-badge">0</span></a>
+    <a href="billing-blu.html"        class="panel-nav-item active" aria-current="page"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Billing BLU Pengujian<span class="panel-nav-badge">0</span></a>
+    <a href="laporan-billing-blu.html" class="panel-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Laporan</a>
+  </div>
+
+  <!-- ── AREA KONTEN ── -->
+  <div class="content-area">
+
+    <!-- § 11 ALERT WARNING -->
+    <div class="alert alert-warning" role="alert">
+      <div class="alert-icon-box" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 11l19-9-9 19-2-8-8-2z"/>
+        </svg>
+      </div>
+      <p class="alert-text">Untuk melakukan pembaharuan status billing gunakan fitur Cek Status Billing.</p>
+    </div>
+
+    <!-- § 11 TABLE CARD -->
+    <div class="table-card">
+
+      <div class="table-card-header">
+        <span class="table-card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+          Daftar Billing BLU Pengujian
+        </span>
+        <!-- § 9 Secondary Outline — "Cek Status Billing" sesuai dashboard.md -->
+        <button class="btn-secondary-outline" id="btnCekStatus" aria-label="Cek status billing">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          Cek Status Billing
+        </button>
+      </div>
+
+      <!-- Filter Row -->
+      <div class="tbl-filters">
+        <div class="tbl-show">
+          Tampilkan
+          <select id="perPage" onchange="renderTable()" aria-label="Jumlah entri per halaman">
+            <option value="10" selected>10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
+          entri
+        </div>
+        <div class="tbl-search-right">
+          <label for="tableSearch">Search:</label>
+          <input type="text" id="tableSearch" placeholder="" oninput="filterTable()" aria-label="Cari data billing">
+        </div>
+      </div>
+
+      <!-- Tabel -->
+      <div class="table-wrapper">
+        <table class="data-table" aria-label="Daftar Billing BLU Pengujian">
+          <thead>
+            <tr>
+              <th>NO.</th>
+              <th>JENIS PERMOHONAN</th>
+              <th>NO PENDAFTARAN</th>
+              <th>ID</th>
+              <th>BADAN USAHA</th>
+              <th>JENIS KOPETENSI</th>
+              <th>KODE BILLING</th>
+              <th class="td-right">TOTAL (RP)</th>
+              <th class="td-center">CETAK INVOICE</th>
+              <th class="td-center">#</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="tbl-pagination">
+        <span id="paginationInfo">Menampilkan 0 - 0 dari 0 entri.</span>
+        <div class="page-btns" id="pageButtons">
+          <button class="page-btn" disabled>Sebelumnya</button>
+          <button class="page-btn" disabled>Selanjutnya</button>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="page-footer">
+      2023 <strong>Pelayanan Uji SDM</strong> Copyright
+    </footer>
+
+  </div>
+</div>
+
+<script>
+  /* ── § 9 Topbar Date ── */
+  (function() {
+    const el = document.getElementById('currentDate');
+    if (!el) return;
+    const bulan = ['Januari','Februari','Maret','April','Mei','Juni',
+                   'Juli','Agustus','September','Oktober','November','Desember'];
+    const now = new Date();
+    el.textContent = `${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
+  })();
+
+  /* ── Panel collapse ── */
+  const panel = document.getElementById('panelSubnav');
+  const collapseBtn = document.getElementById('collapseBtn');
+  let panelOpen = true;
+  collapseBtn.addEventListener('click', () => {
+    panelOpen = !panelOpen;
+    panel.classList.toggle('collapsed', !panelOpen);
+    collapseBtn.setAttribute('aria-expanded', String(panelOpen));
+    collapseBtn.querySelector('polyline').setAttribute('points', panelOpen ? '15 18 9 12 15 6' : '9 18 15 12 9 6');
+    collapseBtn.setAttribute('aria-label', panelOpen ? 'Sembunyikan panel navigasi' : 'Tampilkan panel navigasi');
+  });
+
+  /* ── Data ── */
+  let DATA = [];
+  let filteredData = [];
+  let currentPage = 1;
+
+  function fmtRp(n) { return 'Rp ' + n.toLocaleString('id-ID'); }
+
+  function filterTable() {
+    const q = document.getElementById('tableSearch').value.toLowerCase();
+    filteredData = DATA.filter(r =>
+      !q ||
+      r.jenis.toLowerCase().includes(q) ||
+      r.noPendaftaran.includes(q) ||
+      r.badan.toLowerCase().includes(q) ||
+      r.kodeBilling.toLowerCase().includes(q)
+    );
+    currentPage = 1;
+    renderTable();
+  }
+
+  function renderTable() {
+    const perPage    = parseInt(document.getElementById('perPage').value);
+    const start      = (currentPage - 1) * perPage;
+    const end        = start + perPage;
+    const pageData   = filteredData.slice(start, end);
+    const totalPages = Math.max(1, Math.ceil(filteredData.length / perPage));
+    const tbody      = document.getElementById('tableBody');
+
+    if (pageData.length === 0) {
+      tbody.innerHTML = `
+        <tr><td colspan="10">
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+            </svg>
+            <p>Tidak ada Data yang dapat ditampilkan..</p>
+          </div>
+        </td></tr>`;
+    } else {
+      tbody.innerHTML = pageData.map((r, i) => `
+        <tr>
+          <td class="td-center">${start + i + 1}</td>
+          <td style="font-weight:500;">${r.jenis}</td>
+          <td class="td-mono">${r.noPendaftaran}</td>
+          <td class="td-mono">${r.id}</td>
+          <td>${r.badan}</td>
+          <td>${r.kopetensi}</td>
+          <td class="td-mono">${r.kodeBilling}</td>
+          <td class="td-right" style="font-family:var(--font-mono);font-size:12.5px;font-weight:600;">${fmtRp(r.total)}</td>
+          <td class="td-center">
+            <button class="btn-dark" onclick="cetakInvoice('${r.kodeBilling}')" aria-label="Cetak invoice ${r.kodeBilling}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 6 2 18 2 18 9"/>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                <rect x="6" y="14" width="12" height="8"/>
+              </svg>
+              Cetak
+            </button>
+          </td>
+          <td class="td-center">
+            <span class="sdot-badge ${r.status === 'Lunas' ? 's-green' : r.status === 'Belum Lunas' ? 's-amber' : 's-gray'}">
+              <span class="sdot" aria-hidden="true"></span>
+              ${r.status}
+            </span>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    document.getElementById('paginationInfo').textContent = filteredData.length === 0
+      ? 'Menampilkan 0 - 0 dari 0 entri.'
+      : `Menampilkan ${start + 1} - ${Math.min(end, filteredData.length)} dari ${filteredData.length} entri.`;
+
+    const btnsEl = document.getElementById('pageButtons');
+    let html = `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>Sebelumnya</button>`;
+    const maxVis = 5;
+    let startP = Math.max(1, currentPage - 2);
+    let endP   = Math.min(totalPages, startP + maxVis - 1);
+    if (endP - startP < maxVis - 1) startP = Math.max(1, endP - maxVis + 1);
+    if (filteredData.length > 0) {
+      for (let p = startP; p <= endP; p++) {
+        html += `<button class="page-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
+      }
+    }
+    html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage>=totalPages?'disabled':''}>Selanjutnya</button>`;
+    btnsEl.innerHTML = html;
+  }
+
+  function goPage(p) {
+    const perPage    = parseInt(document.getElementById('perPage').value);
+    const totalPages = Math.ceil(filteredData.length / perPage);
+    if (p < 1 || p > totalPages) return;
+    currentPage = p;
+    renderTable();
+  }
+
+  function cetakInvoice(kode) {
+    window.print();
+  }
+
+  /* ── Cek Status Billing — simulasi fetch ── */
+  let isCekking = false;
+  document.getElementById('btnCekStatus').addEventListener('click', function() {
+    if (isCekking) return;
+    isCekking = true;
+    const btn = this;
+    const origHTML = btn.innerHTML;
+    btn.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="animation:spin 0.8s linear infinite" aria-hidden="true">
+        <polyline points="23 4 23 10 17 10"/>
+        <polyline points="1 20 1 14 7 14"/>
+        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+      </svg>
+      Mengecek...`;
+    btn.disabled = true;
+
+    setTimeout(() => {
+      DATA = [
+        { jenis:'PERMOHONAN PERPANJANGAN', noPendaftaran:'20230000703', id:'SDM-001', badan:'PT. KERETA API INDONESIA (PERSERO)', kopetensi:'PEMERIKSA SARANA PERKERETAAPIAN', kodeBilling:'BLU-2023-00703', total:360000,  status:'Lunas' },
+        { jenis:'PERMOHONAN PESERTA BARU', noPendaftaran:'20230000719', id:'SDM-002', badan:'PT. KERETA API INDONESIA (PERSERO)', kopetensi:'PENGATUR PERJALANAN KA.',            kodeBilling:'BLU-2023-00719', total:600000,  status:'Belum Lunas' },
+      ];
+      filteredData = [...DATA];
+      renderTable();
+      btn.innerHTML = origHTML;
+      btn.disabled = false;
+      isCekking = false;
+    }, 1500);
+  });
+
+  const style = document.createElement('style');
+  style.textContent = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }';
+  document.head.appendChild(style);
+
+  renderTable();
+</script>
+</body>
+</html>

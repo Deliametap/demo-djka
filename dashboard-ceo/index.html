@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CEO Dashboard · DJKA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    a, button { -webkit-tap-highlight-color: transparent; }
+    a:active, button:active { transform: none !important; }
+
+    :root {
+      --color-primary:        #1D4ED8;
+      --color-primary-hover:  #2563EB;
+      --color-primary-light:  #EFF6FF;
+      --color-primary-border: #BFDBFE;
+      --color-success: #16A34A;
+      --color-warning: #D97706;
+      --color-danger:  #DC2626;
+      --color-info:    #0284C7;
+      --color-surface: #FFFFFF;
+      --color-bg:      #F8FAFC;
+      --color-border:  #E2E8F0;
+      --color-text:    #0F172A;
+      --color-muted:   #64748B;
+      --topbar-bg:     #0F172A;
+      --sidebar-bg:    #131A35;
+      --rail-w:        72px;
+      --topbar-h:      56px;
+      --font-ui:       'Plus Jakarta Sans', sans-serif;
+      --font-mono:     'JetBrains Mono', monospace;
+    }
+
+    html, body { height: 100%; font-family: var(--font-ui); background: var(--color-bg); color: var(--color-text); font-size: 14px; }
+
+    /* ─── SHELL ─────────────────────────────────────────────── */
+    .shell { display: flex; height: 100vh; overflow: hidden; }
+
+    /* ─── SIDEBAR RAIL (always 72px, icon only) ─────────────── */
+    .sidebar-rail {
+      width: var(--rail-w);
+      flex-shrink: 0;
+      background: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 80;
+    }
+
+    .rail-brand {
+      width: var(--rail-w);
+      height: var(--topbar-h);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .rail-logo {
+      width: 36px; height: 36px;
+      background: var(--color-primary);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .rail-logo svg { width: 20px; height: 20px; color: white; }
+
+    .rail-nav {
+      flex: 1; overflow-y: auto; overflow-x: hidden;
+      padding: 12px 0; scrollbar-width: none;
+      width: 100%;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .rail-nav::-webkit-scrollbar { display: none; }
+
+    .rail-item {
+      width: 100%; height: 52px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; position: relative;
+      background: none; border: none; text-decoration: none;
+    }
+    .rail-icon-box {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+    }
+    .rail-item:hover .rail-icon-box { background: rgba(255,255,255,0.06); }
+    .rail-item.active .rail-icon-box { background: rgba(37,99,235,0.25); }
+    .rail-icon-box svg { width: 20px; height: 20px; color: rgba(255,255,255,0.4); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .rail-item.active .rail-icon-box svg { color: #93C5FD; }
+
+    /* Tooltip */
+    .rail-item::after {
+      content: attr(data-label);
+      position: absolute;
+      left: calc(100% + 8px); top: 50%; transform: translateY(-50%);
+      background: #1E293B; color: white;
+      font-size: 11.5px; font-weight: 600;
+      padding: 5px 10px; border-radius: 6px;
+      white-space: nowrap; pointer-events: none;
+      opacity: 0; transition: opacity 0.15s; z-index: 200;
+    }
+    .rail-item:hover::after { opacity: 1; }
+
+    /* ─── SUBNAV PANEL ──────────────────────────────────────── */
+    .subnav-panel {
+      width: 0; overflow: hidden;
+      background: #FFFFFF;
+      border-right: 1px solid var(--color-border);
+      transition: width 0.25s ease;
+      flex-shrink: 0; position: relative; z-index: 70;
+    }
+    .subnav-panel.open { width: 260px; }
+
+    .subnav-inner { width: 260px; height: 100%; display: flex; flex-direction: column; }
+
+    .subnav-header {
+      height: var(--topbar-h);
+      display: flex; align-items: center;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--color-border);
+      flex-shrink: 0; gap: 8px;
+    }
+    .subnav-title { font-size: 13px; font-weight: 700; color: var(--color-text); flex: 1; letter-spacing: 0.3px; }
+
+    .subnav-collapse-btn {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      color: var(--color-muted); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s; flex-shrink: 0;
+    }
+    .subnav-collapse-btn:hover { background: #E2E8F0; }
+    .subnav-collapse-btn svg { width: 14px; height: 14px; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .subnav-body { flex: 1; overflow-y: auto; padding: 16px 0; scrollbar-width: none; }
+    .subnav-body::-webkit-scrollbar { display: none; }
+
+    .subnav-section-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.8px; text-transform: uppercase;
+      color: var(--color-muted);
+      padding: 0 16px 8px; margin-top: 8px;
+    }
+    .subnav-section-label:first-child { margin-top: 0; }
+
+    .subnav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 12px;
+      font-size: 13px; font-weight: 500; color: #334155;
+      cursor: pointer; border: none; background: none;
+      width: calc(100% - 16px); margin: 1px 8px;
+      border-radius: 8px; text-align: left;
+      transition: background 0.13s; font-family: var(--font-ui);
+    }
+    .subnav-item:hover { background: #F8FAFC; }
+    .subnav-item.active { background: #EFF6FF; color: #1D4ED8; font-weight: 600; }
+    .subnav-item svg { width: 15px; height: 15px; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+    /* ─── MAIN ──────────────────────────────────────────────── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+
+    /* ─── TOPBAR ────────────────────────────────────────────── */
+    .topbar {
+      height: var(--topbar-h);
+      background: var(--topbar-bg);
+      display: flex; align-items: center;
+      padding: 0 20px 0 0; gap: 12px;
+      flex-shrink: 0; position: sticky; top: 0; z-index: 90;
+    }
+
+    /* 1. Ikon Modul Aktif — 72px × 56px, blue, flush left, no border-radius */
+    .topbar-module-icon {
+      width: var(--rail-w); height: var(--topbar-h);
+      background: #1D4ED8;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .topbar-module-icon svg { width: 22px; height: 22px; color: white; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* 2. Brand */
+    .topbar-brand { display: flex; align-items: center; }
+    .topbar-brand-name { font-size: 13px; font-weight: 800; color: #ffffff; letter-spacing: 0.6px; white-space: nowrap; }
+
+    /* Separator */
+    .topbar-sep { width: 1px; height: 24px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+
+    /* 4. Search Bar — min 420px */
+    .topbar-search {
+      min-width: 420px; max-width: 100%; height: 36px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      display: flex; align-items: center;
+      padding: 0 12px; gap: 8px; cursor: text;
+    }
+    .topbar-search svg { width: 15px; height: 15px; color: rgba(255,255,255,0.4); stroke-width: 2; flex-shrink: 0; }
+    .topbar-search input {
+      flex: 1; background: none; border: none;
+      color: white; font-size: 13px; font-family: var(--font-ui);
+      outline: none; min-width: 0;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .topbar-search input::placeholder { color: rgba(255,255,255,0.35); }
+    .topbar-shortcut {
+      font-family: var(--font-mono); font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px; padding: 2px 6px;
+      white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* Spacer */
+    .topbar-spacer { flex: 1; }
+
+    /* 6. Tanggal */
+    .topbar-date {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 8px; padding: 6px 12px;
+      font-size: 13px; font-weight: 500; color: #ffffff; white-space: nowrap;
+    }
+    .topbar-date svg { width: 16px; height: 16px; color: rgba(255,255,255,0.7); stroke-width: 2; flex-shrink: 0; }
+
+    /* 8. Icon buttons */
+    .topbar-icon-btn {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(255,255,255,0.08); border: none;
+      color: rgba(255,255,255,0.7); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s; flex-shrink: 0;
+    }
+    .topbar-icon-btn:hover { background: rgba(255,255,255,0.14); }
+    .topbar-icon-btn svg { width: 18px; height: 18px; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* 10. Avatar */
+    .topbar-avatar {
+      width: 36px; height: 36px; border-radius: 8px;
+      overflow: hidden; border: 2px solid rgba(255,255,255,0.2);
+      cursor: pointer; flex-shrink: 0;
+    }
+    .topbar-avatar-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #c84b31, #a03520);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: white;
+    }
+
+    /* ─── CONTENT ────────────────────────────────────────────── */
+    .content { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+    .content::-webkit-scrollbar { width: 6px; }
+    .content::-webkit-scrollbar-track { background: transparent; }
+    .content::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+
+    /* ─── INFO CARD ─────────────────────────────────────────── */
+    .info-card {
+      background: #EFF6FF; border: 1.5px dashed #93C5FD;
+      border-radius: 10px; padding: 16px 20px;
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .info-icon { width: 36px; height: 36px; flex-shrink: 0; color: var(--color-primary); }
+    .info-icon svg { width: 36px; height: 36px; stroke-width: 1.8; }
+    .info-title { font-size: 14px; font-weight: 700; color: var(--color-primary); margin-bottom: 6px; }
+    .info-list { list-style: disc; padding-left: 18px; display: flex; flex-direction: column; gap: 3px; }
+    .info-list li { font-size: 13px; color: #1E40AF; line-height: 1.5; }
+
+    /* ─── STAT GRID (4 kolom, dashboard.md spec) ───────────── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .stat-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 12px; padding: 20px;
+      display: flex; flex-direction: column; gap: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+       cursor: default;
+    }
+    .stat-card:hover {  }
+    .stat-icon-box {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .stat-icon-box svg { width: 22px; height: 22px; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .stat-icon-box.blue   { background: #EFF6FF; } .stat-icon-box.blue   svg { color: #1D4ED8; }
+    .stat-icon-box.purple { background: #F5F3FF; } .stat-icon-box.purple svg { color: #7C3AED; }
+    .stat-icon-box.green  { background: #DCFCE7; } .stat-icon-box.green  svg { color: #16A34A; }
+    .stat-icon-box.amber  { background: #FEF3C7; } .stat-icon-box.amber  svg { color: #D97706; }
+    .stat-label {
+      font-size: 11px; font-weight: 700; color: var(--color-muted);
+      letter-spacing: 0.8px; text-transform: uppercase;
+    }
+    .stat-value {
+      font-size: 32px; font-weight: 800; color: var(--color-text);
+      line-height: 1.1; letter-spacing: -0.5px;
+    }
+    .stat-value.blue   { color: #1D4ED8; }
+    .stat-value.purple { color: #7C3AED; }
+    .stat-value.green  { color: #16A34A; }
+    .stat-value.amber  { color: #D97706; }
+    .stat-body { display: flex; flex-direction: column; gap: 4px; }
+
+    /* ─── CHART ROW: BLU + PIE ──────────────────────────────── */
+    .chart-row-blu { display: grid; grid-template-columns: 1fr 360px; gap: 20px; align-items: start; }
+
+    /* ─── CHART CARD ────────────────────────────────────────── */
+    .chart-card {
+      background: var(--color-surface); border-radius: 12px;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05); overflow: hidden;
+    }
+    .chart-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px 12px; border-bottom: 1px solid var(--color-border);
+    }
+    .chart-card-title { font-size: 13px; font-weight: 700; color: var(--color-text); letter-spacing: 0.4px; }
+    .chart-menu-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--color-muted); display: flex; padding: 4px; border-radius: 4px;
+    }
+    .chart-menu-btn:hover { background: var(--color-bg); }
+    .chart-menu-btn svg { width: 18px; height: 18px; stroke-width: 2; }
+    .chart-body { padding: 20px; display: flex; align-items: center; justify-content: center; }
+    .chart-body canvas { max-width: 100%; display: block; }
+    .chart-body-full { padding: 24px 20px 20px; }
+
+    /* ─── PIE LEGEND ────────────────────────────────────────── */
+    .pie-legend { display: flex; flex-direction: column; gap: 8px; padding: 0 20px 20px; }
+    .legend-item { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--color-text); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .legend-val { margin-left: auto; font-weight: 600; font-family: var(--font-mono); font-size: 12px; color: var(--color-muted); }
+
+    /* ─── 2-COL CHART ───────────────────────────────────────── */
+    .chart-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    .chart-canvas-wrap { position: relative; width: 100%; }
+    .chart-canvas-wrap.h360 { height: 360px; }
+    .chart-canvas-wrap.h320 { height: 320px; }
+    .chart-canvas-wrap canvas { display: block; width: 100% !important; height: 100% !important; }
+
+    *:focus-visible { outline: 2px solid #2563EB; outline-offset: 3px; border-radius: 4px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+  </style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ─── SIDEBAR RAIL (always 72px, icons only) ──────────── -->
+  <aside class="sidebar-rail" aria-label="Navigasi utama">
+    <div class="rail-brand">
+      <div class="rail-logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="3" width="16" height="13" rx="2"/>
+          <path d="M4 10h16"/><path d="M8 16l-2 4"/><path d="M16 16l2 4"/>
+          <path d="M8 7h.01M12 7h.01M16 7h.01"/>
+        </svg>
+      </div>
+    </div>
+    <nav class="rail-nav">
+      <button class="rail-item active" data-module="dashboard" data-label="Dashboard" aria-label="Dashboard" aria-current="page" onclick="switchModule('dashboard', this)">
+        <div class="rail-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+      </button>
+      <a class="rail-item" href="data-blu.html" data-module="blu" data-label="Data BLU" aria-label="Data BLU">
+        <div class="rail-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+      </a>
+      <button class="rail-item" data-module="keuangan" data-label="Data Keuangan" aria-label="Data Keuangan" onclick="switchModule('keuangan', this)">
+        <div class="rail-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+      </button>
+      <a class="rail-item" href="pelayanan-noncore.html" data-label="Pelayanan Non Core" aria-label="Pelayanan Non Core">
+        <div class="rail-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+      </a>
+      <a class="rail-item" href="pelayanan-prasarana.html" data-label="Pelayanan Prasarana" aria-label="Pelayanan Prasarana">
+        <div class="rail-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      </a>
+      <a class="rail-item" href="pelayanan-sarana.html" data-label="Pelayanan Sarana" aria-label="Pelayanan Sarana">
+        <div class="rail-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg></div>
+      </a>
+      <a class="rail-item" href="pelayanan-sdm.html" data-label="Pelayanan SDM" aria-label="Pelayanan SDM">
+        <div class="rail-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+      </a>
+      <a class="rail-item" href="daftar-sdm.html" data-label="Daftar SDM" aria-label="Daftar SDM">
+        <div class="rail-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      </a>
+      <a class="rail-item" href="profile-app.html" data-label="Profile App" aria-label="Profile App">
+        <div class="rail-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      </a>
+      <a class="rail-item" href="log-aktivitas.html" data-label="Log Aktivitas" aria-label="Log Aktivitas">
+        <div class="rail-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      </a>
+      <a href="log-error.html" class="rail-item" data-label="Log Error" aria-label="Log Error">
+        <div class="rail-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ─── SUBNAV PANEL (0 → 260px) ────────────────────────── -->
+  <nav class="subnav-panel" id="subnavPanel" aria-label="Sub navigasi modul">
+    <div class="subnav-inner">
+      <div class="subnav-header">
+        <span class="subnav-title" id="subnavTitle">Dashboard</span>
+        <button class="subnav-collapse-btn" id="subnavCollapseBtn" aria-label="Tutup panel navigasi" onclick="toggleSubnav()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+      </div>
+      <div class="subnav-body" id="subnavBody"></div>
+    </div>
+  </nav>
+
+  <!-- ─── MAIN ─────────────────────────────────────────────── -->
+  <div class="main">
+
+    <!-- TOPBAR: Ikon Modul → Brand → Sep → Search → Spacer → Tanggal → Sep → Notifikasi → Sep → Avatar -->
+    <header class="topbar" role="banner">
+      <!-- 1. Ikon Modul Aktif -->
+      <div class="topbar-module-icon" id="topbarModuleIcon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      </div>
+      <!-- 2. Brand -->
+      <div class="topbar-brand">
+        <span class="topbar-brand-name">CEO DASHBOARD</span>
+      </div>
+      <!-- 3. Separator -->
+      <div class="topbar-sep" aria-hidden="true"></div>
+      <!-- 4. Search Bar -->
+      <div class="topbar-search" role="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Cari data dashboard..." aria-label="Cari data dashboard" id="searchInput" />
+        <span class="topbar-shortcut" aria-label="Shortcut Ctrl K">Ctrl K</span>
+      </div>
+      <!-- 5. Spacer -->
+      <div class="topbar-spacer"></div>
+      <!-- 6. Tanggal -->
+      <div class="topbar-date" id="topbarDate" aria-label="Tanggal hari ini">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span id="currentDate"></span>
+      </div>
+      <!-- 7. Separator -->
+      <div class="topbar-sep" aria-hidden="true"></div>
+      <!-- 8. Notifikasi -->
+      <button class="topbar-icon-btn" aria-label="Notifikasi">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+      </button>
+      <!-- 9. Separator -->
+      <div class="topbar-sep" aria-hidden="true"></div>
+      <!-- 10. Avatar -->
+      <div class="topbar-avatar" role="img" aria-label="Foto profil pengguna">
+        <div class="topbar-avatar-placeholder">A</div>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="content" id="mainContent">
+
+      <div class="info-card" role="note">
+        <div class="info-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+        </div>
+        <div class="info-content">
+          <div class="info-title">Informasi :</div>
+          <ul class="info-list">
+            <li>Selamat Datang Dipusat Data Layanan Balai Pengujian Perkeretaapian.</li>
+            <li>Berikut ini disajikan data statistik produksi layanan yang ada di Balai Pengujian sejak sistem diterapkan.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Stat Grid: 4 kolom sesuai dashboard.md -->
+      <div class="stat-grid" role="list" aria-label="Ringkasan statistik">
+        <div class="stat-card" role="listitem">
+          <div class="stat-icon-box blue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div class="stat-body">
+            <div class="stat-label">Sertifikasi Prasarana</div>
+            <div class="stat-value blue">4</div>
+          </div>
+        </div>
+        <div class="stat-card" role="listitem">
+          <div class="stat-icon-box purple" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="6" width="22" height="13" rx="2"/><path d="M1 10h22"/></svg></div>
+          <div class="stat-body">
+            <div class="stat-label">Sertifikasi Sarana</div>
+            <div class="stat-value purple">16.850</div>
+          </div>
+        </div>
+        <div class="stat-card" role="listitem">
+          <div class="stat-icon-box green" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div class="stat-body">
+            <div class="stat-label">Sertifikasi SDM</div>
+            <div class="stat-value green">31.395</div>
+          </div>
+        </div>
+        <div class="stat-card" role="listitem">
+          <div class="stat-icon-box amber" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          <div class="stat-body">
+            <div class="stat-label">Penerimaan BLU</div>
+            <div class="stat-value amber" style="font-size:22px;">Rp 99.706.868.960</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trend BLU + Pie -->
+      <div class="chart-row-blu">
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <span class="chart-card-title">TREND PENERIMAAN BLU</span>
+            <button class="chart-menu-btn" aria-label="Opsi grafik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+          </div>
+          <div class="chart-body-full"><div class="chart-canvas-wrap h360"><canvas id="trendBluChart" aria-label="Grafik trend penerimaan BLU per bulan" role="img"></canvas></div></div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <span class="chart-card-title">STATISTIK BILLING PENERIMAAN</span>
+            <button class="chart-menu-btn" aria-label="Opsi grafik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+          </div>
+          <div class="chart-body">
+            <canvas id="pieChart" width="260" height="260" aria-label="Grafik statistik billing penerimaan" role="img"></canvas>
+          </div>
+          <div class="pie-legend">
+            <div class="legend-item"><span class="legend-dot" style="background:#1D9BE8;"></span><span>Mandiri</span><span class="legend-val">154</span></div>
+            <div class="legend-item"><span class="legend-dot" style="background:#22C55E;"></span><span>Sertifikasi</span><span class="legend-val">2.438</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-row-2">
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <span class="chart-card-title">STATISTIK PERMOHONAN LAYANAN</span>
+            <button class="chart-menu-btn" aria-label="Opsi grafik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+          </div>
+          <div class="chart-body-full"><div class="chart-canvas-wrap h320"><canvas id="donutChart" aria-label="Grafik statistik permohonan layanan" role="img"></canvas></div></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <span class="chart-card-title">TREND PERMOHONAN NON CORE BULANAN</span>
+            <button class="chart-menu-btn" aria-label="Opsi grafik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+          </div>
+          <div class="chart-body-full"><div class="chart-canvas-wrap h320"><canvas id="trendNonCoreChart" aria-label="Grafik trend permohonan non core bulanan" role="img"></canvas></div></div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-card-header">
+          <span class="chart-card-title">TREND PENGUNJUNG PORTAL BULANAN</span>
+          <button class="chart-menu-btn" aria-label="Opsi grafik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        </div>
+        <div class="chart-body-full"><div class="chart-canvas-wrap h360"><canvas id="trendPortalChart" aria-label="Grafik trend pengunjung portal bulanan" role="img"></canvas></div></div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="chart.umd.min.js"></script>
+<script>
+Chart.defaults.animation = false;
+if (typeof Chart === 'undefined') {
+  document.body.insertAdjacentHTML('afterbegin',
+    '<div style="position:fixed;top:0;left:0;right:0;z-index:9999;background:#DC2626;color:#fff;padding:12px 20px;font-family:sans-serif;font-size:13px">' +
+    '⚠ Chart.js gagal dimuat. Pastikan file chart.umd.min.js ada di folder yang sama.</div>');
+}
+
+/* ─── DATE ───────────────────────────────────────────────── */
+(function() {
+  const el = document.getElementById('currentDate');
+  if (!el) return;
+  const now = new Date();
+  const bl = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  el.textContent = `${now.getDate()} ${bl[now.getMonth()]} ${now.getFullYear()}`;
+})();
+
+/* ─── SUBNAV DATA ────────────────────────────────────────── */
+const SUBNAV = {
+  dashboard: { title: 'Dashboard', sections: [{ label: 'RINGKASAN', items: [
+    { label: 'Overview', active: true, icon: '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>' },
+    { label: 'Statistik BLU', icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>' },
+    { label: 'Trend Pengunjung', icon: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>' },
+  ]}]},
+  blu: { title: 'Data BLU', sections: [{ label: 'DATA BLU', items: [
+    { label: 'Penerimaan BLU', active: true, icon: '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>' },
+    { label: 'Rekapitulasi', icon: '<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>' },
+  ]}]},
+  keuangan: { title: 'Data Keuangan', sections: [{ label: 'KEUANGAN', items: [
+    { label: 'Target Penerimaan',  href: 'data-keuangan.html',       icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>' },
+    { label: 'Pagu Pengeluaran',   href: 'pagu-pengeluaran.html',    icon: '<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>' },
+    { label: 'Realisasi Pengeluaran', href: 'realisasi-pengeluaran.html', icon: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>' },
+    { label: 'Laporan Penerimaan', href: 'laporan-penerimaan.html',  icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>' },
+    { label: 'Laporan Pengeluaran', href: 'laporan-pengeluaran.html', icon: '<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>' },
+  ]}]},
+  noncore: { title: 'Pelayanan Non Core', sections: [{ label: 'NON CORE', items: [
+    { label: 'Permohonan', active: true, icon: '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>' },
+    { label: 'Trend Bulanan', icon: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>' },
+  ]}]},
+  prasarana: { title: 'Pelayanan Prasarana', sections: [{ label: 'PRASARANA', items: [
+    { label: 'Sertifikasi', active: true, icon: '<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>' },
+    { label: 'Rekapitulasi', icon: '<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>' },
+  ]}]},
+  sarana: { title: 'Pelayanan Sarana', sections: [{ label: 'SARANA', items: [
+    { label: 'Sertifikasi', active: true, icon: '<circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/>' },
+    { label: 'Rekapitulasi', icon: '<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>' },
+  ]}]},
+  sdm: { title: 'Pelayanan SDM', sections: [{ label: 'SDM', items: [
+    { label: 'Sertifikasi', active: true, icon: '<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>' },
+    { label: 'Rekapitulasi', icon: '<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>' },
+  ]}]},
+  daftarsdm: { title: 'Daftar SDM', sections: [{ label: 'DAFTAR SDM', items: [
+    { label: 'Semua SDM', active: true, icon: '<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>' },
+    { label: 'Per Jabatan', icon: '<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/>' },
+  ]}]},
+  profile: { title: 'Profile App', sections: [{ label: 'PROFIL', items: [
+    { label: 'Informasi Aplikasi', active: true, icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>' },
+    { label: 'Pengaturan', icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' },
+  ]}]},
+  logaktivitas: { title: 'Log Aktivitas', sections: [{ label: 'LOG', items: [
+    { label: 'Semua Aktivitas', active: true, icon: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>' },
+    { label: 'Per Pengguna', icon: '<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>' },
+  ]}]},
+  logerror: { title: 'Log Error', sections: [{ label: 'ERROR', items: [
+    { label: 'Semua Error', active: true, icon: '<path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>' },
+    { label: 'Error Kritis', icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>' },
+  ]}]},
+};
+
+const MODULE_ICONS = {
+  dashboard:    '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>',
+  blu:          '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>',
+  keuangan:     '<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>',
+  noncore:      '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>',
+  prasarana:    '<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+  sarana:       '<circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/>',
+  sdm:          '<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>',
+  daftarsdm:    '<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+  profile:      '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+  logaktivitas: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  logerror:     '<path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+};
+
+let subnavOpen = false;
+
+function renderSubnav(module) {
+  const data = SUBNAV[module];
+  if (!data) return;
+  document.getElementById('subnavTitle').textContent = data.title;
+  document.getElementById('subnavBody').innerHTML = data.sections.map(sec => `
+    <div class="subnav-section-label">${sec.label}</div>
+    ${sec.items.map(item => item.href
+      ? `<a class="subnav-item${item.active ? ' active' : ''}" href="${item.href}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${item.icon}</svg>
+          ${item.label}
+        </a>`
+      : `<button class="subnav-item${item.active ? ' active' : ''}" onclick="selectSubnavItem(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${item.icon}</svg>
+          ${item.label}
+        </button>`
+    ).join('')}
+  `).join('');
+}
+
+function switchModule(module, btn) {
+  document.querySelectorAll('.rail-item').forEach(i => { i.classList.remove('active'); i.removeAttribute('aria-current'); });
+  btn.classList.add('active');
+  btn.setAttribute('aria-current', 'page');
+  renderSubnav(module);
+  const icon = MODULE_ICONS[module] || MODULE_ICONS.dashboard;
+  document.getElementById('topbarModuleIcon').innerHTML =
+    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icon}</svg>`;
+  if (module === 'dashboard') {
+    subnavOpen = false;
+    document.getElementById('subnavPanel').classList.remove('open');
+    updateCollapseBtn();
+  } else if (!subnavOpen) {
+    subnavOpen = true;
+    document.getElementById('subnavPanel').classList.add('open');
+    updateCollapseBtn();
+  }
+}
+
+function toggleSubnav() {
+  subnavOpen = !subnavOpen;
+  document.getElementById('subnavPanel').classList.toggle('open', subnavOpen);
+  updateCollapseBtn();
+}
+
+function updateCollapseBtn() {
+  const btn = document.getElementById('subnavCollapseBtn');
+  btn.setAttribute('aria-label', subnavOpen ? 'Tutup panel navigasi' : 'Buka panel navigasi');
+  btn.querySelector('svg').innerHTML = subnavOpen ? '<polyline points="15 18 9 12 15 6"/>' : '<polyline points="9 18 15 12 9 6"/>';
+}
+
+function selectSubnavItem(btn) {
+  btn.closest('.subnav-body').querySelectorAll('.subnav-item').forEach(i => i.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); document.getElementById('searchInput').focus(); }
+});
+
+renderSubnav('dashboard');
+
+/* ─── CHART PLUGINS ──────────────────────────────────────── */
+const BlueBadgePlugin = {
+  id: 'blueBadge',
+  afterDatasetsDraw(chart) {
+    const opts = chart.options.plugins && chart.options.plugins.blueBadge;
+    if (!opts || !opts.enabled) return;
+    const { ctx, chartArea } = chart;
+    const fmt = opts.formatter || (v => v.toLocaleString('id-ID'));
+    const R = 3, PX = 6, H = 18, OFFSET = 8;
+    chart.data.datasets.forEach((ds, di) => {
+      const meta = chart.getDatasetMeta(di);
+      if (meta.hidden) return;
+      meta.data.forEach((pt, i) => {
+        const val = ds.data[i];
+        if (val === null || val === undefined) return;
+        const text = fmt(val);
+        ctx.save();
+        ctx.font = `700 10px "Plus Jakarta Sans", sans-serif`;
+        const tw = ctx.measureText(text).width;
+        const bw = tw + PX * 2;
+        const bx = pt.x - bw / 2;
+        const by = Math.max(chartArea.top + 2, pt.y - H - OFFSET);
+        ctx.fillStyle = '#3B82F6';
+        ctx.beginPath();
+        ctx.moveTo(bx+R,by); ctx.lineTo(bx+bw-R,by); ctx.quadraticCurveTo(bx+bw,by,bx+bw,by+R);
+        ctx.lineTo(bx+bw,by+H-R); ctx.quadraticCurveTo(bx+bw,by+H,bx+bw-R,by+H);
+        ctx.lineTo(bx+R,by+H); ctx.quadraticCurveTo(bx,by+H,bx,by+H-R);
+        ctx.lineTo(bx,by+R); ctx.quadraticCurveTo(bx,by,bx+R,by);
+        ctx.closePath(); ctx.fill();
+        ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(text, pt.x, by + H / 2);
+        ctx.restore();
+      });
+    });
+  }
+};
+
+const DonutOutsideLabels = {
+  id: 'donutOutside',
+  afterDraw(chart) {
+    const opts = chart.options.plugins && chart.options.plugins.donutOutside;
+    if (!opts || !opts.labels) return;
+    const { ctx, chartArea } = chart;
+    const meta = chart.getDatasetMeta(0);
+    const cx = (chartArea.left + chartArea.right) / 2;
+    const cy = (chartArea.top + chartArea.bottom) / 2;
+    const outerR = meta.data[0] ? meta.data[0].outerRadius : 100;
+    ctx.save();
+    ctx.font = '700 10px "Plus Jakarta Sans", sans-serif';
+    meta.data.forEach((arc, i) => {
+      const lbl = opts.labels[i]; if (!lbl) return;
+      const mid = (arc.startAngle + arc.endAngle) / 2;
+      const lx1 = cx + Math.cos(mid) * (outerR + 4), ly1 = cy + Math.sin(mid) * (outerR + 4);
+      const lx2 = cx + Math.cos(mid) * (outerR + 14), ly2 = cy + Math.sin(mid) * (outerR + 14);
+      const tx = cx + Math.cos(mid) * (outerR + 28), ty = cy + Math.sin(mid) * (outerR + 28);
+      ctx.strokeStyle = arc.options.backgroundColor; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(lx1,ly1); ctx.lineTo(lx2,ly2); ctx.stroke();
+      ctx.fillStyle = '#1E293B';
+      ctx.textAlign = Math.cos(mid) >= 0 ? 'left' : 'right'; ctx.textBaseline = 'middle';
+      ctx.fillText(lbl, tx, ty);
+    });
+    ctx.restore();
+  }
+};
+
+Chart.register(BlueBadgePlugin, DonutOutsideLabels);
+
+const MONTHS = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+
+function mkScaleX(title) {
+  return {
+    grid: { color: '#F1F5F9', drawTicks: false },
+    ticks: { font: { family: "'Plus Jakarta Sans', sans-serif", size: 12 }, color: '#64748B' },
+    border: { display: false },
+    ...(title ? { title: { display: true, text: title, font: { family: "'Plus Jakarta Sans', sans-serif", size: 11, weight: '700' }, color: '#475569', padding: { top: 8 } } } : {})
+  };
+}
+function mkScaleY(title, tickCb) {
+  return {
+    grid: { color: '#F1F5F9', drawTicks: false },
+    ticks: { font: { family: "'Plus Jakarta Sans', sans-serif", size: 11 }, color: '#64748B', ...(tickCb ? { callback: tickCb } : {}) },
+    border: { display: false },
+    title: { display: true, text: title, font: { family: "'Plus Jakarta Sans', sans-serif", size: 11, weight: '700' }, color: '#475569' }
+  };
+}
+function lineDataset(data, grad) {
+  return { data, borderColor: '#3B82F6', backgroundColor: grad || 'transparent', borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7, pointBackgroundColor: '#3B82F6', pointBorderColor: '#fff', pointBorderWidth: 2, tension: 0.4, fill: !!grad };
+}
+
+/* ─── 1. PIE ─────────────────────────────────────────────── */
+new Chart(document.getElementById('pieChart'), {
+  type: 'pie',
+  data: { labels: ['Mandiri','Sertifikasi'], datasets: [{ data: [154,2438], backgroundColor: ['#1D9BE8','#22C55E'], borderColor:'#fff', borderWidth:3, hoverOffset:8 }] },
+  options: { responsive: false, animation: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ` ${c.label}: ${c.parsed.toLocaleString('id-ID')}` } } } }
+});
+
+/* ─── 2. TREND BLU ───────────────────────────────────────── */
+(function() {
+  const ctx = document.getElementById('trendBluChart');
+  const grad = ctx.getContext('2d').createLinearGradient(0,0,0,320);
+  grad.addColorStop(0,'rgba(59,130,246,0.28)'); grad.addColorStop(1,'rgba(59,130,246,0)');
+  new Chart(ctx, {
+    type: 'line',
+    data: { labels: MONTHS, datasets: [lineDataset([15510436000,9065369000,3770095000,9200000000,8037876000,10500000000,11028484000,13100000000,6495918100,5980000000,1911405000,2450000000], grad)] },
+    options: { responsive: true, maintainAspectRatio: false, animation: false, layout: { padding: { top: 38, right: 10, left: 10 } },
+      plugins: { legend: { display: false }, blueBadge: { enabled: true, formatter: v => 'Rp ' + v.toLocaleString('id-ID') }, tooltip: { callbacks: { label: c => ` Rp ${c.parsed.y.toLocaleString('id-ID')}` } } },
+      scales: { x: mkScaleX('BULAN (JANUARI sampai DESEMBER)'), y: mkScaleY('JUMLAH PENERIMAAN', v => v.toLocaleString('id-ID')) } }
+  });
+})();
+
+/* ─── 3. DONUT ───────────────────────────────────────────── */
+(function() {
+  const realVals = [30410,7,2,0], chartVals = [30410,7,2,1];
+  const colors = ['#22C55E','#6366F1','#F59E0B','#3B82F6'];
+  const lbls = ['PERMOHONAN SARANA: 30410','PERMOHONAN PRASARANA: 7','PERMOHONAN SDM: 2','PERMOHONAN NON CORE: 0'];
+  new Chart(document.getElementById('donutChart'), {
+    type: 'doughnut',
+    data: { labels: ['Permohonan Sarana','Permohonan Prasarana','Permohonan SDM','Permohonan Non Core'], datasets: [{ data: chartVals, backgroundColor: colors, borderColor:'#fff', borderWidth:3, hoverOffset:6 }] },
+    options: { responsive: true, maintainAspectRatio: false, animation: false, cutout: '55%', layout: { padding: 60 },
+      plugins: { legend: { display: false }, donutOutside: { labels: lbls }, tooltip: { callbacks: { label: c => ` ${c.label}: ${realVals[c.dataIndex]}` } } } }
+  });
+})();
+
+/* ─── 4. TREND NON CORE ──────────────────────────────────── */
+new Chart(document.getElementById('trendNonCoreChart'), {
+  type: 'line',
+  data: { labels: MONTHS, datasets: [lineDataset([0,0,0,0,0,0,0,0,0,0,0,0])] },
+  options: { responsive: true, maintainAspectRatio: false, animation: false, layout: { padding: { top: 38, right: 10, left: 10 } },
+    plugins: { legend: { display: false }, blueBadge: { enabled: true, formatter: () => '0' }, tooltip: { callbacks: { label: () => ' 0' } } },
+    scales: { x: mkScaleX(null), y: { ...mkScaleY('JUMLAH PERMOHONAN'), min: 0, max: 5, ticks: { stepSize: 1, font: { family:"'Plus Jakarta Sans', sans-serif", size: 11 }, color: '#64748B' } } } }
+});
+
+/* ─── 5. TREND PORTAL ────────────────────────────────────── */
+(function() {
+  const ctx = document.getElementById('trendPortalChart');
+  const grad = ctx.getContext('2d').createLinearGradient(0,0,0,300);
+  grad.addColorStop(0,'rgba(59,130,246,0.25)'); grad.addColorStop(1,'rgba(59,130,246,0.03)');
+  new Chart(ctx, {
+    type: 'line',
+    data: { labels: MONTHS, datasets: [lineDataset([3399,3272,9316,10410,7943,5137,3483,3250,3288,3161,3091,3229], grad)] },
+    options: { responsive: true, maintainAspectRatio: false, animation: false, layout: { padding: { top: 38, right: 10, left: 10 } },
+      plugins: { legend: { display: false }, blueBadge: { enabled: true, formatter: v => v.toLocaleString('id-ID') }, tooltip: { callbacks: { label: c => ` ${c.parsed.y.toLocaleString('id-ID')} pengunjung` } } },
+      scales: { x: mkScaleX(null), y: mkScaleY('JUMLAH PENGUNJUNG', v => v.toLocaleString('id-ID')) } }
+  });
+})();
+</script>
+</body>
+</html>

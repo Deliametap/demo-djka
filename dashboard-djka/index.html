@@ -144,8 +144,16 @@
         </span>
         <span class="nav-item-label">Data SIK</span>
       </a>
+      <a href="#" class="nav-item" aria-label="Pesan Masuk" data-menu="PesanMasuk">
+        <span class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </span>
+        <span class="nav-item-label">Pesan Masuk</span>
+        <span class="nav-badge" id="navPesanBadge" style="display:none;margin-left:auto;background:#3B82F6;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:9999px;min-width:20px;text-align:center;"></span>
+      </a>
     </nav>
-
   </aside>
 
   <!-- ══════════════ SUB-NAV PANEL ══════════════ -->
@@ -381,9 +389,125 @@
       </footer>
 
       </div><!-- /#view-dashboard -->
+
+      <!-- ══ VIEW: Pesan Masuk ══ -->
+      <div class="page-view" id="view-pesan-masuk">
+
+        <div class="page-header">
+          <div>
+            <nav class="breadcrumb" aria-label="Lokasi halaman">
+              <span>Portal</span>
+              <span class="breadcrumb-sep" aria-hidden="true">/</span>
+              <span class="breadcrumb-current" aria-current="page">Pesan Masuk</span>
+            </nav>
+            <h1 class="page-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+              Pesan Masuk
+            </h1>
+          </div>
+          <div class="header-right">
+            <button class="btn-tambah" style="background:#DC2626;border-color:#DC2626;" onclick="clearAllPesan()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px;">
+                <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+              </svg>
+              Hapus Semua
+            </button>
+          </div>
+        </div>
+
+        <!-- Stats mini -->
+        <section class="stats-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;" aria-label="Statistik Pesan">
+          <article class="stat-card c-blue">
+            <div class="stat-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="stat-body">
+              <p class="stat-label">Total Pesan</p>
+              <p class="stat-value" id="statTotal">0</p>
+              <p class="stat-trend">Semua waktu</p>
+            </div>
+          </article>
+          <article class="stat-card c-teal">
+            <div class="stat-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="stat-body">
+              <p class="stat-label">Hari Ini</p>
+              <p class="stat-value" id="statToday">0</p>
+              <p class="stat-trend">Pesan masuk hari ini</p>
+            </div>
+          </article>
+          <article class="stat-card c-purple">
+            <div class="stat-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div class="stat-body">
+              <p class="stat-label">7 Hari Terakhir</p>
+              <p class="stat-value" id="statWeek">0</p>
+              <p class="stat-trend">Pesan minggu ini</p>
+            </div>
+          </article>
+        </section>
+
+        <!-- Toolbar search -->
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
+          <div style="position:relative;flex:1;max-width:320px;">
+            <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke:#94A3B8;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;pointer-events:none;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="pesanSearch" type="text" placeholder="Cari nama atau email..."
+              oninput="renderPesanTable()"
+              style="width:100%;background:var(--surface-2,#F8FAFC);border:1.5px solid var(--border,#E2E8F0);border-radius:10px;padding:9px 12px 9px 36px;font-size:13px;font-family:inherit;color:#1e293b;outline:none;transition:border-color .2s;"
+              onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='var(--border,#E2E8F0)'"/>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <section class="chart-card" style="padding:0;overflow:hidden;" aria-label="Tabel Pesan Masuk">
+          <table style="width:100%;border-collapse:collapse;" id="pesanTable">
+            <thead>
+              <tr style="background:rgba(241,245,249,0.7);border-bottom:1.5px solid #E2E8F0;">
+                <th style="padding:12px 16px;font-size:11px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.8px;text-align:left;">#</th>
+                <th style="padding:12px 16px;font-size:11px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.8px;text-align:left;">Nama</th>
+                <th style="padding:12px 16px;font-size:11px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.8px;text-align:left;">Email</th>
+                <th style="padding:12px 16px;font-size:11px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.8px;text-align:left;">Pesan</th>
+                <th style="padding:12px 16px;font-size:11px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.8px;text-align:left;">Waktu</th>
+                <th style="padding:12px 16px;"></th>
+              </tr>
+            </thead>
+            <tbody id="pesanTableBody"></tbody>
+          </table>
+          <div id="pesanEmpty" style="display:none;text-align:center;padding:56px 24px;">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 12px;display:block;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <p style="font-size:14px;color:#94A3B8;">Belum ada pesan masuk.</p>
+          </div>
+        </section>
+
+        <footer class="page-footer">
+          <p>© 2026 <a href="#">Balai Pengujian Perkeretaapian</a> · Direktorat Jenderal Perkeretaapian · Kementerian Perhubungan Republik Indonesia</p>
+        </footer>
+
+      </div><!-- /#view-pesan-masuk -->
+
     </main>
   </div><!-- /.main-content -->
   </div><!-- /.app-shell -->
+
+  <!-- Modal Detail Pesan -->
+  <div id="pesanModalOverlay" onclick="closePesanModal(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:500;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:16px;width:480px;max-width:90vw;padding:32px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.2);">
+      <button onclick="closePesanModal()" style="position:absolute;top:14px;right:14px;background:#F1F5F9;border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:15px;color:#64748B;display:flex;align-items:center;justify-content:center;">✕</button>
+      <p style="font-size:10.5px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">Nama</p>
+      <p id="pmNama" style="font-size:18px;font-weight:700;color:#0F172A;margin-bottom:16px;"></p>
+      <p style="font-size:10.5px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">Email</p>
+      <p id="pmEmail" style="font-size:14px;color:#334155;margin-bottom:16px;"></p>
+      <hr style="border:none;border-top:1px solid #E2E8F0;margin-bottom:16px;"/>
+      <p style="font-size:10.5px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">Pesan</p>
+      <p id="pmPesan" style="font-size:14px;color:#334155;line-height:1.7;margin-bottom:16px;"></p>
+      <p style="font-size:10.5px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">Waktu</p>
+      <p id="pmWaktu" style="font-size:13px;color:#64748B;"></p>
+    </div>
+  </div>
 
   <script>
 
@@ -444,7 +568,7 @@
       if (sec) { sec.classList.add('active'); subnavPanel.classList.add('open'); }
     }
 
-    /* ── Sidebar nav clicks → navigate to module file ── */
+    /* ── Sidebar nav clicks → navigate or show view ── */
     const navRoutes = {
       'Dashboard':        'index.html',
       'SDM':              'sdm.html',
@@ -454,16 +578,99 @@
       'Manajemen Portal': 'manajemen-portal.html',
       'API':              '#',
       'Data SIK':         'data-sik.html',
+      'Pesan Masuk':      '__view__',
     };
     document.querySelectorAll('.nav-item').forEach(item => {
       item.addEventListener('click', function(e) {
         e.preventDefault();
         const label = this.querySelector('.nav-item-label')?.textContent?.trim()
                    || this.getAttribute('aria-label') || '';
+        if (label === 'Pesan Masuk') {
+          document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+          this.classList.add('active');
+          document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+          document.getElementById('view-pesan-masuk').classList.add('active');
+          renderPesanTable();
+          return;
+        }
         const route = navRoutes[label];
-        if (route && route !== '#') window.location.href = route;
+        if (route && route !== '#' && route !== '__view__') window.location.href = route;
       });
     });
+
+    /* ── Pesan Masuk helpers ── */
+    function getPesan(){ return JSON.parse(localStorage.getItem('cs_messages')||'[]'); }
+    function savePesan(arr){ localStorage.setItem('cs_messages', JSON.stringify(arr)); }
+    function fmtWaktu(iso){
+      const d = new Date(iso);
+      return d.toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'})
+        + ' ' + d.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+    }
+    function escH(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+    function updatePesanStats(){
+      const msgs = getPesan();
+      const now = new Date(), todayStr = now.toDateString(), weekAgo = now - 7*24*60*60*1000;
+      document.getElementById('statTotal').textContent  = msgs.length;
+      document.getElementById('statToday').textContent  = msgs.filter(m => new Date(m.waktu).toDateString() === todayStr).length;
+      document.getElementById('statWeek').textContent   = msgs.filter(m => new Date(m.waktu) >= weekAgo).length;
+      const badge = document.getElementById('navPesanBadge');
+      if(msgs.length > 0){ badge.textContent = msgs.length; badge.style.display = 'inline-block'; }
+      else { badge.style.display = 'none'; }
+    }
+
+    function renderPesanTable(){
+      updatePesanStats();
+      const msgs = getPesan();
+      const q = (document.getElementById('pesanSearch')?.value || '').toLowerCase();
+      const filtered = q ? msgs.filter(m => m.nama.toLowerCase().includes(q) || m.email.toLowerCase().includes(q)) : msgs;
+      const tbody = document.getElementById('pesanTableBody');
+      const empty = document.getElementById('pesanEmpty');
+      if(filtered.length === 0){ tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+      empty.style.display = 'none';
+      tbody.innerHTML = filtered.map((m,i) => `
+        <tr onclick="openPesanModal(${m.id})" style="border-bottom:1px solid #F1F5F9;cursor:pointer;transition:background .15s;" onmouseover="this.style.background='#F8FAFC'" onmouseout="this.style.background=''">
+          <td style="padding:13px 16px;font-size:12px;color:#94A3B8;">${i+1}</td>
+          <td style="padding:13px 16px;font-size:13.5px;font-weight:600;color:#0F172A;">${escH(m.nama)}</td>
+          <td style="padding:13px 16px;font-size:12.5px;color:#64748B;">${escH(m.email)}</td>
+          <td style="padding:13px 16px;font-size:13px;color:#475569;max-width:300px;"><span style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${escH(m.pesan)}</span></td>
+          <td style="padding:13px 16px;font-size:12px;color:#94A3B8;white-space:nowrap;">${fmtWaktu(m.waktu)}</td>
+          <td style="padding:13px 16px;text-align:right;">
+            <button onclick="hapusPesan(event,${m.id})" style="padding:5px 12px;background:#FEF2F2;border:1px solid #FECACA;color:#DC2626;border-radius:8px;font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;">Hapus</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function hapusPesan(e, id){
+      e.stopPropagation();
+      if(!confirm('Hapus pesan ini?')) return;
+      savePesan(getPesan().filter(m => m.id !== id));
+      renderPesanTable();
+    }
+
+    function clearAllPesan(){
+      if(!confirm('Hapus semua pesan masuk?')) return;
+      savePesan([]);
+      renderPesanTable();
+    }
+
+    function openPesanModal(id){
+      const m = getPesan().find(x => x.id === id);
+      if(!m) return;
+      document.getElementById('pmNama').textContent  = m.nama;
+      document.getElementById('pmEmail').textContent = m.email;
+      document.getElementById('pmPesan').textContent = m.pesan;
+      document.getElementById('pmWaktu').textContent = fmtWaktu(m.waktu);
+      document.getElementById('pesanModalOverlay').style.display = 'flex';
+    }
+    function closePesanModal(e){
+      if(e && e.target !== document.getElementById('pesanModalOverlay')) return;
+      document.getElementById('pesanModalOverlay').style.display = 'none';
+    }
+
+    // init badge on load
+    updatePesanStats();
   </script>
 
   <script>
