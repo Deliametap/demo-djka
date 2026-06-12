@@ -420,17 +420,33 @@
     .dash-popup-key  { color: var(--color-muted); }
     .dash-popup-val  { font-weight: 600; color: var(--color-text); font-family: var(--font-mono); }
   </style>
+  <script>if(window!==window.parent)document.documentElement.classList.add("in-iframe");</script>
+  <style>
+    html.in-iframe .topbar,
+    html.in-iframe .sidebar,
+    html.in-iframe nav.sidebar,
+    html.in-iframe .sidebar-rail,
+    html.in-iframe .panel-subnav,
+    html.in-iframe .subnav-panel,
+    html.in-iframe .sidebar-toggle-btn,
+    html.in-iframe .sidebar-collapse-btn { display: none !important; }
+    html.in-iframe body { padding-top: 0 !important; overflow-y: auto; }
+    html.in-iframe .shell,
+    html.in-iframe .app-shell,
+    html.in-iframe .layout,
+    html.in-iframe .app-body,
+    html.in-iframe .main { min-height: 100vh; }
+    html.in-iframe .main-content,
+    html.in-iframe .content,
+    html.in-iframe .content-area,
+    html.in-iframe .content-inner { overflow-y: auto !important; padding: 20px 24px; }
+  </style>
 </head>
 
 <body>
 
   <!-- ── TOPBAR ──────────────────────────────────────────────── -->
   <header class="topbar" role="banner">
-    <!-- Ikon Modul Aktif (72px, flush kiri) -->
-    <div class="topbar-module-icon" aria-hidden="true">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-    </div>
-
     <!-- Brand -->
     <div class="topbar-brand">
       <div class="topbar-brand-logo" aria-hidden="true">UP</div>

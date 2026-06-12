@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Payment BLU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="buttons.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script>if(window!==window.parent)document.documentElement.classList.add("in-iframe");</script>
+  <style>
+    html.in-iframe .topbar,
+    html.in-iframe .sidebar,
+    html.in-iframe .sidebar-collapse-btn { display: none !important; }
+    html.in-iframe body { padding-top: 0 !important; overflow-y: auto; }
+    html.in-iframe .layout { min-height: 100vh; }
+    html.in-iframe .main-content { overflow-y: auto !important; padding: 20px 24px; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       TOPBAR
+  ═══════════════════════════════════════════════ -->
+  <header class="topbar" role="banner">
+    <div class="topbar-module-icon" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+        <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+      </svg>
+    </div>
+
+    <!-- Brand -->
+    <div class="topbar-brand">
+      <div class="topbar-logo-box" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 26 L14 10 L20 26 L26 10 L32 26" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="topbar-brand-text">
+        <span class="topbar-brand-name">BADAN LAYANAN UMUM</span>
+        <span class="topbar-brand-sub">#BLU Speed</span>
+      </div>
+    </div>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <div class="topbar-search" role="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="search" placeholder="Cari data billing BLU..." aria-label="Cari data billing BLU" />
+      <kbd class="topbar-kbd">Ctrl K</kbd>
+    </div>
+
+    <div class="topbar-spacer"></div>
+
+    <div class="topbar-date" id="topbarDate">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span id="currentDate"></span>
+    </div>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <button class="topbar-icon-btn" aria-label="Notifikasi">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+    </button>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <button class="topbar-user" aria-label="Menu pengguna">
+      <div class="topbar-avatar" aria-hidden="true">BU</div>
+    </button>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════
+       LAYOUT
+  ═══════════════════════════════════════════════ -->
+  <div class="layout">
+
+    <!-- ─── SIDEBAR ─── -->
+    <nav class="sidebar" aria-label="Navigasi utama">
+
+      <!-- MENU Label -->
+      <span class="sidebar-section-label">MENU</span>
+
+      <!-- Nav items -->
+      <ul class="sidebar-nav" role="list">
+        <li>
+          <a href="index.html" class="sidebar-item active" aria-label="Dashboard" aria-current="page">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="profil.html" class="sidebar-item" aria-label="Profil">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Profil</span>
+          </a>
+        </li>
+        <li>
+          <a href="create-billing-blu.html" class="sidebar-item" aria-label="Create Billing BLU">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="16"/>
+                <line x1="8" y1="12" x2="16" y2="12"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Create Billing BLU</span>
+          </a>
+        </li>
+        <li>
+          <a href="tarif-blu.html" class="sidebar-item" aria-label="Tarif BLU">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="1" x2="12" y2="23"/>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Tarif BLU</span>
+          </a>
+        </li>
+        <li>
+          <!-- Monitoring accordion -->
+          <button class="sidebar-item sidebar-accordion" id="menuMonitoring" aria-expanded="true" aria-controls="subMonitoring">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Monitoring</span>
+            <svg class="sidebar-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="18 15 12 9 6 15"/>
+            </svg>
+          </button>
+          <ul class="sidebar-submenu" id="subMonitoring" role="list">
+            <li>
+              <a href="monitoring-billing-blu.html" class="sidebar-sub-item" aria-label="Billing BLU">
+                <span>Billing BLU</span>
+              </a>
+            </li>
+            <li>
+              <a href="monitoring-penerimaan-blu.html" class="sidebar-sub-item" aria-label="Penerimaan BLU">
+                <span>Penerimaan BLU</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="Toggle sidebar">
+      <svg id="sidebarCollapseIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+
+    <!-- ─── MAIN CONTENT ─── -->
+    <main class="main-content" id="main-content">
+
+      <!-- Page Title -->
+      <div class="page-header">
+        <div class="page-header-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+            <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+          </svg>
+        </div>
+        <h1 class="page-title">DASHBOARD</h1>
+      </div>
+
+      <!-- Year Filter -->
+      <div class="filter-row">
+        <select class="year-select" aria-label="Filter tahun">
+          <option>2026</option>
+          <option>2025</option>
+          <option>2024</option>
+        </select>
+      </div>
+
+      <!-- ── Stat Cards (4 kolom) ── -->
+      <div class="stat-grid stat-grid-4">
+
+        <div class="stat-card">
+          <div class="stat-card-top">
+            <span class="stat-card-label">BILLING BLU</span>
+            <div class="stat-icon stat-icon-blue" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="5" width="20" height="14" rx="2"/>
+                <line x1="2" y1="10" x2="22" y2="10"/>
+              </svg>
+            </div>
+          </div>
+          <p class="stat-card-value text-blue">542</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-top">
+            <span class="stat-card-label">PERMOH. NON CORE</span>
+            <div class="stat-icon stat-icon-dark" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 11 12 14 22 4"/>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+              </svg>
+            </div>
+          </div>
+          <p class="stat-card-value text-dark">0</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-top">
+            <span class="stat-card-label">PENERIMAAN BLU</span>
+            <div class="stat-icon stat-icon-green" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="16"/>
+                <path d="M9 12h6"/>
+              </svg>
+            </div>
+          </div>
+          <p class="stat-card-value stat-card-value-lg text-green">23.047.602.810</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-top">
+            <span class="stat-card-label">BLU TERHUTANG</span>
+            <div class="stat-icon stat-icon-red" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <line x1="23" y1="11" x2="17" y2="17"/>
+                <line x1="17" y1="11" x2="23" y2="17"/>
+              </svg>
+            </div>
+          </div>
+          <p class="stat-card-value stat-card-value-lg text-red">2.352.769.176</p>
+        </div>
+
+      </div>
+
+      <!-- ── Rekap Table ── -->
+      <div class="card">
+        <div class="chart-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+          </svg>
+          <span>Rekap Data Billing BLU Yang Dikeluarkan Pada Tahun Berjalan</span>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width:64px">NO.</th>
+                <th>JENIS LAYANAN</th>
+                <th style="width:140px">JML. BILLING</th>
+                <th style="width:200px">PENERIMAAN BLU (Rp)</th>
+                <th style="width:200px">BLU TERHUTANG (Rp)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center text-muted">1.</td>
+                <td>PELAYANAN UJI PRASARANA PERKERETAAPIAN</td>
+                <td class="text-center">25</td>
+                <td>223.890.000</td>
+                <td>404.379.176</td>
+              </tr>
+              <tr>
+                <td class="text-center text-muted">2.</td>
+                <td>LAYANAN PROGRAM KERJASAMA (NON CORE)</td>
+                <td class="text-center">21</td>
+                <td>313.842.000</td>
+                <td>26.390.000</td>
+              </tr>
+              <tr>
+                <td class="text-center text-muted">3.</td>
+                <td>PELAYANAN UJI SARANA PERKERETAAPIAN</td>
+                <td class="text-center">496</td>
+                <td>22.088.250.000</td>
+                <td>1.922.000.000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── Chart: Tren Penerimaan BLU ── -->
+      <div class="card chart-card">
+        <div class="chart-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+          </svg>
+          <span>Tren Penerimaan BLU 2026</span>
+        </div>
+        <div class="chart-area">
+          <canvas id="chartTrenBLU" height="90" aria-label="Grafik Tren Penerimaan BLU 2026"></canvas>
+        </div>
+      </div>
+
+      <!-- ── Chart: Tren Penerimaan BLU Non Core ── -->
+      <div class="card chart-card">
+        <div class="chart-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+          </svg>
+          <span>Tren Penerimaan BLU Non Core 2026</span>
+        </div>
+        <div class="chart-area">
+          <canvas id="chartTrenNonCore" height="90" aria-label="Grafik Tren Penerimaan BLU Non Core 2026"></canvas>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

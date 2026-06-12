@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tarif BLU — Payment BLU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="tarif.css" />
+  <link rel="stylesheet" href="buttons.css" />
+  <script>if(window!==window.parent)document.documentElement.classList.add("in-iframe");</script>
+  <style>
+    html.in-iframe .topbar,
+    html.in-iframe .sidebar,
+    html.in-iframe .sidebar-collapse-btn { display: none !important; }
+    html.in-iframe body { padding-top: 0 !important; overflow-y: auto; }
+    html.in-iframe .layout { min-height: 100vh; }
+    html.in-iframe .main-content { overflow-y: auto !important; padding: 20px 24px; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       TOPBAR
+  ═══════════════════════════════════════════════ -->
+  <header class="topbar" role="banner">
+    <div class="topbar-module-icon" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="1" x2="12" y2="23"/>
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+      </svg>
+    </div>
+
+    <div class="topbar-brand">
+      <div class="topbar-logo-box" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
+          <path d="M8 26 L14 10 L20 26 L26 10 L32 26" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="topbar-brand-text">
+        <span class="topbar-brand-name">BADAN LAYANAN UMUM</span>
+        <span class="topbar-brand-sub">#BLU Speed</span>
+      </div>
+    </div>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <div class="topbar-search" role="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="search" placeholder="Cari data tarif BLU..." aria-label="Cari data tarif BLU" />
+      <kbd class="topbar-kbd">Ctrl K</kbd>
+    </div>
+
+    <div class="topbar-spacer"></div>
+
+    <div class="topbar-date" id="topbarDate">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span id="currentDate"></span>
+    </div>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <button class="topbar-icon-btn" aria-label="Notifikasi">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+    </button>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <button class="topbar-user" aria-label="Menu pengguna">
+      <div class="topbar-avatar" aria-hidden="true">AK</div>
+    </button>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════
+       LAYOUT
+  ═══════════════════════════════════════════════ -->
+  <div class="layout">
+
+    <!-- ─── SIDEBAR ─── -->
+    <nav class="sidebar" aria-label="Navigasi utama">
+
+      <span class="sidebar-section-label">MENU</span>
+
+      <ul class="sidebar-nav" role="list">
+        <li>
+          <a href="index.html" class="sidebar-item" aria-label="Dashboard">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="profil.html" class="sidebar-item" aria-label="Profil">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Profil</span>
+          </a>
+        </li>
+        <li>
+          <a href="create-billing-blu.html" class="sidebar-item" aria-label="Create Billing BLU">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="16"/>
+                <line x1="8" y1="12" x2="16" y2="12"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Create Billing BLU</span>
+          </a>
+        </li>
+        <li>
+          <a href="tarif-blu.html" class="sidebar-item active" aria-label="Tarif BLU" aria-current="page">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="1" x2="12" y2="23"/>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Tarif BLU</span>
+          </a>
+        </li>
+        <li>
+          <button class="sidebar-item sidebar-accordion" id="menuMonitoring" aria-expanded="false" aria-controls="subMonitoring">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Monitoring</span>
+            <svg class="sidebar-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="18 15 12 9 6 15"/>
+            </svg>
+          </button>
+          <ul class="sidebar-submenu collapsed" id="subMonitoring" role="list">
+            <li><a href="monitoring-billing-blu.html" class="sidebar-sub-item"><span>Billing BLU</span></a></li>
+            <li><a href="monitoring-penerimaan-blu.html" class="sidebar-sub-item"><span>Penerimaan BLU</span></a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="Toggle sidebar">
+      <svg id="sidebarCollapseIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+
+    <!-- ─── MAIN CONTENT ─── -->
+    <main class="main-content" id="main-content">
+
+      <!-- Page Title -->
+      <div class="page-header">
+        <div class="page-header-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <h1 class="page-title">TARIF PELAYANAN</h1>
+      </div>
+
+      <!-- ── Card Utama ── -->
+      <div class="card tarif-card">
+
+        <!-- Card Header -->
+        <div class="tarif-card-header">
+          <div class="tarif-card-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+            </svg>
+            <span>Tarif Pelayanan</span>
+          </div>
+          <div>
+            <button class="btn-tarif-primary" id="btnTambahTarif">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="16"/>
+                <line x1="8" y1="12" x2="16" y2="12"/>
+              </svg>
+              Tambah Tarif
+            </button>
+          </div>
+        </div>
+
+        <!-- Info Alert -->
+        <div class="tarif-alert">
+          <div class="tarif-alert-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <div class="tarif-alert-body">
+            <p class="tarif-alert-title">Informasi</p>
+            <ul class="tarif-alert-list">
+              <li>Halaman ini menyajikan master tarif BLU pelayanan yang dimiliki oleh balai uji ka.</li>
+              <li>Jika ada penambahan data tarif blu dapat melalui fitur <strong>Tambah Tarif</strong>.</li>
+              <li>Dan jika ada perubahan tarif silahkan gunakan fitur edit yang telah disediakan.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Filter Sub Jenis Penerimaan -->
+        <div class="tarif-filter-section">
+          <label class="tarif-filter-label" for="filterSubJenis">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+            </svg>
+            Filter Data Permohonan Berdasarkan Sub Jenis Penerimaan :
+          </label>
+          <div class="tarif-filter-row">
+            <input type="text" class="tarif-filter-input" id="filterSubJenis"
+                   placeholder="--- Sub Jenis Penerimaan ---" />
+            <button class="btn-tarif-primary">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              Cari
+            </button>
+          </div>
+        </div>
+
+        <!-- Table Controls: Show + Search -->
+        <div class="tarif-tbl-controls">
+          <div class="tarif-tbl-show">
+            <span>Show</span>
+            <input type="number" class="tarif-show-input" value="10" min="1" aria-label="Jumlah entri per halaman" />
+            <span>entries</span>
+          </div>
+          <div class="tarif-tbl-search">
+            <span>Search:</span>
+            <div class="tarif-search-wrap">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input type="search" id="tarifSearch" placeholder="" aria-label="Cari tarif" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabel Tarif -->
+        <div class="table-wrapper">
+          <table class="tarif-table" aria-label="Tabel Tarif BLU">
+            <thead>
+              <tr>
+                <th class="tarif-col-no text-center">
+                  NO.
+                  <svg class="sort-icon-tarif" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  SUB JENIS PENERIMAAN
+                  <svg class="sort-icon-tarif" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  NAMA TARIF
+                  <svg class="sort-icon-tarif" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  KODE AKUN
+                  <svg class="sort-icon-tarif" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  KODE TARIF
+                  <svg class="sort-icon-tarif" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  BIDANG PELAYANAN
+                  <svg class="sort-icon-tarif" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  NOMINAL (IDR)
+                  <svg class="sort-icon-tarif" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  SATUAN
+                  <svg class="sort-icon-tarif" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  KETERANGAN
+                  <svg class="sort-icon-tarif" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th class="tarif-col-opt text-center">OPTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Row 1 -->
+              <tr>
+                <td class="text-center">1.</td>
+                <td>A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN</td>
+                <td>1. AWAK SARANA PERKERETAAPIAN</td>
+                <td class="mono">425287</td>
+                <td class="mono">000006</td>
+                <td>BIDANG PELAYANAN UMUM (BLU)</td>
+                <td class="text-right">45.000</td>
+                <td>PER PEMERIKSAAN</td>
+                <td>a) pemeriksaan fisik</td>
+                <td>
+                  <div class="tarif-options">
+                    <button class="btn-tarif-edit" aria-label="Edit tarif"
+                      data-bidang="blu" data-kode-akun="425287" data-kode-tarif="000006"
+                      data-sub-jenis="A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN"
+                      data-nama="1. AWAK SARANA PERKERETAAPIAN"
+                      data-nominal="45000" data-satuan="per-pemeriksaan"
+                      data-keterangan="a) pemeriksaan fisik">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                    <button class="btn-tarif-hapus" aria-label="Hapus tarif">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <!-- Row 2 -->
+              <tr>
+                <td class="text-center">2.</td>
+                <td>A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN</td>
+                <td>1. AWAK SARANA PERKERETAAPIAN</td>
+                <td class="mono">425287</td>
+                <td class="mono">000007</td>
+                <td>BIDANG PELAYANAN UMUM (BLU)</td>
+                <td class="text-right">70.000</td>
+                <td>PER PEMERIKSAAN</td>
+                <td>b) Pemeriksaan mata</td>
+                <td>
+                  <div class="tarif-options">
+                    <button class="btn-tarif-edit" aria-label="Edit tarif"
+                      data-bidang="blu" data-kode-akun="425287" data-kode-tarif="000007"
+                      data-sub-jenis="A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN"
+                      data-nama="1. AWAK SARANA PERKERETAAPIAN"
+                      data-nominal="70000" data-satuan="per-pemeriksaan"
+                      data-keterangan="b) Pemeriksaan mata"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-tarif-hapus" aria-label="Hapus tarif"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <!-- Row 3 -->
+              <tr>
+                <td class="text-center">3.</td>
+                <td>A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN</td>
+                <td>1. AWAK SARANA PERKERETAAPIAN</td>
+                <td class="mono">425287</td>
+                <td class="mono">000008</td>
+                <td>BIDANG PELAYANAN UMUM (BLU)</td>
+                <td class="text-right">45.000</td>
+                <td>PER PEMERIKSAAN</td>
+                <td>c) Pemeriksaan THT</td>
+                <td>
+                  <div class="tarif-options">
+                    <button class="btn-tarif-edit" aria-label="Edit tarif"
+                      data-bidang="blu" data-kode-akun="425287" data-kode-tarif="000008"
+                      data-sub-jenis="A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN"
+                      data-nama="1. AWAK SARANA PERKERETAAPIAN"
+                      data-nominal="45000" data-satuan="per-pemeriksaan"
+                      data-keterangan="c) Pemeriksaan THT"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-tarif-hapus" aria-label="Hapus tarif"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <!-- Row 4 -->
+              <tr>
+                <td class="text-center">4.</td>
+                <td>A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN</td>
+                <td>1. AWAK SARANA PERKERETAAPIAN</td>
+                <td class="mono">425287</td>
+                <td class="mono">000009</td>
+                <td>BIDANG PELAYANAN UMUM (BLU)</td>
+                <td class="text-right">150.000</td>
+                <td>PER PEMERIKSAAN</td>
+                <td>d) Pemeriksaan narkoba</td>
+                <td>
+                  <div class="tarif-options">
+                    <button class="btn-tarif-edit" aria-label="Edit tarif"
+                      data-bidang="blu" data-kode-akun="425287" data-kode-tarif="000009"
+                      data-sub-jenis="A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN"
+                      data-nama="1. AWAK SARANA PERKERETAAPIAN"
+                      data-nominal="150000" data-satuan="per-pemeriksaan"
+                      data-keterangan="d) Pemeriksaan narkoba"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-tarif-hapus" aria-label="Hapus tarif"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <!-- Row 5 -->
+              <tr>
+                <td class="text-center">5.</td>
+                <td>A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN</td>
+                <td>1. AWAK SARANA PERKERETAAPIAN</td>
+                <td class="mono">425287</td>
+                <td class="mono">000010</td>
+                <td>BIDANG PELAYANAN UMUM (BLU)</td>
+                <td class="text-right">100.000</td>
+                <td>PER PEMERIKSAAN</td>
+                <td>2) Pengujian simulator</td>
+                <td>
+                  <div class="tarif-options">
+                    <button class="btn-tarif-edit" aria-label="Edit tarif"
+                      data-bidang="blu" data-kode-akun="425287" data-kode-tarif="000010"
+                      data-sub-jenis="A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN"
+                      data-nama="1. AWAK SARANA PERKERETAAPIAN"
+                      data-nominal="100000" data-satuan="per-pemeriksaan"
+                      data-keterangan="2) Pengujian simulator"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-tarif-hapus" aria-label="Hapus tarif"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <!-- Row 6 -->
+              <tr>
+                <td class="text-center">6.</td>
+                <td>A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN</td>
+                <td>1. AWAK SARANA PERKERETAAPIAN</td>
+                <td class="mono">425287</td>
+                <td class="mono">000011</td>
+                <td>BIDANG PELAYANAN UMUM (BLU)</td>
+                <td class="text-right">30.000</td>
+                <td>PER PEMERIKSAAN</td>
+                <td>3) Pengujian praktek simulator</td>
+                <td>
+                  <div class="tarif-options">
+                    <button class="btn-tarif-edit" aria-label="Edit tarif"
+                      data-bidang="blu" data-kode-akun="425287" data-kode-tarif="000011"
+                      data-sub-jenis="A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN"
+                      data-nama="1. AWAK SARANA PERKERETAAPIAN"
+                      data-nominal="30000" data-satuan="per-pemeriksaan"
+                      data-keterangan="3) Pengujian praktek simulator"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-tarif-hapus" aria-label="Hapus tarif"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <!-- Row 7 -->
+              <tr>
+                <td class="text-center">7.</td>
+                <td>A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN</td>
+                <td>2. PENGATUR PERJALANAN KERETA API DAN PENGENDALI PERJALANAN KERETA API</td>
+                <td class="mono">425287</td>
+                <td class="mono">000030</td>
+                <td>BIDANG PELAYANAN UMUM (BLU)</td>
+                <td class="text-right">70.000</td>
+                <td>PER PEMERIKSAAN</td>
+                <td>a) pemeriksaan fisik</td>
+                <td>
+                  <div class="tarif-options">
+                    <button class="btn-tarif-edit" aria-label="Edit tarif"
+                      data-bidang="blu" data-kode-akun="425287" data-kode-tarif="000030"
+                      data-sub-jenis="A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN"
+                      data-nama="2. PENGATUR PERJALANAN KERETA API DAN PENGENDALI PERJALANAN KERETA API"
+                      data-nominal="70000" data-satuan="per-pemeriksaan"
+                      data-keterangan="a) pemeriksaan fisik"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-tarif-hapus" aria-label="Hapus tarif"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <!-- Row 8 -->
+              <tr>
+                <td class="text-center">8.</td>
+                <td>A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN</td>
+                <td>2. PENGATUR PERJALANAN KERETA API DAN PENGENDALI PERJALANAN KERETA API</td>
+                <td class="mono">425287</td>
+                <td class="mono">000031</td>
+                <td>BIDANG PELAYANAN UMUM (BLU)</td>
+                <td class="text-right">45.000</td>
+                <td>PER PEMERIKSAAN</td>
+                <td>b) Pemeriksaan mata</td>
+                <td>
+                  <div class="tarif-options">
+                    <button class="btn-tarif-edit" aria-label="Edit tarif"
+                      data-bidang="blu" data-kode-akun="425287" data-kode-tarif="000031"
+                      data-sub-jenis="A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN"
+                      data-nama="2. PENGATUR PERJALANAN KERETA API DAN PENGENDALI PERJALANAN KERETA API"
+                      data-nominal="45000" data-satuan="per-pemeriksaan"
+                      data-keterangan="b) Pemeriksaan mata"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-tarif-hapus" aria-label="Hapus tarif"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <!-- Row 9 -->
+              <tr>
+                <td class="text-center">9.</td>
+                <td>A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN</td>
+                <td>2. PENGATUR PERJALANAN KERETA API DAN PENGENDALI PERJALANAN KERETA API</td>
+                <td class="mono">425287</td>
+                <td class="mono">000032</td>
+                <td>BIDANG PELAYANAN UMUM (BLU)</td>
+                <td class="text-right">45.000</td>
+                <td>PER PEMERIKSAAN</td>
+                <td>c) Pemeriksaan THT</td>
+                <td>
+                  <div class="tarif-options">
+                    <button class="btn-tarif-edit" aria-label="Edit tarif"
+                      data-bidang="blu" data-kode-akun="425287" data-kode-tarif="000032"
+                      data-sub-jenis="A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN"
+                      data-nama="2. PENGATUR PERJALANAN KERETA API DAN PENGENDALI PERJALANAN KERETA API"
+                      data-nominal="45000" data-satuan="per-pemeriksaan"
+                      data-keterangan="c) Pemeriksaan THT"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-tarif-hapus" aria-label="Hapus tarif"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <!-- Row 10 -->
+              <tr>
+                <td class="text-center">10.</td>
+                <td>A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN</td>
+                <td>2. PENGATUR PERJALANAN KERETA API DAN PENGENDALI PERJALANAN KERETA API</td>
+                <td class="mono">425287</td>
+                <td class="mono">000033</td>
+                <td>BIDANG PELAYANAN UMUM (BLU)</td>
+                <td class="text-right">150.000</td>
+                <td>PER PEMERIKSAAN</td>
+                <td>d) Pemeriksaan narkoba</td>
+                <td>
+                  <div class="tarif-options">
+                    <button class="btn-tarif-edit" aria-label="Edit tarif"
+                      data-bidang="blu" data-kode-akun="425287" data-kode-tarif="000033"
+                      data-sub-jenis="A. SERTIFIKASI SUMBER DAYA MANUSIA PERKERETAAPIAN"
+                      data-nama="2. PENGATUR PERJALANAN KERETA API DAN PENGENDALI PERJALANAN KERETA API"
+                      data-nominal="150000" data-satuan="per-pemeriksaan"
+                      data-keterangan="d) Pemeriksaan narkoba"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-tarif-hapus" aria-label="Hapus tarif"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="tarif-pagination">
+          <span class="tarif-pagination-info">Showing 1 to 10 of 364 entries</span>
+          <div class="tarif-pagination-btns">
+            <button class="tpg-btn" disabled>Previous</button>
+            <button class="tpg-btn active">1</button>
+            <button class="tpg-btn">2</button>
+            <button class="tpg-btn">3</button>
+            <button class="tpg-btn">4</button>
+            <button class="tpg-btn">5</button>
+            <span class="tpg-ellipsis">...</span>
+            <button class="tpg-btn">37</button>
+            <button class="tpg-btn">Next</button>
+          </div>
+        </div>
+
+      </div><!-- /.tarif-card -->
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       MODAL: Konfirmasi Hapus Tarif
+  ═══════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modalHapusTarif" role="dialog" aria-modal="true"
+       aria-labelledby="modalHapusTarifTitle" aria-hidden="true">
+    <div class="modal modal-sm">
+
+      <div class="modal-header">
+        <div class="modal-title-row">
+          <div class="modal-title-icon modal-title-icon--danger" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+              <path d="M10 11v6"/><path d="M14 11v6"/>
+              <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+            </svg>
+          </div>
+          <h2 class="modal-title" id="modalHapusTarifTitle">Hapus Data Tarif</h2>
+        </div>
+        <button class="modal-close" id="btnModalHapusTarifClose" aria-label="Tutup modal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body modal-body--confirm">
+        <div class="confirm-icon-wrap" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#DC2626"
+               stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <p class="confirm-title">Hapus data ini secara permanen?</p>
+        <p class="confirm-desc">Data tarif yang dihapus tidak dapat dikembalikan. Pastikan Anda yakin sebelum melanjutkan tindakan ini.</p>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-modal-ghost" id="btnModalHapusTarifCancel" type="button">Batalkan</button>
+        <button class="btn-modal-danger" type="button" id="btnModalHapusTarifConfirm">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+            <path d="M10 11v6"/><path d="M14 11v6"/>
+            <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+          </svg>
+          Ya, Hapus
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       MODAL: Tambah / Edit Tarif Pelayanan
+  ═══════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modalTarifPelayanan" role="dialog" aria-modal="true"
+       aria-labelledby="modalTarifTitle" aria-hidden="true">
+    <div class="modal" id="modalTarifBox">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <div class="modal-title-row">
+          <div class="modal-title-icon" id="modalTarifIcon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+            </svg>
+          </div>
+          <h2 class="modal-title" id="modalTarifTitle">Tambah Tarif Pelayanan</h2>
+        </div>
+        <button class="modal-close" id="btnModalTarifClose" aria-label="Tutup modal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <!-- Bidang Pelayanan -->
+        <div class="modal-field">
+          <label class="modal-label" for="tarifBidangPelayanan">
+            Bidang Pelayanan <span class="req" aria-label="wajib">*</span>
+          </label>
+          <select class="modal-input" id="tarifBidangPelayanan" required>
+            <option value="">--- Bidang Pelayanan ---</option>
+            <option value="blu">Bidang Pelayanan Umum (BLU)</option>
+            <option value="sarana">Bidang Pelayanan Sarana</option>
+            <option value="prasarana">Bidang Pelayanan Prasarana</option>
+          </select>
+        </div>
+
+        <!-- Kode Akun -->
+        <div class="modal-field">
+          <label class="modal-label" for="tarifKodeAkun">
+            Kode Akun <span class="req" aria-label="wajib">*</span>
+          </label>
+          <select class="modal-input" id="tarifKodeAkun" required>
+            <option value="">--- Kode Akun ---</option>
+            <option value="425287">425287</option>
+            <option value="425288">425288</option>
+            <option value="425289">425289</option>
+          </select>
+        </div>
+
+        <!-- Kode Tarif -->
+        <div class="modal-field">
+          <label class="modal-label" for="tarifKodeTarif">
+            Kode Tarif <span class="req" aria-label="wajib">*</span>
+          </label>
+          <input type="text" class="modal-input mono-input" id="tarifKodeTarif"
+                 placeholder="Kode Tarif..." required />
+        </div>
+
+        <!-- Sub Jenis Penerimaan -->
+        <div class="modal-field">
+          <label class="modal-label" for="tarifSubJenis">
+            Sub Jenis Penerimaan <span class="req" aria-label="wajib">*</span>
+          </label>
+          <input type="text" class="modal-input" id="tarifSubJenis"
+                 placeholder="--- Sub Jenis Penerimaan ---" required />
+        </div>
+
+        <!-- Nama Tarif -->
+        <div class="modal-field">
+          <label class="modal-label" for="tarifNama">
+            Nama Tarif <span class="req" aria-label="wajib">*</span>
+          </label>
+          <input type="text" class="modal-input" id="tarifNama"
+                 placeholder="Nama Tarif..." required />
+        </div>
+
+        <!-- Nominal -->
+        <div class="modal-field">
+          <label class="modal-label" for="tarifNominal">
+            Nominal <span class="req" aria-label="wajib">*</span>
+          </label>
+          <input type="number" class="modal-input" id="tarifNominal"
+                 placeholder="0" min="0" required />
+        </div>
+
+        <!-- Satuan -->
+        <div class="modal-field">
+          <label class="modal-label" for="tarifSatuan">
+            Satuan <span class="req" aria-label="wajib">*</span>
+          </label>
+          <select class="modal-input" id="tarifSatuan" required>
+            <option value="">--- Satuan ---</option>
+            <option value="per-pemeriksaan">Per Pemeriksaan</option>
+            <option value="per-unit">Per Unit</option>
+            <option value="per-perjalanan">Per Perjalanan</option>
+            <option value="per-sertifikat">Per Sertifikat</option>
+          </select>
+        </div>
+
+        <!-- Keterangan -->
+        <div class="modal-field">
+          <label class="modal-label" for="tarifKeterangan">Keterangan</label>
+          <textarea class="modal-input modal-textarea" id="tarifKeterangan"
+                    placeholder="Keterangan..." rows="4"></textarea>
+        </div>
+
+      </div><!-- /.modal-body -->
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button class="btn-modal-ghost" id="btnModalTarifCancel" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+          </svg>
+          Kembali
+        </button>
+        <button class="btn-modal-primary" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+            <polyline points="17 21 17 13 7 13 7 21"/>
+            <polyline points="7 3 7 8 15 8"/>
+          </svg>
+          Simpan
+        </button>
+      </div>
+
+    </div><!-- /.modal -->
+  </div><!-- /.modal-overlay -->
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil — Payment BLU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="profil.css" />
+  <link rel="stylesheet" href="buttons.css" />
+  <script>if(window!==window.parent)document.documentElement.classList.add("in-iframe");</script>
+  <style>
+    html.in-iframe .topbar,
+    html.in-iframe .sidebar,
+    html.in-iframe .sidebar-collapse-btn { display: none !important; }
+    html.in-iframe body { padding-top: 0 !important; overflow-y: auto; }
+    html.in-iframe .layout { min-height: 100vh; }
+    html.in-iframe .main-content { overflow-y: auto !important; padding: 20px 24px; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       TOPBAR
+  ═══════════════════════════════════════════════ -->
+  <header class="topbar" role="banner">
+    <div class="topbar-module-icon" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+    </div>
+
+    <!-- Brand -->
+    <div class="topbar-brand">
+      <div class="topbar-logo-box" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 26 L14 10 L20 26 L26 10 L32 26" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="topbar-brand-text">
+        <span class="topbar-brand-name">BADAN LAYANAN UMUM</span>
+        <span class="topbar-brand-sub">#BLU Speed</span>
+      </div>
+    </div>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <div class="topbar-search" role="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="search" placeholder="Cari data billing BLU..." aria-label="Cari data billing BLU" />
+      <kbd class="topbar-kbd">Ctrl K</kbd>
+    </div>
+
+    <div class="topbar-spacer"></div>
+
+    <div class="topbar-date" id="topbarDate">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span id="currentDate"></span>
+    </div>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <button class="topbar-icon-btn" aria-label="Notifikasi">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+    </button>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <button class="topbar-user" aria-label="Menu pengguna">
+      <div class="topbar-avatar" aria-hidden="true">AK</div>
+    </button>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════
+       LAYOUT
+  ═══════════════════════════════════════════════ -->
+  <div class="layout">
+
+    <!-- ─── SIDEBAR ─── -->
+    <nav class="sidebar" aria-label="Navigasi utama">
+
+      <span class="sidebar-section-label">MENU</span>
+
+      <ul class="sidebar-nav" role="list">
+        <li>
+          <a href="index.html" class="sidebar-item" aria-label="Dashboard">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="profil.html" class="sidebar-item active" aria-label="Profil" aria-current="page">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Profil</span>
+          </a>
+        </li>
+        <li>
+          <a href="create-billing-blu.html" class="sidebar-item" aria-label="Create Billing BLU">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="16"/>
+                <line x1="8" y1="12" x2="16" y2="12"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Create Billing BLU</span>
+          </a>
+        </li>
+        <li>
+          <a href="tarif-blu.html" class="sidebar-item" aria-label="Tarif BLU">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="1" x2="12" y2="23"/>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Tarif BLU</span>
+          </a>
+        </li>
+        <li>
+          <button class="sidebar-item sidebar-accordion" id="menuMonitoring" aria-expanded="false" aria-controls="subMonitoring">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Monitoring</span>
+            <svg class="sidebar-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="18 15 12 9 6 15"/>
+            </svg>
+          </button>
+          <ul class="sidebar-submenu collapsed" id="subMonitoring" role="list">
+            <li>
+              <a href="monitoring-billing-blu.html" class="sidebar-sub-item">
+                <span>Billing BLU</span>
+              </a>
+            </li>
+            <li>
+              <a href="monitoring-penerimaan-blu.html" class="sidebar-sub-item">
+                <span>Penerimaan BLU</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="Toggle sidebar">
+      <svg id="sidebarCollapseIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+
+    <!-- ─── MAIN CONTENT ─── -->
+    <main class="main-content" id="main-content">
+
+      <!-- Page Title -->
+      <div class="page-header">
+        <div class="page-header-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <h1 class="page-title">PROFIL</h1>
+      </div>
+
+      <!-- ── Profil Card ── -->
+      <div class="card profil-card">
+
+        <!-- Card Header -->
+        <div class="profil-card-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+          </svg>
+          <span>Profil</span>
+        </div>
+
+        <!-- Card Body -->
+        <div class="profil-body">
+
+          <!-- Foto -->
+          <div class="profil-photo-col">
+            <div class="profil-photo" aria-label="Foto profil">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Fields -->
+          <div class="profil-fields">
+
+            <div class="profil-row">
+              <span class="profil-label">NIK</span>
+              <span class="profil-colon">:</span>
+              <span class="profil-value mono">3209200104730005</span>
+            </div>
+
+            <div class="profil-row">
+              <span class="profil-label">NIP</span>
+              <span class="profil-colon">:</span>
+              <span class="profil-value mono">197304012006041013</span>
+            </div>
+
+            <div class="profil-row">
+              <span class="profil-label">Nama Lengkap</span>
+              <span class="profil-colon">:</span>
+              <span class="profil-value">ANDREAS KOESOEMO NOEGROHO, S. Kom, M.M</span>
+            </div>
+
+            <div class="profil-row">
+              <span class="profil-label">Tempat, Tgl Lahir</span>
+              <span class="profil-colon">:</span>
+              <span class="profil-value">Jakarta, 01-04-1973</span>
+            </div>
+
+            <div class="profil-row">
+              <span class="profil-label">Email</span>
+              <span class="profil-colon">:</span>
+              <span class="profil-value">
+                <a href="mailto:andreas_koesoemo@dephub.go.id">andreas_koesoemo@dephub.go.id</a>
+              </span>
+            </div>
+
+            <div class="profil-row">
+              <span class="profil-label">Alamat</span>
+              <span class="profil-colon">:</span>
+              <span class="profil-value text-muted-val">-</span>
+            </div>
+
+            <div class="profil-row">
+              <span class="profil-label">Telepon</span>
+              <span class="profil-colon">:</span>
+              <span class="profil-value mono">087829817670</span>
+            </div>
+
+            <div class="profil-row">
+              <span class="profil-label">Status Pegawai</span>
+              <span class="profil-colon">:</span>
+              <span class="profil-value">ASN</span>
+            </div>
+
+            <div class="profil-row">
+              <span class="profil-label">Unit Kerja</span>
+              <span class="profil-colon">:</span>
+              <span class="profil-value">Balai Pengujian Perkeretaapian</span>
+            </div>
+
+            <div class="profil-row">
+              <span class="profil-label">Level Pengguna</span>
+              <span class="profil-colon">:</span>
+              <span class="profil-value">Keuangan</span>
+            </div>
+
+          </div><!-- /.profil-fields -->
+        </div><!-- /.profil-body -->
+      </div><!-- /.profil-card -->
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

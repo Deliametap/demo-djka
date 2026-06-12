@@ -8,6 +8,27 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="shared.css">
+  <script>if(window!==window.parent)document.documentElement.classList.add("in-iframe");</script>
+  <style>
+    html.in-iframe .topbar,
+    html.in-iframe .sidebar,
+    html.in-iframe nav.sidebar,
+    html.in-iframe .sidebar-rail,
+    html.in-iframe .panel-subnav,
+    html.in-iframe .subnav-panel,
+    html.in-iframe .sidebar-toggle-btn,
+    html.in-iframe .sidebar-collapse-btn { display: none !important; }
+    html.in-iframe body { padding-top: 0 !important; overflow-y: auto; }
+    html.in-iframe .shell,
+    html.in-iframe .app-shell,
+    html.in-iframe .layout,
+    html.in-iframe .app-body,
+    html.in-iframe .main { min-height: 100vh; }
+    html.in-iframe .main-content,
+    html.in-iframe .content,
+    html.in-iframe .content-area,
+    html.in-iframe .content-inner { overflow-y: auto !important; padding: 20px 24px; }
+  </style>
 </head>
 <body data-active-nav="Data SIK">
   <!-- ══════════════ TOPBAR (full width) ══════════════ -->

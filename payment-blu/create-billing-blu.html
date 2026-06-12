@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Billing BLU — Payment BLU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="billing.css" />
+  <link rel="stylesheet" href="buttons.css" />
+  <script>if(window!==window.parent)document.documentElement.classList.add("in-iframe");</script>
+  <style>
+    html.in-iframe .topbar,
+    html.in-iframe .sidebar,
+    html.in-iframe .sidebar-collapse-btn { display: none !important; }
+    html.in-iframe body { padding-top: 0 !important; overflow-y: auto; }
+    html.in-iframe .layout { min-height: 100vh; }
+    html.in-iframe .main-content { overflow-y: auto !important; padding: 20px 24px; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       TOPBAR
+  ═══════════════════════════════════════════════ -->
+  <header class="topbar" role="banner">
+    <div class="topbar-module-icon" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="16"/>
+        <line x1="8" y1="12" x2="16" y2="12"/>
+      </svg>
+    </div>
+
+    <div class="topbar-brand">
+      <div class="topbar-logo-box" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
+          <path d="M8 26 L14 10 L20 26 L26 10 L32 26" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="topbar-brand-text">
+        <span class="topbar-brand-name">BADAN LAYANAN UMUM</span>
+        <span class="topbar-brand-sub">#BLU Speed</span>
+      </div>
+    </div>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <div class="topbar-search" role="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="search" placeholder="Cari data billing BLU..." aria-label="Cari data billing BLU" />
+      <kbd class="topbar-kbd">Ctrl K</kbd>
+    </div>
+
+    <div class="topbar-spacer"></div>
+
+    <div class="topbar-date" id="topbarDate">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span id="currentDate"></span>
+    </div>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <button class="topbar-icon-btn" aria-label="Notifikasi">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+    </button>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <button class="topbar-user" aria-label="Menu pengguna">
+      <div class="topbar-avatar" aria-hidden="true">AK</div>
+    </button>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════
+       LAYOUT
+  ═══════════════════════════════════════════════ -->
+  <div class="layout">
+
+    <!-- ─── SIDEBAR ─── -->
+    <nav class="sidebar" aria-label="Navigasi utama">
+
+      <span class="sidebar-section-label">MENU</span>
+
+      <ul class="sidebar-nav" role="list">
+        <li>
+          <a href="index.html" class="sidebar-item" aria-label="Dashboard">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="profil.html" class="sidebar-item" aria-label="Profil">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Profil</span>
+          </a>
+        </li>
+        <li>
+          <a href="create-billing-blu.html" class="sidebar-item active" aria-label="Create Billing BLU" aria-current="page">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="16"/>
+                <line x1="8" y1="12" x2="16" y2="12"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Create Billing BLU</span>
+          </a>
+        </li>
+        <li>
+          <a href="tarif-blu.html" class="sidebar-item" aria-label="Tarif BLU">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="1" x2="12" y2="23"/>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Tarif BLU</span>
+          </a>
+        </li>
+        <li>
+          <button class="sidebar-item sidebar-accordion" id="menuMonitoring" aria-expanded="false" aria-controls="subMonitoring">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Monitoring</span>
+            <svg class="sidebar-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="18 15 12 9 6 15"/>
+            </svg>
+          </button>
+          <ul class="sidebar-submenu collapsed" id="subMonitoring" role="list">
+            <li><a href="monitoring-billing-blu.html" class="sidebar-sub-item"><span>Billing BLU</span></a></li>
+            <li><a href="monitoring-penerimaan-blu.html" class="sidebar-sub-item"><span>Penerimaan BLU</span></a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="Toggle sidebar">
+      <svg id="sidebarCollapseIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+
+    <!-- ─── MAIN CONTENT ─── -->
+    <main class="main-content" id="main-content">
+
+      <!-- Page Title -->
+      <div class="page-header">
+        <div class="page-header-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="16"/>
+            <line x1="8" y1="12" x2="16" y2="12"/>
+          </svg>
+        </div>
+        <h1 class="page-title">CREATE BILLING BLU</h1>
+      </div>
+
+      <!-- ── Card Utama ── -->
+      <div class="card billing-card">
+
+        <!-- Card Header: judul + tombol aksi -->
+        <div class="billing-card-header">
+          <div class="billing-card-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+            </svg>
+            <span>Create Billing BLU</span>
+          </div>
+          <div class="billing-card-actions">
+            <button class="btn-billing-dark">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="1 4 1 10 7 10"/>
+                <path d="M3.51 15a9 9 0 1 0 .49-3.1"/>
+              </svg>
+              Cek Pembayaran
+            </button>
+            <button class="btn-billing-primary" id="btnOpenCreateBilling">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="16"/>
+                <line x1="8" y1="12" x2="16" y2="12"/>
+              </svg>
+              Buat Billing
+            </button>
+          </div>
+        </div>
+
+        <!-- Info Alert -->
+        <div class="billing-alert">
+          <div class="billing-alert-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <div class="billing-alert-body">
+            <p class="billing-alert-title">Informasi</p>
+            <ul class="billing-alert-list">
+              <li>Menu ini digunakan sebagai media penerbitan billing pelayanan secara Mandiri/Tampa Pengajuan.</li>
+              <li>Pastikan data-data yang diinput telah sesuai.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Controls Bar: Export | Filter | Search -->
+        <div class="billing-controls-bar">
+          <!-- Export dropdown -->
+          <div class="export-dropdown" id="exportDropdown">
+            <button class="btn-tbl-dark btn-export-toggle" id="btnExportToggle" aria-expanded="false" aria-haspopup="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Export
+              <svg class="export-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="export-menu">
+              <button class="export-menu-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                PDF
+              </button>
+              <button class="export-menu-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                Excel
+              </button>
+            </div>
+          </div>
+
+          <!-- Filter status bayar -->
+          <select class="billing-filter-select" aria-label="Filter status bayar">
+            <option value="">--- Status Bayar ---</option>
+            <option value="belum">Belum Bayar</option>
+            <option value="sudah">Sudah Bayar</option>
+          </select>
+          <button class="btn-billing-primary btn-filter-apply">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+            </svg>
+            Filter
+          </button>
+
+          <!-- Search -->
+          <div class="billing-search-wrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="search" id="tblSearch" placeholder="Cari data..." aria-label="Cari data" />
+          </div>
+
+          <!-- Show rows (push ke kanan) -->
+          <div class="btn-tbl-show-wrap" style="margin-left:auto">
+            <button class="btn-tbl-show" id="btnShowRows" aria-expanded="false" aria-haspopup="listbox">
+              Show 10 rows
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <ul class="show-rows-dropdown" id="showRowsDropdown" role="listbox">
+              <li role="option" class="active">10</li>
+              <li role="option">25</li>
+              <li role="option">50</li>
+              <li role="option">100</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tabel -->
+        <div class="table-wrapper">
+          <table class="billing-table" aria-label="Tabel Create Billing BLU">
+            <thead>
+              <tr>
+                <th class="col-no">
+                  NO.
+                  <svg class="sort-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  NO. INVOICE
+                  <svg class="sort-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  JENIS PELAYANAN
+                  <svg class="sort-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  TGL. BILLING
+                  <svg class="sort-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  TGL. AKHIR BILLING
+                  <svg class="sort-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  NAMA WAJIB BAYAR
+                  <svg class="sort-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  KODE BILLING
+                  <svg class="sort-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  TOTAL BAYAR(IDR)
+                  <svg class="sort-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  STATUS
+                  <svg class="sort-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>OPTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-no text-center">1.</td>
+                <td class="mono">KU.102/4/13/BP-UJI/2025</td>
+                <td>PELAYANAN UJI PRASARANA PERKERETAAPIAN</td>
+                <td class="mono">27-01-2026</td>
+                <td class="mono">27-02-2026</td>
+                <td>BALAI TEKNIK PERKERETAAPIAN KELAS I JAKARTA</td>
+                <td class="mono">9885267824123217</td>
+                <td class="text-right">27.441.000</td>
+                <td><span class="badge-belum-bayar">BELUM BAYAR</span></td>
+                <td><div class="tbl-options">
+                  <button class="opt-check" aria-label="Konfirmasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                  <button class="opt-transfer" aria-label="Sinkronisasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+                  <div class="opt-more-wrap">
+                    <button class="opt-more" aria-label="Opsi lainnya" aria-haspopup="true" aria-expanded="false">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                    </button>
+                    <div class="opt-more-menu">
+                      <button class="opt-more-item item-print"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button>
+                      <button class="opt-more-item item-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Hapus</button>
+                    </div>
+                  </div>
+                </div></td>
+              </tr>
+              <tr>
+                <td class="col-no text-center">2.</td>
+                <td class="mono">KU.102/5/10/BP-UJI/2025</td>
+                <td>PELAYANAN UJI PRASARANA PERKERETAAPIAN</td>
+                <td class="mono">30-01-2026</td>
+                <td class="mono">02-03-2026</td>
+                <td>BALAI TEKNIK PERKERETAAPIAN KELAS II PALEMBANG</td>
+                <td class="mono">9885267824123222</td>
+                <td class="text-right">16.300.000</td>
+                <td><span class="badge-belum-bayar">BELUM BAYAR</span></td>
+                <td><div class="tbl-options">
+                  <button class="opt-check" aria-label="Konfirmasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                  <button class="opt-transfer" aria-label="Sinkronisasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+                  <div class="opt-more-wrap">
+                    <button class="opt-more" aria-label="Opsi lainnya" aria-haspopup="true" aria-expanded="false">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                    </button>
+                    <div class="opt-more-menu">
+                      <button class="opt-more-item item-print"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button>
+                      <button class="opt-more-item item-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Hapus</button>
+                    </div>
+                  </div>
+                </div></td>
+              </tr>
+              <tr>
+                <td class="col-no text-center">3.</td>
+                <td class="mono">KU.102/5/15/BP-UJI/2025</td>
+                <td>PELAYANAN UJI PRASARANA PERKERETAAPIAN</td>
+                <td class="mono">27-01-2026</td>
+                <td class="mono">27-02-2026</td>
+                <td>BALAI TEKNIK PERKERETAAPIAN KELAS I MEDAN</td>
+                <td class="mono">9885267824123221</td>
+                <td class="text-right">8.000.000</td>
+                <td><span class="badge-belum-bayar">BELUM BAYAR</span></td>
+                <td><div class="tbl-options">
+                  <button class="opt-check" aria-label="Konfirmasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                  <button class="opt-transfer" aria-label="Sinkronisasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+                  <div class="opt-more-wrap">
+                    <button class="opt-more" aria-label="Opsi lainnya" aria-haspopup="true" aria-expanded="false">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                    </button>
+                    <div class="opt-more-menu">
+                      <button class="opt-more-item item-print"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button>
+                      <button class="opt-more-item item-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Hapus</button>
+                    </div>
+                  </div>
+                </div></td>
+              </tr>
+              <tr>
+                <td class="col-no text-center">4.</td>
+                <td class="mono">KU.102/5/25/BP-UJI/2025</td>
+                <td>PELAYANAN UJI PRASARANA PERKERETAAPIAN</td>
+                <td class="mono">27-01-2026</td>
+                <td class="mono">27-02-2026</td>
+                <td>BALAI TEKNIK PERKERETAAPIAN KELAS I JAKARTA</td>
+                <td class="mono">9885267824123219</td>
+                <td class="text-right">70.665.000</td>
+                <td><span class="badge-belum-bayar">BELUM BAYAR</span></td>
+                <td><div class="tbl-options">
+                  <button class="opt-check" aria-label="Konfirmasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                  <button class="opt-transfer" aria-label="Sinkronisasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+                  <div class="opt-more-wrap">
+                    <button class="opt-more" aria-label="Opsi lainnya" aria-haspopup="true" aria-expanded="false">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                    </button>
+                    <div class="opt-more-menu">
+                      <button class="opt-more-item item-print"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button>
+                      <button class="opt-more-item item-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Hapus</button>
+                    </div>
+                  </div>
+                </div></td>
+              </tr>
+              <tr>
+                <td class="col-no text-center">5.</td>
+                <td class="mono">KU.102/6/2/BP-UJI/2025</td>
+                <td>PELAYANAN UJI PRASARANA PERKERETAAPIAN</td>
+                <td class="mono">09-12-2025</td>
+                <td class="mono">09-01-2026</td>
+                <td>BALAI TEKNIK PERKERETAAPIAN KELAS I SEMARANG</td>
+                <td class="mono">9885267824123200</td>
+                <td class="text-right">22.357.675</td>
+                <td><span class="badge-belum-bayar">BELUM BAYAR</span></td>
+                <td><div class="tbl-options">
+                  <button class="opt-check" aria-label="Konfirmasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                  <button class="opt-transfer" aria-label="Sinkronisasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+                  <div class="opt-more-wrap">
+                    <button class="opt-more" aria-label="Opsi lainnya" aria-haspopup="true" aria-expanded="false">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                    </button>
+                    <div class="opt-more-menu">
+                      <button class="opt-more-item item-print"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button>
+                      <button class="opt-more-item item-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Hapus</button>
+                    </div>
+                  </div>
+                </div></td>
+              </tr>
+              <tr>
+                <td class="col-no text-center">6.</td>
+                <td class="mono">KU.102/6/7/BP-UJI/2025</td>
+                <td>PELAYANAN UJI PRASARANA PERKERETAAPIAN</td>
+                <td class="mono">27-01-2026</td>
+                <td class="mono">27-02-2026</td>
+                <td>BALAI TEKNIK PERKERETAAPIAN KELAS I JAKARTA</td>
+                <td class="mono">9885267824123220</td>
+                <td class="text-right">24.228.000</td>
+                <td><span class="badge-belum-bayar">BELUM BAYAR</span></td>
+                <td><div class="tbl-options">
+                  <button class="opt-check" aria-label="Konfirmasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                  <button class="opt-transfer" aria-label="Sinkronisasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+                  <div class="opt-more-wrap">
+                    <button class="opt-more" aria-label="Opsi lainnya" aria-haspopup="true" aria-expanded="false">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                    </button>
+                    <div class="opt-more-menu">
+                      <button class="opt-more-item item-print"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button>
+                      <button class="opt-more-item item-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Hapus</button>
+                    </div>
+                  </div>
+                </div></td>
+              </tr>
+              <tr>
+                <td class="col-no text-center">7.</td>
+                <td class="mono">KU.102/6/11/BP-UJI/2025</td>
+                <td>PELAYANAN UJI PRASARANA PERKERETAAPIAN</td>
+                <td class="mono">05-01-2026</td>
+                <td class="mono">05-02-2026</td>
+                <td>PT. MRT JAKARTA (PERSERODA)</td>
+                <td class="mono">9885267824123212</td>
+                <td class="text-right">36.635.176</td>
+                <td><span class="badge-belum-bayar">BELUM BAYAR</span></td>
+                <td><div class="tbl-options">
+                  <button class="opt-check" aria-label="Konfirmasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                  <button class="opt-transfer" aria-label="Sinkronisasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+                  <div class="opt-more-wrap">
+                    <button class="opt-more" aria-label="Opsi lainnya" aria-haspopup="true" aria-expanded="false">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                    </button>
+                    <div class="opt-more-menu">
+                      <button class="opt-more-item item-print"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button>
+                      <button class="opt-more-item item-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Hapus</button>
+                    </div>
+                  </div>
+                </div></td>
+              </tr>
+              <tr>
+                <td class="col-no text-center">8.</td>
+                <td class="mono">KU.102/1/6/BP-UJI/2026</td>
+                <td>PELAYANAN UJI PRASARANA PERKERETAAPIAN</td>
+                <td class="mono">21-01-2026</td>
+                <td class="mono">21-02-2026</td>
+                <td>BALAI TEKNIK PERKERETAAPIAN KELAS I BANDUNG</td>
+                <td class="mono">9885267824123215</td>
+                <td class="text-right">10.000.000</td>
+                <td><span class="badge-belum-bayar">BELUM BAYAR</span></td>
+                <td><div class="tbl-options">
+                  <button class="opt-check" aria-label="Konfirmasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                  <button class="opt-transfer" aria-label="Sinkronisasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+                  <div class="opt-more-wrap">
+                    <button class="opt-more" aria-label="Opsi lainnya" aria-haspopup="true" aria-expanded="false">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                    </button>
+                    <div class="opt-more-menu">
+                      <button class="opt-more-item item-print"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button>
+                      <button class="opt-more-item item-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Hapus</button>
+                    </div>
+                  </div>
+                </div></td>
+              </tr>
+              <tr>
+                <td class="col-no text-center">9.</td>
+                <td class="mono">KU.102/1/8/BP-UJI/2026</td>
+                <td>PELAYANAN UJI PRASARANA PERKERETAAPIAN</td>
+                <td class="mono">02-02-2026</td>
+                <td class="mono">02-03-2026</td>
+                <td>BALAI TEKNIK PERKERETAAPIAN KELAS I BANDUNG</td>
+                <td class="mono">9885267824123224</td>
+                <td class="text-right">44.000.000</td>
+                <td><span class="badge-belum-bayar">BELUM BAYAR</span></td>
+                <td><div class="tbl-options">
+                  <button class="opt-check" aria-label="Konfirmasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                  <button class="opt-transfer" aria-label="Sinkronisasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+                  <div class="opt-more-wrap">
+                    <button class="opt-more" aria-label="Opsi lainnya" aria-haspopup="true" aria-expanded="false">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                    </button>
+                    <div class="opt-more-menu">
+                      <button class="opt-more-item item-print"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button>
+                      <button class="opt-more-item item-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Hapus</button>
+                    </div>
+                  </div>
+                </div></td>
+              </tr>
+              <tr>
+                <td class="col-no text-center">10.</td>
+                <td class="mono">KU.102/2/2/BP-UJI/2026</td>
+                <td>PELAYANAN UJI PRASARANA PERKERETAAPIAN</td>
+                <td class="mono">21-04-2026</td>
+                <td class="mono">21-05-2026</td>
+                <td>BALAI TEKNIK PERKERETAAPIAN KELAS II PADANG</td>
+                <td class="mono">9885267824123235</td>
+                <td class="text-right">5.800.000</td>
+                <td><span class="badge-belum-bayar">BELUM BAYAR</span></td>
+                <td><div class="tbl-options">
+                  <button class="opt-check" aria-label="Konfirmasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                  <button class="opt-transfer" aria-label="Sinkronisasi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
+                  <div class="opt-more-wrap">
+                    <button class="opt-more" aria-label="Opsi lainnya" aria-haspopup="true" aria-expanded="false">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                    </button>
+                    <div class="opt-more-menu">
+                      <button class="opt-more-item item-print"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button>
+                      <button class="opt-more-item item-delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Hapus</button>
+                    </div>
+                  </div>
+                </div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="billing-pagination">
+          <span class="pagination-info">Showing 1 to 10 of 169 entries</span>
+          <div class="pagination-btns">
+            <button class="pg-btn pg-prev" disabled>Previous</button>
+            <button class="pg-btn pg-num active">1</button>
+            <button class="pg-btn pg-num">2</button>
+            <button class="pg-btn pg-num">3</button>
+            <button class="pg-btn pg-num">4</button>
+            <button class="pg-btn pg-num">5</button>
+            <span class="pg-ellipsis">...</span>
+            <button class="pg-btn pg-num">17</button>
+            <button class="pg-btn pg-next">Next</button>
+          </div>
+        </div>
+
+      </div><!-- /.billing-card -->
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       MODAL: Konfirmasi Hapus
+  ═══════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modalHapusBilling" role="dialog" aria-modal="true"
+       aria-labelledby="modalHapusTitle" aria-hidden="true">
+    <div class="modal modal-sm">
+
+      <div class="modal-header">
+        <div class="modal-title-row">
+          <div class="modal-title-icon modal-title-icon--danger" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+              <path d="M10 11v6"/><path d="M14 11v6"/>
+              <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+            </svg>
+          </div>
+          <h2 class="modal-title" id="modalHapusTitle">Hapus Data Billing</h2>
+        </div>
+        <button class="modal-close" id="btnModalHapusClose" aria-label="Tutup modal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body modal-body--confirm">
+        <div class="confirm-icon-wrap" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#DC2626"
+               stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <p class="confirm-title">Hapus data ini secara permanen?</p>
+        <p class="confirm-desc">Data billing yang dihapus tidak dapat dikembalikan. Pastikan Anda yakin sebelum melanjutkan tindakan ini.</p>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-modal-ghost" id="btnModalHapusCancel" type="button">Batalkan</button>
+        <button class="btn-modal-danger" id="btnModalHapusConfirm" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+            <path d="M10 11v6"/><path d="M14 11v6"/>
+            <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+          </svg>
+          Ya, Hapus
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       MODAL: Create Billing BLU
+  ═══════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modalCreateBilling" role="dialog" aria-modal="true" aria-labelledby="modalCreateBillingTitle">
+    <div class="modal" id="modalCreateBillingBox">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="modal-title-row">
+          <div class="modal-title-icon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+            </svg>
+          </div>
+          <h2 class="modal-title" id="modalCreateBillingTitle">Create Billing BLU</h2>
+        </div>
+        <button class="modal-close" id="btnModalCreateBillingClose" aria-label="Tutup modal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body" id="modalCreateBillingBody">
+
+        <!-- Jenis Pelayanan -->
+        <div class="modal-field">
+          <label class="modal-label" for="fieldJenisPelayanan">
+            Jenis Pelayanan <span class="req" aria-label="wajib">*</span>
+          </label>
+          <select class="modal-input" id="fieldJenisPelayanan" required>
+            <option value="">--- Jenis Pelayanan ---</option>
+            <option value="uji-sarana">Pelayanan Uji Sarana Perkeretaapian</option>
+            <option value="uji-prasarana">Pelayanan Uji Prasarana Perkeretaapian</option>
+            <option value="non-core">Pelayanan Non-Core</option>
+          </select>
+        </div>
+
+        <!-- No. Invoice -->
+        <div class="modal-field">
+          <label class="modal-label" for="fieldNoInvoice">
+            No. Invoice <span class="req" aria-label="wajib">*</span>
+          </label>
+          <input type="text" class="modal-input" id="fieldNoInvoice"
+                 placeholder="No. Invoice..." required />
+        </div>
+
+        <!-- Tgl. Billing -->
+        <div class="modal-field">
+          <label class="modal-label" for="fieldTglBilling">
+            Tgl. Billing <span class="req" aria-label="wajib">*</span>
+          </label>
+          <input type="date" class="modal-input" id="fieldTglBilling" required />
+        </div>
+
+        <!-- Tgl. Akhir Billing -->
+        <div class="modal-field">
+          <label class="modal-label" for="fieldTglAkhirBilling">
+            Tgl. Akhir Billing <span class="req" aria-label="wajib">*</span>
+          </label>
+          <input type="date" class="modal-input" id="fieldTglAkhirBilling" required />
+        </div>
+
+        <!-- Nama Wajib Bayar -->
+        <div class="modal-field">
+          <label class="modal-label" for="fieldNamaWajibBayar">
+            Nama Wajib Bayar <span class="req" aria-label="wajib">*</span>
+          </label>
+          <input type="text" class="modal-input" id="fieldNamaWajibBayar"
+                 placeholder="Nama Wajib Bayar..." required />
+        </div>
+
+        <!-- NPWP -->
+        <div class="modal-field">
+          <label class="modal-label" for="fieldNpwp">
+            NPWP <span class="req" aria-label="wajib">*</span>
+          </label>
+          <input type="text" class="modal-input mono-input" id="fieldNpwp"
+                 placeholder="NPWP..." required />
+        </div>
+
+        <!-- Total Bayar -->
+        <div class="modal-field">
+          <label class="modal-label" for="fieldTotalBayar">
+            Total Bayar <span class="req" aria-label="wajib">*</span>
+          </label>
+          <input type="number" class="modal-input" id="fieldTotalBayar"
+                 placeholder="0" min="0" required />
+        </div>
+
+        <!-- Keterangan -->
+        <div class="modal-field">
+          <label class="modal-label" for="fieldKeterangan">Keterangan</label>
+          <textarea class="modal-input modal-textarea" id="fieldKeterangan"
+                    placeholder="Keterangan..." rows="4"></textarea>
+        </div>
+
+      </div><!-- /.modal-body -->
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button class="btn-modal-ghost" id="btnModalCreateBillingCancel" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+          </svg>
+          Kembali
+        </button>
+        <button class="btn-modal-primary" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+            <polyline points="17 21 17 13 7 13 7 21"/>
+            <polyline points="7 3 7 8 15 8"/>
+          </svg>
+          Simpan
+        </button>
+      </div>
+
+    </div><!-- /.modal -->
+  </div><!-- /.modal-overlay -->
+
+  <script src="app.js"></script>
+</body>
+</html>

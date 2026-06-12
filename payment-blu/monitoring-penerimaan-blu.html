@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monitoring Penerimaan BLU — Payment BLU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="monitoring-billing.css" />
+  <link rel="stylesheet" href="buttons.css" />
+  <script>if(window!==window.parent)document.documentElement.classList.add("in-iframe");</script>
+  <style>
+    html.in-iframe .topbar,
+    html.in-iframe .sidebar,
+    html.in-iframe .sidebar-collapse-btn { display: none !important; }
+    html.in-iframe body { padding-top: 0 !important; overflow-y: auto; }
+    html.in-iframe .layout { min-height: 100vh; }
+    html.in-iframe .main-content { overflow-y: auto !important; padding: 20px 24px; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       TOPBAR
+  ═══════════════════════════════════════════════ -->
+  <header class="topbar" role="banner">
+    <div class="topbar-module-icon" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="20" x2="18" y2="10"/>
+        <line x1="12" y1="20" x2="12" y2="4"/>
+        <line x1="6" y1="20" x2="6" y2="14"/>
+      </svg>
+    </div>
+
+    <div class="topbar-brand">
+      <div class="topbar-logo-box" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
+          <path d="M8 26 L14 10 L20 26 L26 10 L32 26" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="topbar-brand-text">
+        <span class="topbar-brand-name">BADAN LAYANAN UMUM</span>
+        <span class="topbar-brand-sub">#BLU Speed</span>
+      </div>
+    </div>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <div class="topbar-search" role="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="search" placeholder="Cari data penerimaan BLU..." aria-label="Cari data penerimaan BLU" />
+      <kbd class="topbar-kbd">Ctrl K</kbd>
+    </div>
+
+    <div class="topbar-spacer"></div>
+
+    <div class="topbar-date" id="topbarDate">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span id="currentDate"></span>
+    </div>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <button class="topbar-icon-btn" aria-label="Notifikasi">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+    </button>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <button class="topbar-user" aria-label="Menu pengguna">
+      <div class="topbar-avatar" aria-hidden="true">AK</div>
+    </button>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════
+       LAYOUT
+  ═══════════════════════════════════════════════ -->
+  <div class="layout">
+
+    <!-- ─── SIDEBAR ─── -->
+    <nav class="sidebar" aria-label="Navigasi utama">
+
+      <span class="sidebar-section-label">MENU</span>
+
+      <ul class="sidebar-nav" role="list">
+        <li>
+          <a href="index.html" class="sidebar-item" aria-label="Dashboard">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="profil.html" class="sidebar-item" aria-label="Profil">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Profil</span>
+          </a>
+        </li>
+        <li>
+          <a href="create-billing-blu.html" class="sidebar-item" aria-label="Create Billing BLU">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="16"/>
+                <line x1="8" y1="12" x2="16" y2="12"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Create Billing BLU</span>
+          </a>
+        </li>
+        <li>
+          <a href="tarif-blu.html" class="sidebar-item" aria-label="Tarif BLU">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="1" x2="12" y2="23"/>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Tarif BLU</span>
+          </a>
+        </li>
+        <li>
+          <button class="sidebar-item sidebar-accordion" id="menuMonitoring"
+                  aria-expanded="true" aria-controls="subMonitoring">
+            <div class="sidebar-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+            <span class="sidebar-label">Monitoring</span>
+            <svg class="sidebar-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="18 15 12 9 6 15"/>
+            </svg>
+          </button>
+          <ul class="sidebar-submenu" id="subMonitoring" role="list">
+            <li>
+              <a href="monitoring-billing-blu.html" class="sidebar-sub-item"><span>Billing BLU</span></a>
+            </li>
+            <li>
+              <a href="monitoring-penerimaan-blu.html" class="sidebar-sub-item active"
+                 aria-current="page"><span>Penerimaan BLU</span></a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="Toggle sidebar">
+      <svg id="sidebarCollapseIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+
+    <!-- ─── MAIN CONTENT ─── -->
+    <main class="main-content" id="main-content">
+
+      <!-- Page Title -->
+      <div class="page-header">
+        <div class="page-header-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+        </div>
+        <h1 class="page-title">DATA PENERIMAAN</h1>
+      </div>
+
+      <!-- ── Card Utama ── -->
+      <div class="card mbl-card">
+
+        <!-- Card Header -->
+        <div class="mbl-card-header">
+          <div class="mbl-card-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+            </svg>
+            <span>Data Penerimaan</span>
+          </div>
+          <div class="mbl-stat-badges">
+            <span class="mbl-stat-badge mbl-stat-badge--teal">
+              Total Penerimaan: Rp. 100.057.058.960
+            </span>
+          </div>
+        </div>
+
+        <!-- Controls Bar: Export + Filter + Show/Search -->
+        <div class="mbl-controls-bar">
+
+          <!-- Export Dropdown -->
+          <div class="export-dropdown" id="mnrExportDropdown">
+            <button class="btn-export-toggle" id="btnMnrExportToggle"
+                    type="button" aria-haspopup="true" aria-expanded="false">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Export
+              <svg class="export-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="export-menu" role="menu">
+              <button class="export-menu-item" role="menuitem" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+                PDF
+              </button>
+              <button class="export-menu-item" role="menuitem" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <path d="M3 9h18M3 15h18M9 3v18"/>
+                </svg>
+                Excel
+              </button>
+            </div>
+          </div>
+
+          <!-- Filter Bidang Pelayanan -->
+          <select class="mbl-filter-select" id="filterBidangPelayanan" aria-label="Filter Bidang Pelayanan">
+            <option value="">--- Bidang Pelayanan ---</option>
+            <option value="sdm">Pelayanan Uji SDM Perkeretaapian</option>
+            <option value="prasarana">Pelayanan Uji Prasarana Perkeretaapian</option>
+            <option value="sarana">Pelayanan Uji Sarana Perkeretaapian</option>
+          </select>
+
+          <!-- Tombol Cari -->
+          <button class="btn-cari" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            Cari
+          </button>
+
+          <!-- Spacer -->
+          <div style="flex: 1;"></div>
+
+          <!-- Show N rows -->
+          <div class="export-dropdown" id="mnrShowDropdown">
+            <button class="btn-export-toggle" id="btnMnrShowRows"
+                    type="button" aria-haspopup="true" aria-expanded="false">
+              Show 10 rows
+              <svg class="export-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="export-menu" role="menu">
+              <button class="export-menu-item" role="menuitem" type="button">10 rows</button>
+              <button class="export-menu-item" role="menuitem" type="button">25 rows</button>
+              <button class="export-menu-item" role="menuitem" type="button">50 rows</button>
+              <button class="export-menu-item" role="menuitem" type="button">100 rows</button>
+            </div>
+          </div>
+
+          <!-- Search -->
+          <div class="mbl-search-wrap">
+            <label class="mbl-search-label" for="tableSearch">Search:</label>
+            <input type="search" class="mbl-search-input" id="tableSearch"
+                   placeholder="" aria-label="Cari dalam tabel" />
+          </div>
+
+        </div>
+
+        <!-- Tabel Data Penerimaan -->
+        <div class="mbl-table-wrapper">
+          <table class="mbl-table" aria-label="Tabel Data Penerimaan BLU">
+            <thead>
+              <tr>
+                <th class="mbl-col-no text-center">
+                  NO.
+                  <svg class="sort-icon-mbl" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  JENIS LAYANAN
+                  <svg class="sort-icon-mbl" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  NO INVOICE
+                  <svg class="sort-icon-mbl" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  KODE BILLING
+                  <svg class="sort-icon-mbl" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  TGL. BILLING
+                  <svg class="sort-icon-mbl" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  TOTAL BILLING (IDR)
+                  <svg class="sort-icon-mbl" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  NAMA WAJIB BAYAR
+                  <svg class="sort-icon-mbl" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  NAMA PERBANKAN
+                  <svg class="sort-icon-mbl" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  NOMOR RESI
+                  <svg class="sort-icon-mbl" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th>
+                  TGL. BAYAR
+                  <svg class="sort-icon-mbl" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 15 12 20 17 15"/><polyline points="7 9 12 4 17 9"/></svg>
+                </th>
+                <th class="mbl-col-opt text-center">KWITANSI</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <!-- Row 1 -->
+              <tr>
+                <td class="text-center">1</td>
+                <td>PELAYANAN UJI SARANA PERKERETAAPIAN</td>
+                <td class="mono">2024066450821</td>
+                <td class="mono">12021</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-right">0</td>
+                <td>Migrasi Data</td>
+                <td>—</td>
+                <td class="mono">000</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-center">
+                  <button class="btn-invoice-print" aria-label="Cetak kwitansi baris 1" title="Cetak Kwitansi">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polyline points="6 9 6 2 18 2 18 9"/>
+                      <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                      <rect x="6" y="14" width="12" height="8"/>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Row 2 -->
+              <tr>
+                <td class="text-center">2</td>
+                <td>PELAYANAN UJI SARANA PERKERETAAPIAN</td>
+                <td class="mono">2024066450821</td>
+                <td class="mono">12022</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-right">0</td>
+                <td>Migrasi Data</td>
+                <td>—</td>
+                <td class="mono">000</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-center">
+                  <button class="btn-invoice-print" aria-label="Cetak kwitansi baris 2" title="Cetak Kwitansi">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Row 3 -->
+              <tr>
+                <td class="text-center">3</td>
+                <td>PELAYANAN UJI SARANA PERKERETAAPIAN</td>
+                <td class="mono">2024066450821</td>
+                <td class="mono">12023</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-right">0</td>
+                <td>Migrasi Data</td>
+                <td>—</td>
+                <td class="mono">000</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-center">
+                  <button class="btn-invoice-print" aria-label="Cetak kwitansi baris 3" title="Cetak Kwitansi">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Row 4 -->
+              <tr>
+                <td class="text-center">4</td>
+                <td>PELAYANAN UJI SARANA PERKERETAAPIAN</td>
+                <td class="mono">2024066450821</td>
+                <td class="mono">12024</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-right">0</td>
+                <td>Migrasi Data</td>
+                <td>—</td>
+                <td class="mono">000</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-center">
+                  <button class="btn-invoice-print" aria-label="Cetak kwitansi baris 4" title="Cetak Kwitansi">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Row 5 -->
+              <tr>
+                <td class="text-center">5</td>
+                <td>PELAYANAN UJI SARANA PERKERETAAPIAN</td>
+                <td class="mono">2024066450821</td>
+                <td class="mono">12026</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-right">0</td>
+                <td>Migrasi Data</td>
+                <td>—</td>
+                <td class="mono">000</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-center">
+                  <button class="btn-invoice-print" aria-label="Cetak kwitansi baris 5" title="Cetak Kwitansi">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Row 6 -->
+              <tr>
+                <td class="text-center">6</td>
+                <td>PELAYANAN UJI SARANA PERKERETAAPIAN</td>
+                <td class="mono">2024066450821</td>
+                <td class="mono">12027</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-right">0</td>
+                <td>Migrasi Data</td>
+                <td>—</td>
+                <td class="mono">000</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-center">
+                  <button class="btn-invoice-print" aria-label="Cetak kwitansi baris 6" title="Cetak Kwitansi">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Row 7 -->
+              <tr>
+                <td class="text-center">7</td>
+                <td>PELAYANAN UJI SARANA PERKERETAAPIAN</td>
+                <td class="mono">2024066450821</td>
+                <td class="mono">12028</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-right">0</td>
+                <td>Migrasi Data</td>
+                <td>—</td>
+                <td class="mono">000</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-center">
+                  <button class="btn-invoice-print" aria-label="Cetak kwitansi baris 7" title="Cetak Kwitansi">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Row 8 -->
+              <tr>
+                <td class="text-center">8</td>
+                <td>PELAYANAN UJI SARANA PERKERETAAPIAN</td>
+                <td class="mono">2024066450821</td>
+                <td class="mono">12029</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-right">0</td>
+                <td>Migrasi Data</td>
+                <td>—</td>
+                <td class="mono">000</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-center">
+                  <button class="btn-invoice-print" aria-label="Cetak kwitansi baris 8" title="Cetak Kwitansi">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Row 9 -->
+              <tr>
+                <td class="text-center">9</td>
+                <td>PELAYANAN UJI SARANA PERKERETAAPIAN</td>
+                <td class="mono">2024066450821</td>
+                <td class="mono">120210</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-right">0</td>
+                <td>Migrasi Data</td>
+                <td>—</td>
+                <td class="mono">000</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-center">
+                  <button class="btn-invoice-print" aria-label="Cetak kwitansi baris 9" title="Cetak Kwitansi">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Row 10 -->
+              <tr>
+                <td class="text-center">10</td>
+                <td>PELAYANAN UJI SARANA PERKERETAAPIAN</td>
+                <td class="mono">2024066450821</td>
+                <td class="mono">1202187</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-right">0</td>
+                <td>Migrasi Data</td>
+                <td>—</td>
+                <td class="mono">000</td>
+                <td class="mono">21-06-2024</td>
+                <td class="text-center">
+                  <button class="btn-invoice-print" aria-label="Cetak kwitansi baris 10" title="Cetak Kwitansi">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="mbl-pagination">
+          <span class="mbl-pagination-info">Showing 1 to 10 of 2.452 entries</span>
+          <div class="mbl-pagination-btns">
+            <button class="page-btn" disabled>Previous</button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">4</button>
+            <button class="page-btn">5</button>
+            <span class="mpg-ellipsis">...</span>
+            <button class="page-btn">246</button>
+            <button class="page-btn">Next</button>
+          </div>
+        </div>
+
+      </div><!-- /.mbl-card -->
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+  // ─── Penerimaan — Export dropdown ───
+  (function() {
+    var wrap   = document.getElementById('mnrExportDropdown');
+    var toggle = document.getElementById('btnMnrExportToggle');
+    if (!wrap || !toggle) return;
+
+    toggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var showWrap = document.getElementById('mnrShowDropdown');
+      if (showWrap) {
+        showWrap.classList.remove('open');
+        var showToggle = document.getElementById('btnMnrShowRows');
+        if (showToggle) showToggle.setAttribute('aria-expanded', 'false');
+      }
+      var isOpen = wrap.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', function() {
+      wrap.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { wrap.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+    });
+  })();
+
+  // ─── Penerimaan — Show rows dropdown ───
+  (function() {
+    var wrap   = document.getElementById('mnrShowDropdown');
+    var toggle = document.getElementById('btnMnrShowRows');
+    if (!wrap || !toggle) return;
+
+    toggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var exportWrap = document.getElementById('mnrExportDropdown');
+      if (exportWrap) {
+        exportWrap.classList.remove('open');
+        var exportToggle = document.getElementById('btnMnrExportToggle');
+        if (exportToggle) exportToggle.setAttribute('aria-expanded', 'false');
+      }
+      var isOpen = wrap.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    wrap.querySelectorAll('.export-menu-item').forEach(function(item) {
+      item.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggle.childNodes[0].textContent = item.textContent.trim() + ' ';
+        wrap.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.addEventListener('click', function() {
+      wrap.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { wrap.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+    });
+  })();
+  </script>
+</body>
+</html>
