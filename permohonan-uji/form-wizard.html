@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ajukan Permohonan Uji — SiAPKA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="buttons.css" />
+  <script>if(window!==window.parent)document.documentElement.classList.add("in-iframe");</script>
+  <style>
+    html.in-iframe .topbar,
+    html.in-iframe .sidebar,
+    html.in-iframe .sidebar-collapse-btn { display: none !important; }
+    html.in-iframe body { padding-top: 0 !important; }
+    html.in-iframe .layout { min-height: 100vh; }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar" role="banner">
+    <div class="topbar-module-icon" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+      </svg>
+    </div>
+    <div class="topbar-brand">
+      <div class="topbar-logo-box">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div class="topbar-brand-text">
+        <span class="topbar-brand-name">SiAPKA</span>
+        <span class="topbar-brand-sub">Balai Pengujian Perkeretaapian</span>
+      </div>
+    </div>
+    <div class="topbar-sep" aria-hidden="true"></div>
+    <div class="topbar-search" role="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" placeholder="Cari ID permohonan atau nomor sarana..." aria-label="Cari permohonan" />
+      <kbd class="topbar-kbd">Ctrl K</kbd>
+    </div>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-date">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span id="currentDate"></span>
+    </div>
+    <div class="topbar-sep" aria-hidden="true"></div>
+    <button class="topbar-icon-btn" aria-label="Notifikasi">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </button>
+    <div class="topbar-sep" aria-hidden="true"></div>
+    <button class="topbar-user" aria-label="Menu pengguna">
+      <div class="topbar-avatar">BP</div>
+      <span class="topbar-username">Badan Pengujian</span>
+    </button>
+  </header>
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar" aria-label="Navigasi modul">
+      <button class="sidebar-collapse-btn" id="sidebarToggle" aria-label="Collapse sidebar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <ul class="sidebar-nav" role="list">
+        <li>
+          <a href="index.html" class="sidebar-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span class="sidebar-label">Permohonan Saya</span>
+          </a>
+        </li>
+        <li>
+          <a href="form-wizard.html" class="sidebar-item active" aria-current="page">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            <span class="sidebar-label">Ajukan Permohonan Baru</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main style="padding:24px;flex:1;overflow-y:auto;">
+
+      <!-- Page Header -->
+      <div style="margin-bottom:8px;">
+        <h1 style="font-size:20px;font-weight:700;color:var(--color-text);">Pengajuan Permohonan Uji Sarana</h1>
+        <p style="font-size:13px;color:var(--color-muted);margin-top:2px;">Lengkapi semua langkah berikut untuk mengajukan permohonan pengujian sarana perkeretaapian.</p>
+      </div>
+
+      <!-- STEPPER -->
+      <nav class="wizard-stepper" aria-label="Langkah pengajuan" id="wizardStepper">
+        <div class="wizard-step active" data-step="1">
+          <div class="wizard-step-circle">1</div>
+          <span class="wizard-step-label">Data Pemohon</span>
+        </div>
+        <div class="wizard-step" data-step="2">
+          <div class="wizard-step-circle">2</div>
+          <span class="wizard-step-label">Referensi Sarana</span>
+        </div>
+        <div class="wizard-step" data-step="3">
+          <div class="wizard-step-circle">3</div>
+          <span class="wizard-step-label">Jenis &amp; Jadwal</span>
+        </div>
+        <div class="wizard-step" data-step="4">
+          <div class="wizard-step-circle">4</div>
+          <span class="wizard-step-label">Upload Dokumen</span>
+        </div>
+        <div class="wizard-step" data-step="5">
+          <div class="wizard-step-circle">5</div>
+          <span class="wizard-step-label">Review &amp; Kirim</span>
+        </div>
+      </nav>
+
+      <!-- FORM CARD -->
+      <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:12px;padding:32px;">
+
+        <!-- ══════════════════════════════════
+             STEP 1: Data Pemohon
+        ══════════════════════════════════ -->
+        <div class="wizard-panel active" id="panel-1" role="tabpanel">
+          <h2 class="wizard-panel-title">Data Pemohon</h2>
+          <p class="wizard-panel-sub">Isi informasi badan usaha dan penanggung jawab permohonan.</p>
+
+          <div class="form-grid">
+            <div class="form-group form-grid-full">
+              <label class="form-label" for="namaBadanUsaha">Nama Badan Usaha <span class="req">*</span></label>
+              <input class="form-input" type="text" id="namaBadanUsaha" placeholder="Contoh: PT Kereta Api Indonesia (Persero)" autocomplete="organization" />
+              <span class="form-error" id="err-namaBadanUsaha">Nama badan usaha wajib diisi.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="nomorIzinUsaha">Nomor Izin Usaha <span class="req">*</span></label>
+              <input class="form-input mono" type="text" id="nomorIzinUsaha" placeholder="Contoh: 1234/KEMENHUB/2024" />
+              <span class="form-error" id="err-nomorIzinUsaha">Nomor izin usaha wajib diisi.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="namaPJ">Nama Penanggung Jawab <span class="req">*</span></label>
+              <input class="form-input" type="text" id="namaPJ" placeholder="Contoh: Budi Santoso" autocomplete="name" />
+              <span class="form-error" id="err-namaPJ">Nama penanggung jawab wajib diisi.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="jabatan">Jabatan <span class="req">*</span></label>
+              <input class="form-input" type="text" id="jabatan" placeholder="Contoh: Direktur Teknik" />
+              <span class="form-error" id="err-jabatan">Jabatan wajib diisi.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="noTelepon">Nomor Telepon <span class="req">*</span></label>
+              <input class="form-input" type="tel" id="noTelepon" placeholder="Contoh: 0812-3456-7890" autocomplete="tel" />
+              <span class="form-error" id="err-noTelepon">Nomor telepon wajib diisi.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Email <span class="req">*</span></label>
+              <input class="form-input" type="email" id="email" placeholder="Contoh: teknik@perusahaan.co.id" autocomplete="email" />
+              <span class="form-error" id="err-email">Email wajib diisi dan harus valid.</span>
+            </div>
+            <div class="form-group form-grid-full">
+              <label class="form-label" for="alamatKantor">Alamat Kantor <span class="req">*</span></label>
+              <textarea class="form-textarea" id="alamatKantor" rows="3" placeholder="Jalan, Kota, Provinsi, Kode Pos"></textarea>
+              <span class="form-error" id="err-alamatKantor">Alamat kantor wajib diisi.</span>
+            </div>
+          </div>
+
+          <div class="wizard-nav">
+            <span></span>
+            <div class="wizard-nav-right">
+              <button class="btn btn-primary" onclick="wizardNext(1)">
+                Selanjutnya
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════
+             STEP 2: Referensi Sarana
+        ══════════════════════════════════ -->
+        <div class="wizard-panel" id="panel-2" role="tabpanel">
+          <h2 class="wizard-panel-title">Referensi Sarana</h2>
+          <p class="wizard-panel-sub">Masukkan nomor registrasi sarana yang akan diajukan pengujiannya.</p>
+
+          <div class="alert alert-info" role="note">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <div>
+              <div class="alert-title">Informasi Sistem</div>
+              Data teknis lengkap sarana diambil dari sistem registrasi sarana. Pastikan nomor registrasi yang dimasukkan sudah benar.
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="nomorRegistrasi">Nomor Registrasi Sarana <span class="req">*</span></label>
+              <input class="form-input mono" type="text" id="nomorRegistrasi" placeholder="Contoh: SR-2024-001234" />
+              <span class="form-error" id="err-nomorRegistrasi">Nomor registrasi sarana wajib diisi.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="jenisSarana">Jenis Sarana <span class="req">*</span></label>
+              <select class="form-select" id="jenisSarana">
+                <option value="">Pilih jenis sarana...</option>
+                <option value="kereta">Kereta</option>
+                <option value="lokomotif">Lokomotif</option>
+                <option value="gerbong">Gerbong</option>
+                <option value="krl">KRL (Kereta Rel Listrik)</option>
+                <option value="krd">KRD (Kereta Rel Diesel)</option>
+                <option value="lrt">LRT</option>
+                <option value="mrt">MRT</option>
+                <option value="tram">Trem</option>
+              </select>
+              <span class="form-error" id="err-jenisSarana">Jenis sarana wajib dipilih.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="namaTipeSarana">Nama / Tipe Sarana <span class="req">*</span></label>
+              <input class="form-input" type="text" id="namaTipeSarana" placeholder="Contoh: KRL Seri 205" />
+              <span class="form-error" id="err-namaTipeSarana">Nama/tipe sarana wajib diisi.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="tahunPembuatan">Tahun Pembuatan <span class="req">*</span></label>
+              <input class="form-input" type="number" id="tahunPembuatan" placeholder="Contoh: 2020" min="1900" max="2030" />
+              <span class="form-error" id="err-tahunPembuatan">Tahun pembuatan wajib diisi dengan format YYYY.</span>
+            </div>
+            <div class="form-group form-grid-full">
+              <label class="form-label" for="catatanSarana">Catatan Tambahan</label>
+              <textarea class="form-textarea" id="catatanSarana" rows="3" placeholder="Informasi tambahan terkait kondisi atau spesifikasi sarana (opsional)"></textarea>
+            </div>
+          </div>
+
+          <div class="wizard-nav">
+            <button class="btn btn-ghost" onclick="wizardPrev(2)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+              Sebelumnya
+            </button>
+            <div class="wizard-nav-right">
+              <button class="btn btn-primary" onclick="wizardNext(2)">
+                Selanjutnya
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════
+             STEP 3: Jenis & Jadwal
+        ══════════════════════════════════ -->
+        <div class="wizard-panel" id="panel-3" role="tabpanel">
+          <h2 class="wizard-panel-title">Jenis &amp; Jadwal Uji</h2>
+          <p class="wizard-panel-sub">Pilih jenis pengujian dan preferensi jadwal pelaksanaan.</p>
+
+          <div class="alert alert-warning" role="note">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;margin-top:1px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <div>
+              <div class="alert-title">Perhatian</div>
+              Jadwal final ditentukan oleh petugas Balai Pengujian setelah permohonan disetujui. Tanggal preferensi bersifat tidak mengikat.
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom:20px;">
+            <label class="form-label">Jenis Permohonan Uji <span class="req">*</span></label>
+            <div class="radio-group" id="jenisUjiGroup">
+              <label class="radio-card" onclick="selectRadioCard(this,'jenisUji','uji-pertama')">
+                <input type="radio" name="jenisUji" value="uji-pertama" style="display:none;" />
+                <div>
+                  <div class="radio-card-title">Uji Pertama</div>
+                  <div class="radio-card-desc">Sarana baru yang belum pernah diuji sebelumnya</div>
+                </div>
+              </label>
+              <label class="radio-card" onclick="selectRadioCard(this,'jenisUji','uji-berkala')">
+                <input type="radio" name="jenisUji" value="uji-berkala" style="display:none;" />
+                <div>
+                  <div class="radio-card-title">Uji Berkala</div>
+                  <div class="radio-card-desc">Pengujian rutin berkala untuk sarana yang sudah bersertifikat</div>
+                </div>
+              </label>
+              <label class="radio-card" onclick="selectRadioCard(this,'jenisUji','uji-ulang')">
+                <input type="radio" name="jenisUji" value="uji-ulang" style="display:none;" />
+                <div>
+                  <div class="radio-card-title">Uji Ulang</div>
+                  <div class="radio-card-desc">Setelah gagal uji atau setelah dilakukan perbaikan</div>
+                </div>
+              </label>
+            </div>
+            <span class="form-error" id="err-jenisUji">Jenis permohonan uji wajib dipilih.</span>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group form-grid-full">
+              <label class="form-label" for="lokasiUji">Lokasi Uji Preferensi <span class="req">*</span></label>
+              <select class="form-select" id="lokasiUji">
+                <option value="">Pilih lokasi balai pengujian...</option>
+                <option value="jakarta">Balai Pengujian Jakarta</option>
+                <option value="bandung">Balai Pengujian Bandung</option>
+                <option value="surabaya">Balai Pengujian Surabaya</option>
+                <option value="medan">Balai Pengujian Medan</option>
+              </select>
+              <span class="form-error" id="err-lokasiUji">Lokasi uji wajib dipilih.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="tglMulai">Tanggal Preferensi Mulai <span class="req">*</span></label>
+              <input class="form-input" type="date" id="tglMulai" />
+              <span class="form-error" id="err-tglMulai">Tanggal mulai wajib diisi.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="tglSelesai">Tanggal Preferensi Selesai <span class="req">*</span></label>
+              <input class="form-input" type="date" id="tglSelesai" />
+              <span class="form-error" id="err-tglSelesai">Tanggal selesai wajib diisi dan harus setelah tanggal mulai.</span>
+            </div>
+            <div class="form-group form-grid-full">
+              <label class="form-label" for="keteranganKhusus">Keterangan Khusus</label>
+              <textarea class="form-textarea" id="keteranganKhusus" rows="3" placeholder="Permintaan atau kondisi khusus terkait pengujian (opsional)"></textarea>
+            </div>
+          </div>
+
+          <div class="wizard-nav">
+            <button class="btn btn-ghost" onclick="wizardPrev(3)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+              Sebelumnya
+            </button>
+            <div class="wizard-nav-right">
+              <button class="btn btn-primary" onclick="wizardNext(3)">
+                Selanjutnya
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════
+             STEP 4: Upload Dokumen
+        ══════════════════════════════════ -->
+        <div class="wizard-panel" id="panel-4" role="tabpanel">
+          <h2 class="wizard-panel-title">Upload Dokumen</h2>
+          <p class="wizard-panel-sub">Lampirkan dokumen yang diperlukan untuk proses verifikasi.</p>
+
+          <div class="upload-list">
+
+            <!-- Surat Permohonan Resmi (wajib) -->
+            <div class="upload-item">
+              <div class="upload-item-header">
+                <div>
+                  <div class="upload-item-label">Surat Permohonan Resmi <span class="req">*</span></div>
+                  <div class="upload-item-meta">Format: PDF · Maks. 5 MB</div>
+                </div>
+              </div>
+              <div class="upload-dropzone" id="dz-surat-permohonan"
+                   onclick="document.getElementById('file-surat-permohonan').click()"
+                   ondragover="handleDragOver(event,'dz-surat-permohonan')"
+                   ondragleave="handleDragLeave('dz-surat-permohonan')"
+                   ondrop="handleDrop(event,'surat-permohonan',['application/pdf'],5)">
+                <svg class="upload-dropzone-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <div class="upload-dropzone-text"><strong>Klik untuk pilih file</strong> atau seret ke sini</div>
+              </div>
+              <div class="upload-file-info" id="info-surat-permohonan" style="display:none;">
+                <div>
+                  <div class="upload-file-name" id="fname-surat-permohonan"></div>
+                  <div class="upload-file-size" id="fsize-surat-permohonan"></div>
+                </div>
+                <button class="upload-remove-btn" onclick="removeFile('surat-permohonan')" aria-label="Hapus file surat permohonan">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+              <input type="file" id="file-surat-permohonan" accept=".pdf" style="display:none;" onchange="handleFileSelect(this,'surat-permohonan',['application/pdf'],5)" />
+              <span class="form-error" id="err-surat-permohonan" style="display:none;padding:0 16px 12px;"></span>
+            </div>
+
+            <!-- Dokumen Teknis Sarana (wajib) -->
+            <div class="upload-item">
+              <div class="upload-item-header">
+                <div>
+                  <div class="upload-item-label">Dokumen Teknis Sarana <span class="req">*</span></div>
+                  <div class="upload-item-meta">Format: PDF / ZIP · Maks. 20 MB</div>
+                </div>
+              </div>
+              <div class="upload-dropzone" id="dz-dok-teknis"
+                   onclick="document.getElementById('file-dok-teknis').click()"
+                   ondragover="handleDragOver(event,'dz-dok-teknis')"
+                   ondragleave="handleDragLeave('dz-dok-teknis')"
+                   ondrop="handleDrop(event,'dok-teknis',['application/pdf','application/zip','application/x-zip-compressed'],20)">
+                <svg class="upload-dropzone-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <div class="upload-dropzone-text"><strong>Klik untuk pilih file</strong> atau seret ke sini</div>
+              </div>
+              <div class="upload-file-info" id="info-dok-teknis" style="display:none;">
+                <div>
+                  <div class="upload-file-name" id="fname-dok-teknis"></div>
+                  <div class="upload-file-size" id="fsize-dok-teknis"></div>
+                </div>
+                <button class="upload-remove-btn" onclick="removeFile('dok-teknis')" aria-label="Hapus file dokumen teknis">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+              <input type="file" id="file-dok-teknis" accept=".pdf,.zip" style="display:none;" onchange="handleFileSelect(this,'dok-teknis',['application/pdf','application/zip','application/x-zip-compressed'],20)" />
+              <span class="form-error" id="err-dok-teknis" style="display:none;padding:0 16px 12px;"></span>
+            </div>
+
+            <!-- Surat Kuasa (opsional) -->
+            <div class="upload-item">
+              <div class="upload-item-header">
+                <div>
+                  <div class="upload-item-label">Surat Kuasa <span style="font-size:12px;color:var(--color-muted);font-weight:400;">(jika dikuasakan · opsional)</span></div>
+                  <div class="upload-item-meta">Format: PDF · Maks. 5 MB</div>
+                </div>
+              </div>
+              <div class="upload-dropzone" id="dz-surat-kuasa"
+                   onclick="document.getElementById('file-surat-kuasa').click()"
+                   ondragover="handleDragOver(event,'dz-surat-kuasa')"
+                   ondragleave="handleDragLeave('dz-surat-kuasa')"
+                   ondrop="handleDrop(event,'surat-kuasa',['application/pdf'],5)">
+                <svg class="upload-dropzone-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <div class="upload-dropzone-text"><strong>Klik untuk pilih file</strong> atau seret ke sini</div>
+              </div>
+              <div class="upload-file-info" id="info-surat-kuasa" style="display:none;">
+                <div>
+                  <div class="upload-file-name" id="fname-surat-kuasa"></div>
+                  <div class="upload-file-size" id="fsize-surat-kuasa"></div>
+                </div>
+                <button class="upload-remove-btn" onclick="removeFile('surat-kuasa')" aria-label="Hapus file surat kuasa">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+              <input type="file" id="file-surat-kuasa" accept=".pdf" style="display:none;" onchange="handleFileSelect(this,'surat-kuasa',['application/pdf'],5)" />
+            </div>
+
+            <!-- Dokumen Pendukung Lainnya (opsional) -->
+            <div class="upload-item">
+              <div class="upload-item-header">
+                <div>
+                  <div class="upload-item-label">Dokumen Pendukung Lainnya <span style="font-size:12px;color:var(--color-muted);font-weight:400;">(opsional)</span></div>
+                  <div class="upload-item-meta">Format: PDF / JPG / PNG · Maks. 10 MB</div>
+                </div>
+              </div>
+              <div class="upload-dropzone" id="dz-dok-lainnya"
+                   onclick="document.getElementById('file-dok-lainnya').click()"
+                   ondragover="handleDragOver(event,'dz-dok-lainnya')"
+                   ondragleave="handleDragLeave('dz-dok-lainnya')"
+                   ondrop="handleDrop(event,'dok-lainnya',['application/pdf','image/jpeg','image/png'],10)">
+                <svg class="upload-dropzone-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <div class="upload-dropzone-text"><strong>Klik untuk pilih file</strong> atau seret ke sini</div>
+              </div>
+              <div class="upload-file-info" id="info-dok-lainnya" style="display:none;">
+                <div>
+                  <div class="upload-file-name" id="fname-dok-lainnya"></div>
+                  <div class="upload-file-size" id="fsize-dok-lainnya"></div>
+                </div>
+                <button class="upload-remove-btn" onclick="removeFile('dok-lainnya')" aria-label="Hapus file dokumen lainnya">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+              <input type="file" id="file-dok-lainnya" accept=".pdf,.jpg,.jpeg,.png" style="display:none;" onchange="handleFileSelect(this,'dok-lainnya',['application/pdf','image/jpeg','image/png'],10)" />
+            </div>
+
+          </div>
+
+          <div class="wizard-nav">
+            <button class="btn btn-ghost" onclick="wizardPrev(4)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+              Sebelumnya
+            </button>
+            <div class="wizard-nav-right">
+              <button class="btn btn-primary" onclick="wizardNext(4)">
+                Selanjutnya
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════
+             STEP 5: Review & Kirim
+        ══════════════════════════════════ -->
+        <div class="wizard-panel" id="panel-5" role="tabpanel">
+          <h2 class="wizard-panel-title">Review &amp; Kirim</h2>
+          <p class="wizard-panel-sub">Periksa kembali seluruh data sebelum mengirimkan permohonan.</p>
+
+          <div class="review-sections" id="reviewSections">
+            <!-- Diisi oleh buildReview() di app.js -->
+          </div>
+
+          <label class="confirm-box" style="margin-top:20px;">
+            <input type="checkbox" id="confirmCheck" />
+            <span class="confirm-box-text">Saya menyatakan bahwa seluruh data dan dokumen yang dilampirkan adalah benar dan dapat dipertanggungjawabkan secara hukum.</span>
+          </label>
+
+          <div class="wizard-nav">
+            <button class="btn btn-ghost" onclick="wizardPrev(5)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+              Sebelumnya
+            </button>
+            <div class="wizard-nav-right">
+              <button class="btn btn-secondary-outline" onclick="saveDraft()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Simpan sebagai Draf
+              </button>
+              <button class="btn btn-primary" id="btnKirim" onclick="submitPermohonan()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Kirim Permohonan
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end form card -->
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // Tanggal topbar
+    (function() {
+      const el = document.getElementById('currentDate');
+      if (!el) return;
+      const bulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+      const now = new Date();
+      el.textContent = `${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
+    })();
+
+    // Sidebar collapse
+    const sidebar = document.querySelector('.sidebar');
+    const colBtn = document.getElementById('sidebarToggle');
+    if (colBtn && sidebar) {
+      colBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        colBtn.style.left = sidebar.classList.contains('collapsed') ? '58px' : '206px';
+      });
+    }
+  </script>
+</body>
+</html>

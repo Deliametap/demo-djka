@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Permohonan Saya — SiAPKA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="buttons.css" />
+  <script>if(window!==window.parent)document.documentElement.classList.add("in-iframe");</script>
+  <style>
+    html.in-iframe .topbar,
+    html.in-iframe .sidebar,
+    html.in-iframe .sidebar-collapse-btn { display: none !important; }
+    html.in-iframe body { padding-top: 0 !important; }
+    html.in-iframe .layout { min-height: 100vh; }
+    html.in-iframe .content-area { overflow-y: auto !important; padding: 20px 24px; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       TOPBAR
+  ═══════════════════════════════════════════ -->
+  <header class="topbar" role="banner">
+    <div class="topbar-module-icon" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+      </svg>
+    </div>
+    <div class="topbar-brand">
+      <div class="topbar-logo-box">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div class="topbar-brand-text">
+        <span class="topbar-brand-name">SiAPKA</span>
+        <span class="topbar-brand-sub">Balai Pengujian Perkeretaapian</span>
+      </div>
+    </div>
+    <div class="topbar-sep" aria-hidden="true"></div>
+    <div class="topbar-search" role="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" placeholder="Cari ID permohonan atau nomor sarana..." aria-label="Cari permohonan" />
+      <kbd class="topbar-kbd">Ctrl K</kbd>
+    </div>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-date" id="topbarDate">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span id="currentDate"></span>
+    </div>
+    <div class="topbar-sep" aria-hidden="true"></div>
+    <button class="topbar-icon-btn" aria-label="Notifikasi">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </button>
+    <div class="topbar-sep" aria-hidden="true"></div>
+    <button class="topbar-user" aria-label="Menu pengguna">
+      <div class="topbar-avatar">BP</div>
+      <span class="topbar-username">Badan Pengujian</span>
+    </button>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       LAYOUT
+  ═══════════════════════════════════════════ -->
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar" aria-label="Navigasi modul">
+      <button class="sidebar-collapse-btn" id="sidebarToggle" aria-label="Collapse sidebar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <ul class="sidebar-nav" role="list">
+        <li>
+          <a href="index.html" class="sidebar-item active" aria-current="page">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span class="sidebar-label">Permohonan Saya</span>
+          </a>
+        </li>
+        <li>
+          <a href="form-wizard.html" class="sidebar-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            <span class="sidebar-label">Ajukan Permohonan Baru</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="content-area" style="padding:24px;flex:1;overflow-y:auto;">
+
+      <!-- Page Header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+        <div>
+          <h1 style="font-size:20px;font-weight:700;color:var(--color-text);">Permohonan Saya</h1>
+          <p style="font-size:13px;color:var(--color-muted);margin-top:2px;">Daftar dan status seluruh permohonan uji sarana yang telah Anda ajukan.</p>
+        </div>
+        <a href="form-wizard.html" class="btn btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Ajukan Permohonan Baru
+        </a>
+      </div>
+
+      <!-- STAT CARDS -->
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-label">Total Permohonan</div>
+          <div class="stat-value neutral" id="statTotal">12</div>
+          <div class="stat-sub">Sepanjang 2026</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Dalam Proses</div>
+          <div class="stat-value blue" id="statProses">4</div>
+          <div class="stat-sub">Menunggu verifikasi / jadwal</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Perlu Perbaikan</div>
+          <div class="stat-value amber" id="statPerbaikan">1</div>
+          <div class="stat-sub">Dokumen perlu direvisi</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Selesai</div>
+          <div class="stat-value green" id="statSelesai">6</div>
+          <div class="stat-sub">Pengujian selesai</div>
+        </div>
+      </div>
+
+      <!-- TABLE CARD -->
+      <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:10px;overflow:hidden;">
+
+        <!-- Card Header -->
+        <div class="tbl-card-header">
+          <div class="tbl-card-title-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <span class="tbl-card-title">Daftar Permohonan Uji</span>
+        </div>
+
+        <!-- Filter Row -->
+        <div class="tbl-filters">
+          <div class="tbl-filter-group">
+            <select class="tbl-filter-select" id="filterJenis" aria-label="Filter jenis uji">
+              <option value="">Semua Jenis Uji</option>
+              <option value="uji-pertama">Uji Pertama</option>
+              <option value="uji-berkala">Uji Berkala</option>
+              <option value="uji-ulang">Uji Ulang</option>
+            </select>
+            <select class="tbl-filter-select" id="filterStatus" aria-label="Filter status">
+              <option value="">Semua Status</option>
+              <option value="draf">Draf</option>
+              <option value="menunggu-verifikasi">Menunggu Verifikasi</option>
+              <option value="perlu-perbaikan">Perlu Perbaikan</option>
+              <option value="disetujui">Disetujui</option>
+              <option value="menunggu-pembayaran">Menunggu Pembayaran</option>
+              <option value="terjadwal">Terjadwal</option>
+              <option value="selesai">Selesai</option>
+              <option value="ditolak">Ditolak</option>
+            </select>
+            <div class="tbl-search">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="searchInput" placeholder="Cari ID permohonan atau nomor sarana..." aria-label="Cari permohonan" style="min-width:260px;" />
+            </div>
+          </div>
+          <div class="tbl-show-inline">
+            Tampilkan
+            <select class="tbl-show-select" id="showEntries" aria-label="Jumlah entri per halaman">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+            entri
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div style="overflow-x:auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>ID Permohonan</th>
+                <th>Jenis Uji</th>
+                <th>Nomor Sarana</th>
+                <th>Tanggal Pengajuan</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Diisi oleh app.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="tbl-pagination">
+          <span id="paginationInfo">Memuat data...</span>
+          <div class="page-btns" id="paginationBtns"></div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // Tanggal topbar
+    (function() {
+      const el = document.getElementById('currentDate');
+      if (!el) return;
+      const bulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+      const now = new Date();
+      el.textContent = `${now.getDate()} ${bulan[now.getMonth()]} ${now.getFullYear()}`;
+    })();
+
+    // Sidebar collapse
+    const sidebar = document.querySelector('.sidebar');
+    const colBtn = document.getElementById('sidebarToggle');
+    if (colBtn && sidebar) {
+      colBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        colBtn.style.left = sidebar.classList.contains('collapsed') ? '58px' : '206px';
+      });
+    }
+
+    // Init dashboard table
+    if (typeof initDashboard === 'function') initDashboard();
+  </script>
+</body>
+</html>
